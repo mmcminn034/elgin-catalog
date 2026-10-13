@@ -245,5 +245,24 @@
     "owner_observations": "",
     "open_questions": "Size; break surface close-up; is the opposite end a finished base?",
     "status": "Draft"
+  },
+  {
+    "catalog_id": "ELG-014",
+    "category": "Biface / flake tool",
+    "material": "Chert",
+    "color": "Translucent gray-pink to lavender",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Complete?",
+    "key_features": "Broad, roughly square-oval outline, multiple flake scars over one face, flatter other face, thin plano-convex section, edges with small retouch",
+    "suggestion_1": "Unifacial or bifacial scraper / flake knife",
+    "suggestion_2": "Early-stage biface or preform",
+    "suggestion_3": "Large thinning flake (debitage)",
+    "confidence": "Low-moderate",
+    "owner_observations": "",
+    "open_questions": "Size; check edges for steep retouch or use polish; is the flat face a single flake scar?",
+    "status": "Draft"
   }
 ]
