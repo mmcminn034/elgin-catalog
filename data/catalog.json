@@ -226,5 +226,24 @@
     "owner_observations": "",
     "open_questions": "Size; magnifier check of concave notch edge for wear/retouch",
     "status": "Draft"
+  },
+  {
+    "catalog_id": "ELG-013",
+    "category": "Biface fragment (midsection/base)",
+    "material": "Chert",
+    "color": "Pale pink-cream",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Broken (snap break at one end)",
+    "key_features": "Roughly rectangular fragment, one straight snapped end, retouched edges, thin tapering wedge-shaped section",
+    "suggestion_1": "Midsection or base fragment of a broken dart point or knife",
+    "suggestion_2": "Biface thinning flake or preform fragment",
+    "suggestion_3": "Debitage",
+    "confidence": "Low",
+    "owner_observations": "",
+    "open_questions": "Size; break surface close-up; is the opposite end a finished base?",
+    "status": "Draft"
   }
 ]
