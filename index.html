@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elgin Catalog — Documenting Central Texas surface finds</title>
+<meta name="description" content="A personal research catalog of Central Texas surface finds. AI suggestions are possibilities, not identifications.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M8 0l6 8-6 8-6-8z%22 fill=%22%239b5a2b%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#/catalog" aria-label="Elgin Catalog home">
+      <span class="logo" aria-hidden="true">◆</span>
+      <span><span class="brand-name">Elgin Catalog</span><span class="brand-sub">Documenting Central Texas surface finds</span></span>
+    </a>
+    <nav aria-label="Primary">
+      <a href="#/catalog" data-route="catalog">Catalog</a>
+      <a href="#/add" data-route="add">Add find</a>
+      <a href="#/about" data-route="about">About &amp; methods</a>
+    </nav>
+    <button id="themeToggle" class="btn ghost icon" aria-pressed="false" aria-label="Toggle dark mode">☾</button>
+  </div>
+</header>
+<div class="notice" role="note"><div class="wrap"><strong>Research catalog.</strong> AI suggestions are possibilities for research, not identifications. No authenticity or value claims are made.</div></div>
+
+<main id="main" class="wrap" tabindex="-1">
+  <!-- CATALOG -->
+  <section id="view-catalog" class="view" aria-labelledby="cat-h">
+    <div class="view-head"><h1 id="cat-h">Catalog</h1><a class="btn primary" href="#/add">+ Add find</a></div>
+    <dl class="stats" id="stats"></dl>
+    <div class="toolbar" role="search">
+      <label class="field grow"><span class="sr-only">Search</span><input id="q" type="search" placeholder="Search ID, material, features, possibilities…"></label>
+      <label class="field"><span class="sr-only">Status</span><select id="fStatus"><option value="">All statuses</option><option>Draft</option><option>Reviewed</option></select></label>
+      <label class="field"><span class="sr-only">Category</span><select id="fCat"><option value="">All categories</option></select></label>
+      <label class="field"><span class="sr-only">Confidence</span><select id="fConf"><option value="">All confidence</option><option value="high">High</option><option value="moderate">Moderate</option><option value="low">Low</option></select></label>
+      <div class="tool-btns">
+        <button class="btn" id="exportCsv">Export CSV</button>
+        <button class="btn" id="exportJson">Export JSON</button>
+        <label class="check"><input type="checkbox" id="inclPrivate"> Include private location</label>
+      </div>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- WIZARD -->
+  <section id="view-add" class="view" aria-labelledby="add-h" hidden>
+    <div class="view-head"><h1 id="add-h">Add a find</h1><span class="muted" id="newId"></span></div>
+    <ol class="steps" id="steps" aria-label="Progress"></ol>
+    <form id="wizard" novalidate>
+      <fieldset class="step" data-step="0"><legend>Photos</legend>
+        <div class="tip">📏 <strong>Scale reminder:</strong> lay a ruler or scale bar beside the piece in every photo, shoot straight down, and include front, back, edge and base views.</div>
+        <div class="row">
+          <label class="field"><span>View tag for next photos</span><select id="pTag"><option>front</option><option>back</option><option>edge</option><option>base</option><option>scale</option></select></label>
+          <label class="field grow"><span>Choose photos <em class="req">*</em></span><input type="file" id="pFile" accept="image/*" multiple aria-describedby="pHelp"></label>
+        </div>
+        <p id="pHelp" class="help">Location data (EXIF/GPS) is removed: each photo is re-drawn through a canvas before it is stored.</p>
+        <div class="thumbs" id="thumbs"></div>
+        <p class="err" data-err="photos"></p>
+      </fieldset>
+      <fieldset class="step" data-step="1" hidden><legend>Measurements</legend>
+        <div class="seg" role="radiogroup" aria-label="Measurement method">
+          <label><input type="radio" name="measure_method" value="Measured" checked> Measured (caliper/ruler)</label>
+          <label><input type="radio" name="measure_method" value="Estimated"> Estimated from photo</label>
+          <label><input type="radio" name="measure_method" value="Not measured"> Not measured</label>
+        </div>
+        <div class="row">
+          <label class="field"><span>Length (mm)</span><input name="length_mm" inputmode="decimal" placeholder="e.g. 62 or 60-70"></label>
+          <label class="field"><span>Width (mm)</span><input name="width_mm" inputmode="decimal"></label>
+          <label class="field"><span>Thickness (mm)</span><input name="thickness_mm" inputmode="decimal"></label>
+          <label class="field"><span>Weight (g)</span><input name="weight_g" inputmode="decimal"></label>
+        </div>
+        <p class="err" data-err="measure"></p>
+      </fieldset>
+      <fieldset class="step" data-step="2" hidden><legend>Description</legend>
+        <div class="row">
+          <label class="field"><span>Category <em class="req">*</em></span><input name="category" list="catList" required></label>
+          <datalist id="catList"></datalist>
+          <label class="field"><span>Material <em class="req">*</em></span><input name="material" required placeholder="Chert, quartzite…"></label>
+          <label class="field"><span>Color</span><input name="color"></label>
+          <label class="field"><span>Condition</span><select name="condition"><option>Complete</option><option>Fragment</option><option>Broken (snap)</option><option>Unknown</option></select></label>
+        </div>
+        <label class="field"><span>Key features</span><textarea name="key_features" rows="3"></textarea></label>
+        <div class="row">
+          <label class="field"><span>Date found</span><input type="date" name="date_found"></label>
+          <label class="field grow"><span>Find context</span><input name="context_notes" placeholder="Surface, creek bank, plowed field…"></label>
+        </div>
+        <div class="private-box">
+          <div class="private-h">🔒 Location — private by default</div>
+          <div class="row">
+            <label class="field"><span>Sharing level</span><select name="location_sharing"><option>Private</option><option>County</option><option>Fuzzed ~10 km</option></select></label>
+            <label class="field grow"><span>Property area / GPS (owner only)</span><input name="find_location_private" placeholder="Rolling Oak - creek bank"></label>
+          </div>
+          <label class="check"><input type="checkbox" name="landowner_permission" required> I had landowner permission (private land) <em class="req">*</em></label>
+          <label class="check"><input type="checkbox" name="public_land"> Found on public land</label>
+          <p class="help">Collecting on state or federal land is restricted or illegal; entries flagged as public land can’t be saved. If you encounter human remains or burial items, stop and contact the Texas Historical Commission.</p>
+        </div>
+        <p class="err" data-err="desc"></p>
+      </fieldset>
+      <fieldset class="step" data-step="3" hidden><legend>AI analysis <span class="muted">(research suggestions, not identifications)</span></legend>
+        <label class="field"><span>1. Most likely</span><input name="suggestion_1"></label>
+        <label class="field"><span>2. Alternative</span><input name="suggestion_2"></label>
+        <label class="field"><span>3. Alternative</span><input name="suggestion_3"></label>
+        <div class="row">
+          <label class="field"><span>Confidence</span><select name="confidence"><option>Low</option><option>Low-moderate</option><option>Moderate-low</option><option selected>Moderate</option><option>High</option></select></label>
+          <label class="field grow"><span>Missing info that would help</span><input name="open_questions" placeholder="Base close-up, weight…"></label>
+        </div>
+      </fieldset>
+      <fieldset class="step" data-step="4" hidden><legend>Review &amp; save</legend>
+        <label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="3"></textarea></label>
+        <label class="field"><span>Status</span><select name="status"><option>Draft</option><option>Reviewed</option></select></label>
+        <div id="summary" class="summary"></div>
+      </fieldset>
+      <div class="wiz-nav">
+        <button type="button" class="btn" id="prev">← Back</button>
+        <span class="grow"></span>
+        <button type="button" class="btn primary" id="next">Next →</button>
+        <button type="submit" class="btn primary" id="save" hidden>Save find</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="view-about" class="view prose" aria-labelledby="about-h" hidden>
+    <h1 id="about-h">About &amp; methods</h1>
+    <p>Elgin Catalog is a personal research record of surface finds from the Rolling Oak property near Elgin, Texas. Each entry documents material, measurements, photos and a short list of possible types, so the collection can be studied, corrected and, if the owner chooses, shared with researchers.</p>
+    <h2>Honest-AI principles</h2>
+    <ul>
+      <li><strong>Possibilities, not identifications.</strong> Suggestions are ranked options with a stated confidence level.</li>
+      <li><strong>Show the evidence.</strong> Each entry lists the features used and what is still missing (scale, base view, weight).</li>
+      <li><strong>The owner corrects the record.</strong> Hands-on observations (e.g. “stem edges chipped, not ground”) override photo-based guesses and are logged.</li>
+      <li><strong>Estimates are labeled.</strong> Every measurement says whether it was measured or estimated from a photo.</li>
+    </ul>
+    <h2>Disclaimers</h2>
+    <p>This catalog makes <strong>no claims about authenticity or monetary value</strong>. Type names and date ranges are general references from published Central Texas typologies and should be confirmed by qualified archaeologists.</p>
+    <h2>Texas legal note</h2>
+    <ul>
+      <li>Collect only on <strong>private land with the landowner’s permission</strong>, and record that permission.</li>
+      <li>Collecting on <strong>public land</strong> (state or federal) is restricted or illegal.</li>
+      <li>If you find <strong>human remains or burial-associated items, stop</strong>, leave them in place, and contact the <a href="https://thc.texas.gov/" rel="noopener">Texas Historical Commission</a>.</li>
+      <li>Consider voluntarily reporting significant sites to the Texas Archeological Research Laboratory (TARL).</li>
+    </ul>
+    <h2>GPS privacy summary</h2>
+    <ul>
+      <li>Exact location is <strong>private by default</strong> and never included in the published <code>data/catalog.json</code>.</li>
+      <li>Sharing levels: Private (owner only), County (county and state only), Fuzzed (~10 km area, fixed offset per site).</li>
+      <li>Photo EXIF/GPS is stripped by re-encoding each image in the browser before storage.</li>
+      <li>Exports leave location out unless you tick “Include private location”.</li>
+      <li>Your additions are stored only in your browser (IndexedDB); nothing is uploaded.</li>
+    </ul>
+  </section>
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div><p class="eyebrow" id="mId"></p><h2 id="mTitle"></h2></div>
+      <div class="modal-actions"><button class="btn" id="printBtn">Print record</button><button class="btn ghost icon" id="mClose" aria-label="Close">✕</button></div>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Find details">
+      <button role="tab" id="tab-0" aria-controls="panel-0" aria-selected="true">Overview</button>
+      <button role="tab" id="tab-1" aria-controls="panel-1" aria-selected="false" tabindex="-1">Measurements</button>
+      <button role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1">AI analysis</button>
+      <button role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1">Review</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+<div id="printArea" aria-hidden="true"></div>
+<footer class="site-footer"><div class="wrap">© 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
