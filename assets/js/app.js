@@ -34,6 +34,20 @@
   const size = r => { const p = [["L", r.length_mm], ["W", r.width_mm], ["T", r.thickness_mm]].filter(x => x[1]);
     return p.length ? p.map(x => `${x[0]} ${esc(x[1])}`).join(" × ") + " mm" : "<em>not measured</em>"; };
   const pics = r => (r.photos || []).map(p => ({ src: p.path || p.src, thumb: p.thumb || p.path || p.src, view: p.view || p.tag || "", label: p.label || (p.view || p.tag || "photo") }));
+  const ERAS = [
+    { id: "Paleoindian", dates: "~11,500–8,800 BC", text: "The earliest well-documented people in Central Texas hunted and gathered across a cooler late Ice Age landscape. Sites such as Gault, near Florence, are among the most studied in North America." },
+    { id: "Early Archaic", dates: "~8,800–6,000 BC", text: "As the climate warmed, people relied more on a wide range of plants and smaller game, and moved within regional territories. Dart points with stems and notches become common." },
+    { id: "Middle Archaic", dates: "~6,000–2,500 BC", text: "Populations grew, and burned-rock middens (earth-oven cooking features) became widespread. Long, narrow stemmed dart points are typical of parts of this period." },
+    { id: "Late Archaic", dates: "~2,500 BC–AD 700", text: "A long period with many dart point styles, including barbed and corner-notched forms. Cemeteries and wide trade networks are documented in the region." },
+    { id: "Late Prehistoric", dates: "~AD 700–1600", text: "The bow and arrow arrived, bringing small arrow points. Later in this period, some groups also made pottery and hunted bison when herds moved into the region." },
+    { id: "Historic", dates: "~AD 1600–present", text: "Spanish, Mexican and Anglo-American colonization brought profound disruption. Indigenous nations, including the Tonkawa, continue today." }];
+  const eraOf = r => { if (r.era && r.era !== "Undetermined") return r.era; const t = (r.suggestion_1 || "") + " " + (r.era || ""); const e = ERAS.find(x => t.includes(x.id)); return r.era === "Undetermined" ? "Undetermined" : (e ? e.id : "Undetermined"); };
+  function renderTimeline() {
+    const chip = (r, t = true) => { const p = pics(r)[0]; return `<button class="tl-find" data-id="${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : ""}<span><strong>${esc(r.catalog_id)}</strong><br><span class="muted">${esc(r.category)}</span>${t ? '<br><span class="tent">Tentative</span>' : ""}</span></button>`; };
+    $("#timeline").innerHTML = ERAS.map(e => { const fs = all.filter(r => eraOf(r) === e.id); return `<li class="tl-item"><div class="tl-dot" aria-hidden="true"></div><div class="tl-body"><h2>${e.id}</h2><p class="tl-dates">${e.dates}</p><p>${e.text}</p>${fs.length ? `<div class="tl-finds">${fs.map(chip).join("")}</div>` : ""}</div></li>`; }).join("");
+    $("#undetermined").innerHTML = all.filter(r => eraOf(r) === "Undetermined").map(r => chip(r, false)).join("");
+  }
+  document.addEventListener("click", e => { const b = e.target.closest(".tl-find"); if (b) openModal(b.dataset.id); });
   const suggestions = r => [r.suggestion_1, r.suggestion_2, r.suggestion_3].filter(Boolean);
   const meter = c => `<div class="meter" aria-label="Confidence: ${esc(c || "not set")}"><span>Confidence</span><span class="bar"><i style="width:${confScore(c)}%"></i></span><span class="chip">${esc(c || "—")}</span></div>`;
 
@@ -56,7 +70,7 @@
     $("#grid").innerHTML = rows.length ? rows.map(r => `
       <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.category)}">
         ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span></div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
-        <div class="card-top"><span class="cid">${esc(r.catalog_id)}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
+        <div class="card-top"><span class="era ${eraOf(r) === "Undetermined" ? "und" : ""}">${eraOf(r) === "Undetermined" ? "Era undetermined" : esc(eraOf(r)) + " · tentative"}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
         <h3>${esc(r.category || "Uncategorized")}</h3>
         <div class="meta">${esc(r.material)}${r.color ? " · " + esc(r.color) : ""}</div>
         <div class="meta">Size: ${size(r)}${r.measure_method ? ` <span class="chip">${esc(r.measure_method)}</span>` : ""}</div>
@@ -66,7 +80,7 @@
         ${r._src !== "seed" ? `<span class="local">● ${r._src === "local" ? "Added in this browser" : "Edited in this browser"}</span>` : ""}
       </button>`).join("") : '<p class="empty">No finds match these filters.</p>';
   }
-  const refresh = () => { merge(); renderStats(); renderGrid(); };
+  const refresh = () => { merge(); renderStats(); renderGrid(); renderTimeline(); };
 
   /* ---------- detail modal ---------- */
   let current = null, lastFocus = null, tab = 0;
@@ -183,12 +197,12 @@
   function resetWizard() { $("#wizard").reset(); photos = []; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); showStep(0); }
 
   /* ---------- routing, theme, toast ---------- */
-  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about"].includes(v) ? v : "catalog";
+  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people"].includes(v) ? v : "catalog";
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (view === "add") $("#newId").textContent = "New ID: " + nextId();
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods" }[view] + " — Elgin Catalog"; }
-  window.addEventListener("hashchange", () => { route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
+    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land" }[view] + " — Elgin Catalog"; }
+  window.addEventListener("hashchange", () => { if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀" : "☾"; try { localStorage.setItem("elgin-theme", t); } catch {} }
   $("#themeToggle").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   function toast(m) { const t = document.createElement("div"); t.textContent = m; t.setAttribute("role", "status");

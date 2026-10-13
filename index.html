@@ -6,6 +6,8 @@
 <title>Elgin Catalog — Documenting Central Texas surface finds</title>
 <meta name="description" content="A personal research catalog of Central Texas surface finds. AI suggestions are possibilities, not identifications.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M8 0l6 8-6 8-6-8z%22 fill=%22%239b5a2b%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -13,11 +15,13 @@
 <header class="site-header">
   <div class="wrap header-row">
     <a class="brand" href="#/catalog" aria-label="Elgin Catalog home">
-      <span class="logo" aria-hidden="true">◆</span>
+      <svg class="logo" aria-hidden="true" viewBox="0 0 32 32" width="30" height="30"><path d="M16 2 L25 13 L22 16 L26 21 L16 30 L6 21 L10 16 L7 13 Z" fill="currentColor"/><path d="M16 6 L12 13 M16 6 L20 13 M10 18 L16 24 L22 18" stroke="rgba(0,0,0,.25)" stroke-width="1.2" fill="none"/></svg>
       <span><span class="brand-name">Elgin Catalog</span><span class="brand-sub">Documenting Central Texas surface finds</span></span>
     </a>
     <nav aria-label="Primary">
       <a href="#/catalog" data-route="catalog">Catalog</a>
+      <a href="#/timeline" data-route="timeline">Deep time</a>
+      <a href="#/people" data-route="people">People &amp; land</a>
       <a href="#/add" data-route="add">Add find</a>
       <a href="#/about" data-route="about">About &amp; methods</a>
     </nav>
@@ -29,7 +33,17 @@
 <main id="main" class="wrap" tabindex="-1">
   <!-- CATALOG -->
   <section id="view-catalog" class="view" aria-labelledby="cat-h">
-    <div class="view-head"><h1 id="cat-h">Catalog</h1><a class="btn primary" href="#/add">+ Add find</a></div>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="kicker">Rolling Oak · Elgin, Texas</p>
+        <h1 id="cat-h">Elgin Catalog</h1>
+        <p class="hero-sub">Documenting Central Texas surface finds, one stone at a time.</p>
+        <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg outline" href="#/add">Add a find</a></div>
+      </div>
+      <figure class="hero-img"><img src="images/ELG-001/01.jpg" alt="ELG-001, a long stemmed dart point of cream and tan chert, front view"><figcaption>ELG-001 · stemmed dart point, front view</figcaption></figure>
+    </div>
+    <div class="knap" aria-hidden="true"></div>
+    <h2 class="sec-h" id="browse" tabindex="-1">The collection</h2>
     <dl class="stats" id="stats"></dl>
     <div class="toolbar" role="search">
       <label class="field grow"><span class="sr-only">Search</span><input id="q" type="search" placeholder="Search ID, material, features, possibilities…"></label>
@@ -121,6 +135,38 @@
         <button type="submit" class="btn primary" id="save" hidden>Save find</button>
       </div>
     </form>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="view-timeline" class="view" aria-labelledby="tl-h" hidden>
+    <p class="kicker">Deep time</p><h1 id="tl-h">13,000 years in Central Texas</h1>
+    <p class="lede">A simplified outline of the cultural periods archaeologists use for Central Texas. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
+    <div class="knap" aria-hidden="true"></div>
+    <ol class="timeline" id="timeline"></ol>
+    <section class="undetermined" aria-labelledby="und-h"><h2 id="und-h">Undetermined</h2><p class="help">Finds without a period-diagnostic suggestion yet: fragments, flakes, cores and pieces still awaiting better photos or measurements.</p><div class="tl-finds" id="undetermined"></div></section>
+  </section>
+
+  <!-- PEOPLE & LAND -->
+  <section id="view-people" class="view prose" aria-labelledby="pl-h" hidden>
+    <p class="kicker">People &amp; land</p><h1 id="pl-h">Acknowledging the land and its people</h1>
+    <p class="lede">The land around Elgin, in Central Texas, is the ancestral homeland of Indigenous peoples, including the Tonkawa, Coahuiltecan peoples, and others. People have lived on this land for more than 13,000 years, and their descendants are still here today.</p>
+    <p>The objects in this catalog were made by people whose descendants are living communities. These objects are part of their heritage, not just curiosities or collectibles. We document them to learn and to keep a careful record, and we know our understanding is limited. Where we use type names and period labels, those are archaeologists’ categories, not the names or histories the makers’ descendants would necessarily use.</p>
+    <div class="knap" aria-hidden="true"></div>
+    <h2>Learn from the source</h2>
+    <ul class="links">
+      <li><a href="https://www.tonkawatribe.com" rel="noopener">Tonkawa Tribe of Oklahoma</a> <span class="muted">official tribal website</span></li>
+      <li><a href="https://thc.texas.gov/" rel="noopener">Texas Historical Commission</a> <span class="muted">state historic preservation office</span></li>
+      <li><a href="https://www.texasbeyondhistory.net" rel="noopener">Texas Beyond History</a> <span class="muted">public archaeology of Texas</span></li>
+    </ul>
+    <h2>Our ethics</h2>
+    <ul>
+      <li><strong>No selling.</strong> Nothing in this catalog is for sale, and we make no value claims.</li>
+      <li><strong>No burial items.</strong> We do not collect or catalog human remains or burial-associated objects. If they are encountered, we stop, leave them in place, and contact the Texas Historical Commission.</li>
+      <li><strong>Permission only.</strong> We collect only on private land with the landowner’s permission, never on public land.</li>
+      <li><strong>Report significant sites.</strong> We encourage reporting significant sites to state archaeologists (the Texas Historical Commission and TARL).</li>
+      <li><strong>Protect locations.</strong> Exact find locations stay private so sites aren’t disturbed.</li>
+    </ul>
+    <p class="help">If you are a member of a descendant community and would like something in this catalog changed or removed, we welcome that conversation.</p>
   </section>
 
   <!-- ABOUT -->

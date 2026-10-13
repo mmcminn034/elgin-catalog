@@ -78,7 +78,8 @@
         "view": "case",
         "label": "In display case"
       }
-    ]
+    ],
+    "era": "Middle Archaic"
   },
   {
     "catalog_id": "ELG-002",
@@ -129,7 +130,8 @@
         "view": "case",
         "label": "In display case"
       }
-    ]
+    ],
+    "era": "Late Archaic"
   },
   {
     "catalog_id": "ELG-003",
@@ -180,7 +182,8 @@
         "view": "case",
         "label": "In display case"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-004",
@@ -207,7 +210,8 @@
         "view": "case",
         "label": "In display case"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-005",
@@ -234,7 +238,8 @@
         "view": "case",
         "label": "In display case"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-006",
@@ -279,7 +284,8 @@
         "view": "edge",
         "label": "Edge view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-007",
@@ -306,7 +312,8 @@
         "view": "front",
         "label": "Front view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-008",
@@ -333,7 +340,8 @@
         "view": "front",
         "label": "Front view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-009",
@@ -384,7 +392,8 @@
         "view": "base",
         "label": "Base view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-010",
@@ -435,7 +444,8 @@
         "view": "base",
         "label": "Base view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-011",
@@ -486,7 +496,8 @@
         "view": "base",
         "label": "Base view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-012",
@@ -537,7 +548,8 @@
         "view": "edge",
         "label": "Edge view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-013",
@@ -588,7 +600,8 @@
         "view": "base",
         "label": "Base view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   },
   {
     "catalog_id": "ELG-014",
@@ -651,6 +664,7 @@
         "view": "edge",
         "label": "Edge view"
       }
-    ]
+    ],
+    "era": "Undetermined"
   }
 ]
