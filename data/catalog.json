@@ -16,7 +16,69 @@
     "confidence": "Moderate",
     "owner_observations": "Stem edges chipped and sharp, not ground (confirmed by owner)",
     "open_questions": "Stem beveling? Possible heat treatment (red tip)",
-    "status": "Reviewed"
+    "status": "Reviewed",
+    "photos": [
+      {
+        "path": "images/ELG-001/01.jpg",
+        "thumb": "images/ELG-001/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-001/02.jpg",
+        "thumb": "images/ELG-001/02_thumb.jpg",
+        "view": "scale",
+        "label": "Scale view"
+      },
+      {
+        "path": "images/ELG-001/03.jpg",
+        "thumb": "images/ELG-001/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-001/04.jpg",
+        "thumb": "images/ELG-001/04_thumb.jpg",
+        "view": "scale",
+        "label": "Scale view"
+      },
+      {
+        "path": "images/ELG-001/05.jpg",
+        "thumb": "images/ELG-001/05_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-001/06.jpg",
+        "thumb": "images/ELG-001/06_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-001/07.jpg",
+        "thumb": "images/ELG-001/07_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-001/08.jpg",
+        "thumb": "images/ELG-001/08_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      },
+      {
+        "path": "images/ELG-001/09.jpg",
+        "thumb": "images/ELG-001/09_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-001/10.jpg",
+        "thumb": "images/ELG-001/10_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-002",
@@ -35,7 +97,39 @@
     "confidence": "Moderate-low",
     "owner_observations": "",
     "open_questions": "Base edge shape (straight/convex/concave); exact length",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-002/01.jpg",
+        "thumb": "images/ELG-002/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-002/02.jpg",
+        "thumb": "images/ELG-002/02_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-002/03.jpg",
+        "thumb": "images/ELG-002/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-002/04.jpg",
+        "thumb": "images/ELG-002/04_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-002/05.jpg",
+        "thumb": "images/ELG-002/05_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-003",
@@ -54,7 +148,39 @@
     "confidence": "Low-moderate",
     "owner_observations": "",
     "open_questions": "Base close-up; size",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-003/01.jpg",
+        "thumb": "images/ELG-003/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-003/02.jpg",
+        "thumb": "images/ELG-003/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-003/03.jpg",
+        "thumb": "images/ELG-003/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-003/04.jpg",
+        "thumb": "images/ELG-003/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-003/05.jpg",
+        "thumb": "images/ELG-003/05_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-004",
@@ -73,7 +199,15 @@
     "confidence": "Low",
     "owner_observations": "",
     "open_questions": "Needs scaled multi-view photos",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-004/01.jpg",
+        "thumb": "images/ELG-004/01_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-005",
@@ -92,7 +226,15 @@
     "confidence": "Low",
     "owner_observations": "",
     "open_questions": "Needs scaled multi-view photos; use-wear check",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-005/01.jpg",
+        "thumb": "images/ELG-005/01_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-006",
@@ -111,7 +253,33 @@
     "confidence": "Moderate (human-made); Low (tool)",
     "owner_observations": "",
     "open_questions": "Magnifier check of notched edge for wear",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-006/01.jpg",
+        "thumb": "images/ELG-006/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-006/02.jpg",
+        "thumb": "images/ELG-006/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-006/03.jpg",
+        "thumb": "images/ELG-006/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-006/04.jpg",
+        "thumb": "images/ELG-006/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-007",
@@ -130,7 +298,15 @@
     "confidence": "Low (artifact)",
     "owner_observations": "",
     "open_questions": "Sharper photo; look for pecking or polish",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-007/01.jpg",
+        "thumb": "images/ELG-007/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-008",
@@ -149,7 +325,15 @@
     "confidence": "Moderate",
     "owner_observations": "",
     "open_questions": "Look for strike points and ripple lines; size",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-008/01.jpg",
+        "thumb": "images/ELG-008/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-009",
@@ -168,7 +352,39 @@
     "confidence": "Low-moderate",
     "owner_observations": "",
     "open_questions": "Close-up of break surface; size; heat treatment?",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-009/01.jpg",
+        "thumb": "images/ELG-009/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-009/02.jpg",
+        "thumb": "images/ELG-009/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-009/03.jpg",
+        "thumb": "images/ELG-009/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-009/04.jpg",
+        "thumb": "images/ELG-009/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-009/05.jpg",
+        "thumb": "images/ELG-009/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-010",
@@ -187,7 +403,39 @@
     "confidence": "Low-moderate",
     "owner_observations": "",
     "open_questions": "Close-up of break surface; size; check tip for impact damage",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-010/01.jpg",
+        "thumb": "images/ELG-010/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-010/02.jpg",
+        "thumb": "images/ELG-010/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-010/03.jpg",
+        "thumb": "images/ELG-010/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-010/04.jpg",
+        "thumb": "images/ELG-010/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-010/05.jpg",
+        "thumb": "images/ELG-010/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-011",
@@ -206,7 +454,39 @@
     "confidence": "Low-moderate",
     "owner_observations": "",
     "open_questions": "Size; break close-up; serration wear",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-011/01.jpg",
+        "thumb": "images/ELG-011/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-011/02.jpg",
+        "thumb": "images/ELG-011/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-011/03.jpg",
+        "thumb": "images/ELG-011/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-011/04.jpg",
+        "thumb": "images/ELG-011/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-011/05.jpg",
+        "thumb": "images/ELG-011/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-012",
@@ -225,7 +505,39 @@
     "confidence": "Low",
     "owner_observations": "",
     "open_questions": "Size; magnifier check of concave notch edge for wear/retouch",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-012/01.jpg",
+        "thumb": "images/ELG-012/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-012/02.jpg",
+        "thumb": "images/ELG-012/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-012/03.jpg",
+        "thumb": "images/ELG-012/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-012/04.jpg",
+        "thumb": "images/ELG-012/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-012/05.jpg",
+        "thumb": "images/ELG-012/05_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-013",
@@ -244,7 +556,39 @@
     "confidence": "Low",
     "owner_observations": "",
     "open_questions": "Size; break surface close-up; is the opposite end a finished base?",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-013/01.jpg",
+        "thumb": "images/ELG-013/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-013/02.jpg",
+        "thumb": "images/ELG-013/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-013/03.jpg",
+        "thumb": "images/ELG-013/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-013/04.jpg",
+        "thumb": "images/ELG-013/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-013/05.jpg",
+        "thumb": "images/ELG-013/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ]
   },
   {
     "catalog_id": "ELG-014",
@@ -263,6 +607,50 @@
     "confidence": "Low-moderate",
     "owner_observations": "",
     "open_questions": "Size; check edges for steep retouch or use polish; is the flat face a single flake scar?",
-    "status": "Draft"
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-014/01.jpg",
+        "thumb": "images/ELG-014/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-014/02.jpg",
+        "thumb": "images/ELG-014/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-014/03.jpg",
+        "thumb": "images/ELG-014/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/04.jpg",
+        "thumb": "images/ELG-014/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/05.jpg",
+        "thumb": "images/ELG-014/05_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/06.jpg",
+        "thumb": "images/ELG-014/06_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/07.jpg",
+        "thumb": "images/ELG-014/07_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ]
   }
 ]

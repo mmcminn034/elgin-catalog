@@ -41,6 +41,7 @@ index.html            app shell (Catalog, Add find, About & methods)
 assets/css/styles.css theme, layout, print styles
 assets/js/app.js      data loading, IndexedDB, wizard, modal, export
 data/catalog.json     public seed catalog (no private locations)
+images/ELG-xxx/       owner photos (EXIF stripped, max 1600px, NN.jpg + NN_thumb.jpg)
 ```
 
 ## Updating the public catalog

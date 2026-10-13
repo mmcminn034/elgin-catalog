@@ -33,6 +33,7 @@
   const isMeasured = r => /^measured/i.test(r.measure_method || "") && r.length_mm;
   const size = r => { const p = [["L", r.length_mm], ["W", r.width_mm], ["T", r.thickness_mm]].filter(x => x[1]);
     return p.length ? p.map(x => `${x[0]} ${esc(x[1])}`).join(" × ") + " mm" : "<em>not measured</em>"; };
+  const pics = r => (r.photos || []).map(p => ({ src: p.path || p.src, thumb: p.thumb || p.path || p.src, view: p.view || p.tag || "", label: p.label || (p.view || p.tag || "photo") }));
   const suggestions = r => [r.suggestion_1, r.suggestion_2, r.suggestion_3].filter(Boolean);
   const meter = c => `<div class="meter" aria-label="Confidence: ${esc(c || "not set")}"><span>Confidence</span><span class="bar"><i style="width:${confScore(c)}%"></i></span><span class="chip">${esc(c || "—")}</span></div>`;
 
@@ -54,6 +55,7 @@
     $("#count").textContent = `Showing ${rows.length} of ${all.length} finds`;
     $("#grid").innerHTML = rows.length ? rows.map(r => `
       <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.category)}">
+        ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span></div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
         <div class="card-top"><span class="cid">${esc(r.catalog_id)}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
         <h3>${esc(r.category || "Uncategorized")}</h3>
         <div class="meta">${esc(r.material)}${r.color ? " · " + esc(r.color) : ""}</div>
@@ -77,12 +79,17 @@
   function selectTab(i) {
     tab = i; $$(".tabs [role=tab]").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
-    const photos = (r.photos || []).length ? `<div class="photos">${r.photos.map(p => `<figure><img src="${p.src}" alt="${esc(r.catalog_id)} ${esc(p.tag)} view"><figcaption>${esc(p.tag)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos stored in this browser for this find.</p>`;
+    const ps = pics(r), photos = ps.length ? `<h3 class="gal-h">Photos (${ps.length})</h3><div class="photos">${ps.map((p, j) => `<figure><button type="button" class="ph" data-lb="${j}" aria-label="Enlarge ${esc(p.label)}"><img src="${esc(p.thumb)}" alt="${esc(r.catalog_id)} ${esc(p.label)}" loading="lazy"></button><figcaption>${esc(p.label)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos yet for this find.</p>`;
     const html = [
-      () => kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Material", esc(r.material)], ["Color", esc(r.color)], ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]) + photos,
+      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Material", esc(r.material)], ["Color", esc(r.color)], ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
       () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}${r.open_questions ? `<p class="oq" style="margin-top:12px"><strong>What would help:</strong> ${esc(r.open_questions)}</p>` : ""}`,
-      () => `<form id="reviewForm"><label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="4">${esc(r.owner_observations)}</textarea></label>
+      () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
+        <h3 class="gal-h">Measurements</h3><div class="row">${[["length_mm","Length (mm)"],["width_mm","Width (mm)"],["thickness_mm","Thickness (mm)"],["weight_g","Weight (g)"]].map(([k,l]) => `<label class="field"><span>${l}</span><input name="${k}" inputmode="decimal" value="${esc(r[k])}"></label>`).join("")}
+        <label class="field"><span>Method</span><select name="measure_method">${[...new Set([r.measure_method || "Not measured", "Measured", "Estimated", "Not measured"])].map(o => `<option ${o === r.measure_method ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></label></div>
+        <h3 class="gal-h">Find details</h3><div class="row"><label class="field"><span>Date found</span><input type="date" name="date_found" value="${esc(r.date_found)}"></label><label class="field grow"><span>Find context</span><input name="context_notes" value="${esc(r.context_notes)}"></label>
+        <label class="field"><span>Sharing level</span><select name="location_sharing">${["Private", "County", "Fuzzed ~10 km"].map(o => `<option ${o === (r.location_sharing || "Private") ? "selected" : ""}>${o}</option>`).join("")}</select></label></div>
+        <h3 class="gal-h">Owner review</h3><label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="4">${esc(r.owner_observations)}</textarea></label>
         <div class="row"><label class="field"><span>Status</span><select name="status"><option ${r.status !== "Reviewed" ? "selected" : ""}>Draft</option><option ${r.status === "Reviewed" ? "selected" : ""}>Reviewed</option></select></label>
         <label class="field grow"><span>🔒 Private location (owner only, kept in this browser)</span><input name="${PRIVATE}" value="${esc(r[PRIVATE])}"></label></div>
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
@@ -90,10 +97,21 @@
     $("#mBody").innerHTML = `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${html}</div>`;
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
-        new FormData(f).forEach((v, k) => o[k] = v); await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id); selectTab(3); toast("Review saved"); };
+        const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
+        if (bad) { f[bad].focus(); return toast("Measurements must be numbers, e.g. 62 or 60-70"); }
+        new FormData(f).forEach((v, k) => o[k] = String(v).trim()); await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id); selectTab(3); toast("Review saved"); };
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
     }
   }
+  let lbList = [], lbI = 0;
+  function lightbox(i) { lbI = (i + lbList.length) % lbList.length; const p = lbList[lbI];
+    $("#lbImg").src = p.src; $("#lbImg").alt = p.label; $("#lbCap").textContent = `${current.catalog_id} · ${p.label} (${lbI + 1}/${lbList.length})`; $("#lb").hidden = false; $("#lbClose").focus(); }
+  $("#mBody").addEventListener("click", e => { const b = e.target.closest("[data-lb]"); if (b) { lbList = pics(current); lightbox(+b.dataset.lb); } });
+  $("#lbClose").onclick = () => { $("#lb").hidden = true; const b = $(`[data-lb="${lbI}"]`); b && b.focus(); };
+  $("#lbPrev").onclick = () => lightbox(lbI - 1); $("#lbNext").onclick = () => lightbox(lbI + 1);
+  $("#lb").addEventListener("click", e => { if (e.target.id === "lb") $("#lbClose").click(); });
+  document.addEventListener("keydown", e => { if ($("#lb").hidden) return; e.stopImmediatePropagation();
+    if (e.key === "Escape") $("#lbClose").click(); if (e.key === "ArrowRight") lightbox(lbI + 1); if (e.key === "ArrowLeft") lightbox(lbI - 1); if (e.key === "Tab") { e.preventDefault(); } }, true);
   $(".tabs").addEventListener("click", e => { const b = e.target.closest("[role=tab]"); if (b) selectTab(+b.id.split("-")[1]); });
   $(".tabs").addEventListener("keydown", e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { const n = (tab + d + 4) % 4; selectTab(n); $("#tab-" + n).focus(); } });
   $("#mClose").onclick = closeModal; $("#modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
@@ -105,7 +123,7 @@
 
   /* ---------- print ---------- */
   $("#printBtn").onclick = () => { const r = current, rows = [["Category", r.category], ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
-    $("#printArea").innerHTML = `<div class="pc"><h1>${esc(r.catalog_id)} — ${esc(r.category)}</h1><p>Elgin Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${(r.photos || []).map(p => `<img src="${p.src}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
+    $("#printArea").innerHTML = `<div class="pc"><h1>${esc(r.catalog_id)} — ${esc(r.category)}</h1><p>Elgin Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${pics(r).slice(0, 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
     window.print(); };
 
   /* ---------- export ---------- */
