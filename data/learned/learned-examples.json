@@ -1,0 +1,20 @@
+{
+ "format": "rolling-oak-learned-examples/v1",
+ "note": "Owner-verified identifications. Exported from the app's Model panel; commit here to share across devices.",
+ "examples": [
+  {
+   "catalog_id": "ELG-001",
+   "category": "artifact",
+   "confirmed_type": "Nolan/Travis",
+   "type_ids": [
+    "nolan",
+    "travis"
+   ],
+   "features": "Stemmed dart point Long narrow blade, weak shoulders, short straight stem, thin lenticular section, fine edge retouch Stem edges chipped and sharp, not ground (confirmed by owner) Chert",
+   "length_mm": "80-85",
+   "material": "Chert",
+   "confirmed_on": "2026-10-12",
+   "source": "Owner review: stem edges chipped and sharp, not ground"
+  }
+ ]
+}

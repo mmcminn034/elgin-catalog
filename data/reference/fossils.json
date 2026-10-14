@@ -1,0 +1,325 @@
+{
+ "meta": {
+  "category": "fossil",
+  "note": "Common surface fossils of Central Texas. Elgin sits near the boundary between Upper Cretaceous rocks (Taylor and Navarro groups) and Paleogene units (Midway and Wilcox groups); creek gravels can carry fossils from older units. Formation assignments are hypotheses unless the find came from a known outcrop. Sources: UT Bureau of Economic Geology Geologic Atlas of Texas; Finsley, A Field Guide to Fossils of Texas; Paleontological Society resources."
+ },
+ "context": "Most Central Texas fossils are marine invertebrates from Cretaceous seas (~145–66 million years ago). East of the Balcones zone, Upper Cretaceous chalks and marls (Austin Chalk, Taylor and Navarro groups) yield oysters such as Exogyra, Inoceramus clams, straight ammonites like Baculites, and shark teeth. Paleogene (Eocene/Paleocene) units hold marine shells and petrified wood.",
+ "types": [
+  {
+   "id": "exogyra",
+   "name": "Exogyra (oyster)",
+   "period": "Cretaceous",
+   "dates": "Upper Cretaceous (e.g. E. ponderosa, E. costata in Austin, Taylor and Navarro rocks)",
+   "traits": [
+    "oyster",
+    "exogyra",
+    "curled",
+    "coiled beak",
+    "thick shell",
+    "cap-like",
+    "attachment scar",
+    "ribs",
+    "costae"
+   ],
+   "excludes": [
+    "suture",
+    "septa",
+    "five-part",
+    "star"
+   ],
+   "compare": [
+    [
+     "Ilymatogyra (‘ram’s horn’) ",
+     "smaller, strongly coiled; mid-Cretaceous Del Rio Clay"
+    ],
+    [
+     "Gryphaea / Texigryphaea",
+     "more cup-shaped with a flat lid valve; Lower Cretaceous Washita Group"
+    ]
+   ]
+  },
+  {
+   "id": "ilymatogyra",
+   "name": "Ilymatogyra arietina (‘ram’s horn’ oyster)",
+   "period": "Cretaceous",
+   "dates": "Mid-Cretaceous (Cenomanian), Del Rio Clay",
+   "traits": [
+    "oyster",
+    "ram's horn",
+    "rams horn",
+    "coiled",
+    "small",
+    "curled"
+   ],
+   "excludes": [
+    "suture",
+    "five-part"
+   ],
+   "compare": [
+    [
+     "Exogyra",
+     "larger, broader"
+    ]
+   ]
+  },
+  {
+   "id": "gryphaea",
+   "name": "Gryphaea / Texigryphaea (oyster)",
+   "period": "Cretaceous",
+   "dates": "Lower Cretaceous, Washita and Fredericksburg groups",
+   "traits": [
+    "oyster",
+    "gryphaea",
+    "devil's toenail",
+    "cup",
+    "incurved beak",
+    "lid"
+   ],
+   "excludes": [
+    "suture",
+    "five-part"
+   ],
+   "compare": [
+    [
+     "Exogyra",
+     "beak spirals to one side"
+    ]
+   ]
+  },
+  {
+   "id": "inoceramus",
+   "name": "Inoceramus (clam)",
+   "period": "Cretaceous",
+   "dates": "Upper Cretaceous, common in Eagle Ford and Austin Chalk",
+   "traits": [
+    "inoceramus",
+    "prismatic",
+    "concentric ridges",
+    "clam",
+    "fibrous shell",
+    "flat shell fragment"
+   ],
+   "excludes": [
+    "suture",
+    "coiled"
+   ],
+   "compare": [
+    [
+     "Oyster fragments",
+     "irregular, layered rather than prismatic"
+    ]
+   ]
+  },
+  {
+   "id": "baculites",
+   "name": "Baculites (straight ammonite)",
+   "period": "Cretaceous",
+   "dates": "Upper Cretaceous, Taylor and Navarro groups",
+   "traits": [
+    "ammonite",
+    "straight",
+    "rod",
+    "suture",
+    "septa",
+    "oval cross-section",
+    "baculites"
+   ],
+   "excludes": [
+    "coiled",
+    "five-part",
+    "oyster"
+   ],
+   "compare": [
+    [
+     "Belemnite",
+     "bullet-shaped solid guard, no sutures"
+    ],
+    [
+     "Coiled ammonites",
+     "spiral shell"
+    ]
+   ]
+  },
+  {
+   "id": "coiled-ammonite",
+   "name": "Coiled ammonite (e.g. Mortoniceras, Oxytropidoceras, Placenticeras)",
+   "period": "Cretaceous",
+   "dates": "Lower and Upper Cretaceous (genus-dependent)",
+   "traits": [
+    "ammonite",
+    "coiled",
+    "spiral",
+    "suture",
+    "sutures",
+    "septa",
+    "ribs",
+    "ribbing",
+    "keel",
+    "chambers"
+   ],
+   "excludes": [
+    "five-part",
+    "star",
+    "oyster"
+   ],
+   "compare": [
+    [
+     "Nautiloid",
+     "simple, gently curved sutures"
+    ],
+    [
+     "Coiled gastropod",
+     "no sutures; coils in a helix"
+    ]
+   ]
+  },
+  {
+   "id": "heart-urchin",
+   "name": "Heart urchin (echinoid, e.g. Hemiaster)",
+   "period": "Cretaceous",
+   "dates": "Lower and Upper Cretaceous",
+   "traits": [
+    "echinoid",
+    "urchin",
+    "sea urchin",
+    "heart",
+    "five-part",
+    "star",
+    "petal",
+    "ambulacra",
+    "round test"
+   ],
+   "excludes": [
+    "suture",
+    "oyster",
+    "coiled"
+   ],
+   "compare": [
+    [
+     "Regular urchins (e.g. Phymosoma, Salenia)",
+     "round, symmetric, with tubercles for spines"
+    ]
+   ]
+  },
+  {
+   "id": "gastropod",
+   "name": "Gastropod (snail, e.g. Turritella, Tylostoma molds)",
+   "period": "Cretaceous / Paleogene",
+   "dates": "Many units; Turritella common in Cretaceous and Eocene beds",
+   "traits": [
+    "gastropod",
+    "snail",
+    "spire",
+    "high-spired",
+    "helix",
+    "whorls",
+    "turritella",
+    "internal mold",
+    "steinkern"
+   ],
+   "excludes": [
+    "suture",
+    "five-part"
+   ],
+   "compare": [
+    [
+     "Coiled ammonite",
+     "coils flat with suture lines"
+    ]
+   ]
+  },
+  {
+   "id": "shark-tooth",
+   "name": "Shark tooth (e.g. Ptychodus, Cretoxyrhina, Squalicorax)",
+   "period": "Cretaceous",
+   "dates": "Upper Cretaceous, Eagle Ford and Austin Chalk",
+   "traits": [
+    "tooth",
+    "teeth",
+    "shark",
+    "enamel",
+    "root",
+    "serrated crown",
+    "ptychodus"
+   ],
+   "excludes": [
+    "shell",
+    "suture"
+   ],
+   "compare": [
+    [
+     "Ptychodus",
+     "flat, ridged crushing teeth"
+    ]
+   ]
+  },
+  {
+   "id": "petrified-wood",
+   "name": "Petrified wood",
+   "period": "Paleogene / Neogene (gravels)",
+   "dates": "Common in Eocene and younger units and creek gravels of east-central Texas",
+   "traits": [
+    "wood",
+    "grain",
+    "growth rings",
+    "rings",
+    "bark",
+    "silicified",
+    "petrified",
+    "fibrous"
+   ],
+   "excludes": [
+    "shell",
+    "suture"
+   ],
+   "compare": [
+    [
+     "Banded chert or agate",
+     "bands lack cellular wood structure"
+    ]
+   ]
+  }
+ ],
+ "diagnostics": [
+  [
+   "Coiling / spiral form",
+   "coil|spiral",
+   "not coiled"
+  ],
+  [
+   "Suture lines / chambers",
+   "sutur|septa|chamber",
+   "no suture"
+  ],
+  [
+   "Ribbing or concentric ridges",
+   "rib|costa|ridge",
+   "no rib"
+  ],
+  [
+   "Five-fold (star) symmetry",
+   "five-part|star|petal|ambulacra",
+   null
+  ],
+  [
+   "Hinge / attachment scar",
+   "hinge|attachment scar|beak",
+   null
+  ],
+  [
+   "Original shell vs mold",
+   "original shell|internal mold|steinkern|mold|replaced",
+   null
+  ],
+  [
+   "Pyrite / mineral replacement",
+   "pyrit|replaced|calcite",
+   null
+  ],
+  [
+   "Wood grain / growth rings",
+   "wood|growth ring|grain",
+   null
+  ]
+ ]
+}

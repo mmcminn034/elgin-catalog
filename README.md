@@ -52,3 +52,8 @@ Edit `data/catalog.json` (or export JSON from the app **without** private locati
 
 ## License
 MIT © 2026 Mark McMinn
+
+## Analysis engine & learning loop
+- `assets/js/analysis.js`: transparent, rule-based scoring. Candidates come from `data/reference/points.json`, `fossils.json` and `rocks.json` (traits, typical sizes, approximate dates, look-alikes). Each score lists its reasons and conflicts. Confidence is capped at Moderate.
+- Every find's **AI analysis** tab has 10 sections: identification, age/period, material, manufacture/formation, use-wear/preservation, Central Texas context, comparables, diagnostic checklist, documentation gaps and references.
+- **Verified examples**: marking a find Reviewed, or using "Save as verified", stores an example in the browser (IndexedDB `rolling-oak-learning`). Similar new finds get a bonus ("Matches N of your verified examples"). Export from About → Model, then commit to `data/learned/learned-examples.json` to share across devices. The repo seed contains ELG-001.

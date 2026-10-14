@@ -137,7 +137,7 @@
     const html = [
       () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
-      () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}${r.open_questions ? `<p class="oq" style="margin-top:12px"><strong>What would help:</strong> ${esc(r.open_questions)}</p>` : ""}`,
+      () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p><h3 class="gal-h">Your recorded possibilities</h3>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}<h3 class="gal-h">Rich analysis <span class="muted">(rule-based engine + your verified examples)</span></h3>${window.Analysis ? Analysis.render(r, kindOf(r)) : ""}`,
       () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
         <h3 class="gal-h">Measurements</h3><div class="row">${[["length_mm","Length (mm)"],["width_mm","Width (mm)"],["thickness_mm","Thickness (mm)"],["weight_g","Weight (g)"]].map(([k,l]) => `<label class="field"><span>${l}</span><input name="${k}" inputmode="decimal" value="${esc(r[k])}"></label>`).join("")}
         <label class="field"><span>Method</span><select name="measure_method">${[...new Set([r.measure_method || "Not measured", "Measured", "Estimated", "Not measured"])].map(o => `<option ${o === r.measure_method ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></label></div>
@@ -153,7 +153,8 @@
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
         if (bad) { f[bad].focus(); return toast("Measurements must be numbers, e.g. 62 or 60-70"); }
-        new FormData(f).forEach((v, k) => o[k] = String(v).trim()); await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id); selectTab(3); toast("Review saved"); };
+        new FormData(f).forEach((v, k) => o[k] = String(v).trim()); await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id);
+        if (o.status === "Reviewed" && r.status !== "Reviewed" && current.suggestion_1) { await Analysis.learn(current, kindOf(current), current.suggestion_1, "Marked Reviewed (top possibility)"); toast("Review saved · added as a verified example"); } else toast("Review saved"); selectTab(3); };
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
     }
   }
@@ -164,6 +165,13 @@
     Object.entries(KIND_FIELDS).forEach(([k, fs]) => { if (k !== to) fs.forEach(f => o[f] = ""); }); if (to !== "artifact") o.era = "";
     o.category_history = [...(r.category_history || []), { from, to, date: new Date().toLocaleDateString("en-CA"), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed)" }];
     await DB.put(o); local = await DB.all(); kind = to; refresh(); current = all.find(x => x.catalog_id === id); $("#mTitle").textContent = current.object_type; selectTab(0); toast(`${id} moved to ${KINDS[to].label}`); });
+  $("#mBody").addEventListener("click", async e => { if (!current) return; const id = current.catalog_id;
+    if (e.target.closest("[data-confirm]")) { const label = $("#cfType").value.trim(); if (!label) return toast("Enter the identification to confirm");
+      const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) }, prev = current.suggestion_1 || "";
+      if (label.toLowerCase() !== prev.toLowerCase()) { o.suggestion_1 = label; o.suggestion_2 = prev || current.suggestion_2 || ""; o.owner_observations = [current.owner_observations, `ID corrected to “${label}” (was “${prev || "none"}”), ${new Date().toLocaleDateString("en-CA")}.`].filter(Boolean).join(" "); }
+      o.status = "Reviewed"; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id);
+      await Analysis.learn(current, kindOf(current), label, label.toLowerCase() === prev.toLowerCase() ? "Owner confirmed in analysis panel" : "Owner correction in analysis panel"); selectTab(2); toast(`${id} saved as a verified ${label} example`); }
+    if (e.target.closest("[data-forget]")) { await Analysis.forget(id); selectTab(2); toast("Verified example removed from this browser"); } });
   let lbList = [], lbI = 0;
   function lightbox(i) { lbI = (i + lbList.length) % lbList.length; const p = lbList[lbI];
     $("#lbImg").src = p.src; $("#lbImg").alt = p.label; $("#lbCap").textContent = `${current.catalog_id} · ${p.label} (${lbI + 1}/${lbList.length})`; $("#lb").hidden = false; $("#lbClose").focus(); }
@@ -261,10 +269,17 @@
   function resetWizard() { $("#wizard").reset(); photos = []; wizHist = []; wizKept = ""; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
 
   /* ---------- routing, theme, toast ---------- */
+  $("#wizard").addEventListener("click", e => {
+    if (e.target.id === "suggestBtn") { const o = collect(); $("#wizSuggest").innerHTML = Analysis.suggestHtml(o, o.category); }
+    if (e.target.id === "useSuggest") { const rk = Analysis.rank(collect(), collect().category); ["suggestion_1", "suggestion_2", "suggestion_3"].forEach((n, i) => F()[n].value = rk[i] ? rk[i].c.name : F()[n].value); wizBanner(); toast("Filled your 3 possibilities. Edit freely."); } });
+  function renderModel() { $("#modelPanel").innerHTML = Analysis.panelHtml();
+    $("#exLearn").onclick = () => download("learned-examples.json", Analysis.exportJSON(), "application/json");
+    $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
   function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people"].includes(v) ? v : "catalog";
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
+    if (view === "about" && window.Analysis) renderModel();
     document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land" }[view] + " — Rolling Oak Catalog"; }
   window.addEventListener("hashchange", () => { if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀" : "☾"; try { localStorage.setItem("elgin-theme", t); } catch {} }
@@ -281,6 +296,7 @@
     route(); drawThumbs(); applyKind(); showStep(0);
     try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); seed = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
     catch { $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }
+    await Analysis.init();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route();
     const m = location.hash.match(/^#\/find\/(ELG-\d+)/); if (m) { location.hash = "#/catalog"; openModal(m[1]); }

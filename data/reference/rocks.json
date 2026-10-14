@@ -1,0 +1,433 @@
+{
+ "meta": {
+  "category": "rock",
+  "note": "Physical properties are standard mineralogy references (e.g. Mindat; UT Bureau of Economic Geology). Field tests are indicative only: chert, flint and chalcedony are all varieties of microcrystalline quartz."
+ },
+ "context": "Central Texas bedrock is dominated by Cretaceous limestones, chalks and marls with chert nodules (notably the Edwards Formation, the region's premier tool stone). Around Elgin, creek and terrace gravels mix chert, quartzite, quartz, petrified wood and ironstone carried from older or upstream units.",
+ "types": [
+  {
+   "id": "edwards-chert",
+   "name": "Edwards chert",
+   "hardness": "~7",
+   "luster": "Waxy to dull",
+   "streak": "White (does not streak)",
+   "traits": [
+    "chert",
+    "edwards",
+    "waxy",
+    "conchoidal",
+    "gray",
+    "tan",
+    "blue-gray",
+    "mottled",
+    "nodule",
+    "cortex"
+   ],
+   "excludes": [
+    "fizz",
+    "metallic",
+    "granular",
+    "sugary"
+   ],
+   "compare": [
+    [
+     "Other cherts",
+     "similar properties; source attribution needs experts or UV/geochemistry"
+    ]
+   ],
+   "formation": "Silica replacing limestone in the Lower Cretaceous Edwards Formation of the Edwards Plateau and Balcones zone."
+  },
+  {
+   "id": "chert",
+   "name": "Chert / flint (general)",
+   "hardness": "~7",
+   "luster": "Waxy to dull",
+   "streak": "White",
+   "traits": [
+    "chert",
+    "flint",
+    "waxy",
+    "conchoidal",
+    "nodule",
+    "cortex",
+    "opaque"
+   ],
+   "excludes": [
+    "fizz",
+    "metallic",
+    "granular",
+    "sugary"
+   ],
+   "compare": [
+    [
+     "Chalcedony/agate",
+     "translucent, often banded"
+    ],
+    [
+     "Quartzite",
+     "grainy, sugary surface"
+    ]
+   ],
+   "formation": "Microcrystalline quartz precipitated in limestone or chalk as nodules and beds. ‘Flint’ commonly means dark nodular chert."
+  },
+  {
+   "id": "chalcedony",
+   "name": "Chalcedony / agate",
+   "hardness": "~6.5–7",
+   "luster": "Waxy to glassy",
+   "streak": "White",
+   "traits": [
+    "chalcedony",
+    "agate",
+    "translucent",
+    "banded",
+    "banding",
+    "waxy"
+   ],
+   "excludes": [
+    "fizz",
+    "granular"
+   ],
+   "compare": [
+    [
+     "Chert",
+     "opaque"
+    ]
+   ],
+   "formation": "Microcrystalline quartz deposited from silica-rich water in cavities."
+  },
+  {
+   "id": "quartzite",
+   "name": "Quartzite",
+   "hardness": "~7",
+   "luster": "Glassy to sugary",
+   "streak": "White",
+   "traits": [
+    "quartzite",
+    "sugary",
+    "granular",
+    "grainy",
+    "rounded",
+    "cobble",
+    "pebble"
+   ],
+   "excludes": [
+    "fizz",
+    "waxy",
+    "metallic"
+   ],
+   "compare": [
+    [
+     "Sandstone",
+     "grains rub off; breaks around grains"
+    ],
+    [
+     "Chert",
+     "smooth waxy fracture"
+    ]
+   ],
+   "formation": "Metamorphosed sandstone; in Central Texas usually water-worn cobbles transported from distant sources."
+  },
+  {
+   "id": "quartz",
+   "name": "Quartz (vein / rose / crystal)",
+   "hardness": "7",
+   "luster": "Glassy (vitreous)",
+   "streak": "White",
+   "traits": [
+    "quartz",
+    "glassy",
+    "vitreous",
+    "crystal",
+    "rose quartz",
+    "milky",
+    "translucent",
+    "clear"
+   ],
+   "excludes": [
+    "fizz",
+    "metallic"
+   ],
+   "compare": [
+    [
+     "Calcite",
+     "softer (3), fizzes in acid, rhombic cleavage"
+    ]
+   ],
+   "formation": "Crystallizes from hydrothermal fluids or igneous rocks; pebbles are reworked from older gravels."
+  },
+  {
+   "id": "limestone",
+   "name": "Limestone / chalk",
+   "hardness": "~3",
+   "luster": "Dull / earthy",
+   "streak": "White",
+   "traits": [
+    "limestone",
+    "chalk",
+    "fizz",
+    "fizzes",
+    "soft",
+    "shell fragments",
+    "marl"
+   ],
+   "excludes": [
+    "metallic",
+    "glassy",
+    "scratches glass"
+   ],
+   "compare": [
+    [
+     "Chert",
+     "scratches glass, does not fizz"
+    ]
+   ],
+   "formation": "Marine carbonate sediment; the dominant bedrock of Central Texas."
+  },
+  {
+   "id": "calcite",
+   "name": "Calcite",
+   "hardness": "3",
+   "luster": "Glassy to pearly",
+   "streak": "White",
+   "traits": [
+    "calcite",
+    "fizz",
+    "fizzes",
+    "rhombic",
+    "cleavage",
+    "dogtooth",
+    "spar",
+    "soft"
+   ],
+   "excludes": [
+    "scratches glass",
+    "metallic"
+   ],
+   "compare": [
+    [
+     "Quartz",
+     "harder (7), no cleavage, no fizz"
+    ]
+   ],
+   "formation": "Precipitates from carbonate-rich water in veins, cavities and geodes."
+  },
+  {
+   "id": "gypsum",
+   "name": "Gypsum / selenite",
+   "hardness": "2",
+   "luster": "Pearly to glassy",
+   "streak": "White",
+   "traits": [
+    "gypsum",
+    "selenite",
+    "fingernail",
+    "very soft",
+    "clear blades",
+    "pearly"
+   ],
+   "excludes": [
+    "fizz",
+    "scratches glass"
+   ],
+   "compare": [
+    [
+     "Calcite",
+     "harder (3), fizzes in acid"
+    ]
+   ],
+   "formation": "Evaporite; also grows as crystals in clays and marls."
+  },
+  {
+   "id": "petrified-wood-rock",
+   "name": "Petrified (silicified) wood",
+   "hardness": "~7",
+   "luster": "Waxy to dull",
+   "streak": "White",
+   "traits": [
+    "wood",
+    "grain",
+    "rings",
+    "bark",
+    "silicified",
+    "petrified",
+    "fibrous"
+   ],
+   "excludes": [
+    "fizz",
+    "metallic"
+   ],
+   "compare": [
+    [
+     "Banded chert",
+     "no cellular wood structure"
+    ]
+   ],
+   "formation": "Wood replaced by silica; common in east-central Texas gravels."
+  },
+  {
+   "id": "ironstone",
+   "name": "Ironstone / iron concretion (goethite, hematite)",
+   "hardness": "~4–5.5 (variable)",
+   "luster": "Dull to submetallic",
+   "streak": "Yellow-brown (goethite) or red-brown (hematite)",
+   "traits": [
+    "ironstone",
+    "iron",
+    "concretion",
+    "rusty",
+    "heavy",
+    "rind",
+    "brown streak",
+    "red streak",
+    "nodule"
+   ],
+   "excludes": [
+    "fizz",
+    "waxy",
+    "glassy"
+   ],
+   "compare": [
+    [
+     "Weathered pyrite nodule",
+     "may still show metallic cores"
+    ]
+   ],
+   "formation": "Iron oxides cementing sediment, common in Paleogene sands and clays."
+  },
+  {
+   "id": "pyrite",
+   "name": "Pyrite / marcasite nodule",
+   "hardness": "6–6.5",
+   "luster": "Metallic (weathers rusty)",
+   "streak": "Greenish-black",
+   "traits": [
+    "pyrite",
+    "marcasite",
+    "metallic",
+    "brassy",
+    "radiating",
+    "sun",
+    "nodule",
+    "heavy"
+   ],
+   "excludes": [
+    "fizz",
+    "waxy"
+   ],
+   "compare": [
+    [
+     "Ironstone",
+     "dull, brown streak"
+    ]
+   ],
+   "formation": "Iron sulfide formed in low-oxygen marine mud; nodules weather from chalks and marls."
+  },
+  {
+   "id": "concretion",
+   "name": "Concretion / geode",
+   "hardness": "Variable",
+   "luster": "Dull exterior",
+   "streak": "Variable",
+   "traits": [
+    "concretion",
+    "geode",
+    "round",
+    "hollow",
+    "nodule",
+    "crystal-lined"
+   ],
+   "excludes": [
+    "flake scars"
+   ],
+   "compare": [
+    [
+     "Fossil",
+     "concretions lack organized shell structure"
+    ]
+   ],
+   "formation": "Mineral cement grows outward in sediment; geodes have hollow crystal-lined centres."
+  },
+  {
+   "id": "natural-pebble",
+   "name": "Natural water-worn pebble",
+   "hardness": "Depends on rock",
+   "luster": "Variable",
+   "streak": "Variable",
+   "traits": [
+    "pebble",
+    "cobble",
+    "rounded",
+    "water-rounded",
+    "smooth",
+    "natural",
+    "no flake scars",
+    "unworked"
+   ],
+   "excludes": [
+    "flake scars",
+    "retouch",
+    "pecking"
+   ],
+   "compare": [
+    [
+     "Hammerstone",
+     "pecked or battered ends"
+    ]
+   ],
+   "formation": "Rounded by transport in streams; creek and terrace gravels."
+  }
+ ],
+ "diagnostics": [
+  [
+   "Conchoidal (shell-like) fracture",
+   "conchoidal|flake scars",
+   "no flake scars"
+  ],
+  [
+   "Waxy luster",
+   "waxy",
+   null
+  ],
+  [
+   "Glassy luster",
+   "glassy|vitreous",
+   null
+  ],
+  [
+   "Scratches glass (hardness ≥ ~5.5)",
+   "scratches glass|6–7|>7|&gt;7",
+   "does not scratch"
+  ],
+  [
+   "Fizzes in dilute acid / vinegar",
+   "fizz",
+   "no fizz|does not fizz"
+  ],
+  [
+   "Banding",
+   "band",
+   null
+  ],
+  [
+   "Visible grains (sugary)",
+   "granular|sugary|grain",
+   null
+  ],
+  [
+   "Cleavage faces",
+   "cleavage|rhomb",
+   null
+  ],
+  [
+   "Metallic luster",
+   "metallic",
+   null
+  ],
+  [
+   "Water-rounded",
+   "rounded|water-worn|smooth",
+   null
+  ]
+ ]
+}

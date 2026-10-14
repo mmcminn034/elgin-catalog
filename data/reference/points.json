@@ -1,0 +1,879 @@
+{
+ "meta": {
+  "category": "artifact",
+  "note": "Approximate; summarized from widely used Central Texas typologies (e.g. Turner, Hester & McReynolds, Stone Artifacts of Texas Indians; Collins 2004; Texas Beyond History). Dates vary between sources.",
+  "length_note": "Typical lengths are loose, approximate ranges for complete specimens; resharpening shortens points."
+ },
+ "context": "Central Texas has one of the longest, densest records of stone tool making in North America, supported by abundant high-quality chert from Cretaceous limestones (notably the Edwards Formation). Dart points dominate the Archaic; small arrow points appear in the Late Prehistoric (after ~AD 700).",
+ "types": [
+  {
+   "id": "clovis",
+   "name": "Clovis",
+   "period": "Paleoindian",
+   "dates": "~11,500–10,900 BC",
+   "length_mm": [
+    40,
+    120
+   ],
+   "traits": [
+    "lanceolate",
+    "fluted",
+    "flute",
+    "concave base",
+    "ground base",
+    "ground basal edges",
+    "channel flake"
+   ],
+   "excludes": [
+    "notch",
+    "barb",
+    "stem"
+   ],
+   "compare": [
+    [
+     "Plainview",
+     "not fluted; parallel flaking"
+    ],
+    [
+     "Folsom",
+     "flutes run nearly full length; smaller, thinner"
+    ]
+   ]
+  },
+  {
+   "id": "folsom",
+   "name": "Folsom",
+   "period": "Paleoindian",
+   "dates": "~10,900–10,200 BC",
+   "length_mm": [
+    25,
+    60
+   ],
+   "traits": [
+    "fluted",
+    "flute",
+    "lanceolate",
+    "ears",
+    "concave base",
+    "very thin",
+    "fine retouch"
+   ],
+   "excludes": [
+    "notch",
+    "barb",
+    "stem"
+   ],
+   "compare": [
+    [
+     "Clovis",
+     "shorter flutes, larger, heavier"
+    ]
+   ]
+  },
+  {
+   "id": "plainview",
+   "name": "Plainview",
+   "period": "Paleoindian",
+   "dates": "~10,000–9,000 BC",
+   "length_mm": [
+    40,
+    90
+   ],
+   "traits": [
+    "lanceolate",
+    "parallel flaking",
+    "concave base",
+    "ground basal edges",
+    "unfluted"
+   ],
+   "excludes": [
+    "notch",
+    "barb",
+    "fluted"
+   ],
+   "compare": [
+    [
+     "Golondrina",
+     "flaring basal ears"
+    ],
+    [
+     "Clovis",
+     "fluted"
+    ]
+   ]
+  },
+  {
+   "id": "golondrina",
+   "name": "Golondrina",
+   "period": "Paleoindian",
+   "dates": "~9,000 BC",
+   "length_mm": [
+    40,
+    90
+   ],
+   "traits": [
+    "lanceolate",
+    "concave base",
+    "ears",
+    "flaring",
+    "ground"
+   ],
+   "excludes": [
+    "notch",
+    "barb",
+    "stem"
+   ],
+   "compare": [
+    [
+     "Plainview",
+     "straighter sides, little flare at base"
+    ]
+   ]
+  },
+  {
+   "id": "angostura",
+   "name": "Angostura",
+   "period": "Late Paleoindian / Early Archaic",
+   "dates": "~8,800–7,000 BC",
+   "length_mm": [
+    50,
+    110
+   ],
+   "traits": [
+    "lanceolate",
+    "oblique flaking",
+    "parallel flaking",
+    "contracting base",
+    "ground stem",
+    "ground"
+   ],
+   "excludes": [
+    "notch",
+    "barb",
+    "shoulder"
+   ],
+   "compare": [
+    [
+     "Nolan/Travis",
+     "have shoulders and a distinct stem"
+    ]
+   ]
+  },
+  {
+   "id": "andice-bell",
+   "name": "Andice / Bell",
+   "period": "Early–Middle Archaic",
+   "dates": "~5,500–4,500 BC",
+   "length_mm": [
+    50,
+    110
+   ],
+   "traits": [
+    "basal notch",
+    "deep notches",
+    "long barbs",
+    "barb",
+    "triangular"
+   ],
+   "excludes": [
+    "lanceolate"
+   ],
+   "compare": [
+    [
+     "Castroville",
+     "corner (not basal) notched"
+    ]
+   ]
+  },
+  {
+   "id": "nolan",
+   "name": "Nolan",
+   "period": "Middle Archaic",
+   "dates": "~4,000–2,500 BC",
+   "length_mm": [
+    50,
+    110
+   ],
+   "traits": [
+    "long narrow blade",
+    "narrow",
+    "weak shoulders",
+    "stem",
+    "beveled stem",
+    "alternate beveling",
+    "straight stem",
+    "lenticular"
+   ],
+   "excludes": [
+    "barb",
+    "corner notch",
+    "side notch",
+    "fluted"
+   ],
+   "compare": [
+    [
+     "Travis",
+     "stem not steeply alternately beveled"
+    ],
+    [
+     "Bulverde",
+     "squarer shoulders, wedge-shaped stem cross-section"
+    ]
+   ]
+  },
+  {
+   "id": "travis",
+   "name": "Travis",
+   "period": "Middle Archaic",
+   "dates": "~4,000–2,500 BC",
+   "length_mm": [
+    45,
+    100
+   ],
+   "traits": [
+    "long narrow blade",
+    "narrow",
+    "weak shoulders",
+    "stem",
+    "parallel-sided stem",
+    "straight stem",
+    "rectangular stem",
+    "lenticular"
+   ],
+   "excludes": [
+    "barb",
+    "corner notch",
+    "side notch",
+    "fluted"
+   ],
+   "compare": [
+    [
+     "Nolan",
+     "stem with steep alternate beveling"
+    ],
+    [
+     "Bulverde",
+     "stronger shoulders, wedge-shaped stem"
+    ]
+   ]
+  },
+  {
+   "id": "bulverde",
+   "name": "Bulverde",
+   "period": "Middle–Late Archaic",
+   "dates": "~2,500–2,000 BC",
+   "length_mm": [
+    45,
+    100
+   ],
+   "traits": [
+    "rectangular stem",
+    "wedge-shaped stem",
+    "square shoulders",
+    "shoulders",
+    "stem",
+    "barbs",
+    "serrated"
+   ],
+   "excludes": [
+    "corner notch",
+    "side notch",
+    "fluted"
+   ],
+   "compare": [
+    [
+     "Nolan/Travis",
+     "narrower blades, weaker shoulders"
+    ],
+    [
+     "Pedernales",
+     "notched/concave stem base"
+    ]
+   ]
+  },
+  {
+   "id": "pedernales",
+   "name": "Pedernales",
+   "period": "Late Archaic",
+   "dates": "~2,000–1,000 BC",
+   "length_mm": [
+    45,
+    110
+   ],
+   "traits": [
+    "bifurcated stem",
+    "notched base",
+    "concave stem base",
+    "u-shaped",
+    "rectangular stem",
+    "shoulders",
+    "barbs"
+   ],
+   "excludes": [
+    "corner notch",
+    "side notch",
+    "fluted"
+   ],
+   "compare": [
+    [
+     "Bulverde",
+     "stem base straight, not notched"
+    ]
+   ]
+  },
+  {
+   "id": "montell",
+   "name": "Montell",
+   "period": "Late Archaic",
+   "dates": "~1,000–500 BC",
+   "length_mm": [
+    40,
+    90
+   ],
+   "traits": [
+    "split base",
+    "bifurcated stem",
+    "corner notch",
+    "barbs",
+    "barbed shoulders"
+   ],
+   "excludes": [
+    "fluted",
+    "lanceolate"
+   ],
+   "compare": [
+    [
+     "Castroville",
+     "stem base not split"
+    ]
+   ]
+  },
+  {
+   "id": "castroville",
+   "name": "Castroville",
+   "period": "Late Archaic",
+   "dates": "~800–200 BC",
+   "length_mm": [
+    50,
+    110
+   ],
+   "traits": [
+    "corner notch",
+    "corner notches",
+    "deep corner notches",
+    "barbed shoulders",
+    "barbs",
+    "barb",
+    "broad triangular blade",
+    "triangular blade",
+    "expanding stem",
+    "large"
+   ],
+   "excludes": [
+    "fluted",
+    "lanceolate",
+    "side notch"
+   ],
+   "compare": [
+    [
+     "Marcos",
+     "usually smaller with long barbs and a broad expanding stem"
+    ],
+    [
+     "Ensor",
+     "side- or shallow corner-notched, smaller, no prominent barbs"
+    ]
+   ]
+  },
+  {
+   "id": "marcos",
+   "name": "Marcos",
+   "period": "Late Archaic",
+   "dates": "~800–200 BC",
+   "length_mm": [
+    40,
+    80
+   ],
+   "traits": [
+    "corner notch",
+    "corner notches",
+    "barbs",
+    "barbed shoulders",
+    "expanding stem",
+    "triangular blade"
+   ],
+   "excludes": [
+    "fluted",
+    "lanceolate",
+    "side notch"
+   ],
+   "compare": [
+    [
+     "Castroville",
+     "larger and broader"
+    ],
+    [
+     "Ensor",
+     "smaller notches, little or no barbs"
+    ]
+   ]
+  },
+  {
+   "id": "ensor",
+   "name": "Ensor",
+   "period": "Transitional Archaic",
+   "dates": "~200 BC–AD 600",
+   "length_mm": [
+    30,
+    70
+   ],
+   "traits": [
+    "side notch",
+    "side notches",
+    "shallow corner notch",
+    "straight base",
+    "concave base",
+    "small"
+   ],
+   "excludes": [
+    "fluted",
+    "lanceolate",
+    "long barbs"
+   ],
+   "compare": [
+    [
+     "Frio",
+     "base concave to bifurcated"
+    ],
+    [
+     "Marcos",
+     "deep corner notches and barbs"
+    ]
+   ]
+  },
+  {
+   "id": "frio",
+   "name": "Frio",
+   "period": "Transitional Archaic",
+   "dates": "~200 BC–AD 600",
+   "length_mm": [
+    30,
+    65
+   ],
+   "traits": [
+    "side notch",
+    "corner notch",
+    "bifurcated base",
+    "concave base",
+    "notched base",
+    "ears"
+   ],
+   "excludes": [
+    "fluted",
+    "lanceolate"
+   ],
+   "compare": [
+    [
+     "Ensor",
+     "straight base"
+    ]
+   ]
+  },
+  {
+   "id": "darl",
+   "name": "Darl",
+   "period": "Transitional Archaic",
+   "dates": "~AD 200–700",
+   "length_mm": [
+    35,
+    90
+   ],
+   "traits": [
+    "narrow",
+    "slender",
+    "expanding stem",
+    "beveled",
+    "beveling",
+    "serrated",
+    "serration",
+    "weak shoulders"
+   ],
+   "excludes": [
+    "fluted",
+    "barbs",
+    "corner notches"
+   ],
+   "compare": [
+    [
+     "Nolan/Travis",
+     "heavier, older, not usually serrated"
+    ]
+   ]
+  },
+  {
+   "id": "tortugas",
+   "name": "Tortugas",
+   "period": "Archaic (mostly South Texas)",
+   "dates": "~3,000 BC–AD 1000 (poorly bracketed)",
+   "length_mm": [
+    35,
+    80
+   ],
+   "traits": [
+    "triangular",
+    "unstemmed",
+    "straight base",
+    "concave base",
+    "beveled edges",
+    "beveled"
+   ],
+   "excludes": [
+    "stem",
+    "notch",
+    "barb"
+   ],
+   "compare": [
+    [
+     "Matamoros",
+     "smaller, thicker"
+    ],
+    [
+     "Triangular biface / preform",
+     "not finished as a point"
+    ]
+   ]
+  },
+  {
+   "id": "matamoros",
+   "name": "Matamoros",
+   "period": "Late Archaic (mostly South Texas)",
+   "dates": "~1,000 BC–AD 700 (poorly bracketed)",
+   "length_mm": [
+    25,
+    50
+   ],
+   "traits": [
+    "triangular",
+    "unstemmed",
+    "small",
+    "thick",
+    "straight base",
+    "concave base"
+   ],
+   "excludes": [
+    "stem",
+    "notch",
+    "barb"
+   ],
+   "compare": [
+    [
+     "Tortugas",
+     "larger, thinner"
+    ]
+   ]
+  },
+  {
+   "id": "scallorn",
+   "name": "Scallorn",
+   "period": "Late Prehistoric (arrow point)",
+   "dates": "~AD 700–1200",
+   "length_mm": [
+    20,
+    45
+   ],
+   "traits": [
+    "small",
+    "arrow",
+    "corner notch",
+    "serrated",
+    "serration",
+    "barbs",
+    "thin"
+   ],
+   "excludes": [
+    "large"
+   ],
+   "compare": [
+    [
+     "Perdiz",
+     "contracting stem"
+    ],
+    [
+     "Darts (e.g. Ensor)",
+     "larger and heavier"
+    ]
+   ]
+  },
+  {
+   "id": "perdiz",
+   "name": "Perdiz",
+   "period": "Late Prehistoric (arrow point)",
+   "dates": "~AD 1200–1500",
+   "length_mm": [
+    20,
+    50
+   ],
+   "traits": [
+    "small",
+    "arrow",
+    "contracting stem",
+    "pointed stem",
+    "sharp barbs",
+    "barbs",
+    "thin"
+   ],
+   "excludes": [
+    "large",
+    "expanding stem"
+   ],
+   "compare": [
+    [
+     "Scallorn",
+     "expanding stem, corner notched"
+    ]
+   ]
+  },
+  {
+   "id": "biface-knife",
+   "name": "Biface / knife",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    30,
+    200
+   ],
+   "traits": [
+    "biface",
+    "knife",
+    "bifacial",
+    "retouch",
+    "leaf",
+    "triangular",
+    "asymmetric",
+    "edge retouch"
+   ],
+   "excludes": [
+    "stem",
+    "notch"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Preform",
+     "thicker, unfinished edges"
+    ],
+    [
+     "Dart point",
+     "has a hafting element"
+    ]
+   ]
+  },
+  {
+   "id": "preform",
+   "name": "Preform (unfinished biface)",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    30,
+    200
+   ],
+   "traits": [
+    "preform",
+    "thick",
+    "irregular",
+    "cortex",
+    "early-stage",
+    "mid-stage",
+    "late-stage"
+   ],
+   "excludes": [
+    "serrated",
+    "notch"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Knife",
+     "thin, regular retouched edges"
+    ]
+   ]
+  },
+  {
+   "id": "scraper",
+   "name": "Scraper",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    20,
+    100
+   ],
+   "traits": [
+    "scraper",
+    "steep",
+    "plano-convex",
+    "unifacial",
+    "retouch",
+    "end scraper"
+   ],
+   "excludes": [
+    "stem",
+    "notch"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Flake tool",
+     "retouch less steep and regular"
+    ]
+   ]
+  },
+  {
+   "id": "flake-tool",
+   "name": "Flake tool / debitage",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    5,
+    100
+   ],
+   "traits": [
+    "flake",
+    "debitage",
+    "cortex",
+    "notch",
+    "notched edge",
+    "spokeshave",
+    "thinning flake",
+    "bulb",
+    "striking platform"
+   ],
+   "excludes": [
+    "stem",
+    "bifacial"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Core",
+     "flakes removed from it, no bulb of percussion"
+    ]
+   ]
+  },
+  {
+   "id": "core",
+   "name": "Core",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    30,
+    200
+   ],
+   "traits": [
+    "core",
+    "flake scars",
+    "ridges",
+    "cortex",
+    "tested cobble",
+    "platform"
+   ],
+   "excludes": [
+    "retouch",
+    "stem"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Natural fracture",
+     "scars lack bulbs/ripples and consistent platforms"
+    ]
+   ]
+  },
+  {
+   "id": "hammerstone",
+   "name": "Hammerstone / ground stone",
+   "period": "Not diagnostic",
+   "dates": "Many periods",
+   "length_mm": [
+    40,
+    150
+   ],
+   "traits": [
+    "hammerstone",
+    "pecking",
+    "polish",
+    "battered",
+    "polisher",
+    "mano",
+    "ground stone"
+   ],
+   "excludes": [
+    "flake scars",
+    "stem"
+   ],
+   "generic": true,
+   "compare": [
+    [
+     "Natural cobble",
+     "no pecking, battering or polish"
+    ]
+   ]
+  }
+ ],
+ "diagnostics": [
+  [
+   "Bifacial flaking / flake scars",
+   "flake scars|bifac|biface|retouch|flaking",
+   "no flake scars"
+  ],
+  [
+   "Hafting element (stem or notches)",
+   "stem|notch",
+   "unstemmed|no stem"
+  ],
+  [
+   "Notching (corner, side or basal)",
+   "notch",
+   "no notch"
+  ],
+  [
+   "Shoulders or barbs",
+   "shoulder|barb",
+   "no barb"
+  ],
+  [
+   "Basal / stem grinding",
+   "\\bground\\b|grinding",
+   "not ground|no grinding"
+  ],
+  [
+   "Serration",
+   "serrat",
+   "not serrated"
+  ],
+  [
+   "Beveling",
+   "bevel",
+   "not beveled"
+  ],
+  [
+   "Heat treatment (luster/color change)",
+   "heat[- ]treat|heat-treat",
+   "not heat"
+  ],
+  [
+   "Cortex (original rind)",
+   "cortex",
+   "no cortex"
+  ],
+  [
+   "Break type (snap/impact)",
+   "snap|impact|break",
+   null
+  ],
+  [
+   "Resharpening",
+   "resharpen",
+   null
+  ]
+ ]
+}
