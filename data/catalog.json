@@ -2930,5 +2930,180 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-027",
+    "category": "rock",
+    "object_type": "Rounded sandstone/quartzite cobble",
+    "material": "Sandstone or quartzite cobble (Colorado River terrace gravels)",
+    "color": "Tan to buff with rusty iron-stained spots",
+    "length_mm": "~85",
+    "width_mm": "~60",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "condition": "Whole cobble",
+    "condition_notes": "Slightly flattened, broken-looking base; small dark weathered-out hole.",
+    "key_features": "Smooth water-rounded grainy surface with rusty iron-stained spots (photos 1-4); small dark hole, a weathered-out grain or iron nodule, not drilling (photos 1, 4); slightly flattened, broken-looking base with no concentrated crushing seen (photo 5); no flake scars or ground surfaces.",
+    "suggestion_1": "Natural sandstone or quartzite cobble",
+    "suggestion_2": "Possible hammerstone with light end wear",
+    "suggestion_3": "Pestle or mano",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) natural sandstone or quartzite cobble, Moderate (capped): a smooth, water-rounded, grainy surface with rusty iron-stained spots (photos 1-4) is typical of Colorado River terrace gravel. The small dark hole (photos 1, 4) is a weathered-out grain or iron nodule, not drilling. (2) Possible hammerstone with light end wear, Low-Moderate: the base is slightly flattened and looks broken (photo 5). That could be a natural fracture or light use, but no concentrated crushing is visible. (3) Pestle or mano, Low: there are no ground surfaces.\n\nNo flake scars or ground surfaces are visible.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is the flat base battered? Next photos: 1) raking-light close-up of the flat base (clustered tiny pits = battering), 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-027/01.jpg",
+        "thumb": "images/ELG-027/01_thumb.jpg",
+        "view": "front",
+        "label": "Front, ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.29,
+              0.16,
+              0.59,
+              0.82
+            ],
+            "label": "Smooth water-rounded grainy surface, iron stains",
+            "explanation": "A smooth, water-rounded, grainy surface with rusty iron-stained spots. This is typical of a sandstone or quartzite cobble from the Colorado River terrace gravels. No flake scars or ground (flattened, smoothed) surfaces are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.52,
+              0.45,
+              0.03
+            ],
+            "label": "Small dark hole (natural)",
+            "explanation": "A small dark hole that is most likely a grain or iron nodule that weathered out. It is not a drilled hole: there is no round, even bore.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-027/02.jpg",
+        "thumb": "images/ELG-027/02_thumb.jpg",
+        "view": "front",
+        "label": "Front, narrower view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.35,
+              0.3,
+              0.58,
+              0.87
+            ],
+            "label": "Smooth water-rounded grainy surface, iron stains",
+            "explanation": "A smooth, water-rounded, grainy surface with rusty iron-stained spots. This is typical of a sandstone or quartzite cobble from the Colorado River terrace gravels. No flake scars or ground (flattened, smoothed) surfaces are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-027/03.jpg",
+        "thumb": "images/ELG-027/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.31,
+              0.09,
+              0.66,
+              0.85
+            ],
+            "label": "Smooth water-rounded grainy surface, iron stains",
+            "explanation": "A smooth, water-rounded, grainy surface with rusty iron-stained spots. This is typical of a sandstone or quartzite cobble from the Colorado River terrace gravels. No flake scars or ground (flattened, smoothed) surfaces are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-027/04.jpg",
+        "thumb": "images/ELG-027/04_thumb.jpg",
+        "view": "back",
+        "label": "Back with small hole",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.29,
+              0.02,
+              0.65,
+              0.88
+            ],
+            "label": "Smooth water-rounded grainy surface, iron stains",
+            "explanation": "A smooth, water-rounded, grainy surface with rusty iron-stained spots. This is typical of a sandstone or quartzite cobble from the Colorado River terrace gravels. No flake scars or ground (flattened, smoothed) surfaces are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.54,
+              0.36,
+              0.03
+            ],
+            "label": "Small dark hole (natural)",
+            "explanation": "A small dark hole that is most likely a grain or iron nodule that weathered out. It is not a drilled hole: there is no round, even bore.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural sandstone or quartzite cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-027/05.jpg",
+        "thumb": "images/ELG-027/05_thumb.jpg",
+        "view": "base",
+        "label": "Flattened base",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.45,
+              0.25,
+              0.71,
+              0.68
+            ],
+            "label": "Slightly flattened, broken-looking base",
+            "explanation": "The base is slightly flat and looks broken. It may be a natural fracture or light use as a hammerstone, but no concentrated crushing is visible. Clustered tiny pits under raking light would mean battering.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Possible hammerstone with light end wear"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
