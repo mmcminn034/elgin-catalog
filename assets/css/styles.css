@@ -455,3 +455,13 @@ label.btn{position:relative}
 .site-header .brand{flex:0 1 auto}.site-header .lockup{height:52px;width:auto;max-width:none}
 @media (max-width:760px){.site-header .lockup{height:38px;width:auto}}
 @media (max-width:360px){.site-header .lockup{height:32px}}
+/* ===== fix: detail modal header/tabs collapsing (Stage 1 regression) =====
+   .modal-card is a max-height flex column. .tabs has overflow-x:auto, so its automatic min-height is 0 and it
+   shrank (to ~18px, clipping the tab labels) once the Overview body grew taller. Only the body may shrink and scroll. */
+.modal-card>.modal-head,.modal-card>.tabs{flex:0 0 auto}
+.modal-card>.modal-body{flex:1 1 auto;min-height:0}
+.tabs{scrollbar-width:thin;-webkit-overflow-scrolling:touch}.tabs button{min-height:44px}
+@media (max-width:560px){.modal-head h2{font-size:1.25rem;line-height:1.2}.modal-head{padding:14px 16px 6px}.tabs{padding:0 10px}.tabs button{padding:10px 10px;font-size:.9rem}.modal-body{padding:14px 16px 20px}}
+/* light-mode kicker contrast (teal 3.85:1 at 12.5px -> darker teal) */
+:root:not([data-theme=dark]) .kicker:not(.hero .kicker){color:#1f6f6a}
+.find-actions .vis{flex:1 1 100%;order:5}.find-actions .vis select{max-width:320px}.vis small{max-width:none}
