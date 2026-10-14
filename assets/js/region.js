@@ -39,7 +39,7 @@
     let patch;
     if (v === "local") patch = { provenance_answer: "local", provenance: (P && P.name) || "Found locally", acquisition: "Surface find (owner confirmed local)" };
     else if (v === "unsure") patch = { provenance_answer: "unsure" };
-    else { const place = (box.querySelector("[data-prov-place]").value || "").trim() || "Other / unknown"; patch = { provenance_answer: "collection", provenance: `${place} (exact locality unknown)`, acquisition: `Personal collection, brought from ${place}` }; }
+    else { const place = (box.querySelector("[data-prov-place]").value || "").trim() || "Other / unknown"; patch = { provenance_answer: "collection", region: place, provenance: `${place} (exact locality unknown)`, acquisition: `Personal collection, brought from ${place}` }; }
     try { const fb = JSON.parse(localStorage.getItem(FB) || "[]"); fb.push({ catalog_id: r.catalog_id, answer: patch.provenance_answer, place: patch.provenance || "", reasons: c.reasons.map(x => x.id), ts: new Date().toISOString() }); localStorage.setItem(FB, JSON.stringify(fb.slice(-500))); } catch {}
     return { patch };
   }

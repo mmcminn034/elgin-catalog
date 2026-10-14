@@ -62,7 +62,7 @@
     if ("visibility" in row) { const v = String(row.visibility ?? "").trim().toLowerCase(); row.visibility = ["private", "editors", "public"].includes(v) ? v : null; }
     Object.keys(row).forEach(k => { if (row[k] === "") row[k] = null; }); return row; }
   async function pushFind(rec, prev, marksFor) {
-    if (MOCK) return { ok: !!user, msg: "mock" };
+    if (MOCK) { if (user) (MOCK.pushed = MOCK.pushed || []).push(normalizeRow(Object.fromEntries(FIELDS.map(k => [k, rec[k] ?? null])))); return { ok: !!user, msg: "mock" }; }
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
       const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); normalizeRow(row); row.category = row.category || "artifact";

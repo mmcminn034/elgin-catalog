@@ -28,7 +28,7 @@
   async function pushOne(rec, snap) {
     const res = await Cloud.pushFind(rec, snap, marksFor), id = rec.catalog_id;
     if (res.ok) { setPending(pending().filter(x => x !== id));
-      { const lo = local.find(x => x.catalog_id === id); if (lo && (lo.created_local && !lo.synced || res.photos)) { const o = { ...lo, synced: true }; if (res.photos) o.photos = (lo.photos || []).map((p, i) => res.photos[i] ? { ...p, src: undefined, path: res.photos[i], thumb: res.photos[i] } : p); await _put(o); local = await DB.all(); refresh(); } }
+      { local = await DB.all(); const lo = local.find(x => x.catalog_id === id); if (lo && (lo.created_local && !lo.synced || res.photos)) { const o = { ...lo, synced: true }; if (res.photos) o.photos = (lo.photos || []).map((p, i) => res.photos[i] ? { ...p, src: undefined, path: res.photos[i], thumb: res.photos[i] } : p); await _put(o); local = await DB.all(); refresh(); } }
       if (res.cloudCategory) { // the cloud had a newer category decision: adopt it locally instead of fighting it
         const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }), ...res.cloudCategory }; await _put(o); local = await DB.all(); refresh(); }
       return true; }
