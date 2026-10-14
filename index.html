@@ -30,7 +30,11 @@
     <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home">
       <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" width="251" height="58">
     </a>
-    <nav aria-label="Primary">
+    <a class="btn primary add-cta" href="#/add" aria-label="Add find"><span aria-hidden="true">＋</span><span class="add-txt"> Add find</span></a>
+    <span class="sync-pill" id="syncPill" role="status">Offline copy</span>
+    <button id="authBtn" class="btn ghost" hidden>Sign in</button>
+    <button type="button" id="menuBtn" class="btn ghost icon menu-btn" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav aria-label="Primary" id="navMenu" class="nav-menu" hidden>
       <a href="#/catalog" data-route="catalog">Catalog</a>
       <a href="#/timeline" data-route="timeline">Deep time</a>
       <a href="#/people" data-route="people">People &amp; land</a>
@@ -41,11 +45,10 @@
       <a href="#/members" data-route="members" class="needs-user" hidden>Members</a>
       <a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a>
       <a href="#/pricing" data-route="pricing">Membership</a>
+      <hr aria-hidden="true">
+      <button type="button" id="installBtn" class="nav-item" hidden>⤓ Add to home screen</button>
+      <button type="button" id="themeToggle" class="nav-item" aria-pressed="false" aria-label="Toggle dark mode">☾</button>
     </nav>
-    <span class="sync-pill" id="syncPill" role="status">Offline copy</span>
-    <button id="authBtn" class="btn ghost" hidden>Sign in</button>
-    <button id="installBtn" class="btn ghost" hidden>⤓ Add to home screen</button>
-    <button id="themeToggle" class="btn ghost icon" aria-pressed="false" aria-label="Toggle dark mode">☾</button>
   </div>
 </header>
 <div class="notice" role="note"><div class="wrap"><strong>Research catalog.</strong> AI suggestions are possibilities for research, not identifications. No authenticity or value claims are made.</div></div>
@@ -354,5 +357,6 @@
 <script src="assets/js/features.js" defer></script>
 <script src="assets/js/auth-options.js" defer></script>
 <script src="assets/js/app.js" defer></script>
+<script src="assets/js/nav.js" defer></script>
 </body>
 </html>
