@@ -134,8 +134,9 @@
     current = all.find(r => r.catalog_id === id); if (!current) return;
     lastFocus = document.activeElement; $("#mId").textContent = current.catalog_id; $("#mTitle").textContent = current.object_type || "Find";
     $("#modal").hidden = false; document.body.style.overflow = "hidden"; selectTab(0); $("#tab-0").focus();
+    if (location.hash !== "#/find/" + id) history.replaceState(null, "", "#/find/" + id);
   }
-  function closeModal() { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
+  function closeModal() { if (/^#\/find\//.test(location.hash)) history.replaceState(null, "", "#/catalog"); $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
   function selectTab(i) {
     tab = i; $$(".tabs [role=tab]").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
@@ -155,7 +156,7 @@
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
     ][i]();
     const ev = i === 0 && ps.length ? '<h3 class="gal-h">Evidence viewer</h3><div id="evHost"></div>' : "";
-    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence();
+    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody"));
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
@@ -232,13 +233,22 @@
         c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k); c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
         URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.85)); };
       img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("Unreadable image")); }; img.src = url; }); }
-  $("#pFile").addEventListener("change", async e => { const tag = $("#pTag").value;
-    for (const f of e.target.files) { try { photos.push({ name: f.name, tag, src: await stripExif(f) }); } catch { toast("Could not read " + f.name); } }
-    e.target.value = ""; drawThumbs(); if (photos.length) $("[data-err=photos]").textContent = ""; });
-  function drawThumbs() {
+  async function addPhotos(files, tag) { for (const f of files) { try { photos.push({ name: f.name, tag, src: await stripExif(f) }); } catch { toast("Could not read " + f.name); } }
+    drawThumbs(); if (photos.length) $("[data-err=photos]").textContent = ""; }
+  $("#pFile").addEventListener("change", async e => { await addPhotos([...e.target.files], $("#pTag").value); e.target.value = ""; });
+  const SHOTS = () => { const k = F().category.value || "artifact"; return [["front", "Front", "Straight down, whole piece in frame"], ["back", "Back", "Flip it over, same distance"], ["edge", "Edge / profile", "Side-on to show thickness"], ["scale", "With ruler / scale", "Ruler flat beside the piece"], ["base", k === "artifact" ? "Close-up of base / stem" : "Close-up of key feature", k === "artifact" ? "Fill the frame with the base and stem edges" : k === "fossil" ? "Sutures, ribs, hinge or star pattern" : "Fresh surface, banding or crystals"]]; };
+  function drawShots() { const s = SHOTS(), done = s.filter(([t]) => photos.some(p => p.tag === t)).length;
+    $("#shotList").innerHTML = `<div class="shot-prog" role="progressbar" aria-valuemin="0" aria-valuemax="${s.length}" aria-valuenow="${done}" aria-label="Recommended shots"><strong>${done} of ${s.length}</strong> recommended shots<span class="bar"><i style="width:${done / s.length * 100}%"></i></span></div>
+      <ol class="shots">${s.map(([t, l, h]) => { const ok = photos.some(p => p.tag === t); return `<li class="${ok ? "ok" : ""}"><span class="shot-st" aria-hidden="true">${ok ? "✓" : "○"}</span><span class="shot-t"><strong>${l}</strong><span>${h}</span></span><label class="btn ${ok ? "" : "primary"} shot-btn">📷 ${ok ? "Retake" : "Take"}<input type="file" accept="image/*" capture="environment" data-shot="${t}" class="sr-only" aria-label="Take ${l} photo"></label></li>`; }).join("")}</ol>`; }
+  $("#shotList").addEventListener("change", async e => { const t = e.target.dataset.shot; if (!t) return; await addPhotos([...e.target.files], t); e.target.value = ""; });
+  $("#gpsBtn").onclick = () => { if (!navigator.geolocation) return toast("Location isn't available on this device");
+    $("#gpsMsg").textContent = "Getting location…"; navigator.geolocation.getCurrentPosition(p => { const { latitude: la, longitude: lo, accuracy: a } = p.coords;
+      F().find_location_private.value = `${la.toFixed(6)}, ${lo.toFixed(6)} (±${Math.round(a)} m)`; F().location_sharing.value = "Private"; $("#gpsMsg").textContent = "Saved to the private location field only. It is never shown publicly."; },
+      err => { $("#gpsMsg").textContent = "Couldn't get location: " + err.message; }, { enableHighAccuracy: true, timeout: 15000 }); };
+  function drawThumbs() { if ($("#shotList")) drawShots();
     $("#thumbs").innerHTML = photos.map((p, i) => `<div class="thumb"><img src="${p.src}" alt="Photo ${i + 1}, ${esc(p.tag)} view"><label><span class="sr-only">View tag for photo ${i + 1}</span><select data-i="${i}">${["front", "back", "edge", "base", "scale"].map(t => `<option ${t === p.tag ? "selected" : ""}>${t}</option>`).join("")}</select></label><button type="button" data-rm="${i}">Remove</button></div>`).join("") || '<p class="help">No photos yet.</p>';
   }
-  $("#thumbs").addEventListener("change", e => { if (e.target.dataset.i) photos[e.target.dataset.i].tag = e.target.value; });
+  $("#thumbs").addEventListener("change", e => { if (e.target.dataset.i) { photos[e.target.dataset.i].tag = e.target.value; drawShots(); } });
   $("#thumbs").addEventListener("click", e => { if (e.target.dataset.rm) { photos.splice(+e.target.dataset.rm, 1); drawThumbs(); } });
   const F = () => $("#wizard").elements;
   function validate(i) {
@@ -283,6 +293,7 @@
   $("#next").onclick = () => { if (validate(step)) { showStep(step + 1); $(".step:not([hidden]) legend").scrollIntoView({ block: "nearest" }); } };
   $("#prev").onclick = () => showStep(Math.max(0, step - 1));
   $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 5; i++) if (!validate(i)) return showStep(i);
+    if (window.Features && !Features.canAddFind(all)) { toast("Free plan limit reached. Become a Supporter for unlimited finds."); location.hash = "#/pricing"; return; }
     const o = collect(); try { await DB.put(o); } catch (err) { return toast("Could not save: " + err.message); }
     local = await DB.all(); refresh(); resetWizard(); toast(o.catalog_id + " saved"); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id); };
   function resetWizard() { $("#wizard").reset(); photos = []; wizHist = []; wizKept = ""; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
@@ -294,13 +305,17 @@
   function renderModel() { $("#modelPanel").innerHTML = Analysis.panelHtml();
     $("#exLearn").onclick = () => download("learned-examples.json", Analysis.exportJSON(), "application/json");
     $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
-  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people"].includes(v) ? v : "catalog";
+  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c"].includes(v) ? v : v === "find" ? "catalog" : "catalog";
+    const param = (location.hash.match(/^#\/\w+\/([\w-]+)/) || [])[1];
+    if (v === "find" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
     if (view === "about" && window.Analysis) renderModel();
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land" }[view] + " — Rolling Oak Catalog"; }
-  window.addEventListener("hashchange", () => { if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
+    if (window.Features) Features.render(view, param);
+    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection" }[view] + " — Rolling Oak Catalog"; }
+  window.addEventListener("hashchange", () => { if (/^#\/find\//.test(location.hash)) { const id = location.hash.split("/")[2]; route(); if (!current || current.catalog_id !== id) openModal(id); return; }
+    if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀" : "☾"; try { localStorage.setItem("elgin-theme", t); } catch {} }
   $("#themeToggle").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
   function toast(m) { const t = document.createElement("div"); t.textContent = m; t.setAttribute("role", "status");
@@ -308,6 +323,11 @@
     document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
   ["#q", "#fStatus", "#fCat", "#fConf"].forEach(s => $(s).addEventListener("input", renderGrid));
 
+  /* ---------- API for features.js ---------- */
+  window.App = { get all() { return all; }, get current() { return current; }, openModal, closeModal, kindOf, KINDS, eraOf, marksFor, pics, esc, toast, stripExif, download, refresh, route,
+    async patch(id, obj) { const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }), ...obj }; await DB.put(o); local = await DB.all(); refresh(); if (current && current.catalog_id === id) { current = all.find(x => x.catalog_id === id); } },
+    async saveMarks(id, i, list) { const r = all.find(x => x.catalog_id === id), o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) }; o.photo_annotations = { ...(r.photo_annotations || {}), [i]: list }; await DB.put(o); local = await DB.all(); refresh(); if (current && current.catalog_id === id) current = all.find(x => x.catalog_id === id); },
+    reselect() { if (current) selectTab(tab); } };
   /* ---------- sign-in UI ---------- */
   function renderAuth() { if (!window.Cloud) return; const s = Cloud.state(), b = $("#authBtn"), pill = $("#syncPill");
     pill.textContent = s.online ? (s.user ? "☁ Synced" : "☁ Cloud") : "Offline copy"; pill.title = s.online ? "Reading from the shared Supabase catalog" : "Using the built-in catalog.json and this browser's storage";
@@ -343,6 +363,8 @@
     renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route();
-    const m = location.hash.match(/^#\/find\/(ELG-\d+)/); if (m) { location.hash = "#/catalog"; openModal(m[1]); }
+    const m = location.hash.match(/^#\/find\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
+    if (window.Cloud && Cloud.state().user) Cloud.acceptInvites().then(n => n && toast(`Joined ${n} shared collection${n > 1 ? "s" : ""}`));
+    if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js").catch(() => {});
   })();
 })();

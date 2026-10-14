@@ -36,9 +36,15 @@
       <a href="#/people" data-route="people">People &amp; land</a>
       <a href="#/add" data-route="add">Add find</a>
       <a href="#/about" data-route="about">About &amp; methods</a>
+      <a href="#/map" data-route="map" class="needs-editor" hidden>Map</a>
+      <a href="#/labels" data-route="labels">Labels</a>
+      <a href="#/members" data-route="members" class="needs-user" hidden>Members</a>
+      <a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a>
+      <a href="#/pricing" data-route="pricing">Membership</a>
     </nav>
     <span class="sync-pill" id="syncPill" role="status">Offline copy</span>
     <button id="authBtn" class="btn ghost" hidden>Sign in</button>
+    <button id="installBtn" class="btn ghost" hidden>⤓ Add to home screen</button>
     <button id="themeToggle" class="btn ghost icon" aria-pressed="false" aria-label="Toggle dark mode">☾</button>
   </div>
 </header>
@@ -95,12 +101,16 @@
         <p class="err" data-err="kind"></p>
       </fieldset>
       <fieldset class="step" data-step="1" hidden><legend>Photos</legend>
+        <div id="shotList" class="shot-list" aria-label="Guided shot list"></div>
+        <p class="help install-hint" id="installHint" hidden></p>
+        <details class="more-photos"><summary>Add other photos from your library</summary>
         <div class="tip">📏 <strong>Scale reminder:</strong> lay a ruler or scale bar beside the piece in every photo, shoot straight down, and include front, back, edge and base views.</div>
         <div class="row">
           <label class="field"><span>View tag for next photos</span><select id="pTag"><option>front</option><option>back</option><option>edge</option><option>base</option><option>scale</option></select></label>
           <label class="field grow"><span>Choose photos <em class="req">*</em></span><input type="file" id="pFile" accept="image/*" multiple aria-describedby="pHelp"></label>
         </div>
         <p id="pHelp" class="help">Location data (EXIF/GPS) is removed: each photo is re-drawn through a canvas before it is stored.</p>
+        </details>
         <div class="thumbs" id="thumbs"></div>
         <p class="err" data-err="photos"></p>
       </fieldset>
@@ -149,6 +159,8 @@
             <label class="field"><span>Sharing level</span><select name="location_sharing"><option>Private</option><option>County</option><option>Fuzzed ~10 km</option></select></label>
             <label class="field grow"><span>Property area / GPS (owner only)</span><input name="find_location_private" placeholder="e.g. creek bank, north field"></label>
           </div>
+          <div class="cap-host" id="wizCapture"></div>
+          <button type="button" id="gpsBtn" hidden>legacy</button><p id="gpsMsg" hidden></p>
           <label class="check"><input type="checkbox" name="landowner_permission" required> I had landowner permission (private land) <em class="req">*</em></label>
           <label class="check"><input type="checkbox" name="public_land"> Found on public land</label>
           <p class="help">Collecting on state or federal land is restricted or illegal; entries flagged as public land can’t be saved. If you encounter human remains or burial items, stop and contact the Texas Historical Commission.</p>
@@ -257,6 +269,35 @@
       <li>Your additions are stored only in your browser (IndexedDB); nothing is uploaded.</li>
     </ul>
   </section>
+  <!-- MAP (owners/editors only) -->
+  <section id="view-map" class="view" aria-labelledby="map-h" hidden>
+    <p class="kicker">Private</p><h1 id="map-h">Find map</h1>
+    <div id="mapGate"></div>
+    <div id="mapUi" hidden>
+      <div class="toolbar"><label class="field"><span class="sr-only">Category</span><select id="mapCat"><option value="">All categories</option><option value="artifact">Artifacts</option><option value="fossil">Fossils</option><option value="rock">Rocks &amp; Minerals</option></select></label>
+        <label class="field"><span class="sr-only">Era</span><select id="mapEra"><option value="">All eras</option></select></label><label class="check"><input type="checkbox" id="mapCluster" checked> Cluster pins</label><span class="muted" id="mapCount"></span></div>
+      <div id="findMap" class="find-map" role="region" aria-label="Map of private find locations"></div>
+      <p class="help">🔒 Only collection owners and editors can see this map. Pins come from the owner-only locations table and are never published.</p>
+    </div>
+  </section>
+  <!-- LABELS -->
+  <section id="view-labels" class="view" aria-labelledby="lab-h" hidden>
+    <div class="no-print"><p class="kicker">Print</p><h1 id="lab-h">QR labels</h1>
+    <p class="lede">Print labels for specimen bags, trays or tags. Each QR code opens that find's public page.</p>
+    <div class="toolbar"><label class="field"><span>Format</span><select id="labFmt"><option value="avery5160">Avery 5160 / 8160 (2⅝″ × 1″, 30 per sheet)</option><option value="tag">Small tag (1½″ × ¾″, 60 per sheet)</option></select></label>
+      <label class="field"><span>Skip first labels (partly used sheet)</span><input id="labSkip" type="number" min="0" max="59" value="0" inputmode="numeric"></label>
+      <div class="tool-btns"><button class="btn" id="labAll">Select all</button><button class="btn" id="labNone">Clear</button><button class="btn primary" id="labPrint">🖨 Print labels</button></div></div>
+    <div class="lab-pick" id="labPick"></div></div>
+    <div class="sheet-wrap"><div id="labSheet" class="sheet"></div></div>
+  </section>
+  <!-- PROFILE -->
+  <section id="view-profile" class="view" aria-labelledby="prof-h" hidden><h1 id="prof-h">Your profile</h1><div id="profileBody"></div></section>
+  <!-- MEMBERS -->
+  <section id="view-members" class="view" aria-labelledby="mem-h" hidden><p class="kicker">Shared editing</p><h1 id="mem-h">Collection members</h1><div id="membersBody"></div></section>
+  <!-- PUBLIC COLLECTION -->
+  <section id="view-c" class="view" aria-labelledby="col-h" hidden><div id="collectionBody"></div></section>
+  <!-- PRICING -->
+  <section id="view-pricing" class="view" aria-labelledby="price-h" hidden><div id="pricingBody"></div></section>
 </main>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
@@ -283,6 +324,7 @@
   <p id="authMsg" class="help" aria-live="polite"></p>
   <button type="button" class="btn" id="signOut" hidden>Sign out</button>
   <p class="help">🔒 Exact find locations are stored only in an owner-only table and are never shown publicly.</p></div></dialog>
+<dialog id="aiDlg" aria-labelledby="aiH"><div class="auth-card ai-card"><div class="modal-head"><h2 id="aiH">AI photo analysis</h2><button class="btn ghost icon" id="aiClose" aria-label="Close">✕</button></div><div id="aiBody"></div></div></dialog>
 <div id="printArea" aria-hidden="true"></div>
 <footer class="site-footer"><div class="wrap">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
@@ -290,6 +332,7 @@
 <script src="assets/js/cloud.js" defer></script>
 <script src="assets/js/analysis.js" defer></script>
 <script src="assets/js/marks.js" defer></script>
+<script src="assets/js/features.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 </body>
 </html>

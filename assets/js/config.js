@@ -3,5 +3,11 @@ window.ROLLING_OAK_CLOUD = {
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
   bucket: "find-photos",
-  timeoutMs: 6000
+  timeoutMs: 6000,
+  siteUrl: "https://mmcminn034.github.io/elgin-catalog/",
+  defaultCollection: { slug: "rolling-oak", name: "Rolling Oak", description: "Surface finds from private land near Elgin, Texas.", owner_name: "Mark McMinn" },
+  freeFindLimit: 50,
+  membershipPrice: "$10/year",
+  // Paste the Stripe Payment Link URL here once the Stripe account exists (see docs/membership.md):
+  stripePaymentLink: "STRIPE_PAYMENT_LINK_PLACEHOLDER"
 };
