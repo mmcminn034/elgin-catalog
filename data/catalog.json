@@ -2320,5 +2320,264 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-024",
+    "category": "fossil",
+    "object_type": "Silicified nodule with fossil coral or sponge",
+    "material": "Silicified limestone / chalcedony nodule with chalky crust",
+    "color": "Pale cream-buff crust with bluish-white chalcedony blebs",
+    "length_mm": "~110",
+    "width_mm": "~90",
+    "thickness_mm": null,
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": null,
+    "condition": "Whole nodule; weathered crust",
+    "condition_notes": "Crackled mosaic weathering on the back; chalky crust with chalcedony blebs.",
+    "key_features": "Round ~30 mm cup with thick finely textured rim and ridges that seem to radiate toward the centre (photos 3-4); two more oval cups with rough fibrous floors (photos 1-2); glassy bluish-white chalcedony blebs in a pale chalky crust (photos 3-7); crackled mosaic back from natural weathering (photo 5); no flake scars.",
+    "suggestion_1": "Silicified nodule with fossil coral or sponge (likely Cretaceous)",
+    "suggestion_2": "Chert nodule with natural solution cups",
+    "suggestion_3": "Geode-like concretion",
+    "confidence": "Moderate",
+    "era": "Likely Cretaceous (if fossil)",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with fossil coral or sponge, likely Cretaceous, Moderate (capped): a round cup about 30 mm across with a thick, finely textured rim and ridges that seem to radiate toward the centre (photos 3-4) fits a coral calice or a silicified sponge. Two more oval cups with rough fibrous floors (photos 1-2) may be smaller fossils or dissolution moulds. (2) Chert nodule with natural solution cups, Low-Moderate: dissolution can hollow out round cups without any fossil. (3) Geode-like concretion, Low.\n\nGlassy bluish-white chalcedony blebs in a pale chalky crust (photos 3-7) show silicification within limestone. The crackled mosaic on the back (photo 5) is natural weathering. There are no flake scars, so this is not an artifact.\n\nLocal context (general): Cretaceous limestones and marls of Central Texas contain silicified corals and sponges, and they wash into local gravels.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Coral or sponge? Next photos: 1) straight-down raking-light close-up of the ring cup (radiating septa = coral; a pore pattern = sponge), 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-024/01.jpg",
+        "thumb": "images/ELG-024/01_thumb.jpg",
+        "view": "front",
+        "label": "Top with two oval cups, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.55,
+              0.28,
+              0.1
+            ],
+            "label": "Oval cup with rough fibrous floor",
+            "explanation": "A smaller oval cup with a rough, fibrous floor. It may be another small fossil or a mould left where one dissolved. Natural solution pitting can also make cups, so this alone is not diagnostic.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cups"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.68,
+              0.5,
+              0.08
+            ],
+            "label": "Oval cup with rough fibrous floor",
+            "explanation": "A smaller oval cup with a rough, fibrous floor. It may be another small fossil or a mould left where one dissolved. Natural solution pitting can also make cups, so this alone is not diagnostic.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cups"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/02.jpg",
+        "thumb": "images/ELG-024/02_thumb.jpg",
+        "view": "front",
+        "label": "Oval cups, another angle",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.4,
+              0.3,
+              0.1
+            ],
+            "label": "Oval cup with rough fibrous floor",
+            "explanation": "A smaller oval cup with a rough, fibrous floor. It may be another small fossil or a mould left where one dissolved. Natural solution pitting can also make cups, so this alone is not diagnostic.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cups"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.55,
+              0.65,
+              0.1
+            ],
+            "label": "Oval cup with rough fibrous floor",
+            "explanation": "A smaller oval cup with a rough, fibrous floor. It may be another small fossil or a mould left where one dissolved. Natural solution pitting can also make cups, so this alone is not diagnostic.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cups"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/03.jpg",
+        "thumb": "images/ELG-024/03_thumb.jpg",
+        "view": "detail",
+        "label": "Ring cup and chalcedony blebs",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.74,
+              0.24,
+              0.1
+            ],
+            "label": "Round cup with thick textured rim (~30 mm)",
+            "explanation": "A round cup about 30 mm across with a thick, finely textured rim, and ridges that seem to radiate toward the centre. That fits the calice (cup) of a solitary coral or a silicified sponge. Radiating septa would mean coral; a pore pattern would mean sponge.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.5,
+              0.4,
+              0.85,
+              0.9
+            ],
+            "label": "Glassy bluish-white chalcedony blebs",
+            "explanation": "Glassy bluish-white chalcedony blebs inside a pale chalky crust show silica replacing limestone. That is how fossils in Cretaceous limestone often get preserved as silicified nodules.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/04.jpg",
+        "thumb": "images/ELG-024/04_thumb.jpg",
+        "view": "detail",
+        "label": "Ring cup, oblique",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.74,
+              0.2,
+              0.12
+            ],
+            "label": "Round cup with thick textured rim (~30 mm)",
+            "explanation": "A round cup about 30 mm across with a thick, finely textured rim, and ridges that seem to radiate toward the centre. That fits the calice (cup) of a solitary coral or a silicified sponge. Radiating septa would mean coral; a pore pattern would mean sponge.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.4,
+              0.3,
+              0.9,
+              0.7
+            ],
+            "label": "Glassy bluish-white chalcedony blebs",
+            "explanation": "Glassy bluish-white chalcedony blebs inside a pale chalky crust show silica replacing limestone. That is how fossils in Cretaceous limestone often get preserved as silicified nodules.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/05.jpg",
+        "thumb": "images/ELG-024/05_thumb.jpg",
+        "view": "back",
+        "label": "Back, crackled mosaic weathering",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.3,
+              0.15,
+              0.85,
+              0.95
+            ],
+            "label": "Crackled mosaic surface (natural weathering)",
+            "explanation": "A crackled, mosaic-like crust from natural weathering. There are no flake scars or worked edges, so this is not an artifact."
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.55,
+              0.4,
+              0.8,
+              0.7
+            ],
+            "label": "Glassy bluish-white chalcedony blebs",
+            "explanation": "Glassy bluish-white chalcedony blebs inside a pale chalky crust show silica replacing limestone. That is how fossils in Cretaceous limestone often get preserved as silicified nodules.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/06.jpg",
+        "thumb": "images/ELG-024/06_thumb.jpg",
+        "view": "edge",
+        "label": "Side view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.35,
+              0.05,
+              0.7,
+              0.55
+            ],
+            "label": "Glassy bluish-white chalcedony blebs",
+            "explanation": "Glassy bluish-white chalcedony blebs inside a pale chalky crust show silica replacing limestone. That is how fossils in Cretaceous limestone often get preserved as silicified nodules.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-024/07.jpg",
+        "thumb": "images/ELG-024/07_thumb.jpg",
+        "view": "edge",
+        "label": "Other side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.22,
+              0.0,
+              0.65,
+              0.5
+            ],
+            "label": "Glassy bluish-white chalcedony blebs",
+            "explanation": "Glassy bluish-white chalcedony blebs inside a pale chalky crust show silica replacing limestone. That is how fossils in Cretaceous limestone often get preserved as silicified nodules.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with fossil coral or sponge"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
