@@ -3292,5 +3292,151 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-029",
+    "category": "fossil",
+    "object_type": "Silicified nodule with possible fossil coral or sponge",
+    "material": "Silicified limestone / chert nodule",
+    "color": "Tan to orange-brown (iron staining)",
+    "length_mm": "~100",
+    "width_mm": "~80",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "condition": "Whole nodule; weathered",
+    "condition_notes": "Knobby weathered surface with pockets; tan-orange iron staining.",
+    "key_features": "Round ~25 mm cup with raised rim (photo 1), similar to ELG-024; knobby rounded bumps and pockets typical of nodules weathered from Cretaceous limestone, with tan-orange iron staining (photos 2-5); no flake scars.",
+    "suggestion_1": "Silicified nodule with possible fossil coral or sponge",
+    "suggestion_2": "Chert nodule with natural solution cavities",
+    "suggestion_3": "Limonite / iron concretion",
+    "confidence": "Moderate",
+    "era": "Likely Cretaceous (if fossil)",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with a possible fossil coral or sponge, Moderate (capped): photo 1 shows a round cup about 25 mm across with a raised rim. It is similar to the ring cup on ELG-024 and may be a silicified coral or sponge, or a mould left where one dissolved. (2) Chert nodule with natural solution cavities, Low-Moderate: knobby, rounded bumps and pockets (photos 2-5) are typical of nodules weathered from Cretaceous limestone, and dissolution alone can make cups. (3) Limonite / iron concretion, Low: there is tan-orange iron staining, but the form fits a silicified nodule better.\n\nNo flake scars, so this is not an artifact. Similar to ELG-024 (silicified nodule with fossil coral or sponge); comparing the two cups side by side may help.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Coral, sponge or dissolution cup? Next photos: 1) straight-down raking-light close-up of the ring cup (radiating septa = coral; a pore pattern = sponge), 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-029/01.jpg",
+        "thumb": "images/ELG-029/01_thumb.jpg",
+        "view": "front",
+        "label": "Round cup with raised rim, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.63,
+              0.42,
+              0.08
+            ],
+            "label": "Round cup with raised rim (~25 mm)",
+            "explanation": "A round cup about 25 mm across with a raised rim, similar to ELG-024. It may be a silicified coral calice or sponge, or a mould where one dissolved. Radiating septa would mean coral; a pore pattern would mean sponge.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified nodule with possible fossil coral or sponge"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-029/02.jpg",
+        "thumb": "images/ELG-029/02_thumb.jpg",
+        "view": "back",
+        "label": "Knobby surface",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.29,
+              0.14,
+              0.79,
+              0.75
+            ],
+            "label": "Knobby bumps and pockets, iron staining",
+            "explanation": "Knobby, rounded bumps and pockets with tan-orange iron staining, typical of nodules weathered out of Cretaceous limestone. There are no flake scars, so this is not an artifact.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cavities"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-029/03.jpg",
+        "thumb": "images/ELG-029/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side, knobby surface",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.34,
+              0.21,
+              0.82,
+              0.93
+            ],
+            "label": "Knobby bumps and pockets, iron staining",
+            "explanation": "Knobby, rounded bumps and pockets with tan-orange iron staining, typical of nodules weathered out of Cretaceous limestone. There are no flake scars, so this is not an artifact.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cavities"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-029/04.jpg",
+        "thumb": "images/ELG-029/04_thumb.jpg",
+        "view": "edge",
+        "label": "Side with pocket",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.32,
+              0.23,
+              0.8,
+              0.96
+            ],
+            "label": "Knobby bumps and pockets, iron staining",
+            "explanation": "Knobby, rounded bumps and pockets with tan-orange iron staining, typical of nodules weathered out of Cretaceous limestone. There are no flake scars, so this is not an artifact.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cavities"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-029/05.jpg",
+        "thumb": "images/ELG-029/05_thumb.jpg",
+        "view": "base",
+        "label": "Underside, bumps and pockets",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.15,
+              0.15,
+              0.63,
+              0.93
+            ],
+            "label": "Knobby bumps and pockets, iron staining",
+            "explanation": "Knobby, rounded bumps and pockets with tan-orange iron staining, typical of nodules weathered out of Cretaceous limestone. There are no flake scars, so this is not an artifact.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert nodule with natural solution cavities"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
