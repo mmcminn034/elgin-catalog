@@ -5,7 +5,7 @@
 (() => {
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, PRIVATE = "find_location_private";
-  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept"];
+  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region"];
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
   let sb = null, user = null, online = false, listeners = [];
   const emit = () => listeners.forEach(f => { try { f(state()); } catch {} });
@@ -43,7 +43,7 @@
   }
   async function loadExamples() {
     if (!sb || !online) return null;
-    try { const { data, error } = await withTimeout(sb.from("verified_examples").select("*")); return error ? null : data.map(e => ({ catalog_id: e.catalog_id, category: e.category, confirmed_type: e.confirmed_type, type_ids: e.type_ids || [], features: e.features, length_mm: e.length_mm, material: e.material, confirmed_on: e.confirmed_on, source: (e.source || "") + " (shared)" })); } catch { return null; }
+    try { const { data, error } = await withTimeout(sb.from("verified_examples").select("*")); return error ? null : data.map(e => ({ catalog_id: e.catalog_id, category: e.category, confirmed_type: e.confirmed_type, type_ids: e.type_ids || [], features: e.features, length_mm: e.length_mm, material: e.material, region: e.region, era: e.era, notes: e.notes, photo_ids: e.photo_ids || [], confirmed_on: e.confirmed_on, source: (e.source || "") + " (shared)" })); } catch { return null; }
   }
   const dataUrlToBlob = async u => (await fetch(u)).blob();
   /* Push one merged record. Returns {ok, msg}. */
@@ -51,7 +51,7 @@
     if (MOCK) return { ok: !!user, msg: "mock" };
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
-      const row = { owner: user.id, is_public: rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); row.category = row.category || "artifact";
+      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); row.category = row.category || "artifact";
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
@@ -71,8 +71,13 @@
     } catch (e) { return { ok: false, msg: e.message }; }
   }
   async function deleteFind(id) { if (!sb || !online || !user) return; try { await sb.from("finds").delete().eq("catalog_id", id); } catch {} }
-  async function pushExample(e) { if (!sb || !online || !user || !e) return; try { await sb.from("verified_examples").upsert({ ...e, owner: user.id, is_public: true }, { onConflict: "catalog_id" }); } catch {} }
+  async function pushExample(e) { if (!sb || !online || !user || !e) return; try { await sb.from("verified_examples").upsert({ ...e, owner: user.id, verified_by: user.id, is_public: e.is_public !== false }, { onConflict: "catalog_id" }); } catch {} }
   async function forgetExample(id) { if (!sb || !online || !user) return; try { await sb.from("verified_examples").delete().eq("catalog_id", id); } catch {} }
+  /* Stage 1: feedback, accuracy, visibility */
+  async function addFeedback(row) { if (MOCK) { (MOCK.feedback = MOCK.feedback || []).push(row); return {}; } if (!sb || !user) return { error: "offline" };
+    const { created_at, ...r } = row; return q(sb.from("feedback").insert({ ...r, user_id: user.id })); }
+  async function typeAccuracy() { if (MOCK) return MOCK.accuracy || null; if (!sb) return null; const r = await q(sb.rpc("type_accuracy")); return r.error ? null : r.data; }
+  async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
   const parseLatLon = t => { const m = String(t || "").match(/(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/); return m ? [+m[1], +m[2]] : null; };
   /* ---------- collections, profiles, sharing, membership, AI ---------- */
   const q = async p => { try { const { data, error } = await withTimeout(p); return error ? { error: error.message } : { data }; } catch (e) { return { error: e.message }; } };
@@ -113,5 +118,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

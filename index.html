@@ -169,7 +169,7 @@
       </fieldset>
       <fieldset class="step" data-step="4" hidden><legend>AI analysis <span class="muted">(research suggestions, not identifications)</span></legend>
         <p class="tip" id="aiGuide"></p>
-        <div class="suggest-box"><button type="button" class="btn" id="suggestBtn">🧠 Suggest from my notes</button><span class="help">Scores reference types against what you entered, plus your verified examples.</span><div id="wizSuggest" aria-live="polite"></div></div>
+        <div class="suggest-box"><button type="button" class="btn" id="suggestBtn">🧠 Suggest from my notes</button><span class="help">Scores reference types against what you entered, plus your verified examples.</span><div id="wizSuggest" aria-live="polite"></div><div id="wizSimilar"></div></div>
         <div id="wizBanner" aria-live="polite"></div>
         <p class="help">Ranked possibilities only. Never record a definitive identification, authenticity or value.</p>
         <label class="field"><span id="s1">1. Most likely</span><input name="suggestion_1"></label>
@@ -259,6 +259,7 @@
       </ol>
       <p class="help">Verified examples live in this browser (IndexedDB). Export them as <code>learned-examples.json</code> and commit to <code>data/learned/</code> in the repo so every device starts from the same library.</p>
       <div id="modelPanel"></div>
+      <div id="learnPanel" class="learn-panel" aria-live="polite"></div>
     </div>
     <h2>GPS privacy summary</h2>
     <ul>
@@ -280,6 +281,9 @@
       <p class="help">🔒 Only collection owners and editors can see this map. Pins come from the owner-only locations table and are never published.</p>
     </div>
   </section>
+  <!-- PUBLIC FIND PAGE -->
+  <section id="view-find" class="view" aria-label="Find" hidden><div id="publicFind"></div></section>
+
   <!-- LABELS -->
   <section id="view-labels" class="view" aria-labelledby="lab-h" hidden>
     <div class="no-print"><p class="kicker">Print</p><h1 id="lab-h">QR labels</h1>
@@ -345,6 +349,8 @@
 <script src="assets/js/cloud.js" defer></script>
 <script src="assets/js/analysis.js" defer></script>
 <script src="assets/js/marks.js" defer></script>
+<script src="assets/js/retrieve.js" defer></script>
+<script src="assets/js/learning.js" defer></script>
 <script src="assets/js/features.js" defer></script>
 <script src="assets/js/auth-options.js" defer></script>
 <script src="assets/js/app.js" defer></script>

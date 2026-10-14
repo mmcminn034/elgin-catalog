@@ -26,11 +26,11 @@
       localEx = await idb("readonly", s => s.getAll()) || []; } catch { db = null; }
   }
   function typeIds(kind, label) { const l = String(label || "").toLowerCase(); return (KB[kind]?.types || []).filter(c => names(c).some(n => l.includes(n))).map(c => c.id); }
-  async function learn(r, kind, label, source) {
+  async function learn(r, kind, label, source, extra) {
     if (!label) return null;
     const e = { catalog_id: r.catalog_id, category: kind, confirmed_type: label, type_ids: typeIds(kind, label),
       features: [r.object_type, r.key_features, r.owner_observations, r.material].filter(Boolean).join(" "), length_mm: r.length_mm || "", material: r.material || "",
-      confirmed_on: new Date().toLocaleDateString("en-CA"), source };
+      confirmed_on: new Date().toLocaleDateString("en-CA"), source, ...(extra || {}) };
     await idb("readwrite", s => s.put(e)); localEx = await idb("readonly", s => s.getAll()) || [...localEx.filter(x => x.catalog_id !== e.catalog_id), e]; return e;
   }
   async function forget(id) { await idb("readwrite", s => s.delete(id)); localEx = await idb("readonly", s => s.getAll()) || []; }

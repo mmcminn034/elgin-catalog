@@ -185,7 +185,7 @@
     body.innerHTML = '<p class="help" role="status">🤖 Analyzing photos… this can take 20–40 seconds.</p>';
     const KB = Analysis.kb()[kind] || {}, payload = { catalog_id: r.catalog_id, kind, photos: ps.map(p => ({ url: new URL(p.src, C.siteUrl || location.href).href, label: p.label })),
       record: { object_type: r.object_type, material: r.material, key_features: r.key_features, owner_observations: r.owner_observations, length_mm: r.length_mm, measure_method: r.measure_method },
-      kb: (KB.types || []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: t.traits, length_mm: t.length_mm })), checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind) };
+      kb: (KB.types || []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: t.traits, length_mm: t.length_mm })), checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind), similar: window.Learn ? Learn.similar(r, 3).map(x => ({ catalog_id: x.example.catalog_id, confirmed_type: x.example.confirmed_type, why: x.why })) : [], region: window.Learn ? Learn.regionOf(r) : "" };
     const res = await Cloud.analyze(payload);
     if (res.error) { body.innerHTML = `<p class="err">AI analysis isn't available: ${esc(res.error)}</p>`; return; }
     const out = res.data.result || res.data, marksBy = new Map((out.marks || []).map(m => [m.photo_index, m.marks || []]));
@@ -194,9 +194,15 @@
       ${[...marksBy].map(([pi, ms]) => { const p = ps[pi]; if (!p) return ""; return `<h3>Suggested marks · ${esc(p.label)}</h3><div class="ai-photo"><div class="mk-wrap" data-pi="${pi}"><img src="${esc(p.src)}" alt="${esc(p.label)}"></div>
         <ol class="ai-marks">${ms.map((m, k) => `<li><label class="check"><input type="checkbox" data-mk="${pi}:${k}" checked> <span class="mk-n">${k + 1}</span></label><input class="ai-lbl" data-lbl="${pi}:${k}" value="${esc(m.label)}" aria-label="Label for mark ${k + 1}"><p class="help">${esc(m.explanation)}</p></li>`).join("")}</ol></div>`; }).join("")}
       ${(out.gaps || []).length ? `<h3>What would help</h3><ul>${out.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
+      ${out.measurements && (out.measurements.length_mm || out.measurements.note) ? `<h3>Measurements from the scale photo</h3><p>${["length_mm", "width_mm", "thickness_mm"].filter(k => out.measurements[k]).map(k => `${k.split("_")[0]} ≈ ${esc(out.measurements[k])} mm`).join(" · ") || "Not measurable"} ${out.measurements.note ? `<span class="muted">${esc(out.measurements.note)}</span>` : ""}</p><p class="help">Approximate: read from the photo, not a caliper.</p>` : ""}
+      ${(out.next_photos || []).length ? `<h3>Next photos to take</h3><ul>${out.next_photos.map(g => `<li>📷 ${esc(g)}</li>`).join("")}</ul>` : ""}
+      ${(out.alternatives || []).length ? `<p class="muted"><strong>Also consider:</strong> ${out.alternatives.map(esc).join(", ")}</p>` : ""}
+      ${(out.similar_used || []).length ? `<p class="help">Compared against verified references: ${out.similar_used.map(x => esc(x.catalog_id + " " + x.confirmed_type)).join(", ")}</p>` : ""}
+      <div id="aiFb"></div>
       <div class="row"><button type="button" class="btn primary" id="aiAccept">Accept selected</button><button type="button" class="btn" id="aiDiscard">Discard</button></div>`;
     for (const [pi, ms] of marksBy) { const w = body.querySelector(`.mk-wrap[data-pi="${pi}"]`); if (w) Marks.overlay(w, w.querySelector("img"), ms, true); }
     $("#aiDiscard").onclick = () => dlg.close();
+    if (window.Learn && (out.candidates || []).length) Learn.feedbackBox($("#aiFb"), r, out.candidates[0].name, "ai");
     $("#aiAccept").onclick = async () => {
       const cands = (out.candidates || []).filter((_, k) => body.querySelector(`[data-cand="${k}"]`).checked), patch = {};
       if (cands.length) { cands.slice(0, 3).forEach((c, k) => patch["suggestion_" + (k + 1)] = c.name); patch.confidence = cands[0].confidence;
@@ -219,5 +225,5 @@
   async function render(view, param) { await init(); nav();
     if (view === "map") renderMap(); if (view === "labels") renderLabels(); if (view === "profile") renderProfile(); if (view === "members") renderMembers(); if (view === "c") renderCollection(param); if (view === "pricing") renderPricing();
     if (view === "add") { const inp = document.querySelector('#wizard [name="find_location_private"]'), h = $("#wizCapture"); if (h && !h.dataset.on) { h.dataset.on = 1; captureWidget(h, inp); } } }
-  window.Features = { render, decorate, canAddFind, captureWidget, isMember: () => isMember(), reset() { ready = null; } };
+  window.Features = { isEditor, render, decorate, canAddFind, captureWidget, isMember: () => isMember(), reset() { ready = null; } };
 })();

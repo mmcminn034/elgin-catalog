@@ -115,7 +115,7 @@
     $("#count").textContent = `Showing ${rows.length} of ${inKind().length} ${KINDS[kind].label.toLowerCase()}`;
     $("#grid").innerHTML = rows.length ? rows.map(r => `
       <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.object_type)}">
-        ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span></div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
+        ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span>${window.Learn && Learn.verified(r) ? '<span class="vbadge card-v">✓ Verified</span>' : ""}${window.Learn && Learn.vis(r) !== "public" ? `<span class="vis-chip">${Learn.vis(r) === "private" ? "🔒 Private" : "👥 Editors"}</span>` : ""}</div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
         <div class="card-top"><span class="era ${eraOf(r) === "Undetermined" ? "und" : ""}">${kindOf(r) === "rock" ? esc(KINDS.rock.label) : eraOf(r) === "Undetermined" ? (kindOf(r) === "fossil" ? "Period undetermined" : "Era undetermined") : esc(eraOf(r)) + " · tentative"}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
         <h3>${esc(r.object_type || "Uncategorized")}</h3>${kindOf(r) === "rock" && (r.hardness || r.luster) ? `<div class="meta">${r.hardness ? "Hardness " + esc(r.hardness) : ""}${r.luster ? " · " + esc(r.luster) + " luster" : ""}</div>` : ""}
         <div class="meta">${esc(r.material)}${r.color ? " · " + esc(r.color) : ""}</div>
@@ -134,9 +134,9 @@
     current = all.find(r => r.catalog_id === id); if (!current) return;
     lastFocus = document.activeElement; $("#mId").textContent = current.catalog_id; $("#mTitle").textContent = current.object_type || "Find";
     $("#modal").hidden = false; document.body.style.overflow = "hidden"; selectTab(0); $("#tab-0").focus();
-    if (location.hash !== "#/find/" + id) history.replaceState(null, "", "#/find/" + id);
+    if (location.hash !== "#/record/" + id) history.replaceState(null, "", "#/record/" + id);
   }
-  function closeModal() { if (/^#\/find\//.test(location.hash)) history.replaceState(null, "", "#/catalog"); $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
+  function closeModal() { if (/^#\/record\//.test(location.hash)) history.replaceState(null, "", "#/catalog"); $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
   function selectTab(i) {
     tab = i; $$(".tabs [role=tab]").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
@@ -156,7 +156,7 @@
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
     ][i]();
     const ev = i === 0 && ps.length ? '<h3 class="gal-h">Evidence viewer</h3><div id="evHost"></div>' : "";
-    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody"));
+    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody")); if (window.Learn) Learn.decorate(i, r, $("#mBody"));
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
@@ -300,21 +300,22 @@
 
   /* ---------- routing, theme, toast ---------- */
   $("#wizard").addEventListener("click", e => {
-    if (e.target.id === "suggestBtn") { const o = collect(); $("#wizSuggest").innerHTML = Analysis.suggestHtml(o, o.category); }
+    if (e.target.id === "suggestBtn") { const o = collect(); $("#wizSuggest").innerHTML = Analysis.suggestHtml(o, o.category); if (window.Learn) $("#wizSimilar").innerHTML = Learn.similarHtml({ ...o, catalog_id: o.catalog_id || "NEW" }); }
     if (e.target.id === "useSuggest") { const rk = Analysis.rank(collect(), collect().category); ["suggestion_1", "suggestion_2", "suggestion_3"].forEach((n, i) => F()[n].value = rk[i] ? rk[i].c.name : F()[n].value); wizBanner(); toast("Filled your 3 possibilities. Edit freely."); } });
   function renderModel() { $("#modelPanel").innerHTML = Analysis.panelHtml();
     $("#exLearn").onclick = () => download("learned-examples.json", Analysis.exportJSON(), "application/json");
     $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
-  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c"].includes(v) ? v : v === "find" ? "catalog" : "catalog";
+  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find"].includes(v) ? v : "catalog";
     const param = (location.hash.match(/^#\/\w+\/([\w-]+)/) || [])[1];
-    if (v === "find" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
+    if (v === "record" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
+    if (v === "find" && current) { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; }
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
-    if (view === "about" && window.Analysis) renderModel();
+    if (view === "about" && window.Analysis) { renderModel(); if (window.Learn) Learn.renderAbout(); }
     if (window.Features) Features.render(view, param);
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection" }[view] + " — Rolling Oak Catalog"; }
-  window.addEventListener("hashchange", () => { if (/^#\/find\//.test(location.hash)) { const id = location.hash.split("/")[2]; route(); if (!current || current.catalog_id !== id) openModal(id); return; }
+    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection", find: "Find" }[view] + " — Rolling Oak Catalog"; if (view === "find" && window.Learn) Learn.renderPublic(param); }
+  window.addEventListener("hashchange", () => { if (/^#\/record\//.test(location.hash)) { const id = location.hash.split("/")[2]; route(); if (!current || current.catalog_id !== id) openModal(id); return; }
     if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀" : "☾"; try { localStorage.setItem("elgin-theme", t); } catch {} }
   $("#themeToggle").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
@@ -363,7 +364,7 @@
     renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route();
-    const m = location.hash.match(/^#\/find\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
+    const m = location.hash.match(/^#\/record\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
     if (window.Cloud && Cloud.state().user) Cloud.acceptInvites().then(n => n && toast(`Joined ${n} shared collection${n > 1 ? "s" : ""}`));
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js").catch(() => {});
   })();
