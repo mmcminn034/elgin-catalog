@@ -1,7 +1,8 @@
 [
   {
     "catalog_id": "ELG-001",
-    "category": "Stemmed dart point",
+    "category": "artifact",
+    "object_type": "Stemmed dart point",
     "material": "Chert",
     "color": "Cream/white, tan-orange streaks, reddish tip",
     "length_mm": "80-85",
@@ -83,7 +84,8 @@
   },
   {
     "catalog_id": "ELG-002",
-    "category": "Corner-notched dart point",
+    "category": "artifact",
+    "object_type": "Corner-notched dart point",
     "material": "Chert (likely Edwards)",
     "color": "Gray-lavender, mottled",
     "length_mm": "60-70",
@@ -135,7 +137,8 @@
   },
   {
     "catalog_id": "ELG-003",
-    "category": "Triangular biface",
+    "category": "artifact",
+    "object_type": "Triangular biface",
     "material": "Chert",
     "color": "Pale cream-pink, tan mineral spots",
     "length_mm": "",
@@ -187,7 +190,8 @@
   },
   {
     "catalog_id": "ELG-004",
-    "category": "Small point",
+    "category": "artifact",
+    "object_type": "Small point",
     "material": "Chert",
     "color": "Blue-gray",
     "length_mm": "",
@@ -215,7 +219,8 @@
   },
   {
     "catalog_id": "ELG-005",
-    "category": "Large biface",
+    "category": "artifact",
+    "object_type": "Large biface",
     "material": "Chert",
     "color": "Cream-white",
     "length_mm": "",
@@ -243,7 +248,8 @@
   },
   {
     "catalog_id": "ELG-006",
-    "category": "Flake / flake tool",
+    "category": "artifact",
+    "object_type": "Flake / flake tool",
     "material": "Chert (likely Edwards)",
     "color": "Translucent gray-brown, white inclusions",
     "length_mm": "",
@@ -289,7 +295,8 @@
   },
   {
     "catalog_id": "ELG-007",
-    "category": "Pebble",
+    "category": "artifact",
+    "object_type": "Pebble",
     "material": "Quartzite or rose quartz?",
     "color": "Pink",
     "length_mm": "",
@@ -313,11 +320,13 @@
         "label": "Front view"
       }
     ],
-    "era": "Undetermined"
+    "era": "Undetermined",
+    "category_note": "Kept under Artifacts for now; likely a natural pebble and may move to Rocks & Minerals after review."
   },
   {
     "catalog_id": "ELG-008",
-    "category": "Core",
+    "category": "artifact",
+    "object_type": "Core",
     "material": "Chert",
     "color": "Translucent blue-gray, white speckles, cream cortex",
     "length_mm": "",
@@ -345,7 +354,8 @@
   },
   {
     "catalog_id": "ELG-009",
-    "category": "Biface fragment",
+    "category": "artifact",
+    "object_type": "Biface fragment",
     "material": "Chert",
     "color": "Pale pink-lavender, darker pink spots",
     "length_mm": "",
@@ -397,7 +407,8 @@
   },
   {
     "catalog_id": "ELG-010",
-    "category": "Biface fragment (tip section)",
+    "category": "artifact",
+    "object_type": "Biface fragment (tip section)",
     "material": "Chert",
     "color": "Cream-white, orange-brown staining, dark speckles",
     "length_mm": "",
@@ -449,7 +460,8 @@
   },
   {
     "catalog_id": "ELG-011",
-    "category": "Biface fragment (tip section), serrated",
+    "category": "artifact",
+    "object_type": "Biface fragment (tip section), serrated",
     "material": "Chert",
     "color": "Translucent blue-gray to lavender",
     "length_mm": "",
@@ -501,7 +513,8 @@
   },
   {
     "catalog_id": "ELG-012",
-    "category": "Flake tool / biface fragment",
+    "category": "artifact",
+    "object_type": "Flake tool / biface fragment",
     "material": "Chert",
     "color": "Pinkish-tan to gray",
     "length_mm": "",
@@ -553,7 +566,8 @@
   },
   {
     "catalog_id": "ELG-013",
-    "category": "Biface fragment (midsection/base)",
+    "category": "artifact",
+    "object_type": "Biface fragment (midsection/base)",
     "material": "Chert",
     "color": "Pale pink-cream",
     "length_mm": "",
@@ -605,7 +619,8 @@
   },
   {
     "catalog_id": "ELG-014",
-    "category": "Biface / flake tool",
+    "category": "artifact",
+    "object_type": "Biface / flake tool",
     "material": "Chert",
     "color": "Translucent gray-pink to lavender",
     "length_mm": "",

@@ -1,7 +1,7 @@
-/* Elgin Catalog — static app. Seed data: data/catalog.json. User additions/edits: IndexedDB (browser only). */
+/* Rolling Oak Catalog — static app. Seed data: data/catalog.json. User additions/edits: IndexedDB (browser only). */
 (() => {
   "use strict";
-  const COLS = ["catalog_id","category","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status"];
+  const COLS = ["catalog_id","category","object_type","geologic_period","formation","preservation","hardness","luster","streak","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status"];
   const PRIVATE = "find_location_private";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -20,9 +20,18 @@
 
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
-    local.forEach(r => m.set(r.catalog_id, { ...(m.get(r.catalog_id) || {}), ...r, _src: m.has(r.catalog_id) ? "edited" : "local" }));
+    local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => m.set(r.catalog_id, { ...(m.get(r.catalog_id) || {}), ...r, _src: m.has(r.catalog_id) ? "edited" : "local" }));
     all = [...m.values()].sort((a, b) => a.catalog_id.localeCompare(b.catalog_id, undefined, { numeric: true }));
   }
+  const KINDS = {
+    artifact: { label: "Artifacts", one: "artifact", icon: "◆", empty: "", guide: "Rank 1–3 possible types (e.g. Central Texas dart or arrow point types). Note base/stem shape, notching, grinding, flaking pattern and heat treatment." },
+    fossil: { label: "Fossils", one: "fossil", icon: "🐚", empty: "Central Texas sits on Cretaceous limestones and marls, so ammonites, echinoids (sea urchins), oysters like Exogyra and Ilymatogyra, and clams are common surface fossils.",
+      guide: "Rank 1–3 possible taxa (e.g. ammonite genus, echinoid, Exogyra oyster) with reasoning: shape, ribbing, suture pattern, coiling. Add a likely geologic period/formation only as a hypothesis." },
+    rock: { label: "Rocks & Minerals", one: "rock or mineral", icon: "💎", empty: "Log chert, flint, quartzite, calcite, pyrite nodules, geodes and more. Simple field tests (hardness, luster, streak) do most of the work.",
+      guide: "Rank 1–3 possible rock/mineral types. Chert vs flint: both microcrystalline quartz; ‘flint’ is often used for dark nodular chert. Quartzite is granular/sugary, with fractures cutting through grains. Hardness ~7 scratches glass." } };
+  const kindOf = r => { const c = String(r.category || "").toLowerCase(); return KINDS[c] ? c : "artifact"; };
+  let kind = "artifact";
+  const kindRows = r => { const k = kindOf(r); return k === "fossil" ? [["Geologic period", r.geologic_period], ["Formation", r.formation], ["Preservation", r.preservation]] : k === "rock" ? [["Hardness (Mohs)", r.hardness], ["Luster", r.luster], ["Streak", r.streak]] : []; };
   const nextId = () => "ELG-" + String(Math.max(0, ...all.map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0))) + 1).padStart(3, "0");
 
   /* ---------- helpers ---------- */
@@ -41,44 +50,60 @@
     { id: "Late Archaic", dates: "~2,500 BC–AD 700", text: "A long period with many dart point styles, including barbed and corner-notched forms. Cemeteries and wide trade networks are documented in the region." },
     { id: "Late Prehistoric", dates: "~AD 700–1600", text: "The bow and arrow arrived, bringing small arrow points. Later in this period, some groups also made pottery and hunted bison when herds moved into the region." },
     { id: "Historic", dates: "~AD 1600–present", text: "Spanish, Mexican and Anglo-American colonization brought profound disruption. Indigenous nations, including the Tonkawa, continue today." }];
-  const eraOf = r => { if (r.era && r.era !== "Undetermined") return r.era; const t = (r.suggestion_1 || "") + " " + (r.era || ""); const e = ERAS.find(x => t.includes(x.id)); return r.era === "Undetermined" ? "Undetermined" : (e ? e.id : "Undetermined"); };
+  const eraOf = r => { if (kindOf(r) === "fossil") return r.geologic_period ? (GEO.find(g => r.geologic_period.includes(g.id)) || {}).id || "Undetermined" : "Undetermined"; if (kindOf(r) === "rock") return "Undetermined"; if (r.era && r.era !== "Undetermined") return r.era; const t = (r.suggestion_1 || "") + " " + (r.era || ""); const e = ERAS.find(x => t.includes(x.id)); return r.era === "Undetermined" ? "Undetermined" : (e ? e.id : "Undetermined"); };
+  const GEO = [
+    { id: "Quaternary", dates: "~2.6 million years ago–present", text: "Ice Age and modern river terraces. Gravels along Central Texas creeks carry reworked older rocks and fossils, plus Pleistocene mammal bones in places." },
+    { id: "Paleogene", dates: "~66–23 million years ago", text: "East of the Balcones zone, Paleocene–Eocene sands and clays (e.g. the Midway and Wilcox groups near Elgin) hold marine shells, petrified wood and lignite." },
+    { id: "Cretaceous", dates: "~145–66 million years ago", text: "Shallow seas covered Central Texas. Limestones, chalks and marls (e.g. the Austin Chalk, Taylor and Navarro groups) yield ammonites, echinoids, Exogyra oysters, clams and shark teeth." }];
+  let tlMode = "human";
   function renderTimeline() {
-    const chip = (r, t = true) => { const p = pics(r)[0]; return `<button class="tl-find" data-id="${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : ""}<span><strong>${esc(r.catalog_id)}</strong><br><span class="muted">${esc(r.category)}</span>${t ? '<br><span class="tent">Tentative</span>' : ""}</span></button>`; };
-    $("#timeline").innerHTML = ERAS.map(e => { const fs = all.filter(r => eraOf(r) === e.id); return `<li class="tl-item"><div class="tl-dot" aria-hidden="true"></div><div class="tl-body"><h2>${e.id}</h2><p class="tl-dates">${e.dates}</p><p>${e.text}</p>${fs.length ? `<div class="tl-finds">${fs.map(chip).join("")}</div>` : ""}</div></li>`; }).join("");
-    $("#undetermined").innerHTML = all.filter(r => eraOf(r) === "Undetermined").map(r => chip(r, false)).join("");
+    $$(".tl-toggle button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === tlMode));
+    $("#tl-h").textContent = tlMode === "human" ? "13,000 years in Central Texas" : "Geologic deep time beneath Central Texas";
+    $("#tlLede").hidden = tlMode !== "human"; $("#tlLedeGeo").hidden = tlMode === "human";
+    const pool = all.filter(r => tlMode === "human" ? kindOf(r) === "artifact" : kindOf(r) === "fossil"), list = tlMode === "human" ? ERAS : GEO;
+    const chip = (r, t = true) => { const p = pics(r)[0]; return `<button class="tl-find" data-id="${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : ""}<span><strong>${esc(r.catalog_id)}</strong><br><span class="muted">${esc(r.object_type)}</span>${t ? '<br><span class="tent">Tentative</span>' : ""}</span></button>`; };
+    $("#timeline").innerHTML = list.map(e => { const fs = pool.filter(r => eraOf(r) === e.id); return `<li class="tl-item"><div class="tl-dot" aria-hidden="true"></div><div class="tl-body"><h2>${e.id}</h2><p class="tl-dates">${e.dates}</p><p>${e.text}</p>${fs.length ? `<div class="tl-finds">${fs.map(chip).join("")}</div>` : ""}</div></li>`; }).join("");
+    $("#undetermined").innerHTML = pool.filter(r => eraOf(r) === "Undetermined").map(r => chip(r, false)).join("") || '<p class="help">Nothing here yet.</p>';
   }
+  document.addEventListener("click", e => { const t = e.target.closest(".tl-toggle button"); if (t) { tlMode = t.dataset.mode; renderTimeline(); }
+  });
   document.addEventListener("click", e => { const b = e.target.closest(".tl-find"); if (b) openModal(b.dataset.id); });
+  $(".ctabs").addEventListener("click", e => { const b = e.target.closest(".ctab"); if (b) setKind(b.dataset.kind); });
+  $(".ctabs").addEventListener("keydown", e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!d) return; const ks = Object.keys(KINDS), n = ks[(ks.indexOf(kind) + d + 3) % 3]; setKind(n); $(`.ctab[data-kind=${n}]`).focus(); });
+  function setKind(k) { kind = k; $("#fCat").value = ""; renderStats(); renderGrid(); }
   const suggestions = r => [r.suggestion_1, r.suggestion_2, r.suggestion_3].filter(Boolean);
   const meter = c => `<div class="meter" aria-label="Confidence: ${esc(c || "not set")}"><span>Confidence</span><span class="bar"><i style="width:${confScore(c)}%"></i></span><span class="chip">${esc(c || "—")}</span></div>`;
 
   /* ---------- catalog view ---------- */
   function renderStats() {
-    const s = [["Total finds", all.length], ["Reviewed", all.filter(r => r.status === "Reviewed").length], ["Drafts", all.filter(r => r.status !== "Reviewed").length], ["Measured", all.filter(isMeasured).length]];
+    const ks = inKind(); $$(".ctab").forEach(b => { const n = all.filter(r => kindOf(r) === b.dataset.kind).length; b.setAttribute("aria-selected", b.dataset.kind === kind); b.tabIndex = b.dataset.kind === kind ? 0 : -1; b.querySelector(".n").textContent = n; });
+    const s = [[KINDS[kind].label, ks.length], ["Reviewed", ks.filter(r => r.status === "Reviewed").length], ["Drafts", ks.filter(r => r.status !== "Reviewed").length], ["Measured", ks.filter(isMeasured).length]];
     $("#stats").innerHTML = s.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
-    const cats = [...new Set(all.map(r => r.category).filter(Boolean))].sort(), fc = $("#fCat"), v = fc.value;
-    fc.innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option>${esc(c)}</option>`).join(""); fc.value = v;
+    const cats = [...new Set(ks.map(r => r.object_type).filter(Boolean))].sort(), fc = $("#fCat"), v = fc.value;
+    fc.innerHTML = '<option value="">All types</option>' + cats.map(c => `<option>${esc(c)}</option>`).join(""); fc.value = cats.includes(v) ? v : "";
     $("#catList").innerHTML = cats.map(c => `<option value="${esc(c)}">`).join("");
   }
+  const inKind = () => all.filter(r => kindOf(r) === kind);
   function filtered() {
     const q = $("#q").value.trim().toLowerCase(), st = $("#fStatus").value, ca = $("#fCat").value, co = $("#fConf").value;
-    return all.filter(r => (!st || (r.status || "Draft") === st) && (!ca || r.category === ca) && (!co || confBucket(r.confidence) === co)
+    return inKind().filter(r => (!st || (r.status || "Draft") === st) && (!ca || r.object_type === ca) && (!co || confBucket(r.confidence) === co)
       && (!q || COLS.some(c => String(r[c] || "").toLowerCase().includes(q))));
   }
   function renderGrid() {
     const rows = filtered();
-    $("#count").textContent = `Showing ${rows.length} of ${all.length} finds`;
+    $("#count").textContent = `Showing ${rows.length} of ${inKind().length} ${KINDS[kind].label.toLowerCase()}`;
     $("#grid").innerHTML = rows.length ? rows.map(r => `
-      <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.category)}">
+      <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.object_type)}">
         ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span></div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
-        <div class="card-top"><span class="era ${eraOf(r) === "Undetermined" ? "und" : ""}">${eraOf(r) === "Undetermined" ? "Era undetermined" : esc(eraOf(r)) + " · tentative"}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
-        <h3>${esc(r.category || "Uncategorized")}</h3>
+        <div class="card-top"><span class="era ${eraOf(r) === "Undetermined" ? "und" : ""}">${kindOf(r) === "rock" ? esc(KINDS.rock.label) : eraOf(r) === "Undetermined" ? (kindOf(r) === "fossil" ? "Period undetermined" : "Era undetermined") : esc(eraOf(r)) + " · tentative"}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
+        <h3>${esc(r.object_type || "Uncategorized")}</h3>${kindOf(r) === "rock" && (r.hardness || r.luster) ? `<div class="meta">${r.hardness ? "Hardness " + esc(r.hardness) : ""}${r.luster ? " · " + esc(r.luster) + " luster" : ""}</div>` : ""}
         <div class="meta">${esc(r.material)}${r.color ? " · " + esc(r.color) : ""}</div>
         <div class="meta">Size: ${size(r)}${r.measure_method ? ` <span class="chip">${esc(r.measure_method)}</span>` : ""}</div>
         ${suggestions(r).length ? `<ol>${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : ""}
         ${meter(r.confidence)}
         ${r.open_questions ? `<div class="oq"><strong>Open:</strong> ${esc(r.open_questions)}</div>` : ""}
         ${r._src !== "seed" ? `<span class="local">● ${r._src === "local" ? "Added in this browser" : "Edited in this browser"}</span>` : ""}
-      </button>`).join("") : '<p class="empty">No finds match these filters.</p>';
+      </button>`).join("") : inKind().length ? '<p class="empty">No finds match these filters.</p>' : `<div class="empty-state"><div class="es-icon" aria-hidden="true">${KINDS[kind].icon}</div><h3>No ${KINDS[kind].label.toLowerCase()} yet. Add the first one!</h3><p>${KINDS[kind].empty}</p><p class="help">Same honest process as artifacts: photos with a scale, measurements, then ranked possibilities with caveats, never a definitive ID or value.</p><a class="btn primary lg" href="#/add?kind=${kind}">Add the first ${KINDS[kind].one}</a></div>`;
   }
   const refresh = () => { merge(); renderStats(); renderGrid(); renderTimeline(); };
 
@@ -86,7 +111,7 @@
   let current = null, lastFocus = null, tab = 0;
   function openModal(id) {
     current = all.find(r => r.catalog_id === id); if (!current) return;
-    lastFocus = document.activeElement; $("#mId").textContent = current.catalog_id; $("#mTitle").textContent = current.category || "Find";
+    lastFocus = document.activeElement; $("#mId").textContent = current.catalog_id; $("#mTitle").textContent = current.object_type || "Find";
     $("#modal").hidden = false; document.body.style.overflow = "hidden"; selectTab(0); $("#tab-0").focus();
   }
   function closeModal() { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
@@ -95,9 +120,9 @@
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
     const ps = pics(r), photos = ps.length ? `<h3 class="gal-h">Photos (${ps.length})</h3><div class="photos">${ps.map((p, j) => `<figure><button type="button" class="ph" data-lb="${j}" aria-label="Enlarge ${esc(p.label)}"><img src="${esc(p.thumb)}" alt="${esc(r.catalog_id)} ${esc(p.label)}" loading="lazy"></button><figcaption>${esc(p.label)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos yet for this find.</p>`;
     const html = [
-      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Material", esc(r.material)], ["Color", esc(r.color)], ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
+      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
-      () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}${r.open_questions ? `<p class="oq" style="margin-top:12px"><strong>What would help:</strong> ${esc(r.open_questions)}</p>` : ""}`,
+      () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}${r.open_questions ? `<p class="oq" style="margin-top:12px"><strong>What would help:</strong> ${esc(r.open_questions)}</p>` : ""}`,
       () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
         <h3 class="gal-h">Measurements</h3><div class="row">${[["length_mm","Length (mm)"],["width_mm","Width (mm)"],["thickness_mm","Thickness (mm)"],["weight_g","Weight (g)"]].map(([k,l]) => `<label class="field"><span>${l}</span><input name="${k}" inputmode="decimal" value="${esc(r[k])}"></label>`).join("")}
         <label class="field"><span>Method</span><select name="measure_method">${[...new Set([r.measure_method || "Not measured", "Measured", "Estimated", "Not measured"])].map(o => `<option ${o === r.measure_method ? "selected" : ""}>${esc(o)}</option>`).join("")}</select></label></div>
@@ -136,8 +161,8 @@
   $("#grid").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openModal(c.dataset.id); });
 
   /* ---------- print ---------- */
-  $("#printBtn").onclick = () => { const r = current, rows = [["Category", r.category], ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
-    $("#printArea").innerHTML = `<div class="pc"><h1>${esc(r.catalog_id)} — ${esc(r.category)}</h1><p>Elgin Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${pics(r).slice(0, 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
+  $("#printBtn").onclick = () => { const r = current, rows = [["Collection", KINDS[kindOf(r)].label], ["Type", r.object_type], ...kindRows(r), ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
+    $("#printArea").innerHTML = `<div class="pc"><h1>${esc(r.catalog_id)} — ${esc(r.object_type)}</h1><p>Rolling Oak Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${pics(r).slice(0, 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
     window.print(); };
 
   /* ---------- export ---------- */
@@ -149,7 +174,7 @@
   $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("elgin_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
 
   /* ---------- wizard ---------- */
-  const STEPS = ["Photos", "Measurements", "Description", "AI analysis", "Review & save"];
+  const STEPS = ["Category", "Photos", "Measurements", "Description", "AI analysis", "Review & save"];
   let step = 0, photos = [];
   $("#steps").innerHTML = STEPS.map(s => `<li>${s}</li>`).join("");
   function stripExif(file) { // re-encode through canvas: drops all EXIF/GPS metadata
@@ -169,39 +194,48 @@
   const F = () => $("#wizard").elements;
   function validate(i) {
     const err = (k, m) => { const el = $(`[data-err=${k}]`); el.textContent = m; return !m; };
+    if (i === 0) return err("kind", F().category.value ? "" : "Choose what kind of find this is.");
+    i--;
     if (i === 0) return err("photos", photos.length ? "" : "Add at least one photo (with a scale in view).");
     if (i === 1) { const m = F().measure_method.value, nums = ["length_mm", "width_mm", "thickness_mm", "weight_g"].map(n => F()[n]);
       const bad = nums.find(n => n.value && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(n.value.trim()));
       if (bad) { bad.focus(); return err("measure", "Use numbers (e.g. 62 or 60-70)."); }
       if (m !== "Not measured" && !F().length_mm.value) { F().length_mm.focus(); return err("measure", "Enter at least a length, or choose “Not measured”."); }
       return err("measure", ""); }
-    if (i === 2) { for (const n of ["category", "material"]) if (!F()[n].value.trim()) { F()[n].focus(); return err("desc", "Category and material are required."); }
+    if (i === 2) { for (const n of ["object_type", "material"]) if (!F()[n].value.trim()) { F()[n].focus(); return err("desc", "Type and material are required."); }
       if (F().public_land.checked) return err("desc", "Finds from public land can’t be catalogued here. Collecting on public land is restricted or illegal.");
       if (!F().landowner_permission.checked) return err("desc", "Please confirm landowner permission.");
       return err("desc", ""); }
     return true;
   }
+  function applyKind() { const k = F().category.value || "artifact";
+    $$("[data-kind-only]").forEach(el => el.hidden = !el.dataset.kindOnly.split(" ").includes(k));
+    $("#aiGuide").textContent = KINDS[k].guide;
+    F().material.placeholder = { artifact: "Chert, quartzite…", fossil: "Calcite shell, pyrite mold, limestone…", rock: "Chert, calcite, quartz…" }[k];
+    F().object_type.placeholder = { artifact: "Dart point, biface, scraper…", fossil: "Ammonite, echinoid, oyster…", rock: "Nodule, geode, cobble…" }[k];
+    $("#s1").textContent = { artifact: "1. Most likely type", fossil: "1. Most likely taxon", rock: "1. Most likely rock / mineral" }[k]; }
+  $("#wizard").addEventListener("change", e => { if (e.target.name === "category") { applyKind(); $("[data-err=kind]").textContent = ""; } });
   function collect() { const o = { catalog_id: nextId(), photos }; for (const el of F()) if (el.name && el.type !== "radio" && el.type !== "checkbox") o[el.name] = el.value.trim();
-    o.measure_method = F().measure_method.value; o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; return o; }
+    o.measure_method = F().measure_method.value; o.category = F().category.value || "artifact"; $$("[data-kind-only]").forEach(el => { if (el.hidden) $$("[name]", el).forEach(x => delete o[x.name]); }); o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; return o; }
   function showStep(i) {
     step = i; $$(".step").forEach((s, j) => s.hidden = j !== i);
     $$("#steps li").forEach((li, j) => { li.className = j < i ? "done" : j === i ? "cur" : ""; j === i ? li.setAttribute("aria-current", "step") : li.removeAttribute("aria-current"); });
-    $("#prev").disabled = i === 0; $("#next").hidden = i === 4; $("#save").hidden = i !== 4;
-    if (i === 4) { const o = collect(); $("#summary").innerHTML = `<strong>${o.catalog_id}</strong> · ${esc(o.category)} · ${esc(o.material)}<br>${photos.length} photo(s), EXIF stripped · ${size(o)} (${esc(o.measure_method)})<br>Possibilities: ${esc(suggestions(o).join(" / ") || "none")} · Confidence: ${esc(o.confidence)}<br>🔒 Location: ${o[PRIVATE] ? "recorded, private" : "not recorded"} · Sharing: ${esc(o.location_sharing)}`; }
+    $("#prev").disabled = i === 0; $("#next").hidden = i === 5; $("#save").hidden = i !== 5;
+    if (i === 5) { const o = collect(); $("#summary").innerHTML = `<strong>${o.catalog_id}</strong> · ${esc(KINDS[o.category].label)} · ${esc(o.object_type)} · ${esc(o.material)}<br>${photos.length} photo(s), EXIF stripped · ${size(o)} (${esc(o.measure_method)})<br>Possibilities: ${esc(suggestions(o).join(" / ") || "none")} · Confidence: ${esc(o.confidence)}<br>🔒 Location: ${o[PRIVATE] ? "recorded, private" : "not recorded"} · Sharing: ${esc(o.location_sharing)}`; }
   }
   $("#next").onclick = () => { if (validate(step)) { showStep(step + 1); $(".step:not([hidden]) legend").scrollIntoView({ block: "nearest" }); } };
   $("#prev").onclick = () => showStep(Math.max(0, step - 1));
-  $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 4; i++) if (!validate(i)) return showStep(i);
+  $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 5; i++) if (!validate(i)) return showStep(i);
     const o = collect(); try { await DB.put(o); } catch (err) { return toast("Could not save: " + err.message); }
-    local = await DB.all(); refresh(); resetWizard(); toast(o.catalog_id + " saved"); location.hash = "#/catalog"; openModal(o.catalog_id); };
-  function resetWizard() { $("#wizard").reset(); photos = []; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); showStep(0); }
+    local = await DB.all(); refresh(); resetWizard(); toast(o.catalog_id + " saved"); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id); };
+  function resetWizard() { $("#wizard").reset(); photos = []; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
 
   /* ---------- routing, theme, toast ---------- */
   function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people"].includes(v) ? v : "catalog";
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-    if (view === "add") $("#newId").textContent = "New ID: " + nextId();
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land" }[view] + " — Elgin Catalog"; }
+    if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
+    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land" }[view] + " — Rolling Oak Catalog"; }
   window.addEventListener("hashchange", () => { if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀" : "☾"; try { localStorage.setItem("elgin-theme", t); } catch {} }
   $("#themeToggle").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
@@ -214,7 +248,7 @@
   (async () => {
     let saved; try { saved = localStorage.getItem("elgin-theme"); } catch {}
     setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
-    route(); drawThumbs(); showStep(0);
+    route(); drawThumbs(); applyKind(); showStep(0);
     try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); seed = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
     catch { $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }

@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Elgin Catalog — Documenting Central Texas surface finds</title>
-<meta name="description" content="A personal research catalog of Central Texas surface finds. AI suggestions are possibilities, not identifications.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Cpath d=%22M8 0l6 8-6 8-6-8z%22 fill=%22%23E07A3F%22/%3E%3C/svg%3E">
+<title>Rolling Oak Catalog — Artifacts, fossils &amp; rocks of Elgin, Texas</title>
+<meta name="description" content="Rolling Oak Catalog: a research catalog of artifacts, fossils, rocks and minerals from Elgin, Texas. AI suggestions are possibilities, not identifications.">
+<meta property="og:title" content="Rolling Oak Catalog">
+<meta property="og:description" content="Documenting artifacts, fossils and rocks from Elgin, Texas, one find at a time.">
+<meta name="application-name" content="Rolling Oak Catalog">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ctitle%3ERolling Oak Catalog%3C/title%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%2316110D%22/%3E%3Ctext x=%2216%22 y=%2222%22 font-family=%22Georgia,serif%22 font-size=%2215%22 font-weight=%22700%22 text-anchor=%22middle%22 fill=%22%23E8A050%22%3ERO%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
@@ -15,9 +18,9 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#/catalog" aria-label="Elgin Catalog home">
+    <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home">
       <svg class="logo" aria-hidden="true" viewBox="0 0 32 32" width="30" height="30"><path d="M16 2 L25 13 L22 16 L26 21 L16 30 L6 21 L10 16 L7 13 Z" fill="currentColor"/><path d="M16 6 L12 13 M16 6 L20 13 M10 18 L16 24 L22 18" stroke="rgba(0,0,0,.25)" stroke-width="1.2" fill="none"/></svg>
-      <span><span class="brand-name">Elgin Catalog</span><span class="brand-sub">Documenting Central Texas surface finds</span></span>
+      <span><span class="brand-name">Rolling Oak Catalog</span><span class="brand-sub">Artifacts · Fossils · Rocks — Elgin, Texas</span></span>
     </a>
     <nav aria-label="Primary">
       <a href="#/catalog" data-route="catalog">Catalog</a>
@@ -37,20 +40,25 @@
     <div class="hero">
       <img class="hero-bg" src="images/ELG-001/01.jpg" alt="ELG-001, a long stemmed dart point of cream and tan chert, front view">
       <div class="hero-text">
-        <p class="kicker">Rolling Oak · Elgin, Texas</p>
-        <h1 id="cat-h">Elgin <span class="grad">Catalog</span></h1>
-        <p class="hero-sub">Documenting Central Texas surface finds, one stone at a time.</p>
+        <p class="kicker">Elgin, Texas</p>
+        <h1 id="cat-h">Rolling Oak <span class="grad">Catalog</span></h1>
+        <p class="hero-sub">Artifacts, fossils, rocks and minerals from Central Texas: documented carefully, one find at a time.</p>
         <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg glass" href="#/add">Add a find</a><a class="btn lg glass" href="#/timeline">Explore deep time</a></div>
       </div>
       <p class="hero-cap">ELG-001 · stemmed dart point, front view</p>
     </div>
     <div class="knap" aria-hidden="true"></div>
     <h2 class="sec-h" id="browse" tabindex="-1">The collection</h2>
+    <div class="ctabs" role="tablist" aria-label="Collections">
+      <button class="ctab" role="tab" data-kind="artifact" aria-selected="true" aria-controls="grid">◆ Artifacts <span class="n">0</span></button>
+      <button class="ctab" role="tab" data-kind="fossil" aria-selected="false" aria-controls="grid" tabindex="-1">🐚 Fossils <span class="n">0</span></button>
+      <button class="ctab" role="tab" data-kind="rock" aria-selected="false" aria-controls="grid" tabindex="-1">💎 Rocks &amp; Minerals <span class="n">0</span></button>
+    </div>
     <dl class="stats" id="stats"></dl>
     <div class="toolbar" role="search">
       <label class="field grow"><span class="sr-only">Search</span><input id="q" type="search" placeholder="Search ID, material, features, possibilities…"></label>
       <label class="field"><span class="sr-only">Status</span><select id="fStatus"><option value="">All statuses</option><option>Draft</option><option>Reviewed</option></select></label>
-      <label class="field"><span class="sr-only">Category</span><select id="fCat"><option value="">All categories</option></select></label>
+      <label class="field"><span class="sr-only">Type</span><select id="fCat"><option value="">All types</option></select></label>
       <label class="field"><span class="sr-only">Confidence</span><select id="fConf"><option value="">All confidence</option><option value="high">High</option><option value="moderate">Moderate</option><option value="low">Low</option></select></label>
       <div class="tool-btns">
         <button class="btn" id="exportCsv">Export CSV</button>
@@ -67,7 +75,16 @@
     <div class="view-head"><h1 id="add-h">Add a find</h1><span class="muted" id="newId"></span></div>
     <ol class="steps" id="steps" aria-label="Progress"></ol>
     <form id="wizard" novalidate>
-      <fieldset class="step" data-step="0"><legend>Photos</legend>
+      <fieldset class="step" data-step="0"><legend>What did you find?</legend>
+        <div class="kind-pick" role="radiogroup" aria-label="Category">
+          <label><input type="radio" name="category" value="artifact"><span class="kp-i" aria-hidden="true">◆</span><strong>Artifact</strong><span>Points, tools, flakes, cores: anything shaped by people.</span></label>
+          <label><input type="radio" name="category" value="fossil"><span class="kp-i" aria-hidden="true">🐚</span><strong>Fossil</strong><span>Ammonites, echinoids, oysters, shells, bone, petrified wood.</span></label>
+          <label><input type="radio" name="category" value="rock"><span class="kp-i" aria-hidden="true">💎</span><strong>Rock or mineral</strong><span>Chert, flint, quartzite, calcite, geodes, nodules.</span></label>
+        </div>
+        <p class="help">Not sure? Pick your best guess and note your doubts. The record can be moved later.</p>
+        <p class="err" data-err="kind"></p>
+      </fieldset>
+      <fieldset class="step" data-step="1" hidden><legend>Photos</legend>
         <div class="tip">📏 <strong>Scale reminder:</strong> lay a ruler or scale bar beside the piece in every photo, shoot straight down, and include front, back, edge and base views.</div>
         <div class="row">
           <label class="field"><span>View tag for next photos</span><select id="pTag"><option>front</option><option>back</option><option>edge</option><option>base</option><option>scale</option></select></label>
@@ -77,7 +94,7 @@
         <div class="thumbs" id="thumbs"></div>
         <p class="err" data-err="photos"></p>
       </fieldset>
-      <fieldset class="step" data-step="1" hidden><legend>Measurements</legend>
+      <fieldset class="step" data-step="2" hidden><legend>Measurements</legend>
         <div class="seg" role="radiogroup" aria-label="Measurement method">
           <label><input type="radio" name="measure_method" value="Measured" checked> Measured (caliper/ruler)</label>
           <label><input type="radio" name="measure_method" value="Estimated"> Estimated from photo</label>
@@ -91,14 +108,26 @@
         </div>
         <p class="err" data-err="measure"></p>
       </fieldset>
-      <fieldset class="step" data-step="2" hidden><legend>Description</legend>
+      <fieldset class="step" data-step="3" hidden><legend>Description</legend>
         <div class="row">
-          <label class="field"><span>Category <em class="req">*</em></span><input name="category" list="catList" required></label>
+          <label class="field"><span>Type <em class="req">*</em></span><input name="object_type" list="catList" required></label>
           <datalist id="catList"></datalist>
           <label class="field"><span>Material <em class="req">*</em></span><input name="material" required placeholder="Chert, quartzite…"></label>
           <label class="field"><span>Color</span><input name="color"></label>
           <label class="field"><span>Condition</span><select name="condition"><option>Complete</option><option>Fragment</option><option>Broken (snap)</option><option>Unknown</option></select></label>
         </div>
+        <div class="row" data-kind-only="fossil" hidden>
+          <label class="field"><span>Geologic period (guess)</span><select name="geologic_period"><option value="">Unknown</option><option>Cretaceous</option><option>Paleogene</option><option>Quaternary</option></select></label>
+          <label class="field grow"><span>Formation (guess)</span><input name="formation" placeholder="e.g. Austin Chalk, Taylor Group, Wilcox (if known)"></label>
+          <label class="field"><span>Preservation</span><select name="preservation"><option value="">Unknown</option><option>Original shell</option><option>Replaced (calcite/silica)</option><option>Internal mold (steinkern)</option><option>External mold / impression</option><option>Pyritized</option><option>Petrified (permineralized)</option></select></label>
+        </div>
+        <div class="tip" data-kind-only="fossil" hidden>🐚 <strong>Central Texas tips:</strong> coiled with wavy suture lines suggests an ammonite; a five-part star pattern on a round shell suggests an echinoid (sea urchin); a thick, curled, cap-like shell suggests an oyster such as <em>Exogyra</em>. Photograph sutures, ribbing and both sides.</div>
+        <div class="row" data-kind-only="rock" hidden>
+          <label class="field"><span>Hardness (Mohs)</span><select name="hardness"><option value="">Not tested</option><option>&lt;2.5 (fingernail scratches)</option><option>2.5–5.5 (steel scratches)</option><option>~5.5 (barely scratches glass)</option><option>6–7 (scratches glass)</option><option>&gt;7</option></select></label>
+          <label class="field"><span>Luster</span><select name="luster"><option value="">Not noted</option><option>Waxy</option><option>Glassy (vitreous)</option><option>Dull / earthy</option><option>Metallic</option><option>Sugary / granular</option><option>Pearly</option></select></label>
+          <label class="field"><span>Streak</span><input name="streak" placeholder="Color on unglazed tile"></label>
+        </div>
+        <div class="tip" data-kind-only="rock" hidden>💎 <strong>Chert vs flint vs quartzite:</strong> chert and flint are both microcrystalline quartz (waxy, shell-like fracture, scratch glass); “flint” usually means dark nodular chert. Quartzite is metamorphosed sandstone with a sugary, grainy surface that breaks through the grains.</div>
         <label class="field"><span>Key features</span><textarea name="key_features" rows="3"></textarea></label>
         <div class="row">
           <label class="field"><span>Date found</span><input type="date" name="date_found"></label>
@@ -108,7 +137,7 @@
           <div class="private-h">🔒 Location — private by default</div>
           <div class="row">
             <label class="field"><span>Sharing level</span><select name="location_sharing"><option>Private</option><option>County</option><option>Fuzzed ~10 km</option></select></label>
-            <label class="field grow"><span>Property area / GPS (owner only)</span><input name="find_location_private" placeholder="Rolling Oak - creek bank"></label>
+            <label class="field grow"><span>Property area / GPS (owner only)</span><input name="find_location_private" placeholder="e.g. creek bank, north field"></label>
           </div>
           <label class="check"><input type="checkbox" name="landowner_permission" required> I had landowner permission (private land) <em class="req">*</em></label>
           <label class="check"><input type="checkbox" name="public_land"> Found on public land</label>
@@ -116,8 +145,10 @@
         </div>
         <p class="err" data-err="desc"></p>
       </fieldset>
-      <fieldset class="step" data-step="3" hidden><legend>AI analysis <span class="muted">(research suggestions, not identifications)</span></legend>
-        <label class="field"><span>1. Most likely</span><input name="suggestion_1"></label>
+      <fieldset class="step" data-step="4" hidden><legend>AI analysis <span class="muted">(research suggestions, not identifications)</span></legend>
+        <p class="tip" id="aiGuide"></p>
+        <p class="help">Ranked possibilities only. Never record a definitive identification, authenticity or value.</p>
+        <label class="field"><span id="s1">1. Most likely</span><input name="suggestion_1"></label>
         <label class="field"><span>2. Alternative</span><input name="suggestion_2"></label>
         <label class="field"><span>3. Alternative</span><input name="suggestion_3"></label>
         <div class="row">
@@ -125,7 +156,7 @@
           <label class="field grow"><span>Missing info that would help</span><input name="open_questions" placeholder="Base close-up, weight…"></label>
         </div>
       </fieldset>
-      <fieldset class="step" data-step="4" hidden><legend>Review &amp; save</legend>
+      <fieldset class="step" data-step="5" hidden><legend>Review &amp; save</legend>
         <label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="3"></textarea></label>
         <label class="field"><span>Status</span><select name="status"><option>Draft</option><option>Reviewed</option></select></label>
         <div id="summary" class="summary"></div>
@@ -142,7 +173,9 @@
   <!-- TIMELINE -->
   <section id="view-timeline" class="view" aria-labelledby="tl-h" hidden>
     <p class="kicker">Deep time</p><h1 id="tl-h">13,000 years in Central Texas</h1>
-    <p class="lede">A simplified outline of the cultural periods archaeologists use for Central Texas. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
+    <div class="tl-toggle" role="group" aria-label="Timeline scale"><button type="button" class="btn" data-mode="human" aria-pressed="true">Human eras (artifacts)</button><button type="button" class="btn" data-mode="geo" aria-pressed="false">Geologic eras (fossils)</button></div>
+    <p class="lede" id="tlLedeGeo" hidden>Long before people arrived, Central Texas lay beneath shallow seas. These are simplified geologic periods for rocks near Elgin. Placement of fossils is a tentative hypothesis based on each record’s period guess.</p>
+    <p class="lede" id="tlLede">A simplified outline of the cultural periods archaeologists use for Central Texas. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
     <div class="knap" aria-hidden="true"></div>
     <ol class="timeline" id="timeline"></ol>
     <section class="undetermined" aria-labelledby="und-h"><h2 id="und-h">Undetermined</h2><p class="help">Finds without a period-diagnostic suggestion yet: fragments, flakes, cores and pieces still awaiting better photos or measurements.</p><div class="tl-finds" id="undetermined"></div></section>
@@ -174,7 +207,7 @@
   <!-- ABOUT -->
   <section id="view-about" class="view prose" aria-labelledby="about-h" hidden>
     <h1 id="about-h">About &amp; methods</h1>
-    <p>Elgin Catalog is a personal research record of surface finds from the Rolling Oak property near Elgin, Texas. Each entry documents material, measurements, photos and a short list of possible types, so the collection can be studied, corrected and, if the owner chooses, shared with researchers.</p>
+    <p>Rolling Oak Catalog is a personal research record of surface finds from private land near Elgin, Texas: artifacts, fossils, and rocks &amp; minerals. Each entry documents material, measurements, photos and a short list of possible identifications, so the collection can be studied, corrected and, if the owner chooses, shared with researchers.</p>
     <h2>Honest-AI principles</h2>
     <ul>
       <li><strong>Possibilities, not identifications.</strong> Suggestions are ranked options with a stated confidence level.</li>
@@ -219,7 +252,7 @@
 </div>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button class="btn icon lb-close" id="lbClose" aria-label="Close photo">✕</button><button class="btn icon lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">‹</button><figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure><button class="btn icon lb-nav lb-next" id="lbNext" aria-label="Next photo">›</button></div>
 <div id="printArea" aria-hidden="true"></div>
-<footer class="site-footer"><div class="wrap">© 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
+<footer class="site-footer"><div class="wrap">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="assets/js/app.js"></script>
 </body>
 </html>

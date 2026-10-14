@@ -269,3 +269,19 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--turq);bo
 @media (max-width:760px){.hero-cap{display:none}.timeline{padding-left:28px}.tl-dot,.tl-item:nth-child(even) .tl-dot{left:-37px}.tl-body{padding:14px 16px}}
 html,body{overflow-x:clip}[id]{scroll-margin-top:90px}
 #view-catalog:not([hidden])~*{}main>.view:not(#view-catalog){padding-top:28px}
+/* ---- Rolling Oak: collection tabs, kind picker, empty states, timeline toggle ---- */
+.ctabs{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 16px}
+.ctab{font:inherit;font-weight:600;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:transform .15s,box-shadow .15s}
+.ctab:hover{transform:translateY(-1px);border-color:var(--accent)}
+.ctab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 6px 20px -8px rgba(217,105,44,.7)}
+.ctab[aria-selected=true] .n{background:var(--accent);color:var(--bg)}
+.ctab .n{font-size:.78rem;background:rgba(0,0,0,.12);border-radius:999px;padding:1px 8px}
+.empty-state{grid-column:1/-1;text-align:center;background:var(--surface);border:1px dashed var(--accent);border-radius:var(--radius);padding:44px 24px;box-shadow:var(--shadow)}
+.empty-state h3{font-size:1.5rem;margin:6px 0 8px}.empty-state p{max-width:62ch;margin:0 auto 10px}.es-icon{font-size:2.6rem}
+.kind-pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:10px}
+.kind-pick label{display:flex;flex-direction:column;gap:4px;border:2px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--surface);cursor:pointer;transition:border-color .15s,transform .15s}
+.kind-pick label:hover{transform:translateY(-2px)}.kind-pick label:has(input:checked){border-color:var(--accent);background:var(--surface2)}
+.kind-pick label:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.kind-pick input{position:absolute;opacity:0}.kp-i{font-size:1.8rem}.kind-pick strong{font-family:var(--serif);font-size:1.2rem}.kind-pick span:last-child{font-size:.88rem;color:var(--muted)}
+.tl-toggle{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.tl-toggle [aria-pressed=true]{border-color:var(--accent);background:var(--surface2);font-weight:600}
+@media (prefers-reduced-motion:reduce){.ctab,.kind-pick label{transition:none}.ctab:hover,.kind-pick label:hover{transform:none}}

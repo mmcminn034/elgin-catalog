@@ -1,11 +1,14 @@
-# Elgin Catalog
+# Rolling Oak Catalog
 
-**Documenting Central Texas surface finds.** A static, no-build web catalog of surface finds from the Rolling Oak property near Elgin, Texas: photos, measurements, descriptions, ranked research possibilities, and owner review notes.
+**Artifacts, fossils, rocks & minerals from Elgin, Texas.** A static, no-build web catalog of surface finds from private land near Elgin, Texas, organized into three collections (Artifacts, Fossils, Rocks & Minerals): photos, measurements, descriptions, ranked research possibilities, and owner review notes.
 
 > AI suggestions are possibilities for research, **not identifications**. This project makes no claims about authenticity or monetary value.
 
 ## Features
-- Catalog grid with search, filters (status, category, confidence) and a stats strip (total, reviewed, drafts, measured)
+- Collection tabs (Artifacts / Fossils / Rocks & Minerals) driven by the `category` field (`artifact`, `fossil`, `rock`); the specific kind of object lives in `object_type`
+- Category-first add-find wizard with fossil fields (geologic period, formation, preservation) and rock fields (hardness, luster, streak)
+- Deep time timeline with a toggle between human eras and geologic eras
+- Catalog grid with search, filters (status, type, confidence) and a stats strip (total, reviewed, drafts, measured)
 - Detail view with Overview / Measurements / AI analysis / Review tabs, plus a print-friendly record card
 - Guided "Add find" wizard: Photos → Measurements → Description → AI analysis → Review & save
 - Light earthy theme and dark mode; keyboard accessible and responsive
