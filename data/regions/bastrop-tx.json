@@ -1,0 +1,24 @@
+{
+  "id": "bastrop-tx",
+  "name": "Bastrop County, Texas (Elgin area)",
+  "state": "Texas",
+  "note": "Rule-based hints only. A 'may not be local' flag is a prompt to record provenance, not a judgement about the find.",
+  "expected": {
+    "materials": ["Edwards chert", "Colorado River terrace gravel chert", "Uvalde-type gravel chert", "quartzite cobbles", "chalcedony", "Eocene petrified wood", "petrified palmwood", "ironstone / iron concretions", "sandstone", "limestone / chalk", "calcite", "gypsum"],
+    "fossils": ["Cretaceous ammonites", "Exogyra / Gryphaea oysters", "echinoids (heart urchins)", "Inoceramus", "Cretaceous shark teeth", "Eocene marine shells", "petrified wood"],
+    "point_types_source": "data/reference/points.json",
+    "point_types": ["Clovis", "Folsom", "Plainview", "Golondrina", "Angostura", "Andice / Bell", "Nolan", "Travis", "Bulverde", "Pedernales", "Montell", "Castroville", "Marcos", "Ensor", "Frio", "Darl", "Tortugas", "Matamoros", "Scallorn", "Perdiz"],
+    "local_periods": ["Cretaceous", "Paleogene", "Eocene", "Oligocene", "Quaternary", "Pleistocene", "Holocene"]
+  },
+  "non_local": [
+    { "id": "obsidian", "pattern": "obsidian|volcanic glass", "reason": "Obsidian (volcanic glass) does not occur naturally in Central Texas. Pieces here were traded in or carried from the western US or Mexico." },
+    { "id": "opal", "pattern": "opali[sz]ed|\\bopal\\b|precious opal|virgin valley", "reason": "Opalized wood and opal are typical of volcanic regions such as Nevada (Virgin Valley) and Oregon. Local petrified wood is usually agatized (chalcedony)." },
+    { "id": "volcanic", "pattern": "\\btuff\\b|basalt|rhyolite|andesite|pumice|scoria|volcanic", "reason": "Volcanic rocks (tuff, basalt, rhyolite, pumice) don't crop out near Elgin." },
+    { "id": "great-basin", "pattern": "elko|rose spring|desert side.?notched|eastgate|humboldt|pinto|gatecliff|great basin", "reason": "This point style belongs to the Great Basin (Nevada, Utah), not Central Texas." },
+    { "id": "southwest", "pattern": "san pedro|cienega|chiricahua|cochise|hohokam|anasazi|ancestral pueblo", "reason": "This point style or culture belongs to the American Southwest." },
+    { "id": "plains", "pattern": "avonlea|besant|pelican lake|mckean|hanna point|duncan point|yonkee|agate basin", "reason": "This point style belongs to the Northern Plains." },
+    { "id": "old-fossils", "pattern": "trilobite|cambrian|ordovician|silurian|devonian|mississippian|pennsylvanian|permian|jurassic|paleozoic", "reason": "Rocks of this age don't crop out in Bastrop County. Fossils this old would come from elsewhere, for example the Llano Uplift or North Texas." },
+    { "id": "fresh-surface", "pattern": "fresh unstained|no patina|unpatinated|no soil stain|looks? new|shiny fresh|store.?bought|gift shop|rock shop", "reason": "Fresh, unstained surfaces without local patina or soil staining can mean the piece came from a shop or another collection." },
+    { "id": "elsewhere", "pattern": "nevada|arizona|new mexico|utah|oregon|california|colorado state|wyoming|montana|idaho|mexico|brought from|bought|purchased|gift from|traded", "reason": "The notes mention a place or acquisition outside the local area." }
+  ]
+}

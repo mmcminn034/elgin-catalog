@@ -5,7 +5,9 @@
 (() => {
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, PRIVATE = "find_location_private";
-  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear"];
+  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear","provenance","acquisition","provenance_answer"];
+  const OPTIONAL = ["provenance","acquisition","provenance_answer"]; // migration 005; dropped automatically if the columns aren't there yet
+  let missingCols = new Set();
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
   let sb = null, user = null, online = false, reason = "", listeners = [];
   const emit = () => listeners.forEach(f => { try { f(state()); } catch {} });
@@ -71,22 +73,29 @@
       const cur = await sb.from("finds").select("category, category_kept, category_note, category_history").eq("catalog_id", rec.catalog_id).maybeSingle();
       let kept = false;
       if (cur.data && catStamp(cur.data.category_history) > catStamp(row.category_history)) { ["category","category_kept","category_note","category_history"].forEach(k => row[k] = cur.data[k]); kept = true; }
-      const { data: wrote, error } = await sb.from("finds").upsert(row, { onConflict: "catalog_id" }).select("catalog_id, category");
+      missingCols.forEach(k => delete row[k]);
+      let { data: wrote, error } = await sb.from("finds").upsert(row, { onConflict: "catalog_id" }).select("catalog_id, category");
+      for (let n = 0; error && n < OPTIONAL.length; n++) { const m = /'([a-z_]+)' column|column "?([a-z_]+)"? (?:of relation "finds" )?does not exist/i.exec(error.message || ""); const col = m && (m[1] || m[2]); if (!col || !OPTIONAL.includes(col)) break;
+        missingCols.add(col); delete row[col]; ({ data: wrote, error } = await sb.from("finds").upsert(row, { onConflict: "catalog_id" }).select("catalog_id, category")); }
       if (!error && (!Array.isArray(wrote) || !wrote.length)) return { ok: false, msg: "the cloud accepted nothing (you may not own this record yet; run the claim SQL)" };
       if (!error && wrote[0].category !== row.category) return { ok: false, msg: `cloud still says ${wrote[0].category}` };
       if (kept) rec._cloudCategory = cur.data;
       if (error) return { ok: false, msg: /row-level|policy|permission/i.test(error.message) ? "you don't own this record yet (run the claim SQL)" : error.message };
+      const photoErr = [], photoUrls = {};
       // photos: upload browser-added (data URL, already EXIF-stripped by canvas) images
       for (const [i, p] of (rec.photos || []).entries()) {
         const src = p.src || p.path; if (!src || !String(src).startsWith("data:")) continue;
         const path = `${user.id}/${rec.catalog_id}/${String(i).padStart(2, "0")}.jpg`;
         const up = await sb.storage.from(C.bucket).upload(path, await dataUrlToBlob(src), { contentType: "image/jpeg", upsert: true });
-        if (!up.error) await sb.from("photos").upsert({ catalog_id: rec.catalog_id, owner: user.id, sort: i, storage_path: path, view: p.tag || p.view || null, label: p.label || p.tag || null, is_public: row.is_public }, { onConflict: "catalog_id,sort" });
+        if (up.error) { photoErr.push(`photo ${i + 1}: ${up.error.message}`); continue; }
+        const pr = await sb.from("photos").upsert({ catalog_id: rec.catalog_id, owner: user.id, sort: i, storage_path: path, view: p.tag || p.view || null, label: p.label || p.tag || null, is_public: row.is_public }, { onConflict: "catalog_id,sort" });
+        if (pr.error) photoErr.push(`photo ${i + 1} record: ${pr.error.message}`); else photoUrls[i] = publicUrl(path);
       }
+      if (photoErr.length) return { ok: false, msg: "the record uploaded but " + photoErr.join("; ") };
       if (rec[PRIVATE]) { const ll = parseLatLon(rec[PRIVATE]); await sb.from("find_locations").upsert({ catalog_id: rec.catalog_id, owner: user.id, location: rec[PRIVATE], lat: ll ? ll[0] : null, lon: ll ? ll[1] : null }, { onConflict: "catalog_id" }); }
       if (prev) { const ch = TRACK.filter(k => String(prev[k] ?? "") !== String(rec[k] ?? "")).map(k => ({ catalog_id: rec.catalog_id, owner: user.id, field: k, old_value: prev[k] ?? null, new_value: rec[k] ?? null, reason: "Edited in Rolling Oak Catalog" }));
         if (ch.length) await sb.from("corrections").insert(ch); }
-      return { ok: true, cloudCategory: kept ? cur.data : null };
+      return { ok: true, cloudCategory: kept ? cur.data : null, photos: Object.keys(photoUrls).length ? photoUrls : null };
     } catch (e) { return { ok: false, msg: e.message }; }
   }
   async function deleteFind(id) { if (!sb || !online || !user) return; try { await sb.from("finds").delete().eq("catalog_id", id); } catch {} }

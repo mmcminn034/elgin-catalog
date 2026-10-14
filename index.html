@@ -120,8 +120,8 @@
       </fieldset>
       <fieldset class="step" data-step="2" hidden><legend>Measurements</legend>
         <div class="seg" role="radiogroup" aria-label="Measurement method">
-          <label><input type="radio" name="measure_method" value="Measured" checked> Measured (caliper/ruler)</label>
-          <label><input type="radio" name="measure_method" value="Estimated"> Estimated from photo</label>
+          <label><input type="radio" name="measure_method" value="Measured"> Measured (caliper/ruler)</label>
+          <label><input type="radio" name="measure_method" value="Estimated" checked> Estimated from photo</label>
           <label><input type="radio" name="measure_method" value="Not measured"> Not measured</label>
         </div>
         <div class="row">
@@ -130,13 +130,14 @@
           <label class="field"><span>Thickness (mm)</span><input name="thickness_mm" inputmode="decimal"></label>
           <label class="field"><span>Weight (g)</span><input name="weight_g" inputmode="decimal"></label>
         </div>
-        <p class="err" data-err="measure"></p>
+        <p class="help">Rough numbers are fine. Type millimetres, or inches like <code>4 in</code> or <code>2.5"</code> (converted for you). Leave blank if you don't know.</p>
+<p class="err" data-err="measure"></p>
       </fieldset>
       <fieldset class="step" data-step="3" hidden><legend>Description</legend>
         <div class="row">
-          <label class="field"><span>Type <em class="req">*</em></span><input name="object_type" list="catList" required></label>
+          <label class="field"><span>What is it? <em class="req">*</em> <span class="muted">(your best guess, e.g. “arrowhead”, “rock with rings”)</span></span><input name="object_type" list="catList" required></label>
           <datalist id="catList"></datalist>
-          <label class="field"><span>Material <em class="req">*</em></span><input name="material" required placeholder="Chert, quartzite…"></label>
+          <label class="field"><span>Material <span class="muted">(if you know)</span></span><input name="material" placeholder="Chert, quartzite…"></label>
           <label class="field"><span>Color</span><input name="color"></label>
           <label class="field"><span>Condition</span><select name="condition"><option>Complete</option><option>Fragment</option><option>Broken (snap)</option><option>Unknown</option></select></label>
         </div>
@@ -174,13 +175,13 @@
       <fieldset class="step" data-step="4" hidden><legend>AI analysis <span class="muted">(research suggestions, not identifications)</span></legend>
         <p class="tip" id="aiGuide"></p>
         <div class="suggest-box"><button type="button" class="btn" id="suggestBtn">🧠 Suggest from my notes</button><span class="help">Scores reference types against what you entered, plus your verified examples.</span><div id="wizSuggest" aria-live="polite"></div><div id="wizSimilar"></div></div>
-        <div id="wizBanner" aria-live="polite"></div>
+        <div id="wizBanner" aria-live="polite"></div><div id="wizRegion" aria-live="polite"></div>
         <p class="help">Ranked possibilities only. Never record a definitive identification, authenticity or value.</p>
         <label class="field"><span id="s1">1. Most likely</span><input name="suggestion_1"></label>
         <label class="field"><span>2. Alternative</span><input name="suggestion_2"></label>
         <label class="field"><span>3. Alternative</span><input name="suggestion_3"></label>
         <div class="row">
-          <label class="field"><span>Confidence</span><select name="confidence"><option>Low</option><option>Low-moderate</option><option>Moderate-low</option><option selected>Moderate</option><option>High</option></select></label>
+          <label class="field"><span>Confidence</span><select name="confidence"><option selected>Low</option><option>Low-moderate</option><option>Moderate</option></select></label>
           <label class="field grow"><span>Missing info that would help</span><input name="open_questions" placeholder="Base close-up, weight…"></label>
         </div>
       </fieldset>
@@ -360,6 +361,7 @@
 <script src="assets/js/marks.js" defer></script>
 <script src="assets/js/retrieve.js" defer></script>
 <script src="assets/js/learning.js" defer></script>
+<script src="assets/js/region.js" defer></script>
 <script src="assets/js/features.js" defer></script>
 <script src="assets/js/stage2.js" defer></script>
 <script src="assets/js/auth-options.js" defer></script>

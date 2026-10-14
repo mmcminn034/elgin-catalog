@@ -28,18 +28,28 @@
   async function pushOne(rec, snap) {
     const res = await Cloud.pushFind(rec, snap, marksFor), id = rec.catalog_id;
     if (res.ok) { setPending(pending().filter(x => x !== id));
+      { const lo = local.find(x => x.catalog_id === id); if (lo && (lo.created_local && !lo.synced || res.photos)) { const o = { ...lo, synced: true }; if (res.photos) o.photos = (lo.photos || []).map((p, i) => res.photos[i] ? { ...p, src: undefined, path: res.photos[i], thumb: res.photos[i] } : p); await _put(o); local = await DB.all(); refresh(); } }
       if (res.cloudCategory) { // the cloud had a newer category decision: adopt it locally instead of fighting it
         const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }), ...res.cloudCategory }; await _put(o); local = await DB.all(); refresh(); }
       return true; }
     setPending([...pending(), id]); syncWarn(`⚠ ${id} saved on this device only. Cloud sync failed: ${res.msg}. It will retry next time.`); return false;
   }
   DB.put = async o => { o.saved_ts = new Date().toISOString(); const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
-    if (!window.Cloud || !Cloud.state().user) return;
+    if (!window.Cloud) return;
+    if (!Cloud.state().user) { if (Cloud.state().available && o.created_local) { setPending([...pending(), o.catalog_id]); syncWarn(`⚠ ${o.catalog_id} is saved on this device only: you're not signed in. Sign in (☰ menu → Sign in) and it will upload automatically.`); } return; }
     // Push exactly what was saved (merged over the current view), not whatever `all` holds 80 ms later.
     const rec = { ...(prev || {}), ...o }; delete rec._src;
     const st = Cloud.state();
     if (!st.online) { setPending([...pending(), o.catalog_id]); return syncWarn(`⚠ ${o.catalog_id} saved on this device only. Cloud sync is off (${st.reason || "cloud not reachable"}). It will retry next time.`); }
     if (await pushOne(rec, snap)) toast(`☁ ${o.catalog_id} synced`); };
+  /* A find created on this device whose ID was later taken by the shared catalog (seed/cloud) gets the next free ID instead of overwriting it. */
+  async function renumberCollisions() { const ids = new Set(seed.map(r => r.catalog_id)); const moved = [];
+    const me = window.Cloud && Cloud.state().user ? Cloud.state().user.id : null;
+    for (const r of local.filter(x => x.created_local && !x.synced && ids.has(x.catalog_id))) {
+      const s = seed.find(x => x.catalog_id === r.catalog_id); if (s && me && s._owner === me) continue; // our own find came back from the cloud
+      const max = Math.max(0, ...[...ids, ...local.map(x => x.catalog_id)].map(id => +((/ELG-(\d+)/.exec(id) || [])[1] || 0))), nid = "ELG-" + String(max + 1).padStart(3, "0");
+      await _del(r.catalog_id); await _put({ ...r, catalog_id: nid, renumbered_from: r.catalog_id }); ids.add(nid); moved.push(`${r.catalog_id} → ${nid}`); setPending([...pending().filter(x => x !== r.catalog_id), nid]); local = await DB.all(); }
+    if (moved.length) setTimeout(() => toast(`Your new find was renumbered because that ID is now used by the shared catalog: ${moved.join(", ")}`, { warn: true, ms: 9000 }), 600); }
   async function retryPending() { const ids = pending(); if (!ids.length || !window.Cloud || !Cloud.state().user || !Cloud.state().online) return;
     let ok = 0; for (const id of ids) { const r = all.find(x => x.catalog_id === id); if (!r) { setPending(pending().filter(x => x !== id)); continue; } const rec = { ...r }; delete rec._src; if (await pushOne(rec, null)) ok++; }
     if (ok) toast(`☁ ${ok} earlier change${ok > 1 ? "s" : ""} synced`); }
@@ -84,7 +94,7 @@
   const histHtml = h => (h || []).length ? `<ul class="hist">${h.map(x => `<li>${esc(x.date)}: ${x.from === x.to ? "kept in " + esc(KINDS[x.to]?.label || x.to) : esc(KINDS[x.from]?.label || x.from) + " → " + esc(KINDS[x.to]?.label || x.to)} <span class="muted">(${esc(x.reason)})</span></li>`).join("")}</ul>` : "";
   const histText = h => Array.isArray(h) ? h.map(x => `${x.date}: ${x.from} -> ${x.to} (${x.reason})`).join("; ") : (h || "");
   const kindRows = r => { const k = kindOf(r); return k === "fossil" ? [["Geologic period", r.geologic_period], ["Formation", r.formation], ["Preservation", r.preservation]] : k === "rock" ? [["Hardness (Mohs)", r.hardness], ["Luster", r.luster], ["Streak", r.streak]] : []; };
-  const nextId = () => "ELG-" + String(Math.max(0, ...all.map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0))) + 1).padStart(3, "0");
+  const nextId = () => "ELG-" + String(Math.max(0, ...[...all, ...seed, ...local].map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0)), ...(typeof pending === "function" ? pending() : []).map(id => +((/ELG-(\d+)/.exec(id) || [])[1] || 0))) + 1).padStart(3, "0");
 
   /* ---------- helpers ---------- */
   // Optional provenance/acquisition: marks pieces that are not local field finds (e.g. brought from another state).
@@ -175,7 +185,7 @@
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
     const ps = pics(r), photos = ps.length ? `<h3 class="gal-h">Photos (${ps.length})</h3><div class="photos">${ps.map((p, j) => `<figure><button type="button" class="ph" data-lb="${j}" aria-label="Enlarge ${esc(p.label)}"><img src="${esc(p.thumb)}" alt="${esc(r.catalog_id)} ${esc(p.label)}" loading="lazy"></button><figcaption>${esc(p.label)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos yet for this find.</p>`;
     const html = [
-      () => photos + kv([...(r.provenance || r.acquisition ? [["Provenance", esc([r.acquisition, r.provenance && !String(r.acquisition || "").includes(String(r.provenance).split(" (")[0]) ? r.provenance : ""].filter(Boolean).join(" · ") || r.provenance)]] : []), ["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
+      () => (window.Region ? Region.bannerHtml(r) : "") + aiChip(r) + photos + kv([...(r.provenance || r.acquisition ? [["Provenance", esc([r.acquisition, r.provenance && !String(r.acquisition || "").includes(String(r.provenance).split(" (")[0]) ? r.provenance : ""].filter(Boolean).join(" · ") || r.provenance)]] : []), ["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
       () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p><h3 class="gal-h">Your recorded possibilities</h3>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}<h3 class="gal-h">Rich analysis <span class="muted">(rule-based engine + your verified examples)</span></h3>${window.Analysis ? Analysis.render(r, kindOf(r)) : ""}`,
       () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
@@ -199,6 +209,8 @@
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
     }
   }
+  $("#mBody").addEventListener("click", async e => { if (!window.Region || !current || !e.target.closest(".oor")) return; const a = Region.answer(e, current); if (!a || a.pending) return;
+    await App.patch(current.catalog_id, a.patch); selectTab(tab); toast(a.patch.provenance_answer === "collection" ? `Provenance saved: ${a.patch.provenance}` : a.patch.provenance_answer === "local" ? "Noted: found here" : "Noted: not sure. The note stays on the record so you can answer later."); });
   $("#mBody").addEventListener("click", async e => { const b = e.target.closest("[data-recat]"); if (!b || !current) return; const r = current, from = kindOf(r), id = r.catalog_id;
     const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) };
     if (b.dataset.recat === "keep") { o.category_kept = from; o.category = from; o.category_history = [...(r.category_history || []), decision(from, from, "Owner kept it here after an auto-categorization suggestion")]; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id); selectTab(tab); return toast(`Kept in ${KINDS[from].label}`); }
@@ -284,17 +296,23 @@
   $("#thumbs").addEventListener("change", e => { if (e.target.dataset.i) { photos[e.target.dataset.i].tag = e.target.value; drawShots(); } });
   $("#thumbs").addEventListener("click", e => { if (e.target.dataset.rm) { photos.splice(+e.target.dataset.rm, 1); drawThumbs(); } });
   const F = () => $("#wizard").elements;
+  /* "4 in", '2.5"', "1 1/2 in", "6 cm" -> millimetres (string); plain numbers are left alone. */
+  function toMm(v) { const t = String(v || "").trim().toLowerCase(); if (!t) return v;
+    const m = t.match(/^(\d+(?:\.\d+)?)(?:\s+(\d+)\/(\d+))?\s*(in|inch|inches|"|”|cm|mm)?$/); if (!m || !m[4] || m[4] === "mm") return v;
+    const n = +m[1] + (m[2] ? m[2] / m[3] : 0); return String(Math.round(m[4] === "cm" ? n * 10 : n * 25.4)); }
   function validate(i) {
     const err = (k, m) => { const el = $(`[data-err=${k}]`); el.textContent = m; return !m; };
     if (i === 0) return err("kind", F().category.value ? "" : "Choose what kind of find this is.");
     i--;
     if (i === 0) return err("photos", photos.length ? "" : "Add at least one photo (with a scale in view).");
     if (i === 1) { const m = F().measure_method.value, nums = ["length_mm", "width_mm", "thickness_mm", "weight_g"].map(n => F()[n]);
+      nums.slice(0, 3).forEach(n => { const v = toMm(n.value); if (v !== n.value) n.value = v; });
       const bad = nums.find(n => n.value && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(n.value.trim()));
       if (bad) { bad.focus(); return err("measure", "Use numbers (e.g. 62 or 60-70)."); }
-      if (m !== "Not measured" && !F().length_mm.value) { F().length_mm.focus(); return err("measure", "Enter at least a length, or choose “Not measured”."); }
+      if (m === "Measured" && !F().length_mm.value) { F().length_mm.focus(); return err("measure", "Enter at least a length, or choose “Estimated from photo” / “Not measured”."); }
+      if (m !== "Not measured" && !nums.some(n => n.value)) F().measure_method.value = "Not measured";
       return err("measure", ""); }
-    if (i === 2) { for (const n of ["object_type", "material"]) if (!F()[n].value.trim()) { F()[n].focus(); return err("desc", "Type and material are required."); }
+    if (i === 2) { if (!F().object_type.value.trim()) { F().object_type.focus(); return err("desc", "Give it a short name, your best guess is fine (e.g. “rock with rings”)."); }
       if (F().public_land.checked) return err("desc", "Finds from public land can’t be catalogued here. Collecting on public land is restricted or illegal.");
       if (!F().landowner_permission.checked) return err("desc", "Please confirm landowner permission.");
       return err("desc", ""); }
@@ -316,20 +334,48 @@
       toast(`Moved to ${KINDS[to].label}. Its specific fields are now in the Description step.`); }
     wizBanner(); });
   function collect() { const o = { catalog_id: nextId(), photos }; for (const el of F()) if (el.name && el.type !== "radio" && el.type !== "checkbox") o[el.name] = el.value.trim();
-    o.measure_method = F().measure_method.value; o.category = F().category.value || "artifact"; $$("[data-kind-only]").forEach(el => { if (el.hidden) $$("[name]", el).forEach(x => delete o[x.name]); }); o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; if (wizHist.length) o.category_history = [...wizHist]; if (wizKept) o.category_kept = wizKept; return o; }
+    o.measure_method = F().measure_method.value; o.category = F().category.value || "artifact"; $$("[data-kind-only]").forEach(el => { if (el.hidden) $$("[name]", el).forEach(x => delete o[x.name]); }); o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; if (wizHist.length) o.category_history = [...wizHist]; if (wizKept) o.category_kept = wizKept; o.visibility = o.visibility || "private"; o.created_local = true; if (!o.region && window.Region && Region.profile()) o.region = Region.profile().name; Object.assign(o, wizProv); o.confidence = capConf(o.confidence); return o; }
   function showStep(i) {
     step = i; $$(".step").forEach((s, j) => s.hidden = j !== i);
     $$("#steps li").forEach((li, j) => { li.className = j < i ? "done" : j === i ? "cur" : ""; j === i ? li.setAttribute("aria-current", "step") : li.removeAttribute("aria-current"); });
-    wizBanner(); if (i !== 4) $("#wizBanner").innerHTML = ""; $("#prev").disabled = i === 0; $("#next").hidden = i === 5; $("#save").hidden = i !== 5;
+    if (i === 4) autoSuggestWizard();
+    wizBanner(); if (i !== 4) { $("#wizBanner").innerHTML = ""; $("#wizRegion").innerHTML = ""; } $("#prev").disabled = i === 0; $("#next").hidden = i === 5; $("#save").hidden = i !== 5;
     if (i === 5) { const o = collect(); $("#summary").innerHTML = `<strong>${o.catalog_id}</strong> · ${esc(KINDS[o.category].label)} · ${esc(o.object_type)} · ${esc(o.material)}<br>${photos.length} photo(s), EXIF stripped · ${size(o)} (${esc(o.measure_method)})<br>Possibilities: ${esc(suggestions(o).join(" / ") || "none")} · Confidence: ${esc(o.confidence)}<br>🔒 Location: ${o[PRIVATE] ? "recorded, private" : "not recorded"} · Sharing: ${esc(o.location_sharing)}`; }
   }
   $("#next").onclick = () => { if (validate(step)) { showStep(step + 1); $(".step:not([hidden]) legend").scrollIntoView({ block: "nearest" }); } };
   $("#prev").onclick = () => showStep(Math.max(0, step - 1));
   $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 5; i++) if (!validate(i)) return showStep(i);
     if (window.Features && !Features.canAddFind(all)) { toast("Free plan limit reached. Become a Supporter for unlimited finds."); location.hash = "#/pricing"; return; }
-    const o = collect(); try { await DB.put(o); } catch (err) { return toast("Could not save: " + err.message); }
-    local = await DB.all(); refresh(); resetWizard(); toast(o.catalog_id + " saved"); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id); };
-  function resetWizard() { $("#wizard").reset(); photos = []; wizHist = []; wizKept = ""; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
+    const o = collect(); o.catalog_id = nextId(); await autoAnalyze(o);
+    try { await DB.put(o); } catch (err) { return toast("Could not save on this device: " + err.message, { warn: true, ms: 9000 }); }
+    local = await DB.all(); refresh(); resetWizard(); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id);
+    if (o.ai_status === "ai-ready") toast(`${o.catalog_id} saved. Local analysis added; open AI analysis to run the photo review.`);
+    else toast(`${o.catalog_id} saved with a local analysis. ${o.ai_status === "ai-not-setup" ? "AI photo review isn't set up yet." : ""}`, { ms: 4500 }); };
+  /* Local analysis runs on every save (no key needed). AI availability is recorded so the record says why it didn't run. */
+  async function autoAnalyze(o) { const rk = Analysis.rank(o, o.category), names = rk.slice(0, 3).map(x => x.c.name);
+    if (!o.suggestion_1 && names.length) { names.forEach((n, k) => o["suggestion_" + (k + 1)] = n); o.confidence = capConf(confOf(rk)); }
+    o.confidence = capConf(o.confidence || confOf(rk));
+    o.local_analysis = { ts: new Date().toISOString(), engine: "local rules + reference KB", candidates: rk.slice(0, 3).map(x => ({ name: x.c.name, score: x.score, why: x.why.join("; "), against: x.against.join("; ") })), region_check: window.Region ? Region.check(o).reasons.map(x => x.reason) : [] };
+    if (!o.open_questions) { const ck = (Analysis.checklist ? Analysis.checklist(o, o.category) : null); const unk = Array.isArray(ck) ? ck.filter(x => x[1] === "unknown").slice(0, 4).map(x => x[0]) : []; o.open_questions = (unk.length ? "Not yet recorded: " + unk.join("; ") + ". " : "") + "Next photos: scale photo straight down, close-up of the key feature; weight if possible."; }
+    o.ai_status = await aiStatus(); return o; }
+  let _ai = null;
+  async function aiStatus() { if (_ai) return _ai; const st = window.Cloud ? Cloud.state() : {};
+    if (!st.user) return "ai-signed-out";
+    if (!(window.Features && Features.isMember && Features.isMember())) return "ai-members";
+    const r = await Cloud.analyze({ ping: true }); _ai = r.error && /not found|not configured|AI_API_KEY|404/i.test(r.error) ? "ai-not-setup" : "ai-ready"; return _ai; }
+  const AI_TXT = { "ai-not-setup": "AI photo review isn't set up yet (the analyze-find function isn't deployed or has no AI key). The local analysis below was used.", "ai-members": "AI photo review is a Supporter feature. The local analysis below was used.", "ai-signed-out": "Sign in to use AI photo review. The local analysis below was used.", "ai-ready": "AI photo review is available: open AI analysis and press “Analyze photos with AI”." };
+  const aiChip = r => r.ai_status ? `<p class="help ai-st">🤖 ${esc(AI_TXT[r.ai_status] || "")}</p>` : "";
+  /* Runs the local analyzer as soon as the AI step opens and pre-fills empty suggestion boxes (owner can overwrite). */
+  function autoSuggestWizard() { const o = collect(); $("#wizSuggest").innerHTML = Analysis.suggestHtml(o, o.category);
+    if (window.Learn) $("#wizSimilar").innerHTML = Learn.similarHtml({ ...o, catalog_id: o.catalog_id || "NEW" });
+    const rk = Analysis.rank(o, o.category), f = F();
+    if (!f.suggestion_1.value && !f.suggestion_2.value && !f.suggestion_3.value && rk.length) { rk.slice(0, 3).forEach((x, k) => f["suggestion_" + (k + 1)].value = x.c.name); f.confidence.value = capConf(confOf(rk)); }
+    if (window.Region) $("#wizRegion").innerHTML = Region.bannerHtml({ ...o, catalog_id: "NEW", ...wizProv }); }
+  const confOf = rk => !rk.length ? "Low" : rk[0].score >= 7 && rk[0].score - (rk[1]?.score || 0) >= 2 ? "Moderate" : rk[0].score >= 4 ? "Low-moderate" : "Low";
+  const capConf = c => /high/i.test(c || "") ? "Moderate" : (c || "Low");
+  let wizProv = {};
+  $("#wizRegion").addEventListener("click", e => { if (!window.Region) return; const a = Region.answer(e, { ...collect(), catalog_id: "NEW" }); if (!a || a.pending) return; wizProv = a.patch; $("#wizRegion").innerHTML = `<p class="help ok">✓ Provenance noted: ${esc(a.patch.provenance || "not sure")}</p>`; });
+  function resetWizard() { wizProv = {}; $("#wizard").reset(); photos = []; wizHist = []; wizKept = ""; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
 
   /* ---------- routing, theme, toast ---------- */
   $("#wizard").addEventListener("click", e => {
@@ -396,14 +442,15 @@
       seed = [...byId.values()]; // PRIVATE only present here for the signed-in owner (owner-only table)
     } else seed = json;
     try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch {}
-    await Analysis.init();
+    await Analysis.init(); if (window.Region) await Region.load();
     if (cloudRows) { const ex = await Cloud.loadExamples(); if (ex) Analysis.setShared(ex); }
     const _learn = Analysis.learn, _forget = Analysis.forget;
     Analysis.learn = async (...a) => { const e = await _learn(...a); if (window.Cloud) Cloud.pushExample(e); return e; };
     Analysis.forget = async id => { await _forget(id); if (window.Cloud) Cloud.forgetExample(id); };
     renderAuth();
-    try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
+    try { await DB.open(); local = await DB.all(); await renumberCollisions(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route(); retryPending();
+    if (window.Cloud) { let had = !!Cloud.state().user; Cloud.on(st => { if (st.user && !had) { had = true; retryPending(); } }); }
     if (conflicts.size) { // move the stale local copy out of the way (backed up), so no later edit or sync retry can resurrect it over the canonical record
       const bk = (() => { try { return JSON.parse(localStorage.getItem("ro-set-aside") || "[]"); } catch { return []; } })();
       for (const [id, r] of conflicts) { bk.push({ ...r, set_aside_ts: new Date().toISOString() }); await _del(id); }

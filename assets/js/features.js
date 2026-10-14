@@ -184,7 +184,7 @@
     if (!ps.length) { body.innerHTML = '<p>Upload photos (sign in and sync) first. AI analysis needs photos hosted online.</p>'; return; }
     body.innerHTML = '<p class="help" role="status">🤖 Analyzing photos… this can take 20–40 seconds.</p>';
     const KB = Analysis.kb()[kind] || {}, payload = { catalog_id: r.catalog_id, kind, photos: ps.map(p => ({ url: new URL(p.src, C.siteUrl || location.href).href, label: p.label })),
-      record: { object_type: r.object_type, material: r.material, key_features: r.key_features, owner_observations: r.owner_observations, length_mm: r.length_mm, measure_method: r.measure_method },
+      region_check: window.Region ? Region.promptContext(r) : null, record: { object_type: r.object_type, material: r.material, key_features: r.key_features, owner_observations: r.owner_observations, length_mm: r.length_mm, measure_method: r.measure_method },
       kb: (KB.types || []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: t.traits, length_mm: t.length_mm })), checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind), similar: window.Learn ? Learn.similar(r, 3).map(x => ({ catalog_id: x.example.catalog_id, confirmed_type: x.example.confirmed_type, why: x.why })) : [], region: window.Learn ? Learn.regionOf(r) : "" };
     const res = await Cloud.analyze(payload);
     if (res.error) { body.innerHTML = `<p class="err">AI analysis isn't available: ${esc(res.error)}</p>`; return; }

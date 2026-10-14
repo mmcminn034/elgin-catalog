@@ -508,3 +508,7 @@ label.btn{position:relative}
 .ruler-card{text-align:left}.ruler-stage{display:block;width:fit-content;max-width:100%;margin:0 auto}.r-img{display:block;width:auto;max-width:100%;max-height:min(58vh,560px)}
 .s2-dims{margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--line)}.s2-dims .legend-src{margin:0 0 12px}.fn-view{margin-top:6px}
 .prov-badge{position:absolute;left:10px;top:12px;z-index:1;font-size:.72rem;font-weight:600;color:#fff;background:rgba(40,28,80,.85);border:1px solid rgba(255,255,255,.3);padding:2px 8px;border-radius:999px;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.oor{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:flex-start;margin:0 0 14px;padding:12px 14px;border-radius:12px;background:#fff4d6;color:#4a3300;border:1px solid #d9a400}
+.oor ul{margin:6px 0 6px 18px;padding:0}.oor .muted{color:#5c4a1a}.oor-act{display:flex;flex-wrap:wrap;gap:8px}.oor-place{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
+[data-theme=dark] .oor{background:#3a2c08;color:#ffe9b0;border-color:#b98900}[data-theme=dark] .oor .muted{color:#f1d58e}
+.ai-st{margin:0 0 10px}
