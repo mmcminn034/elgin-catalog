@@ -33,7 +33,7 @@
       return true; }
     setPending([...pending(), id]); syncWarn(`⚠ ${id} saved on this device only. Cloud sync failed: ${res.msg}. It will retry next time.`); return false;
   }
-  DB.put = async o => { const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
+  DB.put = async o => { o.saved_ts = new Date().toISOString(); const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
     if (!window.Cloud || !Cloud.state().user) return;
     // Push exactly what was saved (merged over the current view), not whatever `all` holds 80 ms later.
     const rec = { ...(prev || {}), ...o }; delete rec._src;
@@ -47,10 +47,14 @@
   const CAT_KEYS = ["category", "category_kept", "category_note", "category_history"];
   const stamp = h => (window.Cloud && Cloud.catStamp) ? Cloud.catStamp(h) : (Array.isArray(h) && h.length ? String(h[h.length - 1].ts || h[h.length - 1].date || "") + "#" + String(h.length).padStart(4, "0") : "");
   const decision = (from, to, reason) => ({ from, to, date: new Date().toLocaleDateString("en-CA"), ts: new Date().toISOString(), reason });
+  const conflicts = new Set();
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
     local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => {
-      const base = m.get(r.catalog_id) || {}, out = { ...base, ...r, _src: m.has(r.catalog_id) ? "edited" : "local" };
+      const base = m.get(r.catalog_id) || {};
+      // A canonical seed record (e.g. re-entered after a failed upload) beats any older local copy with the same ID; the local copy stays in IndexedDB, flagged.
+      if (base.canonical_ts && !(r.saved_ts > base.canonical_ts)) { conflicts.add(r.catalog_id); return; }
+      const out = { ...base, ...r, _src: m.has(r.catalog_id) ? "edited" : "local" };
       // Owner category decisions: whichever side (cloud/seed vs this device) decided most recently wins, so a stale copy never undoes a move.
       if (stamp(base.category_history) > stamp(r.category_history)) CAT_KEYS.forEach(k => { if (k in base) out[k] = base[k]; else delete out[k]; });
       m.set(r.catalog_id, out); });
@@ -83,6 +87,8 @@
   const nextId = () => "ELG-" + String(Math.max(0, ...all.map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0))) + 1).padStart(3, "0");
 
   /* ---------- helpers ---------- */
+  // Optional provenance/acquisition: marks pieces that are not local field finds (e.g. brought from another state).
+  const provBadge = r => (r.provenance || r.acquisition) ? `<span class="prov-badge" title="${esc(r.acquisition || r.provenance)}">From collection · ${esc(String(r.provenance || r.acquisition).split(" (")[0])}</span>` : "";
   function confScore(c = "") { c = c.toLowerCase();
     if (c.includes("high")) return 90; if (c.startsWith("moderate-low") || c.startsWith("low-moderate") || c.startsWith("low to moderate")) return 45;
     if (c.startsWith("moderate")) return 65; if (c.startsWith("low")) return 25; return 0; }
@@ -142,7 +148,7 @@
     $("#count").textContent = `Showing ${rows.length} of ${inKind().length} ${KINDS[kind].label.toLowerCase()}`;
     $("#grid").innerHTML = rows.length ? rows.map(r => `
       <button class="card" data-id="${esc(r.catalog_id)}" aria-label="Open ${esc(r.catalog_id)} ${esc(r.object_type)}">
-        ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span>${window.Learn && Learn.verified(r) ? '<span class="vbadge card-v">✓ Verified</span>' : ""}${window.Learn && Learn.vis(r) !== "public" ? `<span class="vis-chip">${Learn.vis(r) === "private" ? "🔒 Private" : "👥 Editors"}</span>` : ""}</div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
+        ${pics(r)[0] ? `<div class="card-img"><img src="${esc(pics(r)[0].thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span><span class="pcount">📷 ${pics(r).length}</span>${provBadge(r)}${window.Learn && Learn.verified(r) ? '<span class="vbadge card-v">✓ Verified</span>' : ""}${window.Learn && Learn.vis(r) !== "public" ? `<span class="vis-chip">${Learn.vis(r) === "private" ? "🔒 Private" : "👥 Editors"}</span>` : ""}</div>` : `<div class="card-img none"><span class="cid-big">${esc(r.catalog_id)}</span><span class="nophoto">No photo yet</span></div>`}
         <div class="card-top"><span class="era ${eraOf(r) === "Undetermined" ? "und" : ""}">${kindOf(r) === "rock" ? esc(KINDS.rock.label) : eraOf(r) === "Undetermined" ? (kindOf(r) === "fossil" ? "Period undetermined" : "Era undetermined") : esc(eraOf(r)) + " · tentative"}</span><span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span></div>
         <h3>${esc(r.object_type || "Uncategorized")}</h3>${kindOf(r) === "rock" && (r.hardness || r.luster) ? `<div class="meta">${r.hardness ? "Hardness " + esc(r.hardness) : ""}${r.luster ? " · " + esc(r.luster) + " luster" : ""}</div>` : ""}
         <div class="meta">${esc(r.material)}${r.color ? " · " + esc(r.color) : ""}</div>
@@ -169,7 +175,7 @@
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
     const ps = pics(r), photos = ps.length ? `<h3 class="gal-h">Photos (${ps.length})</h3><div class="photos">${ps.map((p, j) => `<figure><button type="button" class="ph" data-lb="${j}" aria-label="Enlarge ${esc(p.label)}"><img src="${esc(p.thumb)}" alt="${esc(r.catalog_id)} ${esc(p.label)}" loading="lazy"></button><figcaption>${esc(p.label)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos yet for this find.</p>`;
     const html = [
-      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
+      () => photos + kv([...(r.provenance || r.acquisition ? [["Provenance", esc([r.acquisition, r.provenance && !String(r.acquisition || "").includes(String(r.provenance).split(" (")[0]) ? r.provenance : ""].filter(Boolean).join(" · ") || r.provenance)]] : []), ["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
       () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p><h3 class="gal-h">Your recorded possibilities</h3>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}<h3 class="gal-h">Rich analysis <span class="muted">(rule-based engine + your verified examples)</span></h3>${window.Analysis ? Analysis.render(r, kindOf(r)) : ""}`,
       () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
@@ -398,6 +404,7 @@
     renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route(); retryPending();
+    if (conflicts.size) toast(`${[...conflicts].join(", ")}: showing the updated catalog record; an older copy saved on this device was set aside.`, { ms: 8000 });
     const m = location.hash.match(/^#\/record\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
     if (window.Cloud && Cloud.state().user) Cloud.acceptInvites().then(n => n && toast(`Joined ${n} shared collection${n > 1 ? "s" : ""}`));
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js").catch(() => {});

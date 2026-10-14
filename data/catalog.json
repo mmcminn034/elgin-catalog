@@ -1238,5 +1238,160 @@
     ],
     "heat_treatment": "unknown",
     "heat_notes": "No potlids visible; crazing follows the rounded cortex (weathering more likely than fire); red/dark coloration ambiguous with iron-oxide staining; no fresh break to check luster. Leaning not heat-altered."
+  },
+  {
+    "catalog_id": "ELG-017",
+    "category": "fossil",
+    "object_type": "Petrified wood (silicified)",
+    "material": "Silicified wood (chalcedony/quartz replacement)",
+    "color": "Cream to grey-brown with rust-orange iron staining",
+    "length_mm": "~65-75",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate",
+    "length_source": "Photo estimate",
+    "width_source": "Unknown",
+    "thickness_source": "Unknown",
+    "condition": "Fragment; natural breaks",
+    "key_features": "Longitudinal fibrous grain, transverse checking (shrinkage cracks), curved growth bands on end grain, natural conchoidal fractures. No flake scars or retouch.",
+    "suggestion_1": "Silicified petrified wood",
+    "suggestion_2": "Fibrous / banded chalcedony",
+    "suggestion_3": "Worked artifact (very unlikely; natural breaks)",
+    "confidence": "Moderate",
+    "geologic_period": "Neogene",
+    "formation": "Unknown; Nevada Tertiary volcanic ash beds (likely Miocene), unconfirmed",
+    "preservation": "Petrified (permineralized)",
+    "region": "Nevada (exact locality unknown)",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Personal collection piece (brought from Nevada); not an Elgin surface find. Research suggestions only, not an identification. Ranked: (1) silicified petrified wood, Moderate (the evidence is strong, but confidence is capped at Moderate from photos): longitudinal fibrous grain, transverse checking (shrinkage cracks) and curved growth bands on the end grain are classic wood structures preserved in silica. (2) Fibrous or banded chalcedony, Low: chalcedony can be banded and fibrous, but it does not show cross-grain checking or growth-ring geometry. (3) Worked artifact, Very low: the edges are natural conchoidal breaks with no platform, bulb or patterned retouch.\n\nContext (general): this piece is from Mark's personal collection, brought from Nevada (exact locality unknown). It is not a surface find from the Elgin property. Nevada has abundant Miocene petrified wood, roughly 10-20 million years old. It is preserved in Tertiary volcanic ash beds, where silica from the volcanic ash replaced the wood. Examples include Virgin Valley in Humboldt County, famous for opalized wood, and petrified wood in Esmeralda, Mineral and Nye counties. Opalized vs agatized: opalized wood (opal, hardness about 5.5-6) tends to be lighter for its size and may craze or crack as it dries out. Agatized wood (chalcedony, hardness about 7) scratches glass easily and is more stable. A careful glass scratch test on an inconspicuous spot can help. Palm vs hardwood: on a wet or polished end grain, palm shows scattered rod-like fibres (dots), while hardwood shows growth rings crossed by fine rays.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "owner_observations": "Added from the owner's photos after the in-app entry failed to upload; this record is canonical.",
+    "open_questions": "Palm or hardwood? Opalized or agatized (hardness/scratch test)? Width, thickness and weight. Next photos: 1) polished or wet end-grain macro with a loupe (rings vs palm rods), 2) full-length view with the ruler, 3) weight on a scale.",
+    "status": "Draft",
+    "era": "",
+    "category_history": [
+      {
+        "from": "fossil",
+        "to": "fossil",
+        "date": "2026-10-14",
+        "ts": "2026-10-14T20:39:11.067251+00:00",
+        "reason": "Canonical record seeded by the owner (supersedes the failed in-app entry)"
+      }
+    ],
+    "photos": [
+      {
+        "path": "images/ELG-017/01.jpg",
+        "thumb": "images/ELG-017/01_thumb.jpg",
+        "view": "front",
+        "label": "Face with ruler (primary)",
+        "annotations": [
+          {
+            "type": "arrow",
+            "coords": [
+              0.3,
+              0.2,
+              0.47,
+              0.35
+            ],
+            "label": "Longitudinal fibrous grain",
+            "explanation": "Parallel straight fibres run the length of the piece, like the grain of a split board. This is the wood structure preserved in silica.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified petrified wood"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.75,
+              0.8,
+              0.64,
+              0.8
+            ],
+            "label": "Iron stain along the grain",
+            "explanation": "Rust-coloured staining follows the fibres, typical of iron oxide seeping along wood structure."
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.32,
+              0.7,
+              0.43,
+              0.62
+            ],
+            "label": "Natural conchoidal break",
+            "explanation": "The angled lower edge is a natural shell-like (conchoidal) fracture through silica. There is no platform, bulb or retouch, so it is not a worked tool edge.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Worked artifact (very unlikely)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-017/02.jpg",
+        "thumb": "images/ELG-017/02_thumb.jpg",
+        "view": "edge",
+        "label": "End-grain oblique (cross-checking)"
+      },
+      {
+        "path": "images/ELG-017/03.jpg",
+        "thumb": "images/ELG-017/03_thumb.jpg",
+        "view": "base",
+        "label": "End-grain close (growth bands)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.33,
+              0.3,
+              0.72,
+              0.75
+            ],
+            "label": "Curved growth bands",
+            "explanation": "Curved, concentric bands across the end grain look like growth increments. Distinct rings with rays point to a dicot hardwood; scattered rod-like dots point to palm. A wet or polished loupe view would settle it.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Growth rings vs palm rods"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.55,
+              0.1,
+              0.6,
+              0.3
+            ],
+            "label": "Transverse checking / shrinkage cracks",
+            "explanation": "Short cracks crossing the grain at right angles, like drying cracks in old timber. Wood checks this way; banded chalcedony does not.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Fibrous/banded chalcedony (less likely)"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.13,
+              0.85,
+              0.2,
+              0.66
+            ],
+            "label": "Conchoidal fracture",
+            "explanation": "Smooth curved fracture surface through silica: a natural break."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-017/04.jpg",
+        "thumb": "images/ELG-017/04_thumb.jpg",
+        "view": "edge",
+        "label": "Side profile, longitudinal grain"
+      }
+    ],
+    "provenance": "Nevada (exact locality unknown)",
+    "acquisition": "Personal collection, brought from Nevada",
+    "canonical_ts": "2026-10-14T20:39:11.067251+00:00"
   }
 ]
