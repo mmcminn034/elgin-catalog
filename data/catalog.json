@@ -3105,5 +3105,192 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-028",
+    "category": "rock",
+    "object_type": "Weathered sandstone cobble",
+    "material": "Fine-grained sandstone",
+    "color": "Pinkish-tan to buff; darker staining on back",
+    "length_mm": "~110",
+    "width_mm": "~50",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "condition": "Whole cobble; weathered",
+    "condition_notes": "Irregular knobs and a curved side notch from weathering; darker staining on the back.",
+    "key_features": "Irregular rounded knobs and a curved side notch from differential weathering (photos 1, 3, 5); uniform fine sandy grain, with darker staining on the back (photo 5); no grinding facets, polish or peck marks; rounded ends without battering (photos 2, 4).",
+    "suggestion_1": "Naturally weathered sandstone cobble",
+    "suggestion_2": "Concretion",
+    "suggestion_3": "Ground stone tool fragment",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) naturally weathered sandstone cobble, Moderate (capped): irregular rounded knobs and a curved side notch (photos 1, 3, 5) fit differential weathering. Grooves made by people tend to be straighter and more uniform. The grain is uniform and fine, with darker staining on the back (photo 5), and there are no grinding facets, polish or peck marks. (2) Concretion, Low-Moderate: the lumpy form can come from cementation in sediment. (3) Ground stone tool fragment, Low: the ends are rounded without battering (photos 2, 4) and no worked surfaces are visible.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is the curved notch a smooth, uniform worn groove? That could indicate use as an abrader. Next photos: 1) raking-light close-up of the curved notch, 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-028/01.jpg",
+        "thumb": "images/ELG-028/01_thumb.jpg",
+        "view": "front",
+        "label": "Front with curved side notch, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.32,
+              0.19,
+              0.85,
+              0.65
+            ],
+            "label": "Irregular rounded knobs (differential weathering)",
+            "explanation": "Irregular rounded knobs and hollows form when softer parts of the sandstone wear away faster than harder parts. The grain is uniform and fine, with no grinding facets, polish or peck marks.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.51,
+              0.55,
+              0.07
+            ],
+            "label": "Curved side notch",
+            "explanation": "A curved notch on the side. Its irregular shape fits weathering. A groove worn by people (an abrader) would be smoother, straighter and more uniform, so a raking-light close-up is needed.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Ground stone tool fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/02.jpg",
+        "thumb": "images/ELG-028/02_thumb.jpg",
+        "view": "base",
+        "label": "End view",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.53,
+              0.34,
+              0.06
+            ],
+            "label": "Rounded end, no battering",
+            "explanation": "The end is smoothly rounded, with no crushing or clustered pits that would show use as a hammer.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.55,
+              0.9,
+              0.06
+            ],
+            "label": "Rounded end, no battering",
+            "explanation": "The end is smoothly rounded, with no crushing or clustered pits that would show use as a hammer.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/03.jpg",
+        "thumb": "images/ELG-028/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side view, knobs",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.29,
+              0.28,
+              0.74,
+              0.63
+            ],
+            "label": "Irregular rounded knobs (differential weathering)",
+            "explanation": "Irregular rounded knobs and hollows form when softer parts of the sandstone wear away faster than harder parts. The grain is uniform and fine, with no grinding facets, polish or peck marks.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/04.jpg",
+        "thumb": "images/ELG-028/04_thumb.jpg",
+        "view": "base",
+        "label": "Other end view",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.33,
+              0.35,
+              0.06
+            ],
+            "label": "Rounded end, no battering",
+            "explanation": "The end is smoothly rounded, with no crushing or clustered pits that would show use as a hammer.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.5,
+              0.85,
+              0.06
+            ],
+            "label": "Rounded end, no battering",
+            "explanation": "The end is smoothly rounded, with no crushing or clustered pits that would show use as a hammer.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/05.jpg",
+        "thumb": "images/ELG-028/05_thumb.jpg",
+        "view": "back",
+        "label": "Back with darker staining",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.29,
+              0.23,
+              0.8,
+              0.63
+            ],
+            "label": "Irregular rounded knobs (differential weathering)",
+            "explanation": "Irregular rounded knobs and hollows form when softer parts of the sandstone wear away faster than harder parts. The grain is uniform and fine, with no grinding facets, polish or peck marks.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
