@@ -95,9 +95,10 @@
   function suggestHtml(r, kind) { const rk = rank(r, kind); if (!rk.length) return '<p class="help">No reference matches yet. Add more key features (outline, base, notches, texture).</p>';
     return `<ol class="cands">${rk.slice(0, 3).map(x => `<li><strong>${esc(x.c.name)}</strong> <span class="chip">score ${x.score}</span>${x.verified ? ` <span class="chip ver">✓ ${x.verified} verified</span>` : ""}<br><span class="muted">${esc(x.why.join("; ") || "weak match")}${x.against.length ? " · caution: " + esc(x.against.join("; ")) : ""}</span>${x.matches.filter(m => !m.self).length ? `<br><span class="match">🧠 Matches ${x.matches.length} of your verified examples: ${x.matches.map(m => esc(m.id)).join(", ")}</span>` : ""}</li>`).join("")}</ol><button type="button" class="btn" id="useSuggest">Use these as my 3 possibilities</button>`; }
   function panelHtml() { const ex = all(), c = counts(), name = id => { for (const k in KB) { const t = (KB[k].types || []).find(x => x.id === id); if (t) return t.name; } return id; };
-    return `<p><strong>${ex.length}</strong> verified example${ex.length === 1 ? "" : "s"} (${seedEx.length} published in the repo, ${localEx.length} in this browser).</p>
+    return `<p><strong>${ex.length}</strong> verified example${ex.length === 1 ? "" : "s"} (${seedEx.length} shared/published, ${localEx.length} in this browser).</p>
       ${Object.keys(c).length ? `<table class="chk"><thead><tr><th>Type</th><th>Verified examples</th></tr></thead><tbody>${Object.entries(c).sort((a, b) => b[1] - a[1]).map(([id, n]) => `<tr><td>${esc(name(id))}</td><td>${n}</td></tr>`).join("")}</tbody></table>` : ""}
       <ul class="hist">${ex.map(e => `<li><strong>${esc(e.catalog_id)}</strong>: ${esc(e.confirmed_type)} <span class="muted">(${esc(e.confirmed_on)}, ${esc(e.source)})</span></li>`).join("")}</ul>
       <div class="row"><button type="button" class="btn" id="exLearn">Export learned-examples.json</button><label class="btn">Import learned-examples.json<input type="file" id="imLearn" accept="application/json,.json" class="sr-only"></label></div>`; }
-  window.Analysis = { init, checklist, rank, render, suggestHtml, panelHtml, learn, forget, exportJSON, importJSON, all, kb: () => KB };
+  function setShared(list) { const m = new Map(seedEx.map(e => [e.catalog_id, e])); list.forEach(e => m.set(e.catalog_id, e)); seedEx = [...m.values()]; }
+  window.Analysis = { init, setShared, checklist, rank, render, suggestHtml, panelHtml, learn, forget, exportJSON, importJSON, all, kb: () => KB };
 })();

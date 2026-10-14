@@ -336,3 +336,9 @@ label.btn{position:relative}
 .lb-mk{color:#eee;border-color:#777;margin-left:8px}#lbLegend .mk-legend{max-width:900px;margin:10px auto 0;text-align:left;max-height:24vh;color:var(--ink)}
 @media (max-width:760px){.ev-main{grid-template-columns:1fr}}
 .pc-ann{margin:10px 0}.pc-ann svg{max-width:100%;height:auto}.pc-ann .mk-legend{max-height:none}
+
+/* ---- cloud / auth ---- */
+.sync-pill{font-size:.75rem;padding:3px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.35);color:#F3E9DA;white-space:nowrap}
+#authBtn{color:#F3E9DA;border-color:rgba(255,255,255,.35)}
+#authDlg{border:0;border-radius:var(--radius);padding:0;max-width:520px;width:calc(100% - 24px);background:var(--surface);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#authDlg::backdrop{background:rgba(10,7,4,.6)}.auth-card{padding:18px 20px}.auth-card .row{gap:8px;flex-wrap:wrap}.help.ok{color:var(--sage);font-weight:600}

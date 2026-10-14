@@ -57,3 +57,9 @@ MIT © 2026 Mark McMinn
 - `assets/js/analysis.js`: transparent, rule-based scoring. Candidates come from `data/reference/points.json`, `fossils.json` and `rocks.json` (traits, typical sizes, approximate dates, look-alikes). Each score lists its reasons and conflicts. Confidence is capped at Moderate.
 - Every find's **AI analysis** tab has 10 sections: identification, age/period, material, manufacture/formation, use-wear/preservation, Central Texas context, comparables, diagnostic checklist, documentation gaps and references.
 - **Verified examples**: marking a find Reviewed, or using "Save as verified", stores an example in the browser (IndexedDB `rolling-oak-learning`). Similar new finds get a bonus ("Matches N of your verified examples"). Export from About → Model, then commit to `data/learned/learned-examples.json` to share across devices. The repo seed contains ELG-001.
+
+## Cloud sync (Supabase, optional)
+- `supabase/schema.sql`: tables, RLS, storage bucket policies and seed. Paste it into the Supabase SQL Editor. It is idempotent; regenerate the seed with `python3 supabase/gen_seed.py`.
+- `assets/js/config.js` holds the project URL and the **publishable** key, which is safe to publish because RLS protects the data. `assets/js/cloud.js` is the sync layer.
+- Signed-out visitors read public data. Signed-in owners sync edits, marks, photos (EXIF already stripped) and verified examples. Exact locations go only to the owner-only `find_locations` table.
+- If Supabase or the CDN is unreachable, the app uses `data/catalog.json` + IndexedDB, as before.

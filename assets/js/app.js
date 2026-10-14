@@ -18,6 +18,12 @@
     del(id) { return new Promise((res, rej) => { const r = this.tx("readwrite").delete(id); r.onsuccess = res; r.onerror = () => rej(r.error); }); }
   };
 
+  /* ---------- cloud sync hooks (no-ops when signed out or offline) ---------- */
+  const _put = DB.put.bind(DB), _del = DB.del.bind(DB);
+  DB.put = async o => { const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
+    if (window.Cloud && Cloud.state().user && Cloud.state().online) setTimeout(async () => { const rec = all.find(x => x.catalog_id === o.catalog_id); if (!rec) return;
+      const res = await Cloud.pushFind(rec, snap, marksFor); toast(res.ok ? `☁ ${o.catalog_id} synced` : `Saved on this device only: ${res.msg}`); }, 80); };
+  DB.del = async id => { const r = all.find(x => x.catalog_id === id); await _del(id); if (r && r._src === "local" && window.Cloud) Cloud.deleteFind(id); };
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
     local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => m.set(r.catalog_id, { ...(m.get(r.catalog_id) || {}), ...r, _src: m.has(r.catalog_id) ? "edited" : "local" }));
@@ -302,14 +308,39 @@
     document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
   ["#q", "#fStatus", "#fCat", "#fConf"].forEach(s => $(s).addEventListener("input", renderGrid));
 
+  /* ---------- sign-in UI ---------- */
+  function renderAuth() { if (!window.Cloud) return; const s = Cloud.state(), b = $("#authBtn"), pill = $("#syncPill");
+    pill.textContent = s.online ? (s.user ? "☁ Synced" : "☁ Cloud") : "Offline copy"; pill.title = s.online ? "Reading from the shared Supabase catalog" : "Using the built-in catalog.json and this browser's storage";
+    b.hidden = !s.available; b.textContent = s.user ? "Account" : "Sign in";
+    $("#authState").innerHTML = s.user ? `Signed in as <strong>${esc(s.user.email)}</strong>. Edits, marks, photos and verified examples sync to the shared catalog${s.online ? "" : " (cloud tables not reachable yet, so changes stay on this device)"}.` : "Sign in to sync your edits across devices. Visitors can browse without an account.";
+    $("#authForm").hidden = !!s.user; $("#signOut").hidden = !s.user; }
+  $("#authBtn").onclick = () => { renderAuth(); $("#authDlg").showModal(); };
+  $("#authClose").onclick = () => $("#authDlg").close();
+  $("#authForm").onsubmit = e => e.preventDefault();
+  const authMsg = (m, ok) => { const el = $("#authMsg"); el.textContent = m; el.className = ok ? "help ok" : "err"; };
+  const authDo = async (fn, okMsg) => { const em = $("#authEmail").value.trim(), pw = $("#authPw").value; if (!/.+@.+\..+/.test(em)) return authMsg("Enter a valid email.");
+    try { const { error } = await fn(em, pw); if (error) return authMsg(error.message); authMsg(okMsg, true); renderAuth(); if (Cloud.state().user) setTimeout(() => location.reload(), 600); } catch (err) { authMsg("Could not reach the sign-in service: " + err.message); } };
+  $("#authMagic").onclick = () => authDo(em => Cloud.magicLink(em), "Check your email for a sign-in link.");
+  $("#authPwIn").onclick = () => $("#authPw").value ? authDo((em, pw) => Cloud.signIn(em, pw), "Signed in.") : authMsg("Enter your password, or use the email link.");
+  $("#authSignUp").onclick = () => $("#authPw").value.length >= 8 ? authDo((em, pw) => Cloud.signUp(em, pw), "Account created. Confirm via the email we sent.") : authMsg("Choose a password of at least 8 characters.");
+  $("#signOut").onclick = async () => { await Cloud.signOut(); location.reload(); };
+
   /* ---------- boot ---------- */
   (async () => {
     let saved; try { saved = localStorage.getItem("elgin-theme"); } catch {}
     setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
     route(); drawThumbs(); applyKind(); showStep(0);
-    try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); seed = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
-    catch { $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }
+    if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); }
+    const cloudRows = window.Cloud ? await Cloud.loadFinds() : null;
+    if (cloudRows) seed = cloudRows; // PRIVATE only present here for the signed-in owner (owner-only table)
+    else { try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); seed = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
+      catch { $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; } }
     await Analysis.init();
+    if (cloudRows) { const ex = await Cloud.loadExamples(); if (ex) Analysis.setShared(ex); }
+    const _learn = Analysis.learn, _forget = Analysis.forget;
+    Analysis.learn = async (...a) => { const e = await _learn(...a); if (window.Cloud) Cloud.pushExample(e); return e; };
+    Analysis.forget = async id => { await _forget(id); if (window.Cloud) Cloud.forgetExample(id); };
+    renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route();
     const m = location.hash.match(/^#\/find\/(ELG-\d+)/); if (m) { location.hash = "#/catalog"; openModal(m[1]); }
