@@ -1159,7 +1159,7 @@
     "date_found": "",
     "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) chert cobble with an iron-oxide weathering rind, Moderate: the waxy-looking, pitted, orange-red cortex and rounded shape fit a stream cobble of chert whose surface has weathered and taken up iron stain. (2) Quartzite cobble, Low-Moderate: quartzite cobbles are common in the same gravels and can look similar on the outside; a fresh break would tell them apart (chert breaks with a smooth, conchoidal, waxy surface; quartzite is sugary and grainy with sparkle). (3) Hammerstone, Low: no battering, pecking or crushed zones are visible on either end. Natural, unworked: water-rounded, pitted cortex, desiccation-like weathering cracks in the rind, no flake scars.\n\nContext (general): near Elgin, the Colorado River's Pleistocene terrace gravels and the older, higher Uvalde-type gravels carry abundant chert and quartzite cobbles washed out of the Edwards Plateau. These gravels were an important source of stone for Native knappers, who often tested cobbles by knocking off a flake or two. A test flake scar or a battered end would be the sign to look for; none is visible in these photos.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
     "owner_observations": "Rounded, rust-coloured cobble with cracked, pitted skin.",
-    "open_questions": "Chert or quartzite inside? Any battering on the ends? Weight and thickness. Next photos: 1) a fresh break or chipped spot showing the interior, 2) close-ups of both ends to check for battering, 3) weight on a scale.",
+    "open_questions": "Chert or quartzite inside? Any battering on the ends? Weight and thickness. Next photos: 1) a fresh break or chipped spot showing the interior, 2) close-ups of both ends to check for battering, 3) weight on a scale, 4) loupe close-up of any round pits (potlids?), 5) fresh break to check luster.",
     "status": "Draft",
     "era": "",
     "photos": [
@@ -1228,7 +1228,15 @@
         "thumb": "images/ELG-016/04_thumb.jpg",
         "view": "scale",
         "label": "Face with ruler"
+      },
+      {
+        "path": "images/ELG-016/05.jpg",
+        "thumb": "images/ELG-016/05_thumb.jpg",
+        "view": "oblique",
+        "label": "Oblique, other face, ruler at edge"
       }
-    ]
+    ],
+    "heat_treatment": "unknown",
+    "heat_notes": "No potlids visible; crazing follows the rounded cortex (weathering more likely than fire); red/dark coloration ambiguous with iron-oxide staining; no fresh break to check luster. Leaning not heat-altered."
   }
 ]
