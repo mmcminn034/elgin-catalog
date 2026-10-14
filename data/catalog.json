@@ -1649,5 +1649,157 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-020",
+    "category": "artifact",
+    "object_type": "Chert flake, possible scraper",
+    "material": "Chert (likely Edwards chert or Colorado River gravel chert) with chalky white cortex on part of one face",
+    "color": "Pale grey-white with darker translucent grey bands; chalky white cortex",
+    "length_mm": "~51",
+    "width_mm": "~38",
+    "thickness_mm": null,
+    "measure_method": "Photo estimate (about 2 x 1.5 in beside ruler)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": null,
+    "condition": "Whole flake; edges lightly nibbled",
+    "condition_notes": "Rounded edge lightly nibbled (possible use-wear or retouch); remnant cortex on one face.",
+    "key_features": "Possible striking platform / notch at top edge with smooth glossy ventral face below (photo 2); multiple overlapping flake scars with glassy chert bands (photos 1, 3); remnant chalky cortex indicates early-stage reduction; rounded edge lightly nibbled, possible use-wear or retouch.",
+    "suggestion_1": "Primary / early-stage flake, possibly used as a scraper",
+    "suggestion_2": "Core fragment",
+    "suggestion_3": "Natural breakage (frost or gravel impact)",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) primary or early-stage chert flake, possibly used as a scraper, Moderate (capped): a possible striking platform/notch at the top edge sits above a smooth, glossy ventral face (photo 2), and the rounded edge is lightly nibbled, which may be use-wear or light retouch. (2) Core fragment, Low-Moderate: multiple overlapping flake scars with glassy chert bands (photos 1, 3) could also come from a small core or tested cobble. (3) Natural breakage, Low: frost or gravel impact can split chert, but a platform plus a smooth ventral face favour human flaking.\n\nThe remnant chalky white cortex shows this came off early in reduction, from the outside of a nodule or cobble.\n\nLocal context (general): Edwards chert and Colorado River gravel chert were the main knapping stones around Elgin and are common on Central Texas sites.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is there a bulb of percussion below the platform? Is the nibbling on the edge uniform (use-wear/retouch) or random (damage)? Next photos: 1) close-up of the working edge under raking light, 2) the platform / bulb area close-up, 3) caliper measurements (length, width, thickness), 4) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-020/01.jpg",
+        "thumb": "images/ELG-020/01_thumb.jpg",
+        "view": "front",
+        "label": "Dorsal face with cortex and flake scars, ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.4,
+              0.45,
+              0.62,
+              0.85
+            ],
+            "label": "Overlapping flake scars",
+            "explanation": "Several overlapping flake removals with glassy chert showing through. Overlapping scars point to deliberate flaking; on their own they also fit a core fragment.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Core fragment"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.62,
+              0.35,
+              0.52,
+              0.48
+            ],
+            "label": "Remnant chalky cortex",
+            "explanation": "The chalky white outer rind of the nodule or cobble. Cortex left on a flake means it came off early in reduction (primary or early-stage flake).",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary / early-stage flake, possibly used as a scraper"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-020/02.jpg",
+        "thumb": "images/ELG-020/02_thumb.jpg",
+        "view": "back",
+        "label": "Ventral face with platform/notch at top, ruler",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.58,
+              0.42,
+              0.06
+            ],
+            "label": "Possible striking platform / notch",
+            "explanation": "A small notch-like area at the top edge where the blow may have landed. A platform here, with a smooth face below, is the main sign of a struck flake. A close-up is needed to check for a bulb of percussion.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary / early-stage flake, possibly used as a scraper"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.5,
+              0.48,
+              0.72,
+              0.82
+            ],
+            "label": "Smooth, glossy ventral face",
+            "explanation": "A smooth, glossy surface below the platform fits the inner (ventral) face of a flake. Natural breaks are usually rougher or more irregular.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary / early-stage flake, possibly used as a scraper"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.75,
+              0.75,
+              0.68,
+              0.68
+            ],
+            "label": "Rounded edge, lightly nibbled",
+            "explanation": "Small, even nicks along the rounded edge may be use-wear from scraping or light retouch. A raking-light close-up is needed to tell this from random damage.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary / early-stage flake, possibly used as a scraper"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-020/03.jpg",
+        "thumb": "images/ELG-020/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side profile: glassy chert bands under white rind, ruler",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.36,
+              0.38,
+              0.6,
+              0.7
+            ],
+            "label": "Glassy chert bands and flake removals",
+            "explanation": "Darker translucent chert under the white rind, with flake removals cutting through it. This is good knapping-quality chert.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Core fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-020/04.jpg",
+        "thumb": "images/ELG-020/04_thumb.jpg",
+        "view": "edge",
+        "label": "Opposite profile with flake removals, ruler"
+      }
+    ]
   }
 ]
