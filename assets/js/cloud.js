@@ -51,11 +51,19 @@
   }
   const dataUrlToBlob = async u => (await fetch(u)).blob();
   /* Push one merged record. Returns {ok, msg}. */
+  /* Constrained columns: send the DB enum or null, never "" or a display label (finds_*_source_chk, finds_heat_chk, finds_visibility_chk). */
+  const SRC_MAP = v => { const t = String(v ?? "").trim().toLowerCase().replace(/[\s-]+/g, "_"); if (!t || t === "unknown" || t === "none" || t === "source…") return null;
+    if (/^measur/.test(t) || t === "caliper" || t === "scale") return "measured"; if (/photo/.test(t)) return "photo_estimate"; if (/^(estimat|approx|rough|guess)/.test(t)) return "estimate"; return null; };
+  const HEAT_MAP = v => { const t = String(v ?? "").trim().toLowerCase(); if (!t) return null; return ["none", "possible", "likely", "unknown"].includes(t) ? t : /no|not/.test(t) ? "none" : /likel|yes|heated/.test(t) ? "likely" : /possib|maybe/.test(t) ? "possible" : "unknown"; };
+  function normalizeRow(row) { ["length_source", "width_source", "thickness_source", "weight_source"].forEach(k => { if (k in row) row[k] = SRC_MAP(row[k]); });
+    if ("heat_treatment" in row) row.heat_treatment = HEAT_MAP(row.heat_treatment);
+    if ("visibility" in row) { const v = String(row.visibility ?? "").trim().toLowerCase(); row.visibility = ["private", "editors", "public"].includes(v) ? v : null; }
+    Object.keys(row).forEach(k => { if (row[k] === "") row[k] = null; }); return row; }
   async function pushFind(rec, prev, marksFor) {
     if (MOCK) return { ok: !!user, msg: "mock" };
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
-      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); row.category = row.category || "artifact";
+      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); normalizeRow(row); row.category = row.category || "artifact";
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
@@ -142,5 +150,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

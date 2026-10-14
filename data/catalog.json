@@ -985,9 +985,8 @@
     "width_mm": "~25",
     "thickness_mm": "",
     "measure_method": "Photo estimate",
-    "length_source": "Photo estimate",
-    "width_source": "Photo estimate",
-    "thickness_source": "Unknown",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
     "condition": "Natural fragment; edges broken and water-worn",
     "key_features": "Many concentric ring structures (orbicules) 3-8 mm across, with pink-orange chalcedony bands and white crystalline quartz cores, in a grey-brown siliceous matrix. Broken, water-worn edges; no platform, bulb or patterned retouch (not worked).",
     "suggestion_1": "Orbicular chalcedony / 'eye' chert",
@@ -1141,9 +1140,8 @@
     "width_mm": "~65",
     "thickness_mm": "",
     "measure_method": "Photo estimate",
-    "length_source": "Photo estimate",
-    "width_source": "Photo estimate",
-    "thickness_source": "Unknown",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
     "condition": "Whole natural cobble; weathered rind",
     "key_features": "Water-rounded cobble with pitted, iron-stained cortex and a network of desiccation-like weathering cracks. No flake scars, no battering or pecking on the ends (unworked).",
     "suggestion_1": "Chert cobble with iron-oxide weathering rind",
@@ -1249,9 +1247,7 @@
     "width_mm": "",
     "thickness_mm": "",
     "measure_method": "Photo estimate",
-    "length_source": "Photo estimate",
-    "width_source": "Unknown",
-    "thickness_source": "Unknown",
+    "length_source": "photo_estimate",
     "condition": "Fragment; natural breaks",
     "key_features": "Longitudinal fibrous grain, transverse checking (shrinkage cracks), curved growth bands on end grain, natural conchoidal fractures. No flake scars or retouch.",
     "suggestion_1": "Silicified petrified wood",
@@ -1393,5 +1389,118 @@
     "provenance": "Nevada (exact locality unknown)",
     "acquisition": "Personal collection, brought from Nevada",
     "canonical_ts": "2026-10-14T20:39:11.067251+00:00"
+  },
+  {
+    "catalog_id": "ELG-018",
+    "category": "rock",
+    "object_type": "Banded chalcedony fragment (possible petrified wood)",
+    "material": "Chalcedony (banded)",
+    "color": "Translucent grey-white with cream-orange rind",
+    "length_mm": "~25",
+    "width_mm": "~18",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "condition": "Fragment; natural conchoidal breaks",
+    "key_features": "Fine curved, concentric bands; smooth glassy layers; conchoidal fracture faces; no platform, bulb or retouch; no visible wood fibres or checking.",
+    "suggestion_1": "Banded agate / chalcedony",
+    "suggestion_2": "Silicified petrified wood (end grain)",
+    "suggestion_3": "Knapped flake (unlikely; no platform, bulb or retouch)",
+    "confidence": "Moderate",
+    "hardness": "~7 expected (chalcedony); not tested",
+    "luster": "Waxy to glassy",
+    "streak": "White expected; not tested",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) banded agate or chalcedony, Moderate: fine, smooth, glassy curved bands. (2) Silicified petrified wood (end grain), Low-Moderate: the curved bands could be growth rings, but no longitudinal fibres or transverse checking (shrinkage cracks) are visible. (3) Knapped flake, Low: the surfaces are conchoidal, but there is no platform, bulb or retouch.\n\nLocal context (general): Eocene silicified wood and chalcedony weather out in Bastrop and Lee counties, and the local Colorado River terrace gravels carry chalcedony and agate pebbles. A small banded fragment like this fits either source.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Wood or agate? Thickness. Next photos: 1) side view along the bands, 2) wet close-up macro to look for parallel wood fibres vs smooth glassy layers, 3) loupe view for cell structure.",
+    "status": "Draft",
+    "era": "",
+    "photos": [
+      {
+        "path": "images/ELG-018/01.jpg",
+        "thumb": "images/ELG-018/01_thumb.jpg",
+        "view": "front",
+        "label": "Face with ruler (primary)"
+      },
+      {
+        "path": "images/ELG-018/02.jpg",
+        "thumb": "images/ELG-018/02_thumb.jpg",
+        "view": "detail",
+        "label": "Close-up of bands"
+      },
+      {
+        "path": "images/ELG-018/03.jpg",
+        "thumb": "images/ELG-018/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view with ruler"
+      },
+      {
+        "path": "images/ELG-018/04.jpg",
+        "thumb": "images/ELG-018/04_thumb.jpg",
+        "view": "back",
+        "label": "Other face with ruler"
+      },
+      {
+        "path": "images/ELG-018/05.jpg",
+        "thumb": "images/ELG-018/05_thumb.jpg",
+        "view": "back",
+        "label": "Other face with ruler (2)"
+      },
+      {
+        "path": "images/ELG-018/06.jpg",
+        "thumb": "images/ELG-018/06_thumb.jpg",
+        "view": "scale",
+        "label": "Face with bands, ruler",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.53,
+              0.4,
+              0.65,
+              0.55
+            ],
+            "label": "Concentric / curved bands",
+            "explanation": "Fine curved bands sweep across the face. Smooth, glassy layering like this is typical of banded chalcedony (agate). In wood the curves could be growth rings, but no fibres are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Banded agate / chalcedony"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.43,
+              0.7,
+              0.52,
+              0.56
+            ],
+            "label": "Conchoidal fracture face",
+            "explanation": "A smooth, shell-like curved break surface. Chalcedony breaks this way naturally, and so does knapped stone."
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.75,
+              0.3,
+              0.65,
+              0.4
+            ],
+            "label": "No platform or bulb",
+            "explanation": "The broken edges show no striking platform, bulb of percussion or patterned retouch, so a knapped flake is unlikely.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Knapped flake (unlikely)"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]

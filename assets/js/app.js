@@ -47,13 +47,13 @@
   const CAT_KEYS = ["category", "category_kept", "category_note", "category_history"];
   const stamp = h => (window.Cloud && Cloud.catStamp) ? Cloud.catStamp(h) : (Array.isArray(h) && h.length ? String(h[h.length - 1].ts || h[h.length - 1].date || "") + "#" + String(h.length).padStart(4, "0") : "");
   const decision = (from, to, reason) => ({ from, to, date: new Date().toLocaleDateString("en-CA"), ts: new Date().toISOString(), reason });
-  const conflicts = new Set();
+  const conflicts = new Map();
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
     local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => {
       const base = m.get(r.catalog_id) || {};
       // A canonical seed record (e.g. re-entered after a failed upload) beats any older local copy with the same ID; the local copy stays in IndexedDB, flagged.
-      if (base.canonical_ts && !(r.saved_ts > base.canonical_ts)) { conflicts.add(r.catalog_id); return; }
+      if (base.canonical_ts && !(r.saved_ts > base.canonical_ts)) { conflicts.set(r.catalog_id, r); return; }
       const out = { ...base, ...r, _src: m.has(r.catalog_id) ? "edited" : "local" };
       // Owner category decisions: whichever side (cloud/seed vs this device) decided most recently wins, so a stale copy never undoes a move.
       if (stamp(base.category_history) > stamp(r.category_history)) CAT_KEYS.forEach(k => { if (k in base) out[k] = base[k]; else delete out[k]; });
@@ -88,7 +88,7 @@
 
   /* ---------- helpers ---------- */
   // Optional provenance/acquisition: marks pieces that are not local field finds (e.g. brought from another state).
-  const provBadge = r => (r.provenance || r.acquisition) ? `<span class="prov-badge" title="${esc(r.acquisition || r.provenance)}">From collection · ${esc(String(r.provenance || r.acquisition).split(" (")[0])}</span>` : "";
+  const provBadge = r => (r.provenance || r.acquisition) && r.provenance_answer !== "local" ? `<span class="prov-badge" title="${esc(r.acquisition || r.provenance)}">From collection · ${esc(String(r.provenance || r.acquisition).split(" (")[0])}</span>` : "";
   function confScore(c = "") { c = c.toLowerCase();
     if (c.includes("high")) return 90; if (c.startsWith("moderate-low") || c.startsWith("low-moderate") || c.startsWith("low to moderate")) return 45;
     if (c.startsWith("moderate")) return 65; if (c.startsWith("low")) return 25; return 0; }
@@ -404,7 +404,12 @@
     renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
     refresh(); route(); retryPending();
-    if (conflicts.size) toast(`${[...conflicts].join(", ")}: showing the updated catalog record; an older copy saved on this device was set aside.`, { ms: 8000 });
+    if (conflicts.size) { // move the stale local copy out of the way (backed up), so no later edit or sync retry can resurrect it over the canonical record
+      const bk = (() => { try { return JSON.parse(localStorage.getItem("ro-set-aside") || "[]"); } catch { return []; } })();
+      for (const [id, r] of conflicts) { bk.push({ ...r, set_aside_ts: new Date().toISOString() }); await _del(id); }
+      try { localStorage.setItem("ro-set-aside", JSON.stringify(bk.slice(-20))); } catch {}
+      local = await DB.all(); refresh();
+      toast(`${[...conflicts.keys()].join(", ")}: showing the corrected catalog record. Your earlier copy on this device was set aside (backed up, not deleted).`, { ms: 8000 }); conflicts.clear(); }
     const m = location.hash.match(/^#\/record\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
     if (window.Cloud && Cloud.state().user) Cloud.acceptInvites().then(n => n && toast(`Joined ${n} shared collection${n > 1 ? "s" : ""}`));
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js").catch(() => {});
