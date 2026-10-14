@@ -20,13 +20,40 @@
 
   /* ---------- cloud sync hooks (no-ops when signed out or offline) ---------- */
   const _put = DB.put.bind(DB), _del = DB.del.bind(DB);
+  /* Edits that could not reach the cloud are remembered and retried, never silently dropped. */
+  const PEND = "ro-pending-sync";
+  const pending = () => { try { return JSON.parse(localStorage.getItem(PEND) || "[]"); } catch { return []; } };
+  const setPending = ids => { try { localStorage.setItem(PEND, JSON.stringify([...new Set(ids)])); } catch {} };
+  const syncWarn = m => toast(m, { warn: true, ms: 9000 });
+  async function pushOne(rec, snap) {
+    const res = await Cloud.pushFind(rec, snap, marksFor), id = rec.catalog_id;
+    if (res.ok) { setPending(pending().filter(x => x !== id));
+      if (res.cloudCategory) { // the cloud had a newer category decision: adopt it locally instead of fighting it
+        const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }), ...res.cloudCategory }; await _put(o); local = await DB.all(); refresh(); }
+      return true; }
+    setPending([...pending(), id]); syncWarn(`⚠ ${id} saved on this device only. Cloud sync failed: ${res.msg}. It will retry next time.`); return false;
+  }
   DB.put = async o => { const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
-    if (window.Cloud && Cloud.state().user && Cloud.state().online) setTimeout(async () => { const rec = all.find(x => x.catalog_id === o.catalog_id); if (!rec) return;
-      const res = await Cloud.pushFind(rec, snap, marksFor); toast(res.ok ? `☁ ${o.catalog_id} synced` : `Saved on this device only: ${res.msg}`); }, 80); };
+    if (!window.Cloud || !Cloud.state().user) return;
+    // Push exactly what was saved (merged over the current view), not whatever `all` holds 80 ms later.
+    const rec = { ...(prev || {}), ...o }; delete rec._src;
+    const st = Cloud.state();
+    if (!st.online) { setPending([...pending(), o.catalog_id]); return syncWarn(`⚠ ${o.catalog_id} saved on this device only. Cloud sync is off (${st.reason || "cloud not reachable"}). It will retry next time.`); }
+    if (await pushOne(rec, snap)) toast(`☁ ${o.catalog_id} synced`); };
+  async function retryPending() { const ids = pending(); if (!ids.length || !window.Cloud || !Cloud.state().user || !Cloud.state().online) return;
+    let ok = 0; for (const id of ids) { const r = all.find(x => x.catalog_id === id); if (!r) { setPending(pending().filter(x => x !== id)); continue; } const rec = { ...r }; delete rec._src; if (await pushOne(rec, null)) ok++; }
+    if (ok) toast(`☁ ${ok} earlier change${ok > 1 ? "s" : ""} synced`); }
   DB.del = async id => { const r = all.find(x => x.catalog_id === id); await _del(id); if (r && r._src === "local" && window.Cloud) Cloud.deleteFind(id); };
+  const CAT_KEYS = ["category", "category_kept", "category_note", "category_history"];
+  const stamp = h => (window.Cloud && Cloud.catStamp) ? Cloud.catStamp(h) : (Array.isArray(h) && h.length ? String(h[h.length - 1].ts || h[h.length - 1].date || "") + "#" + String(h.length).padStart(4, "0") : "");
+  const decision = (from, to, reason) => ({ from, to, date: new Date().toLocaleDateString("en-CA"), ts: new Date().toISOString(), reason });
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
-    local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => m.set(r.catalog_id, { ...(m.get(r.catalog_id) || {}), ...r, _src: m.has(r.catalog_id) ? "edited" : "local" }));
+    local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => {
+      const base = m.get(r.catalog_id) || {}, out = { ...base, ...r, _src: m.has(r.catalog_id) ? "edited" : "local" };
+      // Owner category decisions: whichever side (cloud/seed vs this device) decided most recently wins, so a stale copy never undoes a move.
+      if (stamp(base.category_history) > stamp(r.category_history)) CAT_KEYS.forEach(k => { if (k in base) out[k] = base[k]; else delete out[k]; });
+      m.set(r.catalog_id, out); });
     all = [...m.values()].sort((a, b) => a.catalog_id.localeCompare(b.catalog_id, undefined, { numeric: true }));
   }
   const KINDS = {
@@ -50,7 +77,7 @@
   }
   function recatBanner(r, cur, kept) { const s = suggestKind(r); if (!s || s.kind === cur || kept === cur) return "";
     return `<div class="recat" role="status"><div><strong>Analysis suggests this belongs in ${esc(KINDS[s.kind].label)}.</strong><br><span>Rule match: ${esc(s.reason)}. Currently filed under ${esc(KINDS[cur].label)}. Nothing moves unless you choose Move.</span></div><div class="recat-btns"><button type="button" class="btn primary" data-recat="move" data-to="${s.kind}" data-reason="${esc(s.reason)}">Move to ${esc(KINDS[s.kind].label)}</button><button type="button" class="btn" data-recat="keep">Keep in ${esc(KINDS[cur].label)}</button></div></div>`; }
-  const histHtml = h => (h || []).length ? `<ul class="hist">${h.map(x => `<li>${esc(x.date)}: ${esc(KINDS[x.from]?.label || x.from)} → ${esc(KINDS[x.to]?.label || x.to)} <span class="muted">(${esc(x.reason)})</span></li>`).join("")}</ul>` : "";
+  const histHtml = h => (h || []).length ? `<ul class="hist">${h.map(x => `<li>${esc(x.date)}: ${x.from === x.to ? "kept in " + esc(KINDS[x.to]?.label || x.to) : esc(KINDS[x.from]?.label || x.from) + " → " + esc(KINDS[x.to]?.label || x.to)} <span class="muted">(${esc(x.reason)})</span></li>`).join("")}</ul>` : "";
   const histText = h => Array.isArray(h) ? h.map(x => `${x.date}: ${x.from} -> ${x.to} (${x.reason})`).join("; ") : (h || "");
   const kindRows = r => { const k = kindOf(r); return k === "fossil" ? [["Geologic period", r.geologic_period], ["Formation", r.formation], ["Preservation", r.preservation]] : k === "rock" ? [["Hardness (Mohs)", r.hardness], ["Luster", r.luster], ["Streak", r.streak]] : []; };
   const nextId = () => "ELG-" + String(Math.max(0, ...all.map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0))) + 1).padStart(3, "0");
@@ -168,10 +195,10 @@
   }
   $("#mBody").addEventListener("click", async e => { const b = e.target.closest("[data-recat]"); if (!b || !current) return; const r = current, from = kindOf(r), id = r.catalog_id;
     const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) };
-    if (b.dataset.recat === "keep") { o.category_kept = from; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id); selectTab(tab); return toast(`Kept in ${KINDS[from].label}`); }
+    if (b.dataset.recat === "keep") { o.category_kept = from; o.category = from; o.category_history = [...(r.category_history || []), decision(from, from, "Owner kept it here after an auto-categorization suggestion")]; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id); selectTab(tab); return toast(`Kept in ${KINDS[from].label}`); }
     const to = b.dataset.to; o.category = to; o.category_kept = ""; o.category_note = "";
     Object.entries(KIND_FIELDS).forEach(([k, fs]) => { if (k !== to) fs.forEach(f => o[f] = ""); }); if (to !== "artifact") o.era = "";
-    o.category_history = [...(r.category_history || []), { from, to, date: new Date().toLocaleDateString("en-CA"), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed)" }];
+    o.category_history = [...(r.category_history || []), decision(from, to, "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed)")];
     await DB.put(o); local = await DB.all(); kind = to; refresh(); current = all.find(x => x.catalog_id === id); $("#mTitle").textContent = current.object_type; selectTab(0); toast(`${id} moved to ${KINDS[to].label}`); });
   $("#mBody").addEventListener("click", async e => { if (!current) return; const id = current.catalog_id;
     if (e.target.closest("[data-confirm]")) { const label = $("#cfType").value.trim(); if (!label) return toast("Enter the identification to confirm");
@@ -279,7 +306,7 @@
   $("#wizard").addEventListener("input", e => { if (/^(suggestion_1|object_type|key_features)$/.test(e.target.name)) wizBanner(); });
   $("#wizBanner").addEventListener("click", e => { const b = e.target.closest("[data-recat]"); if (!b) return; const from = F().category.value;
     if (b.dataset.recat === "keep") { wizKept = from; } else { const to = b.dataset.to; $(`#wizard input[name=category][value=${to}]`).checked = true; applyKind(); wizKept = "";
-      wizHist.push({ from, to, date: new Date().toLocaleDateString("en-CA"), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed in wizard)" });
+      wizHist.push({ from, to, date: new Date().toLocaleDateString("en-CA"), ts: new Date().toISOString(), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed in wizard)" });
       toast(`Moved to ${KINDS[to].label}. Its specific fields are now in the Description step.`); }
     wizBanner(); });
   function collect() { const o = { catalog_id: nextId(), photos }; for (const el of F()) if (el.name && el.type !== "radio" && el.type !== "checkbox") o[el.name] = el.value.trim();
@@ -319,9 +346,10 @@
     if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀ Light mode" : "☾ Dark mode"; try { localStorage.setItem("elgin-theme", t); } catch {} }
   $("#themeToggle").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
-  function toast(m) { const t = document.createElement("div"); t.textContent = m; t.setAttribute("role", "status");
-    Object.assign(t.style, { position: "fixed", bottom: "20px", left: "50%", transform: "translateX(-50%)", background: "var(--ink)", color: "var(--bg)", padding: "10px 16px", borderRadius: "8px", zIndex: 99 });
-    document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+  function toast(m, opt = {}) { const t = document.createElement("div"); t.textContent = m; t.setAttribute("role", opt.warn ? "alert" : "status"); if (opt.warn) t.className = "toast-warn";
+    Object.assign(t.style, { position: "fixed", bottom: "20px", left: "50%", transform: "translateX(-50%)", background: opt.warn ? "#7a1f12" : "var(--ink)", color: opt.warn ? "#fff" : "var(--bg)", padding: "10px 16px", borderRadius: "8px", zIndex: 99, maxWidth: "min(92vw, 560px)" });
+    if (opt.warn) { const x = document.createElement("button"); x.textContent = "✕"; x.setAttribute("aria-label", "Dismiss"); Object.assign(x.style, { marginLeft: "10px", background: "none", border: "0", color: "inherit", cursor: "pointer" }); x.onclick = () => t.remove(); t.appendChild(x); }
+    document.body.appendChild(t); setTimeout(() => t.remove(), opt.ms || 2600); }
   ["#q", "#fStatus", "#fCat", "#fConf"].forEach(s => $(s).addEventListener("input", renderGrid));
 
   /* ---------- API for features.js ---------- */
@@ -353,9 +381,15 @@
     route(); drawThumbs(); applyKind(); showStep(0);
     if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); }
     const cloudRows = window.Cloud ? await Cloud.loadFinds() : null;
-    if (cloudRows) seed = cloudRows; // PRIVATE only present here for the signed-in owner (owner-only table)
-    else { try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); seed = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
-      catch { $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; } }
+    let json = [];
+    try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); json = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
+    catch { if (!cloudRows) $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }
+    if (cloudRows) { // cloud wins field-by-field; the bundled copy only fills gaps (finds or photos not uploaded yet)
+      const byId = new Map(json.map(r => [r.catalog_id, r]));
+      cloudRows.forEach(c => { const j = byId.get(c.catalog_id) || {}; byId.set(c.catalog_id, { ...j, ...c, photos: (c.photos && c.photos.length) ? c.photos : (j.photos || []) }); });
+      seed = [...byId.values()]; // PRIVATE only present here for the signed-in owner (owner-only table)
+    } else seed = json;
+    try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch {}
     await Analysis.init();
     if (cloudRows) { const ex = await Cloud.loadExamples(); if (ex) Analysis.setShared(ex); }
     const _learn = Analysis.learn, _forget = Analysis.forget;
@@ -363,7 +397,7 @@
     Analysis.forget = async id => { await _forget(id); if (window.Cloud) Cloud.forgetExample(id); };
     renderAuth();
     try { await DB.open(); local = await DB.all(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
-    refresh(); route();
+    refresh(); route(); retryPending();
     const m = location.hash.match(/^#\/record\/([A-Z]+-\d+)/); if (m) openModal(m[1]);
     if (window.Cloud && Cloud.state().user) Cloud.acceptInvites().then(n => n && toast(`Joined ${n} shared collection${n > 1 ? "s" : ""}`));
     if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) navigator.serviceWorker.register("sw.js").catch(() => {});

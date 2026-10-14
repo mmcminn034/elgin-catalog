@@ -7,9 +7,9 @@
   const C = window.ROLLING_OAK_CLOUD || {}, PRIVATE = "find_location_private";
   const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear"];
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
-  let sb = null, user = null, online = false, listeners = [];
+  let sb = null, user = null, online = false, reason = "", listeners = [];
   const emit = () => listeners.forEach(f => { try { f(state()); } catch {} });
-  const state = () => ({ available: !!sb || !!MOCK, mock: !!MOCK, online, user: user ? { id: user.id, email: user.email || null, phone: user.phone ? ("+" + String(user.phone).replace(/^\+/, "")) : null } : null });
+  const state = () => ({ available: !!sb || !!MOCK, mock: !!MOCK, online, reason, user: user ? { id: user.id, email: user.email || null, phone: user.phone ? ("+" + String(user.phone).replace(/^\+/, "")) : null } : null });
   const withTimeout = (p, ms = C.timeoutMs || 6000) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))]);
   const publicUrl = path => sb.storage.from(C.bucket).getPublicUrl(path).data.publicUrl;
 
@@ -23,6 +23,8 @@
     } catch { sb = null; }
     return state();
   }
+  /* Latest owner category decision: ISO ts if present, else date; "" when none. Comparable as strings. */
+  function catStamp(h) { if (!Array.isArray(h) || !h.length) return ""; return h.map(x => String((x && (x.ts || x.date)) || "")).sort().pop() + "#" + String(h.length).padStart(4, "0"); }
   function toRecord(f) {
     const r = {}; FIELDS.forEach(k => { if (f[k] != null) r[k] = f[k]; });
     r.category_history = f.category_history || []; r.photo_annotations = f.annotations && Object.keys(f.annotations).length ? f.annotations : undefined; r.is_public = f.is_public; r._owner = f.owner;
@@ -34,12 +36,14 @@
     if (MOCK) { emit(); return null; }
     if (!sb) return null;
     try { const { data, error } = await withTimeout(sb.from("finds").select("*, photos(*)").order("catalog_id"));
-      if (error || !Array.isArray(data) || !data.length) { online = false; emit(); return null; }
-      online = true;
+      if (error || !Array.isArray(data)) { online = false; reason = error ? error.message : "cloud not reachable"; emit(); return null; }
+      // Reachable but empty (or nothing visible yet) is still ONLINE: edits must sync, not silently stay local.
+      online = true; reason = "";
+      if (!data.length) { emit(); return null; }
       const recs = data.map(toRecord);
       if (user) { const loc = await withTimeout(sb.from("find_locations").select("catalog_id, location")).catch(() => ({})); (loc.data || []).forEach(l => { const r = recs.find(x => x.catalog_id === l.catalog_id); if (r) r[PRIVATE] = l.location; }); }
       emit(); return recs;
-    } catch { online = false; emit(); return null; }
+    } catch (e) { online = false; reason = (e && e.message) || "cloud not reachable"; emit(); return null; }
   }
   async function loadExamples() {
     if (!sb || !online) return null;
@@ -55,7 +59,14 @@
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
-      const { error } = await sb.from("finds").upsert(row, { onConflict: "catalog_id" });
+      // Never let a stale copy overwrite a newer owner category decision already in the cloud.
+      const cur = await sb.from("finds").select("category, category_kept, category_note, category_history").eq("catalog_id", rec.catalog_id).maybeSingle();
+      let kept = false;
+      if (cur.data && catStamp(cur.data.category_history) > catStamp(row.category_history)) { ["category","category_kept","category_note","category_history"].forEach(k => row[k] = cur.data[k]); kept = true; }
+      const { data: wrote, error } = await sb.from("finds").upsert(row, { onConflict: "catalog_id" }).select("catalog_id, category");
+      if (!error && (!Array.isArray(wrote) || !wrote.length)) return { ok: false, msg: "the cloud accepted nothing (you may not own this record yet; run the claim SQL)" };
+      if (!error && wrote[0].category !== row.category) return { ok: false, msg: `cloud still says ${wrote[0].category}` };
+      if (kept) rec._cloudCategory = cur.data;
       if (error) return { ok: false, msg: /row-level|policy|permission/i.test(error.message) ? "you don't own this record yet (run the claim SQL)" : error.message };
       // photos: upload browser-added (data URL, already EXIF-stripped by canvas) images
       for (const [i, p] of (rec.photos || []).entries()) {
@@ -67,7 +78,7 @@
       if (rec[PRIVATE]) { const ll = parseLatLon(rec[PRIVATE]); await sb.from("find_locations").upsert({ catalog_id: rec.catalog_id, owner: user.id, location: rec[PRIVATE], lat: ll ? ll[0] : null, lon: ll ? ll[1] : null }, { onConflict: "catalog_id" }); }
       if (prev) { const ch = TRACK.filter(k => String(prev[k] ?? "") !== String(rec[k] ?? "")).map(k => ({ catalog_id: rec.catalog_id, owner: user.id, field: k, old_value: prev[k] ?? null, new_value: rec[k] ?? null, reason: "Edited in Rolling Oak Catalog" }));
         if (ch.length) await sb.from("corrections").insert(ch); }
-      return { ok: true };
+      return { ok: true, cloudCategory: kept ? cur.data : null };
     } catch (e) { return { ok: false, msg: e.message }; }
   }
   async function deleteFind(id) { if (!sb || !online || !user) return; try { await sb.from("finds").delete().eq("catalog_id", id); } catch {} }
@@ -131,5 +142,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();
