@@ -3438,5 +3438,141 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-030",
+    "category": "fossil",
+    "object_type": "Pebble with fossil shell mold or cast",
+    "material": "Limestone or sandstone pebble (river terrace gravel)",
+    "color": "Tan to light brown",
+    "length_mm": "~55",
+    "width_mm": "~40",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "condition": "Whole pebble; water-worn",
+    "condition_notes": "Flat, water-worn pebble with a curved ridge and hollow on one face.",
+    "key_features": "Smooth curved arc with a raised rim curling around a hollow, a shell mould or cast (photos 1, 3, 4); flat water-worn rounded outline of a river terrace gravel pebble (photos 2, 5); no flake scars or ground surfaces.",
+    "suggestion_1": "Pebble with fossil shell mold/cast (small gastropod or bivalve beak)",
+    "suggestion_2": "Natural weathering hollow",
+    "suggestion_3": "Concretion",
+    "confidence": "Moderate",
+    "era": "Likely Cretaceous (if fossil)",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) pebble with a fossil shell mould or cast (small gastropod or bivalve beak), Moderate (capped): a smooth, curved arc with a raised rim curls around a hollow (photos 1, 3, 4), the shape left by a small shell. (2) Natural weathering hollow, Low-Moderate: weathering can carve curved hollows, so the curve alone is not proof. (3) Concretion, Low.\n\nThe flat, water-worn rounded outline (photos 2, 5) fits a river terrace gravel pebble. There are no flake scars or ground surfaces, so this is not an artifact.\n\nLocal context (general): Cretaceous limestones in Central Texas are rich in shell fossils, and pieces wash into local gravels.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Shell or weathering? Next photos: 1) straight-down raking-light close-up of the curved ridge (growth lines or coiling would confirm shell), 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-030/01.jpg",
+        "thumb": "images/ELG-030/01_thumb.jpg",
+        "view": "front",
+        "label": "Curved ridge and hollow, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.44,
+              0.45,
+              0.1
+            ],
+            "label": "Curved arc with raised rim around a hollow",
+            "explanation": "A smooth, curved arc with a raised rim that curls around a hollow. That shape fits the mould or cast of a small shell, such as a gastropod or the beak of a bivalve. Growth lines or coiling seen under raking light would confirm it.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Pebble with fossil shell mold/cast (small gastropod or bivalve beak)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-030/02.jpg",
+        "thumb": "images/ELG-030/02_thumb.jpg",
+        "view": "edge",
+        "label": "Flat water-worn outline",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.28,
+              0.24,
+              0.59,
+              0.53
+            ],
+            "label": "Flat water-worn rounded outline",
+            "explanation": "A flat, rounded, water-worn outline typical of a river terrace gravel pebble. There are no flake scars or ground surfaces, so this is not an artifact."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-030/03.jpg",
+        "thumb": "images/ELG-030/03_thumb.jpg",
+        "view": "front",
+        "label": "Curved ridge, rotated",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.38,
+              0.45,
+              0.07
+            ],
+            "label": "Curved arc with raised rim around a hollow",
+            "explanation": "A smooth, curved arc with a raised rim that curls around a hollow. That shape fits the mould or cast of a small shell, such as a gastropod or the beak of a bivalve. Growth lines or coiling seen under raking light would confirm it.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Pebble with fossil shell mold/cast (small gastropod or bivalve beak)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-030/04.jpg",
+        "thumb": "images/ELG-030/04_thumb.jpg",
+        "view": "front",
+        "label": "Curved ridge, another angle",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.42,
+              0.45,
+              0.08
+            ],
+            "label": "Curved arc with raised rim around a hollow",
+            "explanation": "A smooth, curved arc with a raised rim that curls around a hollow. That shape fits the mould or cast of a small shell, such as a gastropod or the beak of a bivalve. Growth lines or coiling seen under raking light would confirm it.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Pebble with fossil shell mold/cast (small gastropod or bivalve beak)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-030/05.jpg",
+        "thumb": "images/ELG-030/05_thumb.jpg",
+        "view": "back",
+        "label": "Back, flat rounded outline",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.26,
+              0.25,
+              0.61,
+              0.58
+            ],
+            "label": "Flat water-worn rounded outline",
+            "explanation": "A flat, rounded, water-worn outline typical of a river terrace gravel pebble. There are no flake scars or ground surfaces, so this is not an artifact."
+          }
+        ]
+      }
+    ]
   }
 ]
