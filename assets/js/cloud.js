@@ -5,7 +5,7 @@
 (() => {
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, PRIVATE = "find_location_private";
-  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region"];
+  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear"];
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
   let sb = null, user = null, online = false, listeners = [];
   const emit = () => listeners.forEach(f => { try { f(state()); } catch {} });
@@ -78,6 +78,19 @@
     const { created_at, ...r } = row; return q(sb.from("feedback").insert({ ...r, user_id: user.id })); }
   async function typeAccuracy() { if (MOCK) return MOCK.accuracy || null; if (!sb) return null; const r = await q(sb.rpc("type_accuracy")); return r.error ? null : r.data; }
   async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
+  /* Stage 2: discover + comments */
+  const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug";
+  async function discover() { if (MOCK) return MOCK.discover || null; if (!sb) return null;
+    const r = await q(sb.from("discover_finds").select(DISCOVER_COLS).order("catalog_id").limit(1000)); if (r.error || !Array.isArray(r.data)) return null;
+    return r.data.map(d => ({ ...d, thumb: d.thumb_storage ? publicUrl(d.thumb_storage) : d.thumb_repo, visibility: "public" })); }
+  async function comments(id) { if (MOCK) return (MOCK.comments || []).filter(c => c.catalog_id === id); if (!sb) return null;
+    const r = await q(sb.from("comments").select("id,catalog_id,user_id,kind,body,resolved,created_at").eq("catalog_id", id).order("created_at")); if (r.error) return null;
+    const ids = [...new Set(r.data.map(c => c.user_id))], pr = ids.length ? await q(sb.from("profiles").select("id,display_name,avatar_url").in("id", ids)) : { data: [] };
+    return r.data.map(c => ({ ...c, author: ((pr.data || []).find(p => p.id === c.user_id) || {}).display_name || "Member" })); }
+  async function addComment(catalog_id, kind, body) { if (MOCK) { const c = { id: "m" + Date.now() + Math.random().toString(36).slice(2, 5), catalog_id, kind, body, resolved: false, user_id: user && user.id, author: (MOCK.profile && MOCK.profile.display_name) || "Member", created_at: new Date().toISOString() }; (MOCK.comments = MOCK.comments || []).push(c); return { data: c }; }
+    if (!sb || !user) return { error: "Sign in to comment" }; return q(sb.from("comments").insert({ catalog_id, kind, body }).select().single()); }
+  async function resolveComment(id, v) { if (MOCK) { const c = (MOCK.comments || []).find(x => x.id === id); if (c) c.resolved = v; return {}; } return q(sb.from("comments").update({ resolved: v }).eq("id", id)); }
+  async function deleteComment(id) { if (MOCK) { MOCK.comments = (MOCK.comments || []).filter(x => x.id !== id); return {}; } return q(sb.from("comments").delete().eq("id", id)); }
   const parseLatLon = t => { const m = String(t || "").match(/(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/); return m ? [+m[1], +m[2]] : null; };
   /* ---------- collections, profiles, sharing, membership, AI ---------- */
   const q = async p => { try { const { data, error } = await withTimeout(p); return error ? { error: error.message } : { data }; } catch (e) { return { error: e.message }; } };
@@ -118,5 +131,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

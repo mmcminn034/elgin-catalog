@@ -57,8 +57,16 @@
     const ids = Analysis.rank(r, kind).slice(0, 3).map(x => x.c.id); return Retrieve.rankSimilar({ ...r, category: kind, region: regionOf(r), era: r.era }, Analysis.all().map(e => ({ region: REGION, ...e })), { k, candidateIds: ids }); }
   function similarHtml(r) { const s = similar(r);
     if (!s.length) return `<div class="sim"><h4>Most similar verified examples</h4><p class="help">No verified references are similar yet. Mark well-documented finds as verified references to build the library.</p></div>`;
-    return `<div class="sim"><h4>Most similar verified examples</h4><ol class="sim-list">${s.map(x => { const f = App.all.find(y => y.catalog_id === x.example.catalog_id), p = f && App.pics(f)[0];
-      return `<li><a href="#/find/${esc(x.example.catalog_id)}" class="sim-card">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : '<span class="sim-ph" aria-hidden="true">◆</span>'}<span><strong>${esc(x.example.catalog_id)}</strong> · ${esc(x.example.confirmed_type)} <span class="chip">similarity ${x.score}</span><br><span class="muted">Why similar: ${esc(x.why.join("; "))}</span></span></a></li>`; }).join("")}</ol>
+    const chip = w => { const m = w.match(/^(same candidate type|shared traits|same material|same region|similar length|comparable length|same era)\s*(?:\((.*)\)|: (.*))?$/i) || [, w];
+      const k = (m[1] || "").toLowerCase(), v = m[2] || m[3] || ""; const ic = { "same candidate type": "🎯", "shared traits": "🔎", "same material": "🪨", "same region": "📍", "similar length": "📏", "comparable length": "📏", "same era": "⏳" }[k] || "•";
+      return `<span class="why-chip ${/material|region/.test(k) ? "match" : ""}">${ic} ${esc(k ? k[0].toUpperCase() + k.slice(1) : w)}${v ? `: ${esc(v)}` : ""}</span>`; };
+    return `<div class="sim"><h4>Most similar verified examples</h4><ol class="sim-list">${s.map(x => { const e = x.example, f = App.all.find(y => y.catalog_id === e.catalog_id), p = f && App.pics(f)[0], w = x.why.join(" ");
+      return `<li class="sim-item"><a href="#/find/${esc(e.catalog_id)}" class="sim-card" aria-label="${esc(e.catalog_id)}, verified ${esc(e.confirmed_type)}, similarity ${x.score}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : '<span class="sim-ph" aria-hidden="true">◆</span>'}
+        <span class="sim-txt"><span class="sim-top"><strong>${esc(e.catalog_id)}</strong> <span class="vbadge">✓ ${esc(e.confirmed_type)}</span> <span class="chip">similarity ${x.score}</span></span>
+        <span class="sim-badges">${/same region/.test(w) ? '<span class="mbadge">📍 Region match</span>' : ""}${/same material/.test(w) ? '<span class="mbadge">🪨 Material match</span>' : ""}${/length/.test(w) ? '<span class="mbadge">📏 Size close</span>' : ""}</span>
+        <span class="why-chips" aria-label="Why similar">${x.why.map(chip).join("")}</span>
+        <span class="sim-meta muted">${esc(e.region || REGION)}${e.era ? " · " + esc(e.era) : ""} · verified by ${esc(e.verified_by_name || (/owner/i.test(e.source || "") ? "the owner" : e.source || "the owner"))}${e.confirmed_on ? " on " + esc(e.confirmed_on) : ""}</span>
+        <span class="sim-link">View example →</span></span></a></li>`; }).join("")}</ol>
       <p class="help">Retrieved from owner-verified references (type, traits, material, size, region, era). Also sent to the AI as comparison context.</p></div>`; }
 
   /* ---------- feedback UI ---------- */

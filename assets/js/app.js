@@ -62,7 +62,7 @@
   const confBucket = c => { const s = confScore(c); return s >= 80 ? "high" : s >= 45 ? "moderate" : s > 0 ? "low" : ""; };
   const isMeasured = r => /^measured/i.test(r.measure_method || "") && r.length_mm;
   const size = r => { const p = [["L", r.length_mm], ["W", r.width_mm], ["T", r.thickness_mm]].filter(x => x[1]);
-    return p.length ? p.map(x => `${x[0]} ${esc(x[1])}`).join(" × ") + " mm" : "<em>not measured</em>"; };
+    return p.length ? p.map(x => `${x[0]} ${esc(x[1])}`).join(" × ") + " mm" + (window.S2 ? S2.sizeTag(r) : "") : "<em>not measured</em>"; };
   const pics = r => (r.photos || []).map(p => ({ src: p.path || p.src, thumb: p.thumb || p.path || p.src, view: p.view || p.tag || "", label: p.label || (p.view || p.tag || "photo") }));
   const ERAS = [
     { id: "Paleoindian", dates: "~11,500–8,800 BC", text: "The earliest well-documented people in Central Texas hunted and gathered across a cooler late Ice Age landscape. Sites such as Gault, near Florence, are among the most studied in North America." },
@@ -156,7 +156,7 @@
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
     ][i]();
     const ev = i === 0 && ps.length ? '<h3 class="gal-h">Evidence viewer</h3><div id="evHost"></div>' : "";
-    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody")); if (window.Learn) Learn.decorate(i, r, $("#mBody"));
+    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody")); if (window.Learn) Learn.decorate(i, r, $("#mBody")); if (window.S2) S2.decorate(i, r, $("#mBody"));
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
@@ -305,7 +305,7 @@
   function renderModel() { $("#modelPanel").innerHTML = Analysis.panelHtml();
     $("#exLearn").onclick = () => download("learned-examples.json", Analysis.exportJSON(), "application/json");
     $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
-  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find"].includes(v) ? v : "catalog";
+  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find", "discover"].includes(v) ? v : "catalog";
     const param = (location.hash.match(/^#\/\w+\/([\w-]+)/) || [])[1];
     if (v === "record" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
     if (v === "find" && current) { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; }
@@ -314,7 +314,7 @@
     if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
     if (view === "about" && window.Analysis) { renderModel(); if (window.Learn) Learn.renderAbout(); }
     if (window.Features) Features.render(view, param);
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection", find: "Find" }[view] + " — Rolling Oak Catalog"; if (view === "find" && window.Learn) Learn.renderPublic(param); }
+    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection", find: "Find", discover: "Discover public finds" }[view] + " — Rolling Oak Catalog"; if (view === "find" && window.Learn) Promise.resolve(Learn.renderPublic(param)).then(() => window.S2 && S2.afterPublic(param)); if (window.S2) S2.render(view); }
   window.addEventListener("hashchange", () => { if (/^#\/record\//.test(location.hash)) { const id = location.hash.split("/")[2]; route(); if (!current || current.catalog_id !== id) openModal(id); return; }
     if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀ Light mode" : "☾ Dark mode"; try { localStorage.setItem("elgin-theme", t); } catch {} }

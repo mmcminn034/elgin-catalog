@@ -36,6 +36,7 @@
     <button type="button" id="menuBtn" class="btn ghost icon menu-btn" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <nav aria-label="Primary" id="navMenu" class="nav-menu" hidden>
       <a href="#/catalog" data-route="catalog">Catalog</a>
+      <a href="#/discover" data-route="discover">Discover</a>
       <a href="#/timeline" data-route="timeline">Deep time</a>
       <a href="#/people" data-route="people">People &amp; land</a>
       <a href="#/add" data-route="add">Add find</a>
@@ -284,6 +285,11 @@
       <p class="help">🔒 Only collection owners and editors can see this map. Pins come from the owner-only locations table and are never published.</p>
     </div>
   </section>
+  <!-- DISCOVER -->
+  <section id="view-discover" class="view" aria-labelledby="disc-h" hidden><p class="kicker">Explore</p><h1 id="disc-h">Discover public finds</h1>
+    <p class="lede">Browse finds that owners have made public. Locations are county / general area only. Exact find spots are never published.</p>
+    <p class="disclaimer" role="note">⚠ Research suggestions only, not identifications. No authenticity or value claims.</p><div id="discoverBody"></div></section>
+
   <!-- PUBLIC FIND PAGE -->
   <section id="view-find" class="view" aria-label="Find" hidden><div id="publicFind"></div></section>
 
@@ -355,6 +361,7 @@
 <script src="assets/js/retrieve.js" defer></script>
 <script src="assets/js/learning.js" defer></script>
 <script src="assets/js/features.js" defer></script>
+<script src="assets/js/stage2.js" defer></script>
 <script src="assets/js/auth-options.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 <script src="assets/js/nav.js" defer></script>
