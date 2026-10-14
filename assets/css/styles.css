@@ -342,3 +342,16 @@ label.btn{position:relative}
 #authBtn{color:#F3E9DA;border-color:rgba(255,255,255,.35)}
 #authDlg{border:0;border-radius:var(--radius);padding:0;max-width:520px;width:calc(100% - 24px);background:var(--surface);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.5)}
 #authDlg::backdrop{background:rgba(10,7,4,.6)}.auth-card{padding:18px 20px}.auth-card .row{gap:8px;flex-wrap:wrap}.help.ok{color:var(--sage);font-weight:600}
+/* ---- tab-fix: collection tabs spacing & legibility ---- */
+.ctabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 30px;max-width:760px}
+.ctab{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:12px 18px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;font-weight:600;line-height:1.25;text-align:center;box-shadow:var(--shadow)}
+.ctab .ci{font-size:1.15rem;line-height:1;flex:none}
+.ctab .cl{min-width:0}
+.ctab .n{flex:none;min-width:2.1em;font-size:.85rem;font-weight:700;line-height:1.5;padding:1px 9px;border-radius:999px;background:var(--surface2);color:var(--ink);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.ctab:hover{border-color:var(--accent)}
+.ctab[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 8px 22px -10px rgba(217,105,44,.7)}
+.ctab[aria-selected=true] .n{background:var(--bg);color:var(--ink);border-color:transparent}
+.ctab:focus-visible{outline:3px solid var(--turq,#2F8F8A);outline-offset:3px}
+@media (max-width:560px){.ctabs{gap:8px;margin:12px 0 20px}
+  .ctab{flex-direction:column;gap:6px;min-height:96px;padding:12px 6px;font-size:.92rem;border-radius:12px}
+  .ctab .ci{font-size:1.35rem}}
