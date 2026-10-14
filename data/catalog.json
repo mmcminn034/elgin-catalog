@@ -974,5 +974,261 @@
       }
     ],
     "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-015",
+    "category": "rock",
+    "object_type": "Orbicular chalcedony / eye chert nodule",
+    "material": "Chalcedony / chert with concentric orbicular rings",
+    "color": "Pink-orange bands, white crystalline quartz cores, grey-brown matrix",
+    "length_mm": "~35",
+    "width_mm": "~25",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate",
+    "length_source": "Photo estimate",
+    "width_source": "Photo estimate",
+    "thickness_source": "Unknown",
+    "condition": "Natural fragment; edges broken and water-worn",
+    "key_features": "Many concentric ring structures (orbicules) 3-8 mm across, with pink-orange chalcedony bands and white crystalline quartz cores, in a grey-brown siliceous matrix. Broken, water-worn edges; no platform, bulb or patterned retouch (not worked).",
+    "suggestion_1": "Orbicular chalcedony / 'eye' chert",
+    "suggestion_2": "Silicified oncoids (algal-coated grains) in chert",
+    "suggestion_3": "Silicified colonial coral (no radiating septa seen in close-up)",
+    "confidence": "Moderate",
+    "hardness": "~7 expected for silica (should scratch glass; steel should not scratch it). Not yet tested.",
+    "luster": "Waxy to vitreous (chalcedony bands); sugary on white quartz cores",
+    "streak": "White expected (silica); not tested",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "visibility": "private",
+    "is_public": false,
+    "date_found": "",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) orbicular chalcedony or 'eye' chert, Moderate: the rings are smooth, concentric chalcedony bands around white quartz cores, a common pattern where silica gel crystallized in layers around nuclei inside a nodule. (2) Silicified oncoids in chert, Low-Moderate: algal-coated grains replaced by silica also make concentric rings, but they usually show irregular wavy laminae and a fossil or grain nucleus. (3) Silicified colonial coral, Low: coral corallites show radiating septa (spoke-like partitions) and a honeycomb arrangement; none were seen in the daylight close-up. Natural, not worked: the edges are broken and water-worn with no striking platform, bulb or patterned retouch.\n\nCentral Texas context (general, not tied to this find spot): Elgin and Bastrop County sit on Cretaceous to Paleogene coastal-plain units, but the area's creek and terrace gravels carry chert and chalcedony washed in from Edwards Plateau limestones (Lower Cretaceous Edwards and Glen Rose groups) and from older gravels. Edwards-type cherts often hold silicified fossils, coated grains and banded chalcedony, so any of the three ideas is plausible for a gravel cobble. Which formation it came from cannot be told from photos.\n\nHow to tell chert/chalcedony from coral: (a) Use a 10x loupe on a ring. Radiating septa and a honeycomb of corallites point to coral; smooth concentric bands point to chalcedony. (b) Acid test: a drop of dilute HCl or vinegar should NOT fizz on silica. Fizzing means calcite, as in unsilicified coral or limestone. (c) Hardness: silica is about 7 and scratches glass; calcite (3) is scratched by a steel knife.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "owner_observations": "Concentric pink-orange rings with white crystalline centres; edges look broken and worn, not chipped.",
+    "analysis": "Research suggestions only, not an identification. Ranked: (1) orbicular chalcedony or 'eye' chert, Moderate: the rings are smooth, concentric chalcedony bands around white quartz cores, a common pattern where silica gel crystallized in layers around nuclei inside a nodule. (2) Silicified oncoids in chert, Low-Moderate: algal-coated grains replaced by silica also make concentric rings, but they usually show irregular wavy laminae and a fossil or grain nucleus. (3) Silicified colonial coral, Low: coral corallites show radiating septa (spoke-like partitions) and a honeycomb arrangement; none were seen in the daylight close-up. Natural, not worked: the edges are broken and water-worn with no striking platform, bulb or patterned retouch.\n\nCentral Texas context (general, not tied to this find spot): Elgin and Bastrop County sit on Cretaceous to Paleogene coastal-plain units, but the area's creek and terrace gravels carry chert and chalcedony washed in from Edwards Plateau limestones (Lower Cretaceous Edwards and Glen Rose groups) and from older gravels. Edwards-type cherts often hold silicified fossils, coated grains and banded chalcedony, so any of the three ideas is plausible for a gravel cobble. Which formation it came from cannot be told from photos.\n\nHow to tell chert/chalcedony from coral: (a) Use a 10x loupe on a ring. Radiating septa and a honeycomb of corallites point to coral; smooth concentric bands point to chalcedony. (b) Acid test: a drop of dilute HCl or vinegar should NOT fizz on silica. Fizzing means calcite, as in unsilicified coral or limestone. (c) Hardness: silica is about 7 and scratches glass; calcite (3) is scratched by a steel knife.",
+    "open_questions": "Is there radiating septal structure under a loupe? Does acid fizz anywhere (calcite)? True thickness and caliper size. Note: the scale in photo 1 reads closer to 50 x 35 mm because the stone is nearer the camera than the ruler; caliper measurement needed. Next photos: 1) Loupe macro of a single ring (straight down, daylight). 2) A fresh broken surface. 3) Side view showing thickness against the ruler.",
+    "next_photos": "1) Loupe macro of a single ring (straight down, daylight). 2) A fresh broken surface. 3) Side view showing thickness against the ruler.",
+    "status": "Draft",
+    "era": "",
+    "disclaimer": "Research-only suggestions, not an identification, authentication or valuation.",
+    "photos": [
+      {
+        "path": "images/ELG-015/01.jpg",
+        "thumb": "images/ELG-015/01_thumb.jpg",
+        "view": "front",
+        "label": "Face A with ruler (primary)",
+        "annotations": [
+          {
+            "type": "arrow",
+            "coords": [
+              0.82,
+              0.55,
+              0.68,
+              0.66
+            ],
+            "label": "Broken, water-worn edge (unworked)",
+            "explanation": "Irregular broken margin with rounded, water-worn high points. No striking platform, bulb of percussion, or patterned retouch is visible, which fits a natural fragment rather than a tool.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Natural vs. worked edge"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.22,
+              0.86,
+              0.33,
+              0.76
+            ],
+            "label": "Rounded natural margin",
+            "explanation": "Smoothly rounded edge with no flake scars in a row; consistent with stream or soil wear."
+          },
+          {
+            "type": "measure",
+            "coords": [
+              0.32,
+              0.7,
+              0.68,
+              0.7
+            ],
+            "label": "Width across frame (photo estimate)",
+            "explanation": "Estimated from the inch scale in this photo. The stone sits nearer the camera than the ruler, so treat it as approximate until it is measured with calipers."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-015/02.jpg",
+        "thumb": "images/ELG-015/02_thumb.jpg",
+        "view": "scale",
+        "label": "Face A with ruler"
+      },
+      {
+        "path": "images/ELG-015/03.jpg",
+        "thumb": "images/ELG-015/03_thumb.jpg",
+        "view": "back",
+        "label": "Face B with ruler"
+      },
+      {
+        "path": "images/ELG-015/04.jpg",
+        "thumb": "images/ELG-015/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge / profile on ruler"
+      },
+      {
+        "path": "images/ELG-015/05.jpg",
+        "thumb": "images/ELG-015/05_thumb.jpg",
+        "view": "back",
+        "label": "Face B oblique"
+      },
+      {
+        "path": "images/ELG-015/06.jpg",
+        "thumb": "images/ELG-015/06_thumb.jpg",
+        "view": "detail",
+        "label": "Close-up of rings (daylight)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.36,
+              0.29,
+              0.08
+            ],
+            "label": "Concentric orbicular ring",
+            "explanation": "Pink-orange concentric bands around a lighter centre: the 'eye' or orbicule. Banding like this is typical of chalcedony that grew in layers around a nucleus.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Orbicular chalcedony / eye chert"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.36,
+              0.48,
+              0.07
+            ],
+            "label": "Second ring, smooth bands",
+            "explanation": "Another orbicule. The bands are smooth and continuous with no radiating partitions (septa), which argues against coral.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified colonial coral (less likely)"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.46,
+              0.6,
+              0.06
+            ],
+            "label": "White crystalline quartz core",
+            "explanation": "A sugary white core, probably micro- to macro-crystalline quartz that filled the centre last. Coated grains (oncoids) would usually show a darker nucleus fragment instead.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Silicified oncoids in chert"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "catalog_id": "ELG-016",
+    "category": "rock",
+    "object_type": "Iron-stained chert/quartzite river cobble",
+    "material": "Chert or quartzite with an iron-oxide weathering rind",
+    "color": "Orange-red to rust brown cortex",
+    "length_mm": "~100",
+    "width_mm": "~65",
+    "thickness_mm": "",
+    "measure_method": "Photo estimate",
+    "length_source": "Photo estimate",
+    "width_source": "Photo estimate",
+    "thickness_source": "Unknown",
+    "condition": "Whole natural cobble; weathered rind",
+    "key_features": "Water-rounded cobble with pitted, iron-stained cortex and a network of desiccation-like weathering cracks. No flake scars, no battering or pecking on the ends (unworked).",
+    "suggestion_1": "Chert cobble with iron-oxide weathering rind",
+    "suggestion_2": "Quartzite cobble",
+    "suggestion_3": "Hammerstone (no battering or pecking seen on ends)",
+    "confidence": "Moderate",
+    "hardness": "~7 expected for chert or quartzite (scratches glass). Not yet tested.",
+    "luster": "Dull to waxy on cortex; interior not seen",
+    "streak": "Rind may leave a rusty streak (iron oxide); stone itself white. Not tested.",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "visibility": "private",
+    "is_public": false,
+    "date_found": "",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) chert cobble with an iron-oxide weathering rind, Moderate: the waxy-looking, pitted, orange-red cortex and rounded shape fit a stream cobble of chert whose surface has weathered and taken up iron stain. (2) Quartzite cobble, Low-Moderate: quartzite cobbles are common in the same gravels and can look similar on the outside; a fresh break would tell them apart (chert breaks with a smooth, conchoidal, waxy surface; quartzite is sugary and grainy with sparkle). (3) Hammerstone, Low: no battering, pecking or crushed zones are visible on either end. Natural, unworked: water-rounded, pitted cortex, desiccation-like weathering cracks in the rind, no flake scars.\n\nContext (general): near Elgin, the Colorado River's Pleistocene terrace gravels and the older, higher Uvalde-type gravels carry abundant chert and quartzite cobbles washed out of the Edwards Plateau. These gravels were an important source of stone for Native knappers, who often tested cobbles by knocking off a flake or two. A test flake scar or a battered end would be the sign to look for; none is visible in these photos.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "owner_observations": "Rounded, rust-coloured cobble with cracked, pitted skin.",
+    "open_questions": "Chert or quartzite inside? Any battering on the ends? Weight and thickness. Next photos: 1) a fresh break or chipped spot showing the interior, 2) close-ups of both ends to check for battering, 3) weight on a scale.",
+    "status": "Draft",
+    "era": "",
+    "photos": [
+      {
+        "path": "images/ELG-016/01.jpg",
+        "thumb": "images/ELG-016/01_thumb.jpg",
+        "view": "front",
+        "label": "Face with ruler (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.64,
+              0.58,
+              0.06
+            ],
+            "label": "Rounded, water-worn cortex",
+            "explanation": "Smooth, rounded, pitted outer surface (cortex) with an orange-red iron-oxide stain. This is typical of a stream-tumbled cobble.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert cobble with iron-oxide weathering rind"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.4,
+              0.8,
+              0.47,
+              0.62
+            ],
+            "label": "Desiccation-like weathering cracks",
+            "explanation": "A network of shallow cracks in the weathering rind. They follow the rind, not flake scars, so they are natural weathering, not working."
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.12,
+              0.75,
+              0.23,
+              0.58
+            ],
+            "label": "End: no battering seen",
+            "explanation": "The rounded end shows no crushed, pecked or battered zone in this view. A hammerstone would usually show a pitted, bruised patch on one or both ends.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone (less likely)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-016/02.jpg",
+        "thumb": "images/ELG-016/02_thumb.jpg",
+        "view": "back",
+        "label": "Other face with ruler"
+      },
+      {
+        "path": "images/ELG-016/03.jpg",
+        "thumb": "images/ELG-016/03_thumb.jpg",
+        "view": "end",
+        "label": "End / oblique"
+      },
+      {
+        "path": "images/ELG-016/04.jpg",
+        "thumb": "images/ELG-016/04_thumb.jpg",
+        "view": "scale",
+        "label": "Face with ruler"
+      }
+    ]
   }
 ]
