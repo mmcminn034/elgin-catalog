@@ -1801,5 +1801,163 @@
         "label": "Opposite profile with flake removals, ruler"
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-021",
+    "category": "rock",
+    "object_type": "Weathered pitted cobble (chert or silicified limestone)",
+    "material": "Chert or silicified limestone (test needed)",
+    "color": "Pale cream-grey with orange iron-stained patch",
+    "length_mm": "~64",
+    "width_mm": "~38",
+    "thickness_mm": "~19",
+    "measure_method": "Photo estimate",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": "photo_estimate",
+    "condition": "Whole cobble; heavily pitted on one face",
+    "condition_notes": "Many irregular pits on face A; rounded chalky edges; iron staining on face B.",
+    "key_features": "Many irregular, coalescing pits with no pattern on face A (photo 1); smooth water-rounded face B with an orange iron-stained patch/inclusion (photo 2); rounded chalky edges with no flake scars or struck edges (photos 3-5).",
+    "suggestion_1": "Naturally weathered pitted cobble",
+    "suggestion_2": "Caliche / concretion",
+    "suggestion_3": "Pitted stone tool (nutting stone)",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) naturally weathered pitted cobble, Moderate (capped): face A carries many irregular, coalescing pits with no pattern. That fits softer inclusions or fossil fragments weathering out, unlike the one or two smooth, centred, cup-shaped pits of a nutting stone. (2) Caliche or concretion, Low-Moderate: the chalky surface could be calcium carbonate; a vinegar test will help. (3) Pitted stone tool (nutting stone), Low: the pits are too many, too irregular and not centred.\n\nFace B is smooth and water-rounded, consistent with Colorado River terrace gravel, and has an orange iron-stained patch or inclusion. The edges are rounded and chalky with no flake scars.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Chert, silicified limestone or caliche? Suggested tests: 1) steel nail scratch on an inconspicuous spot (chert won't scratch; limestone/caliche will), 2) a drop of vinegar (fizzing means limestone/caliche), 3) caliper measurements (length, width, thickness), 4) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-021/01.jpg",
+        "thumb": "images/ELG-021/01_thumb.jpg",
+        "view": "front",
+        "label": "Face A, irregular pits, ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.25,
+              0.28,
+              0.52,
+              0.62
+            ],
+            "label": "Irregular, coalescing pits",
+            "explanation": "Many irregular pits that run into each other, with no pattern. That fits softer inclusions or fossil fragments weathering out. A nutting stone usually has one or two smooth, centred, cup-shaped pits.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered pitted cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-021/02.jpg",
+        "thumb": "images/ELG-021/02_thumb.jpg",
+        "view": "back",
+        "label": "Face B, smooth face with iron stain, ruler",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.25,
+              0.15,
+              0.52,
+              0.5
+            ],
+            "label": "Smooth water-rounded face",
+            "explanation": "A smooth, rounded surface consistent with a stream-worn cobble from Colorado River terrace gravels.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered pitted cobble"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.34,
+              0.32,
+              0.05
+            ],
+            "label": "Orange iron-stained patch",
+            "explanation": "An orange patch or inclusion stained by iron oxide, common in local terrace gravels."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-021/03.jpg",
+        "thumb": "images/ELG-021/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge profile",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.2,
+              0.55,
+              0.85
+            ],
+            "label": "Rounded chalky edge, no flake scars",
+            "explanation": "The edges are rounded and chalky, with no flake scars or struck edges. That points to natural rounding, not shaping or use.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered pitted cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-021/04.jpg",
+        "thumb": "images/ELG-021/04_thumb.jpg",
+        "view": "edge",
+        "label": "Oblique edge view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.48,
+              0.45,
+              0.65,
+              0.95
+            ],
+            "label": "Rounded chalky edge, no flake scars",
+            "explanation": "The edges are rounded and chalky, with no flake scars or struck edges. That points to natural rounding, not shaping or use.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered pitted cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-021/05.jpg",
+        "thumb": "images/ELG-021/05_thumb.jpg",
+        "view": "edge",
+        "label": "End-on edge view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.45,
+              0.3,
+              0.62,
+              0.98
+            ],
+            "label": "Rounded chalky edge, no flake scars",
+            "explanation": "The edges are rounded and chalky, with no flake scars or struck edges. That points to natural rounding, not shaping or use.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered pitted cobble"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
