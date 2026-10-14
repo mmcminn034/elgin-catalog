@@ -1502,5 +1502,129 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-019",
+    "category": "artifact",
+    "object_type": "Possible pitted stone (nutting/anvil stone) on sandstone cobble",
+    "material": "Sandstone or quartzite cobble (Colorado River gravels)",
+    "color": "Grey-tan to buff",
+    "length_mm": "~125",
+    "width_mm": "~90",
+    "thickness_mm": "~55",
+    "measure_method": "Photo estimate",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": "estimate",
+    "condition": "Whole cobble; weathering cracks",
+    "condition_notes": "Weathering cracks; angular spall on face B.",
+    "key_features": "Round, symmetric, smooth-floored shallow pit centred on face A; angular-edged depression with crack on face B (likely natural spall); rounded water-worn cortex.",
+    "suggestion_1": "Pitted stone / nutting / anvil stone (Archaic-Late Prehistoric ground stone)",
+    "suggestion_2": "Natural cobble with weathering/solution pit",
+    "suggestion_3": "Mano / handstone (check for flattened ground faces)",
+    "confidence": "Low-moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) pitted stone (nutting or anvil stone), Archaic to Late Prehistoric ground stone, Low-Moderate: a round, symmetric, smooth-floored shallow pit is centred on face A, the classic position. (2) Natural cobble with a weathering or solution pit, Moderate-Low: sandstone can weather into round hollows. Without visible pecking, nature can't be ruled out. (3) Mano or handstone, Low: check for flattened, smoothed (ground) faces. The depression on face B is angular-edged with a crack, so it is most likely a natural spall.\n\nLocal context (general): pitted stones are common at Central Texas Archaic sites. They were used to crack pecans and acorns and as anvils for bipolar knapping. Cobbles of sandstone and quartzite for them came from the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is the pit pecked? Any ground faces or battered ends? Weight. Next photos: 1) raking low-angle daylight across the pit to show pecking stipple, 2) macro of the pit floor, 3) both ends close-up for battering, 4) weight, 5) any flattened or ground surfaces.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-019/01.jpg",
+        "thumb": "images/ELG-019/01_thumb.jpg",
+        "view": "front",
+        "label": "Face A with round pit, ruler (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.495,
+              0.47,
+              0.13
+            ],
+            "label": "Round, smooth-floored shallow pit",
+            "explanation": "A round, fairly symmetric, shallow depression centred on face A with a smooth floor. Centred, round pits like this are the main trait of pitted (nutting/anvil) stones. It is diagnostic only if the floor shows pecking (a fine stipple of tiny impact marks); a raking-light photo is needed to check.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Pitted stone / nutting / anvil stone"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.8,
+              0.8,
+              0.7,
+              0.66
+            ],
+            "label": "Rounded water-worn cortex",
+            "explanation": "Smooth, rounded outer surface of a stream cobble, the usual blank for a pitted stone."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-019/02.jpg",
+        "thumb": "images/ELG-019/02_thumb.jpg",
+        "view": "back",
+        "label": "Face B with angular depression and crack, ruler",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.25,
+              0.38,
+              0.46,
+              0.78
+            ],
+            "label": "Angular depression (likely natural spall)",
+            "explanation": "This depression has sharp, angular edges and a stepped floor, unlike the smooth round pit on face A. It looks like a piece split off (spalled) along a weakness, not a pecked pit.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural cobble with weathering/solution pit"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.52,
+              0.88,
+              0.45,
+              0.74
+            ],
+            "label": "Weathering crack",
+            "explanation": "A crack runs from the depression across the cobble. It is consistent with weathering or frost and helps explain the spall."
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-019/03.jpg",
+        "thumb": "images/ELG-019/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge / profile with ruler"
+      },
+      {
+        "path": "images/ELG-019/04.jpg",
+        "thumb": "images/ELG-019/04_thumb.jpg",
+        "view": "edge",
+        "label": "Side in daylight (cracks)"
+      },
+      {
+        "path": "images/ELG-019/05.jpg",
+        "thumb": "images/ELG-019/05_thumb.jpg",
+        "view": "base",
+        "label": "End view"
+      },
+      {
+        "path": "images/ELG-019/06.jpg",
+        "thumb": "images/ELG-019/06_thumb.jpg",
+        "view": "detail",
+        "label": "Oblique, pit on top"
+      }
+    ]
   }
 ]
