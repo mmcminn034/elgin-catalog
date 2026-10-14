@@ -2137,5 +2137,188 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-023",
+    "category": "artifact",
+    "object_type": "Elongated cobble, possible hammerstone or pestle",
+    "material": "Quartzite or sandstone cobble",
+    "color": "Pale cream to pinkish-buff",
+    "length_mm": "~114",
+    "width_mm": "~38",
+    "thickness_mm": "~35",
+    "measure_method": "Photo estimate",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": "photo_estimate",
+    "condition": "Whole cobble; one end battered",
+    "condition_notes": "One end rough, crushed and pitted; sides smooth; small natural pit on one face.",
+    "key_features": "One end rough, crushed and pitted, contrasting with smooth sides (photos 5-6); hand-sized, grippable elongated form with smooth water-rounded sides (photos 1-4); small pit on one face likely a natural weathered-out grain (photo 1).",
+    "suggestion_1": "Hammerstone / pestle",
+    "suggestion_2": "Natural river cobble with tumbling end damage",
+    "suggestion_3": "Mano",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) hammerstone or pestle, Moderate (capped): one end is rough, crushed and pitted, in contrast to the smooth sides (photos 5-6), and the cobble is a hand-sized, easy-to-grip elongated form (photos 1-4). (2) Natural river cobble with tumbling end damage, Low-Moderate: ends of stream cobbles can be bruised in transport, so the battering needs a close look. (3) Mano, Low: no flattened ground face is visible.\n\nThe small pit on one face (photo 1) is most likely a natural weathered-out grain, not use. Quartzite and sandstone cobbles like this are common in the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is the end battering concentrated and overlapping (use) or scattered (natural)? Is the other end battered too? Next photos: 1) raking-light close-up of each end, 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-023/01.jpg",
+        "thumb": "images/ELG-023/01_thumb.jpg",
+        "view": "front",
+        "label": "Side view with small pit, ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.15,
+              0.25,
+              0.78,
+              0.68
+            ],
+            "label": "Hand-sized elongated form, smooth sides",
+            "explanation": "An elongated, hand-sized cobble that is easy to grip, with smooth water-rounded sides. This is the shape people picked for hammerstones and pestles.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.47,
+              0.37,
+              0.03
+            ],
+            "label": "Small pit (likely natural)",
+            "explanation": "A small, isolated pit that is most likely a grain that weathered out of the stone, not a use mark.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural river cobble with tumbling end damage"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-023/02.jpg",
+        "thumb": "images/ELG-023/02_thumb.jpg",
+        "view": "front",
+        "label": "Side view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.24,
+              0.2,
+              0.88,
+              0.55
+            ],
+            "label": "Hand-sized elongated form, smooth sides",
+            "explanation": "An elongated, hand-sized cobble that is easy to grip, with smooth water-rounded sides. This is the shape people picked for hammerstones and pestles.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-023/03.jpg",
+        "thumb": "images/ELG-023/03_thumb.jpg",
+        "view": "back",
+        "label": "Opposite side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.16,
+              0.3,
+              0.66,
+              0.65
+            ],
+            "label": "Hand-sized elongated form, smooth sides",
+            "explanation": "An elongated, hand-sized cobble that is easy to grip, with smooth water-rounded sides. This is the shape people picked for hammerstones and pestles.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-023/04.jpg",
+        "thumb": "images/ELG-023/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.22,
+              0.3,
+              0.75,
+              0.67
+            ],
+            "label": "Hand-sized elongated form, smooth sides",
+            "explanation": "An elongated, hand-sized cobble that is easy to grip, with smooth water-rounded sides. This is the shape people picked for hammerstones and pestles.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-023/05.jpg",
+        "thumb": "images/ELG-023/05_thumb.jpg",
+        "view": "base",
+        "label": "End-on view, battered end",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.6,
+              0.6,
+              0.07
+            ],
+            "label": "Rough, crushed, pitted end",
+            "explanation": "One end is rough, crushed and pitted, in clear contrast to the smooth sides. Battering concentrated on an end is the key sign of use as a hammerstone or pestle. River tumbling can also bruise ends, so a raking-light close-up is needed.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-023/06.jpg",
+        "thumb": "images/ELG-023/06_thumb.jpg",
+        "view": "base",
+        "label": "End-on view, battered end close",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.59,
+              0.5,
+              0.08
+            ],
+            "label": "Rough, crushed, pitted end",
+            "explanation": "One end is rough, crushed and pitted, in clear contrast to the smooth sides. Battering concentrated on an end is the key sign of use as a hammerstone or pestle. River tumbling can also bruise ends, so a raking-light close-up is needed.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Hammerstone / pestle"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
