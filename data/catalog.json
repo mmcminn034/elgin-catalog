@@ -3132,7 +3132,7 @@
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) naturally weathered sandstone cobble, Moderate (capped): irregular rounded knobs and a curved side notch (photos 1, 3, 5) fit differential weathering. Grooves made by people tend to be straighter and more uniform. The grain is uniform and fine, with darker staining on the back (photo 5), and there are no grinding facets, polish or peck marks. (2) Concretion, Low-Moderate: the lumpy form can come from cementation in sediment. (3) Ground stone tool fragment, Low: the ends are rounded without battering (photos 2, 4) and no worked surfaces are visible.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) naturally weathered sandstone cobble, Moderate (capped): irregular rounded knobs and a curved side notch (photos 1, 3, 5) fit differential weathering. Grooves made by people tend to be straighter and more uniform. The grain is uniform and fine, with darker staining on the back (photo 5), and there are no grinding facets, polish or peck marks. (2) Concretion, Low-Moderate: the lumpy form can come from cementation in sediment. (3) Ground stone tool fragment, Low: the ends are rounded without battering (photos 2, 4) and no worked surfaces are visible.\n\nAdditional photos (6-10) show the darker-stained reverse face and the curved notch from more angles; nothing seen changes the ranking.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
     "open_questions": "Is the curved notch a smooth, uniform worn groove? That could indicate use as an abrader. Next photos: 1) raking-light close-up of the curved notch, 2) caliper measurements (length, width, thickness), 3) weight.",
     "status": "Draft",
     "photos": [
@@ -3290,6 +3290,69 @@
             }
           }
         ]
+      },
+      {
+        "path": "images/ELG-028/06.jpg",
+        "thumb": "images/ELG-028/06_thumb.jpg",
+        "view": "front",
+        "label": "Front with curved notch (additional)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.45,
+              0.55,
+              0.08
+            ],
+            "label": "Curved side notch",
+            "explanation": "The same curved notch seen in photo 1. Its irregular shape fits weathering; a groove worn by people would be smoother and more uniform.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Ground stone tool fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/07.jpg",
+        "thumb": "images/ELG-028/07_thumb.jpg",
+        "view": "back",
+        "label": "Stained reverse face (additional)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.35,
+              0.88,
+              0.82
+            ],
+            "label": "Darker stained reverse face",
+            "explanation": "The darker-stained back, with an even, fine sandy grain and no grinding facets, polish or peck marks.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Naturally weathered sandstone cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-028/08.jpg",
+        "thumb": "images/ELG-028/08_thumb.jpg",
+        "view": "edge",
+        "label": "Side view, knobs (additional)"
+      },
+      {
+        "path": "images/ELG-028/09.jpg",
+        "thumb": "images/ELG-028/09_thumb.jpg",
+        "view": "detail",
+        "label": "Notch, oblique close view (additional)"
+      },
+      {
+        "path": "images/ELG-028/10.jpg",
+        "thumb": "images/ELG-028/10_thumb.jpg",
+        "view": "base",
+        "label": "End view into notch (additional)"
       }
     ]
   },
