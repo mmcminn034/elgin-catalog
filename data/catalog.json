@@ -2579,5 +2579,151 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-025",
+    "category": "artifact",
+    "object_type": "Tan chert flake (debitage), possible expedient tool",
+    "material": "Fine-grained tan Edwards-type chert",
+    "color": "Tan to light brown; cream band on thick end",
+    "length_mm": "~50",
+    "width_mm": "~45",
+    "thickness_mm": null,
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": null,
+    "condition": "Whole flake; edges sharp",
+    "condition_notes": "Sharp irregular edges with small notches; rough cream band on thick end.",
+    "key_features": "Several clean intersecting flake scars meeting in sharp ridges on the dorsal face (photo 1); glossy fine-grained chert; rough cream band on the thick end, a cortex remnant or broad striking platform (photo 2); sharp irregular edges with small notches, possible use or light retouch (photos 1, 3, 5).",
+    "suggestion_1": "Chert debitage flake, possibly used as expedient tool",
+    "suggestion_2": "Core fragment",
+    "suggestion_3": "Natural breakage",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) chert debitage flake, possibly used as an expedient tool, Moderate (capped): several clean, intersecting flake scars meet in sharp ridges on the dorsal face (photo 1), showing earlier removals, in glossy fine-grained chert. The rough cream band on the thick end (photo 2) is a cortex remnant or a broad striking platform, pointing to an early-stage flake. Sharp, irregular edges with small notches (photos 1, 3, 5) may be from use or light retouch. (2) Core fragment, Low-Moderate: the multiple scars could also be on a broken piece of core. (3) Natural breakage, Low: clean, intersecting scars with sharp ridges are typical of knapping.\n\nLocal context (general): tan Edwards-type chert was widely knapped across Central Texas, and flakes like this are the most common artifacts on sites.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is there a bulb of percussion on the flat underside? Is the cream end cortex or a platform? Next photos: 1) the flat ventral underside showing the bulb of percussion, 2) close-up of the chalky end, 3) caliper measurements (length, width, thickness), 4) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-025/01.jpg",
+        "thumb": "images/ELG-025/01_thumb.jpg",
+        "view": "front",
+        "label": "Dorsal face with flake scars, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.42,
+              0.25,
+              0.6,
+              0.6
+            ],
+            "label": "Intersecting flake scars and sharp ridges",
+            "explanation": "Several clean flake scars that intersect and meet in sharp ridges. This is the dorsal (outer) face of a flake, showing removals made before it was struck off. The chert is glossy and fine-grained.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert debitage flake, possibly used as expedient tool"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.4,
+              0.23,
+              0.63,
+              0.7
+            ],
+            "label": "Sharp irregular edges with small notches",
+            "explanation": "Sharp, irregular edges with small notches. They may be from use as a quick cutting or scraping tool, or from light retouch. A close-up is needed to tell this from damage.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert debitage flake, possibly used as expedient tool"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-025/02.jpg",
+        "thumb": "images/ELG-025/02_thumb.jpg",
+        "view": "edge",
+        "label": "Thick end with cream band",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.12,
+              0.5,
+              0.34
+            ],
+            "label": "Rough cream band (cortex or platform)",
+            "explanation": "A rough cream band on the thick end. It is either a remnant of cortex (the nodule's outer rind) or a broad striking platform. Either way, it points to an early-stage flake.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert debitage flake, possibly used as expedient tool"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-025/03.jpg",
+        "thumb": "images/ELG-025/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side view, edges",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.49,
+              0.02,
+              0.71,
+              0.37
+            ],
+            "label": "Sharp irregular edges with small notches",
+            "explanation": "Sharp, irregular edges with small notches. They may be from use as a quick cutting or scraping tool, or from light retouch. A close-up is needed to tell this from damage.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert debitage flake, possibly used as expedient tool"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-025/04.jpg",
+        "thumb": "images/ELG-025/04_thumb.jpg",
+        "view": "edge",
+        "label": "Profile view"
+      },
+      {
+        "path": "images/ELG-025/05.jpg",
+        "thumb": "images/ELG-025/05_thumb.jpg",
+        "view": "back",
+        "label": "Other face, edges",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.45,
+              0.17,
+              0.74,
+              0.43
+            ],
+            "label": "Sharp irregular edges with small notches",
+            "explanation": "Sharp, irregular edges with small notches. They may be from use as a quick cutting or scraping tool, or from light retouch. A close-up is needed to tell this from damage.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert debitage flake, possibly used as expedient tool"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
