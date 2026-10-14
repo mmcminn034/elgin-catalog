@@ -1,7 +1,7 @@
 /* Rolling Oak Catalog — static app. Seed data: data/catalog.json. User additions/edits: IndexedDB (browser only). */
 (() => {
   "use strict";
-  const COLS = ["catalog_id","category","object_type","geologic_period","formation","preservation","hardness","luster","streak","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status"];
+  const COLS = ["catalog_id","category","object_type","geologic_period","formation","preservation","hardness","luster","streak","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","category_history"];
   const PRIVATE = "find_location_private";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -31,6 +31,21 @@
       guide: "Rank 1–3 possible rock/mineral types. Chert vs flint: both microcrystalline quartz; ‘flint’ is often used for dark nodular chert. Quartzite is granular/sugary, with fractures cutting through grains. Hardness ~7 scratches glass." } };
   const kindOf = r => { const c = String(r.category || "").toLowerCase(); return KINDS[c] ? c : "artifact"; };
   let kind = "artifact";
+  /* ---------- auto-categorization: simple, transparent keyword rules ---------- */
+  const RULES = [
+    { kind: "rock", re: /\b(unworked|natural|no flake scars|pebble|nodule|geode|concretion|cobble)\b/i },
+    { kind: "fossil", re: /\b(ammonite|fossil\w*|echinoid|oyster|exogyra|gastropod|crinoid|petrified)\b/i },
+    { kind: "artifact", re: /\b(flake|biface|point|scraper|core|knapped|worked|hammerstone)\b/i }];
+  const KIND_FIELDS = { fossil: ["geologic_period", "formation", "preservation"], rock: ["hardness", "luster", "streak"] };
+  function suggestKind(r) {
+    const scan = (where, t) => { t = String(t || ""); const hits = RULES.map(x => ({ x, m: x.re.exec(t) })).filter(h => h.m).sort((p, q) => p.m.index - q.m.index); // earliest keyword wins
+      return hits.length ? { kind: hits[0].x.kind, reason: `“${hits[0].m[0].toLowerCase()}” in ${where}` } : null; };
+    return scan("top-ranked suggestion", r.suggestion_1) || scan("object type", r.object_type) || scan("key features / notes", [r.key_features, r.owner_observations, r.context_notes].join(" "));
+  }
+  function recatBanner(r, cur, kept) { const s = suggestKind(r); if (!s || s.kind === cur || kept === cur) return "";
+    return `<div class="recat" role="status"><div><strong>Analysis suggests this belongs in ${esc(KINDS[s.kind].label)}.</strong><br><span>Rule match: ${esc(s.reason)}. Currently filed under ${esc(KINDS[cur].label)}. Nothing moves unless you choose Move.</span></div><div class="recat-btns"><button type="button" class="btn primary" data-recat="move" data-to="${s.kind}" data-reason="${esc(s.reason)}">Move to ${esc(KINDS[s.kind].label)}</button><button type="button" class="btn" data-recat="keep">Keep in ${esc(KINDS[cur].label)}</button></div></div>`; }
+  const histHtml = h => (h || []).length ? `<ul class="hist">${h.map(x => `<li>${esc(x.date)}: ${esc(KINDS[x.from]?.label || x.from)} → ${esc(KINDS[x.to]?.label || x.to)} <span class="muted">(${esc(x.reason)})</span></li>`).join("")}</ul>` : "";
+  const histText = h => Array.isArray(h) ? h.map(x => `${x.date}: ${x.from} -> ${x.to} (${x.reason})`).join("; ") : (h || "");
   const kindRows = r => { const k = kindOf(r); return k === "fossil" ? [["Geologic period", r.geologic_period], ["Formation", r.formation], ["Preservation", r.preservation]] : k === "rock" ? [["Hardness (Mohs)", r.hardness], ["Luster", r.luster], ["Streak", r.streak]] : []; };
   const nextId = () => "ELG-" + String(Math.max(0, ...all.map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0))) + 1).padStart(3, "0");
 
@@ -120,7 +135,7 @@
     const r = current, kv = rows => `<dl class="kv">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v || '<span class="muted">—</span>'}</dd>`).join("")}</dl>`;
     const ps = pics(r), photos = ps.length ? `<h3 class="gal-h">Photos (${ps.length})</h3><div class="photos">${ps.map((p, j) => `<figure><button type="button" class="ph" data-lb="${j}" aria-label="Enlarge ${esc(p.label)}"><img src="${esc(p.thumb)}" alt="${esc(r.catalog_id)} ${esc(p.label)}" loading="lazy"></button><figcaption>${esc(p.label)}</figcaption></figure>`).join("")}</div>` : `<p class="help">No photos yet for this find.</p>`;
     const html = [
-      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
+      () => photos + kv([["Status", `<span class="badge ${r.status === "Reviewed" ? "Reviewed" : "Draft"}">${esc(r.status || "Draft")}</span>`], ["Collection", esc(KINDS[kindOf(r)].label) + (r.category_note ? `<br><span class="muted">${esc(r.category_note)}</span>` : "")], ["Category history", histHtml(r.category_history)], ["Material", esc(r.material)], ["Color", esc(r.color)], ...kindRows(r).map(([k, v]) => [k, esc(v)]), ["Condition", esc(r.condition)], ["Key features", esc(r.key_features)], ["Context", esc(r.context_notes)], ["Date found", esc(r.date_found)], ["Location sharing", esc(r.location_sharing || "Private")], ["🔒 Private location", r[PRIVATE] ? esc(r[PRIVATE]) + ' <span class="chip">owner only</span>' : ""]]),
       () => kv([["Method", esc(r.measure_method)], ["Length", r.length_mm ? esc(r.length_mm) + " mm" : ""], ["Width", r.width_mm ? esc(r.width_mm) + " mm" : ""], ["Thickness", r.thickness_mm ? esc(r.thickness_mm) + " mm" : ""], ["Weight", r.weight_g ? esc(r.weight_g) + " g" : ""]]) + (isMeasured(r) ? "" : '<p class="tip">📏 Not yet measured with a ruler or caliper. A flat ruler reading and weight would raise confidence.</p>'),
       () => `<p class="help">Research possibilities, not identifications. No authenticity or value claims.</p><p class="tip">${esc(KINDS[kindOf(r)].guide)}</p>${suggestions(r).length ? `<ol class="rank">${suggestions(r).map(s => `<li>${esc(s)}</li>`).join("")}</ol>` : "<p>No suggestions recorded.</p>"}${meter(r.confidence)}${r.open_questions ? `<p class="oq" style="margin-top:12px"><strong>What would help:</strong> ${esc(r.open_questions)}</p>` : ""}`,
       () => `<form id="reviewForm"><p class="help">Edits save in this browser for <strong>${esc(r.catalog_id)}</strong> and override the published record on this device. Use Export to back them up.</p>
@@ -133,7 +148,7 @@
         <label class="field grow"><span>🔒 Private location (owner only, kept in this browser)</span><input name="${PRIVATE}" value="${esc(r[PRIVATE])}"></label></div>
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
     ][i]();
-    $("#mBody").innerHTML = `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${html}</div>`;
+    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${html}</div>`;
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
@@ -142,6 +157,13 @@
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
     }
   }
+  $("#mBody").addEventListener("click", async e => { const b = e.target.closest("[data-recat]"); if (!b || !current) return; const r = current, from = kindOf(r), id = r.catalog_id;
+    const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) };
+    if (b.dataset.recat === "keep") { o.category_kept = from; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id); selectTab(tab); return toast(`Kept in ${KINDS[from].label}`); }
+    const to = b.dataset.to; o.category = to; o.category_kept = ""; o.category_note = "";
+    Object.entries(KIND_FIELDS).forEach(([k, fs]) => { if (k !== to) fs.forEach(f => o[f] = ""); }); if (to !== "artifact") o.era = "";
+    o.category_history = [...(r.category_history || []), { from, to, date: new Date().toLocaleDateString("en-CA"), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed)" }];
+    await DB.put(o); local = await DB.all(); kind = to; refresh(); current = all.find(x => x.catalog_id === id); $("#mTitle").textContent = current.object_type; selectTab(0); toast(`${id} moved to ${KINDS[to].label}`); });
   let lbList = [], lbI = 0;
   function lightbox(i) { lbI = (i + lbList.length) % lbList.length; const p = lbList[lbI];
     $("#lbImg").src = p.src; $("#lbImg").alt = p.label; $("#lbCap").textContent = `${current.catalog_id} · ${p.label} (${lbI + 1}/${lbList.length})`; $("#lb").hidden = false; $("#lbClose").focus(); }
@@ -161,7 +183,7 @@
   $("#grid").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openModal(c.dataset.id); });
 
   /* ---------- print ---------- */
-  $("#printBtn").onclick = () => { const r = current, rows = [["Collection", KINDS[kindOf(r)].label], ["Type", r.object_type], ...kindRows(r), ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
+  $("#printBtn").onclick = () => { const r = current, rows = [["Collection", KINDS[kindOf(r)].label], ["Category history", histText(r.category_history)], ["Type", r.object_type], ...kindRows(r), ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
     $("#printArea").innerHTML = `<div class="pc"><h1>${esc(r.catalog_id)} — ${esc(r.object_type)}</h1><p>Rolling Oak Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${pics(r).slice(0, 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
     window.print(); };
 
@@ -169,7 +191,7 @@
   function exportRows() { const inc = $("#inclPrivate").checked; if (inc && !confirm("Include exact private location in this export? Only do this for your own backup.")) return null;
     return { inc, rows: filtered().map(r => { const o = {}; COLS.forEach(c => o[c] = r[c] ?? ""); if (inc) o[PRIVATE] = r[PRIVATE] ?? ""; return o; }) }; }
   function download(name, text, type) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
-  const cq = v => { v = String(v ?? ""); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
+  const cq = v => { v = Array.isArray(v) ? histText(v) : String(v ?? ""); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
   $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("elgin_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };
   $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("elgin_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
 
@@ -215,12 +237,20 @@
     F().object_type.placeholder = { artifact: "Dart point, biface, scraper…", fossil: "Ammonite, echinoid, oyster…", rock: "Nodule, geode, cobble…" }[k];
     $("#s1").textContent = { artifact: "1. Most likely type", fossil: "1. Most likely taxon", rock: "1. Most likely rock / mineral" }[k]; }
   $("#wizard").addEventListener("change", e => { if (e.target.name === "category") { applyKind(); $("[data-err=kind]").textContent = ""; } });
+  let wizHist = [], wizKept = "";
+  function wizBanner() { if (step !== 4) return; const o = collect(); $("#wizBanner").innerHTML = recatBanner(o, o.category, wizKept); }
+  $("#wizard").addEventListener("input", e => { if (/^(suggestion_1|object_type|key_features)$/.test(e.target.name)) wizBanner(); });
+  $("#wizBanner").addEventListener("click", e => { const b = e.target.closest("[data-recat]"); if (!b) return; const from = F().category.value;
+    if (b.dataset.recat === "keep") { wizKept = from; } else { const to = b.dataset.to; $(`#wizard input[name=category][value=${to}]`).checked = true; applyKind(); wizKept = "";
+      wizHist.push({ from, to, date: new Date().toLocaleDateString("en-CA"), reason: "Auto-categorization rule: " + b.dataset.reason + " (owner confirmed in wizard)" });
+      toast(`Moved to ${KINDS[to].label}. Its specific fields are now in the Description step.`); }
+    wizBanner(); });
   function collect() { const o = { catalog_id: nextId(), photos }; for (const el of F()) if (el.name && el.type !== "radio" && el.type !== "checkbox") o[el.name] = el.value.trim();
-    o.measure_method = F().measure_method.value; o.category = F().category.value || "artifact"; $$("[data-kind-only]").forEach(el => { if (el.hidden) $$("[name]", el).forEach(x => delete o[x.name]); }); o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; return o; }
+    o.measure_method = F().measure_method.value; o.category = F().category.value || "artifact"; $$("[data-kind-only]").forEach(el => { if (el.hidden) $$("[name]", el).forEach(x => delete o[x.name]); }); o.landowner_permission = F().landowner_permission.checked ? "Yes" : "No"; if (wizHist.length) o.category_history = [...wizHist]; if (wizKept) o.category_kept = wizKept; return o; }
   function showStep(i) {
     step = i; $$(".step").forEach((s, j) => s.hidden = j !== i);
     $$("#steps li").forEach((li, j) => { li.className = j < i ? "done" : j === i ? "cur" : ""; j === i ? li.setAttribute("aria-current", "step") : li.removeAttribute("aria-current"); });
-    $("#prev").disabled = i === 0; $("#next").hidden = i === 5; $("#save").hidden = i !== 5;
+    wizBanner(); if (i !== 4) $("#wizBanner").innerHTML = ""; $("#prev").disabled = i === 0; $("#next").hidden = i === 5; $("#save").hidden = i !== 5;
     if (i === 5) { const o = collect(); $("#summary").innerHTML = `<strong>${o.catalog_id}</strong> · ${esc(KINDS[o.category].label)} · ${esc(o.object_type)} · ${esc(o.material)}<br>${photos.length} photo(s), EXIF stripped · ${size(o)} (${esc(o.measure_method)})<br>Possibilities: ${esc(suggestions(o).join(" / ") || "none")} · Confidence: ${esc(o.confidence)}<br>🔒 Location: ${o[PRIVATE] ? "recorded, private" : "not recorded"} · Sharing: ${esc(o.location_sharing)}`; }
   }
   $("#next").onclick = () => { if (validate(step)) { showStep(step + 1); $(".step:not([hidden]) legend").scrollIntoView({ block: "nearest" }); } };
@@ -228,7 +258,7 @@
   $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 5; i++) if (!validate(i)) return showStep(i);
     const o = collect(); try { await DB.put(o); } catch (err) { return toast("Could not save: " + err.message); }
     local = await DB.all(); refresh(); resetWizard(); toast(o.catalog_id + " saved"); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id); };
-  function resetWizard() { $("#wizard").reset(); photos = []; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
+  function resetWizard() { $("#wizard").reset(); photos = []; wizHist = []; wizKept = ""; drawThumbs(); $$(".err").forEach(e => e.textContent = ""); applyKind(); showStep(0); }
 
   /* ---------- routing, theme, toast ---------- */
   function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people"].includes(v) ? v : "catalog";
