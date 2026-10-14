@@ -8,6 +8,9 @@ window.ROLLING_OAK_CLOUD = {
   defaultCollection: { slug: "rolling-oak", name: "Rolling Oak", description: "Surface finds from private land near Elgin, Texas.", owner_name: "Mark McMinn" },
   freeFindLimit: 50,
   membershipPrice: "$10/year",
+  // Sign-in options: keep false until the provider is configured in Supabase (see docs/auth-setup.md)
+  authGoogle: false,
+  authPhone: false,
   // Paste the Stripe Payment Link URL here once the Stripe account exists (see docs/membership.md):
   stripePaymentLink: "STRIPE_PAYMENT_LINK_PLACEHOLDER"
 };

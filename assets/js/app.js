@@ -332,7 +332,7 @@
   function renderAuth() { if (!window.Cloud) return; const s = Cloud.state(), b = $("#authBtn"), pill = $("#syncPill");
     pill.textContent = s.online ? (s.user ? "☁ Synced" : "☁ Cloud") : "Offline copy"; pill.title = s.online ? "Reading from the shared Supabase catalog" : "Using the built-in catalog.json and this browser's storage";
     b.hidden = !s.available; b.textContent = s.user ? "Account" : "Sign in";
-    $("#authState").innerHTML = s.user ? `Signed in as <strong>${esc(s.user.email)}</strong>. Edits, marks, photos and verified examples sync to the shared catalog${s.online ? "" : " (cloud tables not reachable yet, so changes stay on this device)"}.` : "Sign in to sync your edits across devices. Visitors can browse without an account.";
+    $("#authState").innerHTML = s.user ? `Signed in as <strong>${esc(s.user.email || (s.user.phone && window.AuthOptions ? AuthOptions.pretty(s.user.phone) : s.user.phone) || "your account")}</strong>. Edits, marks, photos and verified examples sync to the shared catalog${s.online ? "" : " (cloud tables not reachable yet, so changes stay on this device)"}.` : "Sign in to sync your edits across devices. Visitors can browse without an account.";
     $("#authForm").hidden = !!s.user; $("#signOut").hidden = !s.user; }
   $("#authBtn").onclick = () => { renderAuth(); $("#authDlg").showModal(); };
   $("#authClose").onclick = () => $("#authDlg").close();

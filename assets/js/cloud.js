@@ -9,7 +9,7 @@
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
   let sb = null, user = null, online = false, listeners = [];
   const emit = () => listeners.forEach(f => { try { f(state()); } catch {} });
-  const state = () => ({ available: !!sb || !!MOCK, mock: !!MOCK, online, user: user ? { id: user.id, email: user.email } : null });
+  const state = () => ({ available: !!sb || !!MOCK, mock: !!MOCK, online, user: user ? { id: user.id, email: user.email || null, phone: user.phone ? ("+" + String(user.phone).replace(/^\+/, "")) : null } : null });
   const withTimeout = (p, ms = C.timeoutMs || 6000) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))]);
   const publicUrl = path => sb.storage.from(C.bucket).getPublicUrl(path).data.publicUrl;
 
@@ -85,12 +85,14 @@
     const m = await q(sb.from("collection_members").select("user_id, role, added_at").eq("collection_id", cid)), inv = await q(sb.from("collection_invites").select("*").eq("collection_id", cid).neq("status", "revoked"));
     const ids = (m.data || []).map(x => x.user_id), pr = ids.length ? await q(sb.from("profiles").select("id, display_name, avatar_url").in("id", ids)) : { data: [] };
     return { members: (m.data || []).map(x => ({ ...x, ...((pr.data || []).find(p => p.id === x.user_id) || {}) })), invites: inv.data || [] }; }
-  async function invite(cid, email, role) { email = email.trim().toLowerCase(); if (MOCK) { (MOCK.members[cid] = MOCK.members[cid] || { members: [], invites: [] }).invites.push({ email, role, status: "pending" }); return {}; }
-    const r = await q(sb.from("collection_invites").upsert({ collection_id: cid, email, role, status: "pending" }, { onConflict: "collection_id,email" })); if (r.error) return r;
-    await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect(), shouldCreateUser: true } }).catch(() => {}); // emails the invitee a sign-in link
-    return {}; }
+  const isPhone = v => /^\+[1-9]\d{7,14}$/.test(v);
+  async function invite(cid, contact, role) { contact = contact.trim(); const phone = isPhone(contact), key = phone ? "phone" : "email"; if (!phone) contact = contact.toLowerCase();
+    if (MOCK) { (MOCK.members[cid] = MOCK.members[cid] || { members: [], invites: [] }).invites.push({ [key]: contact, role, status: "pending" }); return { phone }; }
+    const r = await q(sb.from("collection_invites").upsert({ collection_id: cid, [key]: contact, role, status: "pending" }, { onConflict: "collection_id," + key })); if (r.error) return r;
+    if (!phone) await sb.auth.signInWithOtp({ email: contact, options: { emailRedirectTo: redirect(), shouldCreateUser: true } }).catch(() => {}); // emails the invitee a sign-in link; phone invites send no SMS
+    return { phone }; }
   async function setRole(cid, uid, role) { if (MOCK) return {}; return q(sb.from("collection_members").update({ role }).eq("collection_id", cid).eq("user_id", uid)); }
-  async function revokeInvite(cid, email) { if (MOCK) { const m = MOCK.members[cid]; m.invites = m.invites.filter(i => i.email !== email); return {}; } return q(sb.from("collection_invites").update({ status: "revoked" }).eq("collection_id", cid).eq("email", email)); }
+  async function revokeInvite(cid, contact) { const key = isPhone(contact) ? "phone" : "email"; if (MOCK) { const m = MOCK.members[cid]; m.invites = m.invites.filter(i => i[key] !== contact); return {}; } return q(sb.from("collection_invites").update({ status: "revoked" }).eq("collection_id", cid).eq(key, contact)); }
   async function acceptInvites() { if (MOCK || !sb || !user) return 0; const r = await q(sb.rpc("accept_invites")); return r.data || 0; }
   async function locations() { if (MOCK) return MOCK.locations || []; if (!sb || !user) return []; const r = await q(sb.from("find_locations").select("catalog_id, location, lat, lon")); return (r.data || []).map(l => { const ll = l.lat != null ? [l.lat, l.lon] : parseLatLon(l.location); return ll ? { catalog_id: l.catalog_id, lat: ll[0], lon: ll[1], location: l.location } : null; }).filter(Boolean); }
   async function publicCollection(slug) { if (MOCK) return MOCK.publicCollections?.[slug] || null; if (!sb) return null;
@@ -106,5 +108,10 @@
   const signIn = (email, password) => sb.auth.signInWithPassword({ email, password });
   const signUp = (email, password) => sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect() } });
   const signOut = () => sb.auth.signOut();
-  window.Cloud = { profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  /* Google OAuth + phone (SMS) OTP. MOCK: code "000000" fails, anything else succeeds. */
+  const google = () => MOCK ? (MOCK.oauth = "google", Promise.resolve({})) : sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: C.siteUrl || redirect() } });
+  const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
+  const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
+    const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
+  window.Cloud = { profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

@@ -396,3 +396,11 @@ label.btn{position:relative}
   body.print-labels #view-labels{display:block!important}body.print-labels .sheet-wrap{padding:0;background:none;overflow:visible}body.print-labels .sheet .page{box-shadow:none;margin:0;break-after:page}body.print-labels .sheet .lab{outline:0}
   @page{size:letter;margin:0}}
 @media (max-width:560px){nav a.needs-user,nav a.needs-editor{font-size:.9rem}}
+/* ===== auth options ===== */
+.auth-alt{display:grid;gap:12px;margin:6px 0 4px}
+.g-btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;width:100%;background:#fff;color:#1f1f1f;border:1px solid #747775;font-weight:600}
+.g-btn:hover{background:#f2f2f2}.g-btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.phone-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface)}.phone-box form{display:grid;gap:8px}.phone-box .help{margin:0}
+.phone-box input[type=tel],.phone-box .otp{font-size:1.15rem;min-height:48px}.phone-box .otp{letter-spacing:.45em;font-variant-numeric:tabular-nums;text-align:center;max-width:12ch}
+.phone-box .btn.primary{min-height:48px}
+.or{display:flex;align-items:center;gap:10px;margin:2px 0;color:var(--muted);font-size:.9rem}.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
