@@ -23,13 +23,155 @@
         "path": "images/ELG-001/01.jpg",
         "thumb": "images/ELG-001/01_thumb.jpg",
         "view": "front",
-        "label": "Front view"
+        "label": "Front view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.76,
+              0.26,
+              0.91,
+              0.64
+            ],
+            "label": "Stem",
+            "explanation": "Hafting element at the base: a short, roughly straight-sided stem. It is not clearly expanding in this view.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Hafting element (stem or notches)"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.95,
+              0.8,
+              0.87,
+              0.62
+            ],
+            "label": "Stem edges chipped, not ground",
+            "explanation": "Small flake removals run along the stem edges. Mark confirmed by touch that they are sharp, not smoothed by grinding. Ground stems point toward Paleoindian/Early Archaic types, so their absence fits Nolan/Travis better.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Basal / stem grinding"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.73,
+              0.67,
+              0.035
+            ],
+            "label": "Weak shoulder",
+            "explanation": "The outline steps in only slightly where blade meets stem: a weak shoulder, a trait listed for Nolan and Travis.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "travis"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.3,
+              0.88,
+              0.33,
+              0.7
+            ],
+            "label": "Long narrow blade, retouched edge",
+            "explanation": "The blade is long relative to its width, with fine retouch along the edge. Long narrow blades are typical of Middle Archaic Nolan/Travis points.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "nolan"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.05,
+              0.52,
+              0.035
+            ],
+            "label": "Tip",
+            "explanation": "Intact pointed tip at the distal end."
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.5,
+              0.44,
+              0.07
+            ],
+            "label": "Flake scars",
+            "explanation": "Broad, overlapping flake scars across the face show deliberate bifacial thinning.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Bifacial flaking / flake scars"
+            }
+          }
+        ]
       },
       {
         "path": "images/ELG-001/02.jpg",
         "thumb": "images/ELG-001/02_thumb.jpg",
         "view": "scale",
-        "label": "Scale view"
+        "label": "Scale view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.0,
+              0.19,
+              1.0,
+              0.36
+            ],
+            "label": "Ruler for scale",
+            "explanation": "Two rulers in the frame. The upper one has centimetre numbers about 0.083 of the frame width apart."
+          },
+          {
+            "type": "measure",
+            "coords": [
+              0.1,
+              0.63,
+              0.83,
+              0.63
+            ],
+            "label": "Length ≈ 85–90 mm (approx.)",
+            "explanation": "Tip to base, about 0.73 of the frame width ÷ ~0.083 per cm ≈ 8.8 cm. Approximate: the piece is not in the same plane as the ruler. The record keeps 80–85 mm until a caliper reading is taken.",
+            "links_to": {
+              "kind": "date",
+              "ref": "Typical Nolan/Travis length range (~45–110 mm) includes this size."
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.66,
+              0.44,
+              0.84,
+              0.59
+            ],
+            "label": "Stem",
+            "explanation": "A short stem with straight to slightly contracting sides; it does not expand.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Hafting element (stem or notches)"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.71,
+              0.59,
+              0.03
+            ],
+            "label": "Weak shoulder",
+            "explanation": "Slight step where the blade meets the stem.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "travis"
+            }
+          }
+        ]
       },
       {
         "path": "images/ELG-001/03.jpg",
@@ -106,7 +248,118 @@
         "path": "images/ELG-002/01.jpg",
         "thumb": "images/ELG-002/01_thumb.jpg",
         "view": "front",
-        "label": "Front view"
+        "label": "Front view",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.41,
+              0.315,
+              0.03
+            ],
+            "label": "Tip",
+            "explanation": "Pointed distal tip."
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.285,
+              0.52,
+              0.035
+            ],
+            "label": "Barb",
+            "explanation": "The shoulder extends down and out into a barb. Barbed shoulders are typical of Castroville and Marcos.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "castroville"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.545,
+              0.515,
+              0.035
+            ],
+            "label": "Barb",
+            "explanation": "Second barb on the opposite shoulder.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "castroville"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.18,
+              0.6,
+              0.315,
+              0.555
+            ],
+            "label": "Corner notch",
+            "explanation": "A notch cut in at the corner between barb and stem. Corner notching (rather than side or basal notching) favours Castroville and Marcos over Ensor.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Notching (corner, side or basal)"
+            }
+          },
+          {
+            "type": "arrow",
+            "coords": [
+              0.64,
+              0.6,
+              0.495,
+              0.56
+            ],
+            "label": "Corner notch",
+            "explanation": "Matching notch on the other corner.",
+            "links_to": {
+              "kind": "feature",
+              "ref": "Notching (corner, side or basal)"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.33,
+              0.555,
+              0.49,
+              0.625
+            ],
+            "label": "Stem / base",
+            "explanation": "Short stem below the notches that widens toward the base, with a roughly straight base edge.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "marcos"
+            }
+          },
+          {
+            "type": "measure",
+            "coords": [
+              0.24,
+              0.31,
+              0.24,
+              0.625
+            ],
+            "label": "Length ≈ 53–55 mm (approx.)",
+            "explanation": "The tip-to-base span is about 0.31 of the frame height. The right-hand scale's numbers are about 0.06 of the height apart (the left scale's are 2.54× wider, so the right one is centimetres), giving ≈ 5.3 cm. Earlier photo readings gave 60–70 mm, so a caliper check is needed.",
+            "links_to": {
+              "kind": "date",
+              "ref": "Castroville points are typically larger (~50–110 mm); Marcos ~40–80 mm."
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.64,
+              0.02,
+              0.86,
+              0.98
+            ],
+            "label": "Ruler for scale",
+            "explanation": "Folding ruler with inch (left) and cm (right) scales."
+          }
+        ]
       },
       {
         "path": "images/ELG-002/02.jpg",
@@ -124,7 +377,47 @@
         "path": "images/ELG-002/04.jpg",
         "thumb": "images/ELG-002/04_thumb.jpg",
         "view": "back",
-        "label": "Back view"
+        "label": "Back view",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.845,
+              0.555,
+              0.035
+            ],
+            "label": "Tip",
+            "explanation": "Distal tip (piece rotated in this view)."
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.445,
+              0.42,
+              0.035
+            ],
+            "label": "Barb",
+            "explanation": "Barbed shoulder seen from the back.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "castroville"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.255,
+              0.63,
+              0.035
+            ],
+            "label": "Barb",
+            "explanation": "The opposite barb.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "castroville"
+            }
+          }
+        ]
       },
       {
         "path": "images/ELG-002/05.jpg",

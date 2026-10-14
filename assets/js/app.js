@@ -148,7 +148,8 @@
         <label class="field grow"><span>🔒 Private location (owner only, kept in this browser)</span><input name="${PRIVATE}" value="${esc(r[PRIVATE])}"></label></div>
         <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
     ][i]();
-    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${html}</div>`;
+    const ev = i === 0 && ps.length ? '<h3 class="gal-h">Evidence viewer</h3><div id="evHost"></div>' : "";
+    $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence();
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
@@ -172,15 +173,25 @@
       o.status = "Reviewed"; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id);
       await Analysis.learn(current, kindOf(current), label, label.toLowerCase() === prev.toLowerCase() ? "Owner confirmed in analysis panel" : "Owner correction in analysis panel"); selectTab(2); toast(`${id} saved as a verified ${label} example`); }
     if (e.target.closest("[data-forget]")) { await Analysis.forget(id); selectTab(2); toast("Verified example removed from this browser"); } });
-  let lbList = [], lbI = 0;
+  const marksFor = (r, i) => (r.photo_annotations && r.photo_annotations[i]) || (r.photos && r.photos[i] && r.photos[i].annotations) || [];
+  async function saveMarks(i, list) { const id = current.catalog_id, o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) };
+    o.photo_annotations = { ...(current.photo_annotations || {}), [i]: list }; await DB.put(o); local = await DB.all(); refresh(); current = all.find(x => x.catalog_id === id); }
+  const marksJson = r => ({ catalog_id: r.catalog_id, photos: pics(r).map((p, i) => ({ path: p.src, label: p.label, annotations: marksFor(r, i) })) });
+  function mountEvidence() { const h = $("#evHost"); if (!h || !window.Marks) return;
+    Marks.mount(h, { r: current, kind: kindOf(current), photos: pics(current), get: i => marksFor(current, i), save: saveMarks, enlarge: i => { lbList = pics(current); lightbox(i); },
+      exportMarks: () => download(`${current.catalog_id}-marks.json`, JSON.stringify(marksJson(current), null, 2), "application/json") }); }
+  let lbList = [], lbI = 0, lbOn = true;
   function lightbox(i) { lbI = (i + lbList.length) % lbList.length; const p = lbList[lbI];
-    $("#lbImg").src = p.src; $("#lbImg").alt = p.label; $("#lbCap").textContent = `${current.catalog_id} · ${p.label} (${lbI + 1}/${lbList.length})`; $("#lb").hidden = false; $("#lbClose").focus(); }
+    $("#lbImg").src = p.src; $("#lbImg").alt = p.label; $("#lbCap").textContent = `${current.catalog_id} · ${p.label} (${lbI + 1}/${lbList.length})`; $("#lb").hidden = false; drawLbMarks(); $("#lbClose").focus(); }
   $("#mBody").addEventListener("click", e => { const b = e.target.closest("[data-lb]"); if (b) { lbList = pics(current); lightbox(+b.dataset.lb); } });
+  function drawLbMarks() { const ms = marksFor(current, lbI); $("#lbMarks").hidden = !ms.length; $("#lbMarks").setAttribute("aria-pressed", lbOn); $("#lbMarks").textContent = `Evidence marks: ${lbOn ? "on" : "off"} (${ms.length})`;
+    Marks.overlay($("#lbWrap"), $("#lbImg"), ms, lbOn); $("#lbLegend").innerHTML = lbOn && ms.length ? Marks.legend(ms, current, kindOf(current)) : ""; }
+  $("#lbMarks").onclick = () => { lbOn = !lbOn; drawLbMarks(); }; Marks.pairHover($("#lb"));
   $("#lbClose").onclick = () => { $("#lb").hidden = true; const b = $(`[data-lb="${lbI}"]`); b && b.focus(); };
   $("#lbPrev").onclick = () => lightbox(lbI - 1); $("#lbNext").onclick = () => lightbox(lbI + 1);
   $("#lb").addEventListener("click", e => { if (e.target.id === "lb") $("#lbClose").click(); });
   document.addEventListener("keydown", e => { if ($("#lb").hidden) return; e.stopImmediatePropagation();
-    if (e.key === "Escape") $("#lbClose").click(); if (e.key === "ArrowRight") lightbox(lbI + 1); if (e.key === "ArrowLeft") lightbox(lbI - 1); if (e.key === "Tab") { e.preventDefault(); } }, true);
+    if (e.key === "Escape") $("#lbClose").click(); if (e.key === "m" || e.key === "M") $("#lbMarks").click(); if (e.key === "ArrowRight") lightbox(lbI + 1); if (e.key === "ArrowLeft") lightbox(lbI - 1); if (e.key === "Tab") { e.preventDefault(); } }, true);
   $(".tabs").addEventListener("click", e => { const b = e.target.closest("[role=tab]"); if (b) selectTab(+b.id.split("-")[1]); });
   $(".tabs").addEventListener("keydown", e => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { const n = (tab + d + 4) % 4; selectTab(n); $("#tab-" + n).focus(); } });
   $("#mClose").onclick = closeModal; $("#modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
@@ -191,13 +202,15 @@
   $("#grid").addEventListener("click", e => { const c = e.target.closest(".card"); if (c) openModal(c.dataset.id); });
 
   /* ---------- print ---------- */
-  $("#printBtn").onclick = () => { const r = current, rows = [["Collection", KINDS[kindOf(r)].label], ["Category history", histText(r.category_history)], ["Type", r.object_type], ...kindRows(r), ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
-    $("#printArea").innerHTML = `<div class="pc"><img class="pc-logo" src="assets/brand/lockup-light.svg" alt="Rolling Oak Catalog"><h1>${esc(r.catalog_id)} — ${esc(r.object_type)}</h1><p>Rolling Oak Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${pics(r).slice(0, 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
+  $("#printBtn").onclick = async () => { const r = current, ps0 = pics(r), ai = ps0.findIndex((_, k) => marksFor(r, k).length); let annotated = "";
+    if (ai >= 0) { const im = new Image(); im.src = ps0[ai].src; const [W, H] = await Marks.dims(im); annotated = `<figure class="pc-ann">${Marks.printSvg(ps0[ai].src, marksFor(r, ai), W, H)}<figcaption>${esc(ps0[ai].label)} with evidence marks</figcaption>${Marks.legend(marksFor(r, ai), r, kindOf(r))}</figure>`; }
+    const rows = [["Collection", KINDS[kindOf(r)].label], ["Category history", histText(r.category_history)], ["Type", r.object_type], ...kindRows(r), ["Material", r.material], ["Color", r.color], ["Condition", r.condition], ["Size", size(r).replace(/<[^>]+>/g, "")], ["Method", r.measure_method], ["Weight", r.weight_g && r.weight_g + " g"], ["Key features", r.key_features], ["Possibilities", suggestions(r).map((s, i) => `${i + 1}. ${s}`).join("<br>")], ["Confidence", r.confidence], ["Owner observations", r.owner_observations], ["Open questions", r.open_questions], ["Status", r.status]];
+    $("#printArea").innerHTML = `<div class="pc"><img class="pc-logo" src="assets/brand/lockup-light.svg" alt="Rolling Oak Catalog"><h1>${esc(r.catalog_id)} — ${esc(r.object_type)}</h1><p>Rolling Oak Catalog · Rolling Oak finds · printed ${new Date().toLocaleDateString()}</p><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${k === "Possibilities" ? v : esc(v || "—")}</td></tr>`).join("")}</table>${annotated}${pics(r).filter((_, k) => k !== ai).slice(0, annotated ? 2 : 3).map(p => `<img src="${esc(p.src)}" alt="">`).join("")}<p class="disc">Possibilities are research suggestions, not identifications. No authenticity or value claims. Exact location omitted.</p></div>`;
     window.print(); };
 
   /* ---------- export ---------- */
   function exportRows() { const inc = $("#inclPrivate").checked; if (inc && !confirm("Include exact private location in this export? Only do this for your own backup.")) return null;
-    return { inc, rows: filtered().map(r => { const o = {}; COLS.forEach(c => o[c] = r[c] ?? ""); if (inc) o[PRIVATE] = r[PRIVATE] ?? ""; return o; }) }; }
+    return { inc, rows: filtered().map(r => { const o = {}; COLS.forEach(c => o[c] = r[c] ?? ""); if (inc) o[PRIVATE] = r[PRIVATE] ?? ""; o.annotations = marksJson(r).photos.filter(p => p.annotations.length); return o; }) }; }
   function download(name, text, type) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
   const cq = v => { v = Array.isArray(v) ? histText(v) : String(v ?? ""); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
   $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("elgin_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };

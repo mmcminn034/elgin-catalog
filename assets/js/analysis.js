@@ -99,5 +99,5 @@
       ${Object.keys(c).length ? `<table class="chk"><thead><tr><th>Type</th><th>Verified examples</th></tr></thead><tbody>${Object.entries(c).sort((a, b) => b[1] - a[1]).map(([id, n]) => `<tr><td>${esc(name(id))}</td><td>${n}</td></tr>`).join("")}</tbody></table>` : ""}
       <ul class="hist">${ex.map(e => `<li><strong>${esc(e.catalog_id)}</strong>: ${esc(e.confirmed_type)} <span class="muted">(${esc(e.confirmed_on)}, ${esc(e.source)})</span></li>`).join("")}</ul>
       <div class="row"><button type="button" class="btn" id="exLearn">Export learned-examples.json</button><label class="btn">Import learned-examples.json<input type="file" id="imLearn" accept="application/json,.json" class="sr-only"></label></div>`; }
-  window.Analysis = { init, rank, render, suggestHtml, panelHtml, learn, forget, exportJSON, importJSON, all, kb: () => KB };
+  window.Analysis = { init, checklist, rank, render, suggestHtml, panelHtml, learn, forget, exportJSON, importJSON, all, kb: () => KB };
 })();

@@ -28,7 +28,7 @@
 <header class="site-header">
   <div class="wrap header-row">
     <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home">
-      <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" width="274" height="58">
+      <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" width="251" height="58">
     </a>
     <nav aria-label="Primary">
       <a href="#/catalog" data-route="catalog">Catalog</a>
@@ -272,10 +272,11 @@
     <div class="modal-body" id="mBody"></div>
   </div>
 </div>
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button class="btn icon lb-close" id="lbClose" aria-label="Close photo">✕</button><button class="btn icon lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">‹</button><figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure><button class="btn icon lb-nav lb-next" id="lbNext" aria-label="Next photo">›</button></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button class="btn icon lb-close" id="lbClose" aria-label="Close photo">✕</button><button class="btn icon lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">‹</button><figure><div class="mk-wrap" id="lbWrap"><img id="lbImg" alt=""></div><figcaption><span id="lbCap"></span> <button type="button" class="btn ghost lb-mk" id="lbMarks" aria-pressed="true">Evidence marks: on</button><div id="lbLegend"></div></figcaption></figure><button class="btn icon lb-nav lb-next" id="lbNext" aria-label="Next photo">›</button></div>
 <div id="printArea" aria-hidden="true"></div>
 <footer class="site-footer"><div class="wrap">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="assets/js/analysis.js"></script>
+<script src="assets/js/marks.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>
