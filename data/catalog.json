@@ -3574,5 +3574,191 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-031",
+    "category": "rock",
+    "object_type": "Tabular sandstone slab (possible abrader)",
+    "material": "Sandstone or quartzite",
+    "color": "Pale cream to buff",
+    "length_mm": "~105",
+    "width_mm": "~40",
+    "thickness_mm": "~12",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": "photo_estimate",
+    "condition": "Whole slab",
+    "condition_notes": "Flat faces; squared rough edges from splitting along bedding.",
+    "key_features": "Regular elongated tongue-shaped outline with a rounded end (photos 1, 5, 6); flat, fairly even faces (photos 1-2); squared rough edges consistent with splitting along bedding (photos 3-4); no clear grooves, polish or striations seen.",
+    "suggestion_1": "Natural tabular sandstone fragment",
+    "suggestion_2": "Sandstone abrader / whetstone",
+    "suggestion_3": "Ground stone tool fragment",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) natural tabular sandstone fragment, Moderate (capped): squared, rough edges (photos 3-4) fit sandstone splitting along its bedding, and no clear grooves, polish or striations are visible. (2) Sandstone abrader or whetstone, Low-Moderate: a regular, elongated, tongue-shaped outline with a rounded end (photos 1, 5, 6) and flat, fairly even faces (photos 1-2) would suit a hand-held abrader. Use usually leaves a smooth sheen or fine parallel scratches. (3) Ground stone tool fragment, Low.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Any use-wear on the flat faces? Next photos: 1) raking-light close-up of the flattest face (a smooth sheen or parallel fine scratches = use), 2) caliper measurements (length, width, thickness), 3) weight.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-031/01.jpg",
+        "thumb": "images/ELG-031/01_thumb.jpg",
+        "view": "front",
+        "label": "Flat face, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.45,
+              0.1,
+              0.69,
+              0.82
+            ],
+            "label": "Elongated tongue-shaped outline, rounded end",
+            "explanation": "A regular, elongated, tongue-shaped outline with one rounded end. A handy shape for a hand-held abrader, but sandstone slabs often break into shapes like this naturally.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Sandstone abrader / whetstone"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.47,
+              0.2,
+              0.67,
+              0.7
+            ],
+            "label": "Flat, fairly even face",
+            "explanation": "A flat, fairly even face. That is consistent with use as a hand-held abrader, but bedding planes in sandstone are naturally flat. No clear grooves, polish or striations are visible; a smooth sheen or parallel fine scratches under raking light would point to use.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Sandstone abrader / whetstone"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-031/02.jpg",
+        "thumb": "images/ELG-031/02_thumb.jpg",
+        "view": "back",
+        "label": "Other flat face",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.46,
+              0.06,
+              0.72,
+              0.76
+            ],
+            "label": "Flat, fairly even face",
+            "explanation": "A flat, fairly even face. That is consistent with use as a hand-held abrader, but bedding planes in sandstone are naturally flat. No clear grooves, polish or striations are visible; a smooth sheen or parallel fine scratches under raking light would point to use.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Sandstone abrader / whetstone"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-031/03.jpg",
+        "thumb": "images/ELG-031/03_thumb.jpg",
+        "view": "edge",
+        "label": "Long edge",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.37,
+              0.18,
+              0.83,
+              0.45
+            ],
+            "label": "Squared rough edge (split along bedding)",
+            "explanation": "Squared, rough edges are what you get when sandstone splits along its bedding layers. This is natural, not shaping.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural tabular sandstone fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-031/04.jpg",
+        "thumb": "images/ELG-031/04_thumb.jpg",
+        "view": "edge",
+        "label": "Other long edge",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.42,
+              0.21,
+              0.84,
+              0.45
+            ],
+            "label": "Squared rough edge (split along bedding)",
+            "explanation": "Squared, rough edges are what you get when sandstone splits along its bedding layers. This is natural, not shaping.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural tabular sandstone fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-031/05.jpg",
+        "thumb": "images/ELG-031/05_thumb.jpg",
+        "view": "front",
+        "label": "Outline view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.46,
+              0.12,
+              0.63,
+              0.64
+            ],
+            "label": "Elongated tongue-shaped outline, rounded end",
+            "explanation": "A regular, elongated, tongue-shaped outline with one rounded end. A handy shape for a hand-held abrader, but sandstone slabs often break into shapes like this naturally.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Sandstone abrader / whetstone"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-031/06.jpg",
+        "thumb": "images/ELG-031/06_thumb.jpg",
+        "view": "back",
+        "label": "Outline view, other side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.48,
+              0.07,
+              0.69,
+              0.67
+            ],
+            "label": "Elongated tongue-shaped outline, rounded end",
+            "explanation": "A regular, elongated, tongue-shaped outline with one rounded end. A handy shape for a hand-held abrader, but sandstone slabs often break into shapes like this naturally.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Sandstone abrader / whetstone"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
