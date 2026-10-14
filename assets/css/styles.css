@@ -308,3 +308,7 @@ details.an>div{padding:0 14px 12px}details.an p{margin:6px 0}
 .suggest-box{border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin:0 0 12px;background:var(--surface2)}.suggest-box .help{margin-left:8px}
 .model-box{border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;background:var(--surface);box-shadow:var(--shadow)}
 label.btn{position:relative}
+/* ---- brand lockup (header is dark in both themes, so the dark-background lockup is used) ---- */
+.brand .lockup{display:block;height:58px;width:auto}
+@media (max-width:600px){.brand .lockup{height:46px}}
+.pc .pc-logo{height:40px;width:auto;margin-bottom:6px}
