@@ -3823,5 +3823,181 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-032",
+    "category": "artifact",
+    "object_type": "Cream chert flake, possible retouched tool",
+    "material": "Cream/white chert, likely Edwards",
+    "color": "Cream to white",
+    "length_mm": "~40",
+    "width_mm": "~25",
+    "thickness_mm": "~7",
+    "measure_method": "Photo estimate (mm ruler in photos)",
+    "length_source": "photo_estimate",
+    "width_source": "photo_estimate",
+    "thickness_source": "photo_estimate",
+    "condition": "Whole flake (or fragment)",
+    "condition_notes": "One straight sharp edge; opposite edge irregular with small scalloped removals.",
+    "key_features": "One straight, sharp edge; opposite edge irregular with small scalloped removals; pointed tip; thin profile (photos 4-5).",
+    "suggestion_1": "Chert flake with edge retouch or use wear",
+    "suggestion_2": "Biface or point fragment",
+    "suggestion_3": "Natural non-cultural break",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) chert flake with edge retouch or use-wear, Moderate (capped): one edge is straight and sharp, while the opposite edge is irregular with small scalloped removals, consistent with retouch or use. The thin profile (photos 4-5) is typical of a struck flake. (2) Biface or point fragment, Low-Moderate: the pointed tip could be the end of a broken biface or point; bifacial scars on both faces would support this. (3) Natural non-cultural break, Low: chert can break naturally, but scalloped edge removals on a thin flake favour human work.\n\nLocal context (general): cream to white Edwards chert was a major tool stone across Central Texas.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Retouch or use-wear? Bifacial or unifacial? Next photos: 1) raking-light close-up of the irregular edge, 2) both faces straight on, to look for a bulb of percussion or bifacial scars.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-032/01.jpg",
+        "thumb": "images/ELG-032/01_thumb.jpg",
+        "view": "front",
+        "label": "Face A, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.41,
+              0.5,
+              0.47,
+              0.85
+            ],
+            "label": "Irregular edge with small scalloped removals",
+            "explanation": "The edge opposite the straight one is irregular, with small scalloped removals. That pattern fits retouch or use-wear; a raking-light close-up would show whether the scars are regular and continuous.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert flake with edge retouch or use wear"
+            }
+          },
+          {
+            "type": "box",
+            "coords": [
+              0.5,
+              0.5,
+              0.57,
+              0.85
+            ],
+            "label": "Straight, sharp edge",
+            "explanation": "One straight, sharp edge with no visible damage, typical of an unmodified flake margin.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert flake with edge retouch or use wear"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.44,
+              0.47,
+              0.03
+            ],
+            "label": "Pointed tip",
+            "explanation": "A pointed tip. It could be where two flake edges converge, or the end of a broken biface or point. Bifacial scars on both faces would favour a point fragment.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Biface or point fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-032/02.jpg",
+        "thumb": "images/ELG-032/02_thumb.jpg",
+        "view": "back",
+        "label": "Face B",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.44,
+              0.34,
+              0.03
+            ],
+            "label": "Pointed tip",
+            "explanation": "A pointed tip. It could be where two flake edges converge, or the end of a broken biface or point. Bifacial scars on both faces would favour a point fragment.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Biface or point fragment"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-032/03.jpg",
+        "thumb": "images/ELG-032/03_thumb.jpg",
+        "view": "front",
+        "label": "Face, another angle",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.44,
+              0.38,
+              0.5,
+              0.74
+            ],
+            "label": "Irregular edge with small scalloped removals",
+            "explanation": "The edge opposite the straight one is irregular, with small scalloped removals. That pattern fits retouch or use-wear; a raking-light close-up would show whether the scars are regular and continuous.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert flake with edge retouch or use wear"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-032/04.jpg",
+        "thumb": "images/ELG-032/04_thumb.jpg",
+        "view": "edge",
+        "label": "Thin profile",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.4,
+              0.31,
+              0.65,
+              0.45
+            ],
+            "label": "Thin profile (~7 mm)",
+            "explanation": "A thin, even profile typical of a struck flake. Natural chert breaks tend to be blockier.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert flake with edge retouch or use wear"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-032/05.jpg",
+        "thumb": "images/ELG-032/05_thumb.jpg",
+        "view": "edge",
+        "label": "Thin profile, other side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.23,
+              0.6,
+              0.31
+            ],
+            "label": "Thin profile (~7 mm)",
+            "explanation": "A thin, even profile typical of a struck flake. Natural chert breaks tend to be blockier.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert flake with edge retouch or use wear"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
