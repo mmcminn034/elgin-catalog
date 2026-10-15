@@ -23,4 +23,5 @@ create or replace function public.field_accuracy() returns table (field text, so
   select c.field, coalesce(c.source, 'unknown'), count(*) filter (where c.kept), count(*) filter (where c.kept is false), count(*)
   from public.corrections c where c.field in ('category','type','material','era','origin') group by 1, 2 $$;
 revoke all on function public.field_accuracy() from public;
+revoke execute on function public.field_accuracy() from anon;  -- Supabase grants anon by default
 grant execute on function public.field_accuracy() to authenticated;
