@@ -23,6 +23,7 @@
       if (shared.length) { s += Math.min(4, 10 * j + 0.25 * shared.length); why.push("shared traits: " + shared.slice(0, 4).join(", ")); }
       const em = mats(e.material), mHit = myMat.filter(m => em.includes(m)); if (mHit.length) { s += 1.5; why.push(`same material (${mHit[0]})`); }
       if (target.region && e.region && norm(target.region) === norm(e.region)) { s += 1; why.push(`same region (${e.region})`); }
+      else if (opts.softRegion && target.region && e.region) { const tail = x => norm(String(x).split(" (")[0].split(",").pop()); if (tail(target.region) && tail(target.region) === tail(e.region)) { s += 0.5; why.push(`same state/country (${String(e.region).split(" (")[0].split(",").pop().trim()})`); } }
       const EL = num(e.length_mm); if (L && EL) { const d = Math.abs(L - EL) / Math.max(L, EL); if (d <= 0.15) { s += 1.5; why.push(`similar length (${Math.round(L)} vs ${Math.round(EL)} mm)`); } else if (d <= 0.3) { s += 0.75; why.push(`comparable length (${Math.round(L)} vs ${Math.round(EL)} mm)`); } }
       if (target.era && e.era && norm(target.era) === norm(e.era)) { s += 0.75; why.push(`same era (${e.era})`); }
       return { example: e, score: Math.round(s * 10) / 10, why };

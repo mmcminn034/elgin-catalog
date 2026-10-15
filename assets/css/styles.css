@@ -519,3 +519,12 @@ label.btn{position:relative}
 .oc{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;font-size:.78em;font-weight:600;background:#efe6d8;color:#4a3a22}
 .oc-moderate{background:#dcefd9;color:#1f4a1a}.oc-low-moderate{background:#f6ecc8;color:#4a3a00}.oc-low{background:#eee;color:#444}
 [data-theme=dark] .origin{background:#211a14;border-color:#3a2f25}[data-theme=dark] .oc{filter:brightness(.9)}
+
+/* ---- Stage 4: review suggestions / corrections ---- */
+.corr,.simw{margin:14px 0;padding:12px 14px;border-radius:12px;border:1px solid var(--line,#d8cfc3);background:var(--card,#fffaf3)}
+.corr .gal-h,.simw .gal-h{margin-top:0}.cf-list{list-style:none;margin:0;padding:0}.cf-list>li{padding:8px 0;border-top:1px solid rgba(0,0,0,.07)}.cf-list>li:first-child{border-top:0}
+.cf-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.cf-k{min-width:150px;font-weight:600}.cf-v{flex:1 1 200px}.cf-act{margin-left:auto;display:flex;gap:6px}
+.cf-src,.acc-chip{font-size:.75em;padding:1px 8px;border-radius:999px;background:#eee;color:#444}.src-owner{background:#dcefd9;color:#1f4a1a}.src-ai{background:#e3e6fb;color:#232a6b}.src-rules{background:#f6ecc8;color:#4a3a00}
+.acc-chip{background:#efe6d8;color:#4a3a22}.cf-form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-top:8px}.btn.small{padding:4px 10px;font-size:.85em}
+.simw ol{margin:4px 0 0 20px;padding:0}.simw li{margin:0 0 6px}
+[data-theme=dark] .corr,[data-theme=dark] .simw{background:#211a14;border-color:#3a2f25}

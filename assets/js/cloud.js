@@ -65,7 +65,7 @@
     if (MOCK) { if (user) (MOCK.pushed = MOCK.pushed || []).push(normalizeRow(Object.fromEntries(FIELDS.map(k => [k, rec[k] ?? null])))); return { ok: !!user, msg: "mock" }; }
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
-      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); normalizeRow(row); row.category = row.category || "artifact";
+      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); ["origin_confirmed", "country", "admin1"].forEach(k => { if (rec[k]) row[k] = rec[k]; }); normalizeRow(row); row.category = row.category || "artifact";
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
@@ -104,6 +104,9 @@
   /* Stage 1: feedback, accuracy, visibility */
   async function addFeedback(row) { if (MOCK) { (MOCK.feedback = MOCK.feedback || []).push(row); return {}; } if (!sb || !user) return { error: "offline" };
     const { created_at, ...r } = row; return q(sb.from("feedback").insert({ ...r, user_id: user.id })); }
+  /* Stage 4: one field correction (private by default). Uses only columns that exist before migration 007; source/kept ride in reason. */
+  async function addCorrection(row) { if (MOCK) { (MOCK.corrections = MOCK.corrections || []).push(row); return {}; } if (!sb || !user) return { error: "offline" };
+    const r = await q(sb.from("corrections").insert({ catalog_id: row.catalog_id, owner: user.id, field: row.field, old_value: row.old_value, new_value: row.new_value, reason: row.reason, is_public: false })); return r; }
   async function typeAccuracy() { if (MOCK) return MOCK.accuracy || null; if (!sb) return null; const r = await q(sb.rpc("type_accuracy")); return r.error ? null : r.data; }
   async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
   /* Stage 2: discover + comments */
@@ -159,5 +162,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();
