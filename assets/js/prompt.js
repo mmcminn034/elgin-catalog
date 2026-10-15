@@ -29,13 +29,14 @@ Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate le
      and a same-region BONUS (never a filter). region: { admin1, country, continent } */
   /* drop negated statements ("not ground", "no notches", "without serration") so a trait the owner ruled out never counts as present */
   const affirmed = t => String(t || "").replace(/\b(?:not|no|never|without|lacks?|lacking|isn'?t|aren'?t)\b(?:\s+(?:a|an|the|any|really|clearly|very))?\s+[\w-]+(?:\s+(?:or|and|nor)\s+[\w-]+)?/gi, " ");
+  const GENERIC = /^(point|points|stemmed|stem|side|corner|basal|notched|knife|blade|biface|dart|arrow|large|small|early|late|type|lanceolate|triangular|bifurcate|leaf|archaic|paleo|clovis-like|flake|scraper|drill|core)$/;
   function rankReferences(rec, refs, patterns, opts) {
     opts = opts || {}; const k = opts.k || 5, reg = opts.region || {}, txt = norm([rec.object_type, rec.key_features, rec.owner_observations, rec.suggestion_1, rec.suggestion_2, rec.suggestion_3, rec.material].map(affirmed).join(" ")), L = num(rec.length_mm), hint = (opts.hintNames || []).map(norm).filter(Boolean);
     const pats = {}; Object.entries(patterns || {}).forEach(([t, rx]) => { try { pats[t] = new RegExp(rx, "i"); } catch (e) {} });
     return (refs || []).filter(e => !opts.category || !e.category || e.category === opts.category).map(e => {
       let s = 0; const why = [];
       const nm = [e.name, ...(e.aliases || [])].map(norm).filter(n => n.length > 3), base = norm(e.name).split(/\s+/)[0];
-      if (nm.some(n => txt.includes(n)) || (base.length > 3 && new RegExp("\\b" + base.replace(/[^a-z0-9]/g, "") + "\\b").test(txt))) { s += 4; why.push("name or alias mentioned in the record"); }
+      if (nm.some(n => txt.includes(n)) || (base.length > 3 && !GENERIC.test(base) && new RegExp("\\b" + base.replace(/[^a-z0-9]/g, "") + "\\b").test(txt))) { s += 4; why.push("name or alias mentioned in the record"); }
       else if (hint.length && nm.some(n => hint.some(h => n === h || (h.split(" ")[0].length > 3 && n.split(" ")[0] === h.split(" ")[0])))) { s += 3; why.push("among the rules engine's top possibilities"); }
       const hits = (e.traits || []).filter(t => pats[t] && pats[t].test(txt)); if (hits.length) { s += Math.min(5, hits.length) + 2 * hits.length / (e.traits || []).length; why.push("traits: " + hits.slice(0, 5).join(", ")); } /* + precision: share of the type's own traits seen in the record */
       if (L && e.length_mm) { if (L >= e.length_mm[0] && L <= e.length_mm[1]) { s += 1; why.push(`length ~${Math.round(L)} mm within ${e.length_mm[0]}-${e.length_mm[1]} mm`); } else s -= 1; }
