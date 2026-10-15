@@ -1,0 +1,122 @@
+{
+  "id": "world",
+  "name": "Worldwide geologic settings",
+  "note": "Rule-based hints for where similar material occurs. Each setting lists example regions, not find spots. Research suggestions only; the owner's provenance always wins and AI (members) can refine.",
+  "settings": [
+    {
+      "id": "edwards-chert",
+      "name": "Cretaceous limestone chert (Edwards-type)",
+      "pattern": "edwards|cretaceous chert|edwards plateau",
+      "where": [
+        "Central Texas (Edwards Plateau, Balcones zone)"
+      ],
+      "admin1": "Texas",
+      "country": "US"
+    },
+    {
+      "id": "river-gravel-chert",
+      "name": "River-terrace gravel chert and quartzite cobbles",
+      "pattern": "terrace gravel|river gravel|gravel chert|colorado river|stream cobble|water-worn cobble|water-rounded",
+      "where": [
+        "River terraces worldwide",
+        "e.g. Colorado River terraces, Central Texas"
+      ]
+    },
+    {
+      "id": "chert-general",
+      "name": "Chert / flint in limestone and chalk",
+      "pattern": "\\bchert\\b|chalcedony",
+      "where": [
+        "Limestone and chalk regions worldwide",
+        "e.g. Edwards Plateau (Texas), Ozarks, Western Europe chalk"
+      ]
+    },
+    {
+      "id": "chalk-flint",
+      "name": "Flint from chalk",
+      "pattern": "\\bflint\\b|chalk flint",
+      "where": [
+        "Southern England",
+        "Northern France",
+        "Denmark",
+        "Northern Germany"
+      ]
+    },
+    {
+      "id": "volcanic-ash-wood",
+      "name": "Petrified wood in volcanic ash beds",
+      "pattern": "petrified wood|silicified wood|opali[sz]ed wood|agati[sz]ed wood",
+      "where": [
+        "Nevada and Oregon (Miocene ash beds)",
+        "Arizona (Petrified Forest, Triassic)",
+        "Patagonia",
+        "Indonesia"
+      ]
+    },
+    {
+      "id": "tuff-agate",
+      "name": "Agate in volcanic tuff seams and pockets (tube/plume agate, thundereggs)",
+      "pattern": "tube agate|plume agate|thunderegg|\\btuff\\b|graveyard point|owyhee",
+      "where": [
+        "Graveyard Point, Idaho/Oregon",
+        "Central Oregon",
+        "Germany (Saxony)",
+        "Mexico (Chihuahua)",
+        "Australia (Queensland)"
+      ]
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian (volcanic glass)",
+      "pattern": "obsidian|volcanic glass",
+      "where": [
+        "Western US (Oregon, California, Idaho)",
+        "Mexico",
+        "Mediterranean islands",
+        "Japan",
+        "East Africa",
+        "New Zealand"
+      ]
+    },
+    {
+      "id": "cretaceous-marine",
+      "name": "Cretaceous marine limestone fossils (coral, sponge, oysters, ammonites)",
+      "pattern": "cretaceous|ammonite|exogyra|gryphaea|echinoid|inoceramus|fossil coral|silicified sponge|coral or sponge",
+      "where": [
+        "Central and North Texas",
+        "Kansas and the Western Interior",
+        "Southern England and France",
+        "Morocco"
+      ]
+    },
+    {
+      "id": "paleozoic-marine",
+      "name": "Paleozoic marine fossils (trilobites, brachiopods, crinoids)",
+      "pattern": "trilobite|brachiopod|crinoid|cambrian|ordovician|silurian|devonian|mississippian|pennsylvanian|permian",
+      "where": [
+        "US Midwest and Appalachians",
+        "Utah",
+        "Morocco",
+        "UK (Wales)",
+        "Llano Uplift / North Texas"
+      ]
+    },
+    {
+      "id": "iron-concretion",
+      "name": "Iron-stained sandstone and ironstone concretions",
+      "pattern": "iron[- ]stain|ironstone|limonite|iron concretion|iron nodule",
+      "where": [
+        "Sedimentary basins worldwide",
+        "e.g. Eocene sands of east-central Texas"
+      ]
+    },
+    {
+      "id": "sandstone-cobble",
+      "name": "Sandstone or quartzite cobble",
+      "pattern": "sandstone|quartzite",
+      "where": [
+        "Sedimentary terrains and river gravels worldwide"
+      ]
+    }
+  ]
+}

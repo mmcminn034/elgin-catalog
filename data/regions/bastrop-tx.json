@@ -2,6 +2,9 @@
   "id": "bastrop-tx",
   "name": "Bastrop County, Texas (Elgin area)",
   "state": "Texas",
+  "country": "US",
+  "admin1": "Texas",
+  "admin2": "Bastrop County",
   "note": "Rule-based hints only. A 'may not be local' flag is a prompt to record provenance, not a judgement about the find.",
   "expected": {
     "materials": ["Edwards chert", "Colorado River terrace gravel chert", "Uvalde-type gravel chert", "quartzite cobbles", "chalcedony", "Eocene petrified wood", "petrified palmwood", "ironstone / iron concretions", "sandstone", "limestone / chalk", "calcite", "gypsum"],

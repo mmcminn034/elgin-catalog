@@ -93,7 +93,7 @@
       }
       if (photoErr.length) return { ok: false, msg: "the record uploaded but " + photoErr.join("; ") };
       if (rec[PRIVATE]) { const ll = parseLatLon(rec[PRIVATE]); await sb.from("find_locations").upsert({ catalog_id: rec.catalog_id, owner: user.id, location: rec[PRIVATE], lat: ll ? ll[0] : null, lon: ll ? ll[1] : null }, { onConflict: "catalog_id" }); }
-      if (prev) { const ch = TRACK.filter(k => String(prev[k] ?? "") !== String(rec[k] ?? "")).map(k => ({ catalog_id: rec.catalog_id, owner: user.id, field: k, old_value: prev[k] ?? null, new_value: rec[k] ?? null, reason: "Edited in Rolling Oak Catalog" }));
+      if (prev) { const ch = TRACK.filter(k => String(prev[k] ?? "") !== String(rec[k] ?? "")).map(k => ({ catalog_id: rec.catalog_id, owner: user.id, field: k, old_value: prev[k] ?? null, new_value: rec[k] ?? null, reason: "Edited in " + (window.Brand ? Brand.name() : "Rolling Oak Catalog") }));
         if (ch.length) await sb.from("corrections").insert(ch); }
       return { ok: true, cloudCategory: kept ? cur.data : null, photos: Object.keys(photoUrls).length ? photoUrls : null };
     } catch (e) { return { ok: false, msg: e.message }; }

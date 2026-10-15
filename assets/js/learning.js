@@ -89,7 +89,7 @@
 
   /* ---------- share menu ---------- */
   const pageUrl = r => (C.siteUrl || location.href.split("#")[0]) + (r._src === "seed" ? `share/${r.catalog_id}.html` : `#/find/${r.catalog_id}`);
-  function shareMenu(anchor, r) { $$(".share-menu").forEach(m => m.remove()); const url = pageUrl(r), title = `${r.catalog_id} · ${r.object_type || "Find"} · Rolling Oak Catalog`;
+  function shareMenu(anchor, r) { $$(".share-menu").forEach(m => m.remove()); const url = pageUrl(r), title = `${r.catalog_id} · ${r.object_type || "Find"} · ${window.Brand ? Brand.name() : "Rolling Oak Catalog"}`;
     const m = document.createElement("div"); m.className = "share-menu"; m.setAttribute("role", "menu"); m.setAttribute("aria-label", "Share " + r.catalog_id);
     m.innerHTML = `${vis(r) !== "public" ? `<p class="help warn">${VIS[vis(r)][0]} This find is ${esc(VIS[vis(r)][1].toLowerCase())}; the link only works for people who can see it.</p>` : ""}
       <button type="button" role="menuitem" class="btn" data-sh="copy">🔗 Copy link</button>${navigator.share ? '<button type="button" role="menuitem" class="btn" data-sh="native">📤 Share…</button>' : ""}<button type="button" role="menuitem" class="btn" data-sh="pdf">📄 PDF summary</button><input class="sh-url" readonly value="${esc(url)}" aria-label="Link">`;
@@ -107,7 +107,7 @@
     if (!r) { host.innerHTML = App.all.length ? `<p>Find <strong>${esc(id)}</strong> isn't in this catalog, or it isn't public.</p><a class="btn" href="#/catalog">Browse the catalog</a>` : '<p class="help">Loading…</p>'; return; }
     const v = vis(r); if (v !== "public" && !canEdit()) { host.innerHTML = `<div class="gate"><p>🔒 ${esc(id)} isn't public. If you're a collection member, sign in to see it.</p><button type="button" class="btn primary" data-signin>Sign in</button></div>`; return; }
     const kind = App.kindOf(r), ps = App.pics(r), sugg = [r.suggestion_1, r.suggestion_2, r.suggestion_3].filter(Boolean), conf = engineConf(r), rk = Analysis.rank(r, kind), size = [r.length_mm && `L ${r.length_mm}`, r.width_mm && `W ${r.width_mm}`, r.thickness_mm && `T ${r.thickness_mm}`].filter(Boolean).join(" × ");
-    document.title = `${r.catalog_id} · ${r.object_type || "Find"} — Rolling Oak Catalog`;
+    document.title = `${r.catalog_id} · ${r.object_type || "Find"} — ${window.Brand ? Brand.name() : "Rolling Oak Catalog"}`;
     host.innerHTML = `<article class="pub" aria-labelledby="pubH">${v !== "public" ? `<p class="notice-inline">${VIS[v][0]} Preview: this find is <strong>${esc(VIS[v][1])}</strong> and not visible to the public.</p>` : ""}
       <header class="pub-head"><p class="kicker">${esc(App.KINDS[kind].label)} · ${esc(regionOf(r))}</p><h1 id="pubH">${esc(r.catalog_id)} <span class="pub-type">${esc(r.object_type || "Find")}</span></h1>
         <div class="pub-chips">${badge(r)}${window.Region && Region.isCollection(r) && Region.stateOnly(r.provenance) ? `<span class="chip">🧳 From a collection · ${esc(Region.stateOnly(r.provenance))}</span>` : `<span class="chip">📍 ${esc(regionOf(r))} (general area)</span>`}<span class="chip">${esc(App.eraOf(r))}${App.eraOf(r) !== "Undetermined" ? " · tentative" : ""}</span>${r.status ? `<span class="chip">${esc(r.status)}</span>` : ""}</div>
@@ -122,7 +122,7 @@
         <dt>Key features</dt><dd>${esc(r.key_features || "—")}</dd>${r.open_questions ? `<dt>Open questions</dt><dd>${esc(r.open_questions)}</dd>` : ""}
         <dt>Location</dt><dd>${esc(regionOf(r))}. Exact find spots are never published.</dd></dl>
         ${verified(r) ? `<p class="match">✓ Owner-verified reference: ${esc(verified(r).confirmed_type)}</p>` : ""}</section>
-      <footer class="pub-foot"><p class="help">Rolling Oak Catalog · ${esc(C.siteUrl || "")}#/find/${esc(r.catalog_id)} · Printed ${new Date().toLocaleDateString("en-US")}</p><p class="help">${DISCLAIMER} Respect landowner permission and Texas antiquities law; don't dig sites.</p></footer></article>`;
+      <footer class="pub-foot"><p class="help">${window.Brand ? Brand.name() : "Rolling Oak Catalog"} · ${esc(C.siteUrl || "")}#/find/${esc(r.catalog_id)} · Printed ${new Date().toLocaleDateString("en-US")}</p><p class="help">${DISCLAIMER} Respect landowner permission and Texas antiquities law; don't dig sites.</p></footer></article>`;
     $$(".pub-fig").forEach((f, i) => { const img = $("img", f), w = $(".mk-wrap", f), ms = App.marksFor(r, i); if (ms.length) Marks.overlay(w, img, ms, true); });
     $("#pubShare").onclick = e => shareMenu(e.currentTarget, r); }
 

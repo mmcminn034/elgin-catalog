@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rolling Oak Catalog — Artifacts, fossils &amp; rocks of Elgin, Texas</title>
+<title data-brand="{name} — Artifacts, fossils &amp; rocks of {home}">Rolling Oak Catalog — Artifacts, fossils &amp; rocks of Elgin, Texas</title>
 <meta name="description" content="Rolling Oak Catalog: a research catalog of artifacts, fossils, rocks and minerals from Elgin, Texas. AI suggestions are possibilities, not identifications.">
-<meta property="og:title" content="Rolling Oak Catalog">
+<meta property="og:title" content="Rolling Oak Catalog" data-brand="{name}" data-brand-attr="content">
 <meta property="og:description" content="Documenting artifacts, fossils and rocks from Elgin, Texas, one find at a time.">
-<meta name="application-name" content="Rolling Oak Catalog">
+<meta name="application-name" content="Rolling Oak Catalog" data-brand="{name}" data-brand-attr="content">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -27,8 +27,8 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home">
-      <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" width="251" height="58">
+    <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home" data-brand="{name} home" data-brand-attr="aria-label">
+      <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" data-brand="{name}, {home}" data-brand-attr="alt" width="251" height="58">
     </a>
     <a class="btn primary add-cta" href="#/add" aria-label="Add find"><span aria-hidden="true">＋</span><span class="add-txt"> Add find</span></a>
     <span class="sync-pill" id="syncPill" role="status">Offline copy</span>
@@ -60,8 +60,8 @@
     <div class="hero">
       <img class="hero-bg" src="images/ELG-001/01.jpg" alt="ELG-001, a long stemmed dart point of cream and tan chert, front view">
       <div class="hero-text">
-        <p class="kicker">Elgin, Texas</p>
-        <h1 id="cat-h">Rolling Oak <span class="grad">Catalog</span></h1>
+        <p class="kicker" data-brand="{home}" data-home-only>Elgin, Texas</p>
+        <h1 id="cat-h" data-brand-split>Rolling Oak <span class="grad">Catalog</span></h1>
         <p class="hero-sub">Artifacts, fossils, rocks and minerals from Central Texas: documented carefully, one find at a time.</p>
         <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg glass" href="#/add">Add a find</a><a class="btn lg glass" href="#/timeline">Explore deep time</a></div>
       </div>
@@ -353,9 +353,10 @@
   <p class="help">🔒 Exact find locations are stored only in an owner-only table and are never shown publicly.</p></div></dialog>
 <dialog id="aiDlg" aria-labelledby="aiH"><div class="auth-card ai-card"><div class="modal-head"><h2 id="aiH">AI photo analysis</h2><button class="btn ghost icon" id="aiClose" aria-label="Close">✕</button></div><div id="aiBody"></div></div></dialog>
 <div id="printArea" aria-hidden="true"></div>
-<footer class="site-footer"><div class="wrap">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn · MIT License · Research suggestions only, not identifications.</div></footer>
+<footer class="site-footer"><div class="wrap"><span data-brand="{name} · {home} · © 2026 {owner}">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn</span> · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
 <script src="assets/js/config.js" defer></script>
+<script src="assets/js/brand.js" defer></script>
 <script src="assets/js/cloud.js" defer></script>
 <script src="assets/js/analysis.js" defer></script>
 <script src="assets/js/marks.js" defer></script>
