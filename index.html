@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
-<link rel="stylesheet" href="assets/css/styles.css?v=ro-v8.14">
-<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v8.14">
+<link rel="stylesheet" href="assets/css/styles.css?v=ro-v8.15">
+<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v8.15">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -88,7 +88,7 @@
       <div class="hero-text">
         <p class="kicker" data-brand="{home}" data-home-only hidden></p><p class="kicker brand-motto" data-brand="{motto}">Discover. Catalog. Preserve.</p>
         <h1 id="cat-h" data-brand-split>UnEarthed <span class="grad">Finds</span></h1>
-        <p class="hero-sub">Artifacts, fossils, rocks and minerals from Central Texas: documented carefully, one find at a time.</p>
+        <p class="hero-sub">Artifacts, fossils, rocks and minerals from anywhere in the world: documented carefully, one find at a time.</p>
         <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg glass" href="#/add">Add a find</a><a class="btn lg glass" href="#/timeline">Explore deep time</a></div>
       </div>
       <p class="hero-cap">ELG-001 · stemmed dart point, front view</p>
@@ -172,7 +172,7 @@
           <label class="field grow"><span>Formation (guess)</span><input name="formation" placeholder="e.g. Austin Chalk, Taylor Group, Wilcox (if known)"></label>
           <label class="field"><span>Preservation</span><select name="preservation"><option value="">Unknown</option><option>Original shell</option><option>Replaced (calcite/silica)</option><option>Internal mold (steinkern)</option><option>External mold / impression</option><option>Pyritized</option><option>Petrified (permineralized)</option></select></label>
         </div>
-        <div class="tip" data-kind-only="fossil" hidden>🐚 <strong>Central Texas tips:</strong> coiled with wavy suture lines suggests an ammonite; a five-part star pattern on a round shell suggests an echinoid (sea urchin); a thick, curled, cap-like shell suggests an oyster such as <em>Exogyra</em>. Photograph sutures, ribbing and both sides.</div>
+        <div class="tip" data-kind-only="fossil" hidden>🐚 <strong>Fossil tips:</strong> coiled with wavy suture lines suggests an ammonite; a five-part star pattern on a round shell suggests an echinoid (sea urchin); a thick, curled, cap-like shell suggests an oyster such as <em>Exogyra</em>. Photograph sutures, ribbing and both sides.</div>
         <div class="row" data-kind-only="rock" hidden>
           <label class="field"><span>Hardness (Mohs)</span><select name="hardness"><option value="">Not tested</option><option>&lt;2.5 (fingernail scratches)</option><option>2.5–5.5 (steel scratches)</option><option>~5.5 (barely scratches glass)</option><option>6–7 (scratches glass)</option><option>&gt;7</option></select></label>
           <label class="field"><span>Luster</span><select name="luster"><option value="">Not noted</option><option>Waxy</option><option>Glassy (vitreous)</option><option>Dull / earthy</option><option>Metallic</option><option>Sugary / granular</option><option>Pearly</option></select></label>
@@ -227,10 +227,10 @@
 
   <!-- TIMELINE -->
   <section id="view-timeline" class="view" aria-labelledby="tl-h" hidden>
-    <p class="kicker">Deep time</p><h1 id="tl-h">13,000 years in Central Texas</h1>
+    <p class="kicker">Deep time</p><h1 id="tl-h">13,000 years of human history</h1>
     <div class="tl-toggle" role="group" aria-label="Timeline scale"><button type="button" class="btn" data-mode="human" aria-pressed="true">Human eras (artifacts)</button><button type="button" class="btn" data-mode="geo" aria-pressed="false">Geologic eras (fossils)</button></div>
-    <p class="lede" id="tlLedeGeo" hidden>Long before people arrived, Central Texas lay beneath shallow seas. These are simplified geologic periods for the rocks in this collection. Placement of fossils is a tentative hypothesis based on each record’s period guess.</p>
-    <p class="lede" id="tlLede">A simplified outline of the cultural periods archaeologists use for Central Texas. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
+    <p class="lede" id="tlLedeGeo" hidden>Long before people arrived, much of the collection's home region lay beneath shallow seas. These are simplified geologic periods for the rocks in this collection. Placement of fossils is a tentative hypothesis based on each record’s period guess.</p>
+    <p class="lede" id="tlLede">A simplified outline of the cultural periods archaeologists use for the collection's home region. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
     <div class="knap" aria-hidden="true"></div>
     <ol class="timeline" id="timeline"></ol>
     <section class="undetermined" aria-labelledby="und-h"><h2 id="und-h">Undetermined</h2><p class="help">Finds without a period-diagnostic suggestion yet: fragments, flakes, cores and pieces still awaiting better photos or measurements.</p><div class="tl-finds" id="undetermined"></div></section>
@@ -239,7 +239,7 @@
   <!-- PEOPLE & LAND -->
   <section id="view-people" class="view prose" aria-labelledby="pl-h" hidden>
     <p class="kicker">People &amp; land</p><h1 id="pl-h">Acknowledging the land and its people</h1>
-    <p class="lede">Every find comes from land that is the ancestral homeland of Indigenous peoples. In Central Texas, where this collection began, that includes the Tonkawa, Coahuiltecan peoples, and others, who have lived there for more than 13,000 years; their descendants are still here today.</p>
+    <p class="lede">Every find comes from land that is the ancestral homeland of Indigenous peoples. Where this collection began, that includes the Tonkawa, Coahuiltecan peoples, and others, who have lived there for more than 13,000 years; their descendants are still here today.</p>
     <p>The objects in this catalog were made by people whose descendants are living communities. These objects are part of their heritage, not just curiosities or collectibles. We document them to learn and to keep a careful record, and we know our understanding is limited. Where we use type names and period labels, those are archaeologists’ categories, not the names or histories the makers’ descendants would necessarily use.</p>
     <div class="knap" aria-hidden="true"></div>
     <h2>Learn from the source</h2>
@@ -272,7 +272,7 @@
       <li><strong>Estimates are labeled.</strong> Every measurement says whether it was measured or estimated from a photo.</li>
     </ul>
     <h2>Disclaimers</h2>
-    <p>This catalog makes <strong>no claims about authenticity or monetary value</strong>. Type names and date ranges are general references from published Central Texas typologies and should be confirmed by qualified archaeologists.</p>
+    <p>This catalog makes <strong>no claims about authenticity or monetary value</strong>. Type names and date ranges are general references from published regional typologies and should be confirmed by qualified archaeologists.</p>
     <h2>Texas legal note</h2>
     <ul>
       <li>Collect only on <strong>private land with the landowner’s permission</strong>, and record that permission.</li>
@@ -284,7 +284,7 @@
     <div class="model-box">
       <p>The analysis engine is deliberately simple and transparent. There is no hidden model and no data leaves your browser.</p>
       <ol>
-        <li><strong>Reference knowledge base.</strong> <code>data/reference/points.json</code>, <code>fossils.json</code> and <code>rocks.json</code> list Central Texas point types, common Cretaceous fossils and rocks/minerals, with their traits, typical sizes, dates and look-alikes.</li>
+        <li><strong>Reference knowledge base.</strong> <code>data/reference/points.json</code>, <code>fossils.json</code> and <code>rocks.json</code> list regional point types, common Cretaceous fossils and rocks/minerals, with their traits, typical sizes, dates and look-alikes.</li>
         <li><strong>Scoring.</strong> Each candidate gets points for being one of your recorded possibilities, for traits found in the record’s text (negated phrases like “not ground” don’t count), and for a length in its typical range. It loses points for conflicting traits or an out-of-range size. Every score shows its reasons.</li>
         <li><strong>Learning from you.</strong> When you mark a find <em>Reviewed</em> or use “Save as verified” in its analysis, it becomes a <strong>verified example</strong>. New finds whose features overlap a verified example of a type get a bonus, shown as “Matches N of your verified examples”. More confirmed examples mean better ranking for your collection.</li>
         <li><strong>Limits.</strong> Confidence is capped at Moderate. Keyword matching can’t see the object, so photos, measurements and an expert’s eye still matter most.</li>
@@ -389,23 +389,23 @@
 <div id="printArea" aria-hidden="true"></div>
 <footer class="site-footer"><div class="wrap"><span data-brand="{name} · {tagline} · © 2026 {owner}">UnEarthed Finds · AI-Powered Catalog Tool · © 2026 PolForge, LLC</span> · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
-<script src="assets/js/config.js?v=ro-v8.14" defer></script>
-<script src="assets/js/brand.js?v=ro-v8.14" defer></script>
-<script src="assets/js/cloud.js?v=ro-v8.14" defer></script>
-<script src="assets/js/score.js?v=ro-v8.14" defer></script>
-<script src="assets/js/prompt.js?v=ro-v8.14" defer></script>
-<script src="assets/js/analysis.js?v=ro-v8.14" defer></script>
-<script src="assets/js/marks.js?v=ro-v8.14" defer></script>
-<script src="assets/js/retrieve.js?v=ro-v8.14" defer></script>
-<script src="assets/js/learning.js?v=ro-v8.14" defer></script>
-<script src="assets/js/region.js?v=ro-v8.14" defer></script>
-<script src="assets/js/corrections.js?v=ro-v8.14" defer></script>
-<script src="assets/js/features.js?v=ro-v8.14" defer></script>
-<script src="assets/js/stage2.js?v=ro-v8.14" defer></script>
-<script src="assets/js/s5.js?v=ro-v8.14" defer></script>
-<script src="assets/js/auth-options.js?v=ro-v8.14" defer></script>
-<script src="assets/js/app.js?v=ro-v8.14" defer></script>
-<script src="assets/js/nav.js?v=ro-v8.14" defer></script>
-<script src="assets/js/redesign.js?v=ro-v8.14" defer></script>
+<script src="assets/js/config.js?v=ro-v8.15" defer></script>
+<script src="assets/js/brand.js?v=ro-v8.15" defer></script>
+<script src="assets/js/cloud.js?v=ro-v8.15" defer></script>
+<script src="assets/js/score.js?v=ro-v8.15" defer></script>
+<script src="assets/js/prompt.js?v=ro-v8.15" defer></script>
+<script src="assets/js/analysis.js?v=ro-v8.15" defer></script>
+<script src="assets/js/marks.js?v=ro-v8.15" defer></script>
+<script src="assets/js/retrieve.js?v=ro-v8.15" defer></script>
+<script src="assets/js/learning.js?v=ro-v8.15" defer></script>
+<script src="assets/js/region.js?v=ro-v8.15" defer></script>
+<script src="assets/js/corrections.js?v=ro-v8.15" defer></script>
+<script src="assets/js/features.js?v=ro-v8.15" defer></script>
+<script src="assets/js/stage2.js?v=ro-v8.15" defer></script>
+<script src="assets/js/s5.js?v=ro-v8.15" defer></script>
+<script src="assets/js/auth-options.js?v=ro-v8.15" defer></script>
+<script src="assets/js/app.js?v=ro-v8.15" defer></script>
+<script src="assets/js/nav.js?v=ro-v8.15" defer></script>
+<script src="assets/js/redesign.js?v=ro-v8.15" defer></script>
 </body>
 </html>

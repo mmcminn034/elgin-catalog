@@ -71,8 +71,8 @@
     all = [...m.values()].sort((a, b) => a.catalog_id.localeCompare(b.catalog_id, undefined, { numeric: true }));
   }
   const KINDS = {
-    artifact: { label: "Artifacts", one: "artifact", icon: "◆", empty: "", guide: "Rank 1–3 possible types (e.g. Central Texas dart or arrow point types). Note base/stem shape, notching, grinding, flaking pattern and heat treatment." },
-    fossil: { label: "Fossils", one: "fossil", icon: "🐚", empty: "Central Texas sits on Cretaceous limestones and marls, so ammonites, echinoids (sea urchins), oysters like Exogyra and Ilymatogyra, and clams are common surface fossils.",
+    artifact: { label: "Artifacts", one: "artifact", icon: "◆", empty: "", guide: "Rank 1–3 possible types (e.g. regional dart or arrow point types). Note base/stem shape, notching, grinding, flaking pattern and heat treatment." },
+    fossil: { label: "Fossils", one: "fossil", icon: "🐚", empty: "Many regions sit on Cretaceous limestones and marls, so ammonites, echinoids (sea urchins), oysters like Exogyra and Ilymatogyra, and clams are common surface fossils.",
       guide: "Rank 1–3 possible taxa (e.g. ammonite genus, echinoid, Exogyra oyster) with reasoning: shape, ribbing, suture pattern, coiling. Add a likely geologic period/formation only as a hypothesis." },
     rock: { label: "Rocks & Minerals", one: "rock or mineral", icon: "💎", empty: "Log chert, flint, quartzite, calcite, pyrite nodules, geodes and more. Simple field tests (hardness, luster, streak) do most of the work.",
       guide: "Rank 1–3 possible rock/mineral types. Chert vs flint: both microcrystalline quartz; ‘flint’ is often used for dark nodular chert. Quartzite is granular/sugary, with fractures cutting through grains. Hardness ~7 scratches glass." } };
@@ -108,7 +108,7 @@
     return p.length ? p.map(x => `${x[0]} ${esc(x[1])}`).join(" × ") + " mm" + (window.S2 ? S2.sizeTag(r) : "") : "<em>not measured</em>"; };
   const pics = r => (r.photos || []).map(p => ({ src: p.path || p.src, thumb: p.thumb || p.path || p.src, view: p.view || p.tag || "", label: p.label || (p.view || p.tag || "photo") }));
   const ERAS = [
-    { id: "Paleoindian", dates: "~11,500–8,800 BC", text: "The earliest well-documented people in Central Texas hunted and gathered across a cooler late Ice Age landscape. Sites such as Gault, near Florence, are among the most studied in North America." },
+    { id: "Paleoindian", dates: "~11,500–8,800 BC", text: "The earliest well-documented people in the region hunted and gathered across a cooler late Ice Age landscape. Sites such as Gault, near Florence, are among the most studied in North America." },
     { id: "Early Archaic", dates: "~8,800–6,000 BC", text: "As the climate warmed, people relied more on a wide range of plants and smaller game, and moved within regional territories. Dart points with stems and notches become common." },
     { id: "Middle Archaic", dates: "~6,000–2,500 BC", text: "Populations grew, and burned-rock middens (earth-oven cooking features) became widespread. Long, narrow stemmed dart points are typical of parts of this period." },
     { id: "Late Archaic", dates: "~2,500 BC–AD 700", text: "A long period with many dart point styles, including barbed and corner-notched forms. Cemeteries and wide trade networks are documented in the region." },
@@ -116,13 +116,13 @@
     { id: "Historic", dates: "~AD 1600–present", text: "Spanish, Mexican and Anglo-American colonization brought profound disruption. Indigenous nations, including the Tonkawa, continue today." }];
   const eraOf = r => { if (kindOf(r) === "fossil") return r.geologic_period ? (GEO.find(g => r.geologic_period.includes(g.id)) || {}).id || "Undetermined" : "Undetermined"; if (kindOf(r) === "rock") return "Undetermined"; if (r.era && r.era !== "Undetermined") return r.era; const t = (r.suggestion_1 || "") + " " + (r.era || ""); const e = ERAS.find(x => t.includes(x.id)); return r.era === "Undetermined" ? "Undetermined" : (e ? e.id : "Undetermined"); };
   const GEO = [
-    { id: "Quaternary", dates: "~2.6 million years ago–present", text: "Ice Age and modern river terraces. Gravels along Central Texas creeks carry reworked older rocks and fossils, plus Pleistocene mammal bones in places." },
-    { id: "Paleogene", dates: "~66–23 million years ago", text: "East of the Balcones zone, Paleocene–Eocene sands and clays (e.g. the Midway and Wilcox groups of Central Texas) hold marine shells, petrified wood and lignite." },
-    { id: "Cretaceous", dates: "~145–66 million years ago", text: "Shallow seas covered Central Texas. Limestones, chalks and marls (e.g. the Austin Chalk, Taylor and Navarro groups) yield ammonites, echinoids, Exogyra oysters, clams and shark teeth." }];
+    { id: "Quaternary", dates: "~2.6 million years ago–present", text: "Ice Age and modern river terraces. Gravels along local creeks carry reworked older rocks and fossils, plus Pleistocene mammal bones in places." },
+    { id: "Paleogene", dates: "~66–23 million years ago", text: "East of the Balcones zone, Paleocene–Eocene sands and clays (e.g. the Midway and Wilcox groups) hold marine shells, petrified wood and lignite." },
+    { id: "Cretaceous", dates: "~145–66 million years ago", text: "Shallow seas covered the region. Limestones, chalks and marls (e.g. the Austin Chalk, Taylor and Navarro groups) yield ammonites, echinoids, Exogyra oysters, clams and shark teeth." }];
   let tlMode = "human";
   function renderTimeline() {
     $$(".tl-toggle button").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === tlMode));
-    $("#tl-h").textContent = tlMode === "human" ? "13,000 years in Central Texas" : "Geologic deep time beneath Central Texas";
+    $("#tl-h").textContent = tlMode === "human" ? "13,000 years of human history" : "Geologic deep time";
     $("#tlLede").hidden = tlMode !== "human"; $("#tlLedeGeo").hidden = tlMode === "human";
     const pool = all.filter(r => tlMode === "human" ? kindOf(r) === "artifact" : kindOf(r) === "fossil"), list = tlMode === "human" ? ERAS : GEO;
     const chip = (r, t = true) => { const p = pics(r)[0]; return `<button class="tl-find" data-id="${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : ""}<span><strong>${esc(r.catalog_id)}</strong><br><span class="muted">${esc(r.object_type)}</span>${t ? '<br><span class="tent">Tentative</span>' : ""}</span></button>`; };

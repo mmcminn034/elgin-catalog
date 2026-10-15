@@ -91,7 +91,7 @@
       <label class="field"><span class="sr-only">Region</span><select id="libRegion"><option value="">All regions</option>${regions.map(x => `<option>${esc(x)}</option>`).join("")}</select></label>
       <label class="field"><span class="sr-only">Source</span><select id="libSource"><option value="">All sources</option>${sources.map(x => `<option>${esc(x)}</option>`).join("")}</select></label>
       <label class="field"><span class="sr-only">Period</span><select id="libPeriod"><option value="">All periods</option>${periods.map(x => `<option>${esc(x)}</option>`).join("")}</select></label></div><p class="count" id="libCount" aria-live="polite"></p><div class="lib-grid" id="libGrid"></div><div class="row lib-pg"><button type="button" class="btn" id="libPrev">← Previous</button><button type="button" class="btn" id="libNext">Next →</button></div>
-      <p class="help">${esc(pub.types.length)} published reference summaries: facts and links only, with each entry's source, retrieval date and license. Texas types appear first. Not the owner's finds.</p>`;
+      <p class="help">${esc(pub.types.length)} published reference summaries: facts and links only, with each entry's source, retrieval date and license. Home-region types appear first. Not the owner's finds.</p>`;
     const set = () => { LIB = { q: $("#libQ").value.trim().toLowerCase(), region: $("#libRegion").value, source: $("#libSource").value, period: $("#libPeriod").value, page: 0 }; draw(); };
     ["#libQ", "#libRegion", "#libSource", "#libPeriod"].forEach(s => $(s).oninput = set); $("#libPrev").onclick = () => { LIB.page = Math.max(0, LIB.page - 1); draw(); }; $("#libNext").onclick = () => { LIB.page++; draw(); };
     function draw() {
