@@ -56,3 +56,13 @@ alter table public.finds add constraint finds_measure_refs_chk
 -- Verify:
 --   select catalog_id, region from public.discover_finds order by 1;           -- as anon: only opted-in finds, coarse region
 --   select count(*) from public.finds where status not in ('Draft','Needs review','Reviewed','Verified');  -- 0
+
+-- 008 fix (applied at go-live): the photos policy above could not see finds rows as anon (finds RLS hides members-only
+-- collections), so opted-in finds' public photos stayed unreadable. Check through a narrow SECURITY DEFINER helper instead.
+create or replace function public.find_on_discover(fid text) returns boolean language sql stable security definer set search_path = public as $$
+  select exists (select 1 from finds f where f.catalog_id = fid and f.show_on_discover and f.is_public and f.visibility = 'public');
+$$;
+revoke all on function public.find_on_discover(text) from public;
+grant execute on function public.find_on_discover(text) to anon, authenticated;
+drop policy if exists "photos discover read" on public.photos;
+create policy "photos discover read" on public.photos for select using (is_public and public.find_on_discover(catalog_id));
