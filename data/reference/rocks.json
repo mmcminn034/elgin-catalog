@@ -3,7 +3,7 @@
   "category": "rock",
   "note": "Physical properties are standard mineralogy references (e.g. Mindat; UT Bureau of Economic Geology). Field tests are indicative only: chert, flint and chalcedony are all varieties of microcrystalline quartz."
  },
- "context": "Central Texas bedrock is dominated by Cretaceous limestones, chalks and marls with chert nodules (notably the Edwards Formation, the region's premier tool stone). Around Elgin, creek and terrace gravels mix chert, quartzite, quartz, petrified wood and ironstone carried from older or upstream units.",
+ "context": "Central Texas bedrock is dominated by Cretaceous limestones, chalks and marls with chert nodules (notably the Edwards Formation, the region's premier tool stone). In Bastrop County, creek and terrace gravels mix chert, quartzite, quartz, petrified wood and ironstone carried from older or upstream units.",
  "types": [
   {
    "id": "edwards-chert",

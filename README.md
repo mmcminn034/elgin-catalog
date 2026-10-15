@@ -1,6 +1,6 @@
 # Rolling Oak Catalog
 
-**Artifacts, fossils, rocks & minerals from Elgin, Texas.** A static, no-build web catalog of surface finds from private land near Elgin, Texas, organized into three collections (Artifacts, Fossils, Rocks & Minerals): photos, measurements, descriptions, ranked research possibilities, and owner review notes.
+**UnEarthed: AI-Powered Catalog Tool.** A static, no-build web catalog of surface finds from anywhere in the world, organized into three collections (Artifacts, Fossils, Rocks & Minerals): photos, measurements, descriptions, ranked research possibilities, and owner review notes.
 
 > AI suggestions are possibilities for research, **not identifications**. This project makes no claims about authenticity or monetary value.
 

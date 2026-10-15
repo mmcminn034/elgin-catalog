@@ -16,7 +16,7 @@
   "non_local": [
     { "id": "obsidian", "pattern": "obsidian|volcanic glass", "reason": "Obsidian (volcanic glass) does not occur naturally in Central Texas. Pieces here were traded in or carried from the western US or Mexico." },
     { "id": "opal", "pattern": "opali[sz]ed|\\bopal\\b|precious opal|virgin valley", "reason": "Opalized wood and opal are typical of volcanic regions such as Nevada (Virgin Valley) and Oregon. Local petrified wood is usually agatized (chalcedony)." },
-    { "id": "volcanic", "pattern": "\\btuff\\b|basalt|rhyolite|andesite|pumice|scoria|volcanic", "reason": "Volcanic rocks (tuff, basalt, rhyolite, pumice) don't crop out near Elgin." },
+    { "id": "volcanic", "pattern": "\\btuff\\b|basalt|rhyolite|andesite|pumice|scoria|volcanic", "reason": "Volcanic rocks (tuff, basalt, rhyolite, pumice) don't crop out in Bastrop County." },
     { "id": "great-basin", "pattern": "elko|rose spring|desert side.?notched|eastgate|humboldt|pinto|gatecliff|great basin", "reason": "This point style belongs to the Great Basin (Nevada, Utah), not Central Texas." },
     { "id": "southwest", "pattern": "san pedro|cienega|chiricahua|cochise|hohokam|anasazi|ancestral pueblo", "reason": "This point style or culture belongs to the American Southwest." },
     { "id": "plains", "pattern": "avonlea|besant|pelican lake|mckean|hanna point|duncan point|yonkee|agate basin", "reason": "This point style belongs to the Northern Plains." },
