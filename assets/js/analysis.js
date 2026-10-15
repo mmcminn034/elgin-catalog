@@ -127,7 +127,7 @@
     return (KB[kind]?.diagnostics || []).map(([f, p, a]) => { const st = a && new RegExp(a, "i").test(raw) ? "absent" : new RegExp(p, "i").test(stripNeg(raw)) ? "present" : "unknown"; return [f, st]; }); }
   function sec(title, body, open) { return `<details class="an" ${open ? "open" : ""}><summary>${title}</summary><div>${body}</div></details>`; }
   /* Stage 3: AI classification + likely origin (clamped server-side: 0-100%, AI ceiling 95%, no coordinates). inDialog adds the keep toggle. */
-  function aiClassHtml(o, inDialog) { if (!o) return ""; const c = o.classification || {}, org = o.origin || [], chip = (x, p) => p != null ? ` <span class="chip">${esc(p)}% · ${esc(x || "")}</span>` : x ? ` <span class="chip">${esc(x)}</span>` : "";
+  function aiClassHtml(o, inDialog) { if (!o) return ""; const c = o.classification || {}, org = o.origin || [], chip = (x, p) => p != null ? ` <span class="chip">${esc(p)}% · ${esc(x || (window.Score ? Score.band(p) : ""))}</span>` : x ? ` <span class="chip">${esc(x)}</span>` : "";
     const rows = [["Category", c.category], ["Type", c.type], ["Material", c.material]].filter(([, v]) => v && v.value).map(([k, v]) => `<li><strong>${k}:</strong> ${esc(v.value)}${chip(v.confidence, v.confidence_pct)}${v.why ? `<br><span class="help">${esc(v.why)}</span>` : ""}</li>`);
     if (c.era) rows.push(`<li><strong>Era / period:</strong> ${esc([c.era.human_period, c.era.geologic_period, c.era.range].filter(Boolean).join(" · "))}${chip(c.era.confidence, c.era.confidence_pct)}${c.era.why ? `<br><span class="help">${esc(c.era.why)}</span>` : ""}</li>`);
     if (!rows.length && !org.length) return "";
