@@ -3999,5 +3999,167 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-033",
+    "category": "artifact",
+    "object_type": "Chert cortex flake / core fragment",
+    "material": "Tan-orange chert with chalky cortex",
+    "color": "Tan-orange; chalky rusty cortex",
+    "length_mm": "~60",
+    "width_mm": "~35",
+    "thickness_mm": "~20",
+    "measure_method": "Estimate (mm ruler in photos)",
+    "length_source": "estimate",
+    "width_source": "estimate",
+    "thickness_source": "estimate",
+    "condition": "Whole piece",
+    "condition_notes": "Cortex rind on one face; small dark pit (likely natural inclusion).",
+    "key_features": "Cortex rind (photo 4); smooth conchoidal faces with flake scars; small dark pit, likely a natural inclusion (photo 5).",
+    "suggestion_1": "Primary/secondary cortex flake (early-stage knapping debris)",
+    "suggestion_2": "Small tested core fragment",
+    "suggestion_3": "Natural fracture",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) primary or secondary cortex flake, early-stage knapping debris, Moderate (capped): a chalky cortex rind covers one face (photo 4) and the other faces are smooth and conchoidal with flake scars, as when the first flakes are struck off a nodule. (2) Small tested core fragment, Low-Moderate: the thickness (~20 mm) and multiple scars could also fit a broken piece of a tested core. (3) Natural fracture, Low.\n\nThe small dark pit is most likely a natural inclusion in the chert, not a use mark.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Is there a striking platform and bulb of percussion? Next photos: 1) the smooth face straight on, 2) the edges, to look for a platform and bulb.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-033/01.jpg",
+        "thumb": "images/ELG-033/01_thumb.jpg",
+        "view": "front",
+        "label": "Overview, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.45,
+              0.3,
+              0.69,
+              0.52
+            ],
+            "label": "Smooth conchoidal faces with flake scars",
+            "explanation": "Smooth, curved (conchoidal) break faces with flake scars, typical of chert struck during knapping. A platform and bulb of percussion would confirm a flake.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary/secondary cortex flake (early-stage knapping debris)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-033/02.jpg",
+        "thumb": "images/ELG-033/02_thumb.jpg",
+        "view": "edge",
+        "label": "Side view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.48,
+              0.29,
+              0.82,
+              0.54
+            ],
+            "label": "Smooth conchoidal faces with flake scars",
+            "explanation": "Smooth, curved (conchoidal) break faces with flake scars, typical of chert struck during knapping. A platform and bulb of percussion would confirm a flake.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary/secondary cortex flake (early-stage knapping debris)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-033/03.jpg",
+        "thumb": "images/ELG-033/03_thumb.jpg",
+        "view": "front",
+        "label": "Smooth face, oblique",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.44,
+              0.45,
+              0.65,
+              0.92
+            ],
+            "label": "Smooth conchoidal faces with flake scars",
+            "explanation": "Smooth, curved (conchoidal) break faces with flake scars, typical of chert struck during knapping. A platform and bulb of percussion would confirm a flake.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary/secondary cortex flake (early-stage knapping debris)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-033/04.jpg",
+        "thumb": "images/ELG-033/04_thumb.jpg",
+        "view": "back",
+        "label": "Cortex rind",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.42,
+              0.35,
+              0.87,
+              0.85
+            ],
+            "label": "Chalky cortex rind",
+            "explanation": "The rough, chalky outer rind of the nodule. Cortex covering a face marks a primary or secondary flake, taken off early in reduction.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary/secondary cortex flake (early-stage knapping debris)"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-033/05.jpg",
+        "thumb": "images/ELG-033/05_thumb.jpg",
+        "view": "front",
+        "label": "Smooth face with dark pit",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.46,
+              0.34,
+              0.82,
+              0.74
+            ],
+            "label": "Smooth conchoidal faces with flake scars",
+            "explanation": "Smooth, curved (conchoidal) break faces with flake scars, typical of chert struck during knapping. A platform and bulb of percussion would confirm a flake.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Primary/secondary cortex flake (early-stage knapping debris)"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.51,
+              0.6,
+              0.025
+            ],
+            "label": "Small dark pit (natural inclusion)",
+            "explanation": "A small dark pit that is most likely a natural inclusion in the chert, not a use mark.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural fracture"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
