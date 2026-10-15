@@ -91,7 +91,7 @@
     const code = id => { if (!qr) return '<span class="noqr">QR unavailable offline</span>'; const q = qr(0, "M"); q.addData(findUrl(id)); q.make(); return q.createSvgTag({ cellSize: 2, margin: 0, scalable: true }).replace("<svg ", `<svg role="img" aria-label="QR code for ${id}" `); };
     const cells = [...Array(skip).fill(null), ...rs]; const pages = []; for (let i = 0; i < Math.max(1, cells.length); i += f.per) pages.push(cells.slice(i, i + f.per));
     $("#labSheet").className = "sheet " + f.cls;
-    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.svg" alt="">Rolling Oak Catalog</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "Elgin, Texas")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
+    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.svg" alt="">${window.Brand ? Brand.name() : "Rolling Oak Catalog"}</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "Elgin, Texas")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
   }
 
   /* ---------- profile ---------- */
@@ -120,7 +120,7 @@
       <dl class="stats">${counts.map(([k, n]) => `<div><dt>${esc(App.KINDS[k].label)}</dt><dd>${n}</dd></div>`).join("")}</dl>
       <div class="row"><button type="button" class="btn" id="shareCol">🔗 Share this collection</button></div></header>
       <div class="grid col-grid">${finds.map(r => { const p = App.pics(r)[0]; return `<button class="card" data-open="${esc(r.catalog_id)}">${p ? `<div class="card-img"><img src="${esc(p.thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span></div>` : ""}<h3>${esc(r.object_type || "")}</h3><div class="meta">${esc(App.KINDS[App.kindOf(r)].label)} · ${esc(App.eraOf(r))}</div></button>`; }).join("")}</div>`;
-    $("#shareCol").onclick = () => share((C.siteUrl || "") + "#/c/" + slug, c.name + " · Rolling Oak Catalog");
+    $("#shareCol").onclick = () => share((C.siteUrl || "") + "#/c/" + slug, c.name + " · " + (window.Brand ? Brand.name() : "Rolling Oak Catalog"));
   }
 
   /* ---------- members ---------- */
@@ -164,7 +164,7 @@
       bar.innerHTML = `<button type="button" class="btn" data-act="share">🔗 Share</button><button type="button" class="btn" data-act="review">🧑‍🔬 Request expert review</button><a class="btn" href="#/labels">🏷 QR label</a>
         ${editor ? `<label class="field vis"><span>Visibility</span><select data-act="vis"><option value="1" ${r.is_public !== false ? "selected" : ""}>Public</option><option value="0" ${r.is_public === false ? "selected" : ""}>Private</option></select></label>` : ""}<div class="rev-form" hidden></div>`;
       panel.prepend(bar);
-      bar.querySelector('[data-act=share]').onclick = () => share(shareUrl(r), `${r.catalog_id} · ${r.object_type || ""} · Rolling Oak Catalog`);
+      bar.querySelector('[data-act=share]').onclick = () => share(shareUrl(r), `${r.catalog_id} · ${r.object_type || ""} · ${window.Brand ? Brand.name() : "Rolling Oak Catalog"}`);
       bar.querySelector('[data-act=review]').onclick = () => { const f = bar.querySelector(".rev-form"); if (!s.user) { f.hidden = false; f.innerHTML = signInFirst("Sign in to request an expert review of this find."); return; }
         f.hidden = false; f.innerHTML = `<label class="field"><span>What would you like an expert to look at?</span><textarea rows="3" id="revNote" placeholder="e.g. Is the stem ground? Which point type?"></textarea></label><button type="button" class="btn primary" id="revSend">Send request</button>`;
         $("#revSend").onclick = async () => { const res = await Cloud.requestReview(r.catalog_id, $("#revNote").value.trim()); f.innerHTML = res.error ? `<p class="err">${esc(res.error)}</p>` : '<p class="help ok">✓ Review requested. You\'ll see the answer on this record.</p>'; }; };

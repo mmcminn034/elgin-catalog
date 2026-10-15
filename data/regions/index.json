@@ -1,0 +1,8 @@
+{
+  "note": "Region packs. A collection's home region (config ROLLING_OAK_BRAND.homeRegion, later collections.home_region) drives the 'differs from home' hint. world.json supplies worldwide geologic settings for the 'Likely origin' panel. Public output is always region/setting level, never coordinates.",
+  "default_home": "bastrop-tx",
+  "packs": [
+    { "id": "bastrop-tx", "name": "Bastrop County, Texas (Elgin area)", "country": "US", "admin1": "Texas", "admin2": "Bastrop County", "kind": "home" },
+    { "id": "world", "name": "Worldwide geologic settings", "kind": "world" }
+  ]
+}

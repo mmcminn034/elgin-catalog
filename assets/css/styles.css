@@ -512,3 +512,10 @@ label.btn{position:relative}
 .oor ul{margin:6px 0 6px 18px;padding:0}.oor .muted{color:#5c4a1a}.oor-act{display:flex;flex-wrap:wrap;gap:8px}.oor-place{flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
 [data-theme=dark] .oor{background:#3a2c08;color:#ffe9b0;border-color:#b98900}[data-theme=dark] .oor .muted{color:#f1d58e}
 .ai-st{margin:0 0 10px}
+
+/* ---- Stage 2: Likely origin panel ---- */
+.origin{margin:14px 0;padding:12px 14px;border-radius:12px;border:1px solid var(--line,#d8cfc3);background:var(--card,#fffaf3)}
+.origin .gal-h{margin-top:0}.origin-list{margin:6px 0 8px 20px;padding:0}.origin-list li{margin:0 0 6px}.origin-where{margin:4px 0 8px 18px;padding:0}
+.oc{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;font-size:.78em;font-weight:600;background:#efe6d8;color:#4a3a22}
+.oc-moderate{background:#dcefd9;color:#1f4a1a}.oc-low-moderate{background:#f6ecc8;color:#4a3a00}.oc-low{background:#eee;color:#444}
+[data-theme=dark] .origin{background:#211a14;border-color:#3a2f25}[data-theme=dark] .oc{filter:brightness(.9)}

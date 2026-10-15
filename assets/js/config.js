@@ -1,4 +1,6 @@
 /* Public client config. The publishable key is designed to be public; Row Level Security protects the data. */
+/* Brand + locale: the ONE place to rename the app or change the home region. tools/gen_share_pages.py reads this block too. */
+window.ROLLING_OAK_BRAND = {"name": "Rolling Oak Catalog", "short": "Rolling Oak", "tagline": "Artifacts, fossils, rocks and minerals: documented carefully, one find at a time.", "homeLabel": "Elgin, Texas", "homeRegion": "bastrop-tx", "owner": "Mark McMinn"};
 window.ROLLING_OAK_CLOUD = {
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
