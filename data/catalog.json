@@ -4337,5 +4337,239 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-035",
+    "category": "fossil",
+    "object_type": "Limestone/flint nodule with quartz-lined fossil molds",
+    "material": "Limestone or chert/flint nodule with drusy quartz pockets",
+    "color": "Pale cream-grey rind; grey drusy quartz in pockets",
+    "length_mm": "~140",
+    "width_mm": "~100",
+    "thickness_mm": "~90",
+    "measure_method": "Estimate",
+    "length_source": "estimate",
+    "width_source": "estimate",
+    "thickness_source": "estimate",
+    "condition": "Whole nodule",
+    "condition_notes": "Several rounded pockets lined with drusy quartz; chalky rind.",
+    "key_features": "Grey drusy quartz pockets (photos 1, 7); chalky pale rind; no clear human working.",
+    "suggestion_1": "Limestone with fossil molds (shell/sponge) lined with drusy quartz",
+    "suggestion_2": "Chert/flint nodule in limestone rind with drusy pockets",
+    "suggestion_3": "Geode-like nodule",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) limestone with fossil moulds (shell or sponge) lined with drusy quartz, Moderate (capped): several rounded pockets lined with grey drusy quartz (photos 1, 7) fit moulds left where fossils dissolved, later lined by quartz. (2) Chert or flint nodule in a limestone rind with drusy pockets, Low-Moderate: the chalky, pale rind could be the outer skin of a chert nodule. (3) Geode-like nodule, Low.\n\nNo clear human working (no flake scars or grinding).\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Do the pockets keep a fossil shape (shell outline, sponge texture)? Next photos: 1) close-ups of the pockets with a scale, 2) any broken face, to see the interior material.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-035/01.jpg",
+        "thumb": "images/ELG-035/01_thumb.jpg",
+        "view": "front",
+        "label": "Pockets with drusy quartz (primary)",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.39,
+              0.36,
+              0.1
+            ],
+            "label": "Grey drusy quartz pocket",
+            "explanation": "A rounded pocket lined with grey, sparkly drusy quartz. Pockets like this often form where a shell or sponge dissolved out of limestone and quartz crystals later lined the mould. They could also be drusy cavities in a chert or flint nodule.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Limestone with fossil molds (shell/sponge) lined with drusy quartz"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.58,
+              0.55,
+              0.08
+            ],
+            "label": "Grey drusy quartz pocket",
+            "explanation": "A rounded pocket lined with grey, sparkly drusy quartz. Pockets like this often form where a shell or sponge dissolved out of limestone and quartz crystals later lined the mould. They could also be drusy cavities in a chert or flint nodule.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Limestone with fossil molds (shell/sponge) lined with drusy quartz"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.44,
+              0.83,
+              0.07
+            ],
+            "label": "Grey drusy quartz pocket",
+            "explanation": "A rounded pocket lined with grey, sparkly drusy quartz. Pockets like this often form where a shell or sponge dissolved out of limestone and quartz crystals later lined the mould. They could also be drusy cavities in a chert or flint nodule.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Limestone with fossil molds (shell/sponge) lined with drusy quartz"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/02.jpg",
+        "thumb": "images/ELG-035/02_thumb.jpg",
+        "view": "edge",
+        "label": "Side view",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.2,
+              0.08,
+              0.68,
+              0.98
+            ],
+            "label": "Chalky pale rind, no working",
+            "explanation": "A chalky, pale limestone-like rind with no flake scars, grinding or other signs of human working.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert/flint nodule in limestone rind with drusy pockets"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/03.jpg",
+        "thumb": "images/ELG-035/03_thumb.jpg",
+        "view": "edge",
+        "label": "Other side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.15,
+              0.1,
+              0.68,
+              0.95
+            ],
+            "label": "Chalky pale rind, no working",
+            "explanation": "A chalky, pale limestone-like rind with no flake scars, grinding or other signs of human working.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert/flint nodule in limestone rind with drusy pockets"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/04.jpg",
+        "thumb": "images/ELG-035/04_thumb.jpg",
+        "view": "back",
+        "label": "Back, chalky rind",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.1,
+              0.0,
+              0.75,
+              0.98
+            ],
+            "label": "Chalky pale rind, no working",
+            "explanation": "A chalky, pale limestone-like rind with no flake scars, grinding or other signs of human working.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert/flint nodule in limestone rind with drusy pockets"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/05.jpg",
+        "thumb": "images/ELG-035/05_thumb.jpg",
+        "view": "base",
+        "label": "Base",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.0,
+              0.0,
+              0.55,
+              1.0
+            ],
+            "label": "Chalky pale rind, no working",
+            "explanation": "A chalky, pale limestone-like rind with no flake scars, grinding or other signs of human working.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert/flint nodule in limestone rind with drusy pockets"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/06.jpg",
+        "thumb": "images/ELG-035/06_thumb.jpg",
+        "view": "edge",
+        "label": "Side, rind",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.2,
+              0.0,
+              0.68,
+              1.0
+            ],
+            "label": "Chalky pale rind, no working",
+            "explanation": "A chalky, pale limestone-like rind with no flake scars, grinding or other signs of human working.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Chert/flint nodule in limestone rind with drusy pockets"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-035/07.jpg",
+        "thumb": "images/ELG-035/07_thumb.jpg",
+        "view": "detail",
+        "label": "Close-up of drusy pockets",
+        "annotations": [
+          {
+            "type": "circle",
+            "coords": [
+              0.34,
+              0.47,
+              0.14
+            ],
+            "label": "Grey drusy quartz pocket",
+            "explanation": "A rounded pocket lined with grey, sparkly drusy quartz. Pockets like this often form where a shell or sponge dissolved out of limestone and quartz crystals later lined the mould. They could also be drusy cavities in a chert or flint nodule.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Limestone with fossil molds (shell/sponge) lined with drusy quartz"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.61,
+              0.41,
+              0.12
+            ],
+            "label": "Grey drusy quartz pocket",
+            "explanation": "A rounded pocket lined with grey, sparkly drusy quartz. Pockets like this often form where a shell or sponge dissolved out of limestone and quartz crystals later lined the mould. They could also be drusy cavities in a chert or flint nodule.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Limestone with fossil molds (shell/sponge) lined with drusy quartz"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
