@@ -5,8 +5,11 @@
 //      SUPABASE_URL / SUPABASE_ANON_KEY (provided automatically by Supabase).
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.117.3";
 import "../_shared/retrieve.js"; // sets globalThis.Retrieve (same code as assets/js/retrieve.js)
+import "../_shared/ai_schema.js"; // sets globalThis.AiSchema (Stage 3 clamping; tested by tests/ai_schema_test.js)
 // deno-lint-ignore no-explicit-any
 const Retrieve = (globalThis as any).Retrieve as { rankSimilar: (t: unknown, ex: unknown[], o?: unknown) => { example: Record<string, any>; score: number; why: string[] }[] };
+// deno-lint-ignore no-explicit-any
+const AiSchema = (globalThis as any).AiSchema as { clampClassification: (r: unknown) => { classification: unknown; origin: unknown[] } };
 const SITE = (Deno.env.get("SITE_URL") || "https://mmcminn034.github.io/elgin-catalog/").replace(/\/?$/, "/");
 
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type", "Access-Control-Allow-Methods": "POST, OPTIONS" };
@@ -14,9 +17,11 @@ const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { sta
 
 type Mark = { type: "arrow" | "circle" | "line" | "measure" | "box"; coords: number[]; label: string; explanation: string; links_to?: { kind: "candidate" | "feature" | "date"; ref: string } };
 type Result = { candidates: { name: string; type_id?: string; confidence: "Low" | "Low-moderate" | "Moderate"; why: string; why_not: string }[]; alternatives?: string[]; marks: { photo_index: number; marks: Mark[] }[];
-  measurements?: { length_mm?: number | null; width_mm?: number | null; thickness_mm?: number | null; scale_visible?: boolean; note?: string }; next_photos?: string[]; gaps: string[]; caveat: string; similar_used?: { catalog_id: string; confirmed_type: string; why: string[] }[] };
+  measurements?: { length_mm?: number | null; width_mm?: number | null; thickness_mm?: number | null; scale_visible?: boolean; note?: string }; next_photos?: string[]; gaps: string[]; caveat: string; similar_used?: { catalog_id: string; confirmed_type: string; why: string[] }[];
+  classification?: unknown; origin?: unknown[] };
 
-const SYSTEM = `You assist an amateur collector documenting Central Texas surface finds (artifacts, fossils, rocks/minerals).
+const SYSTEM = `You assist amateur collectors worldwide documenting finds (artifacts, fossils, rocks/minerals).
+The collection's home region and the owner's provenance are CONTEXT ONLY (in "region_check"): the owner's provenance always wins, but do not assume a find is from the home region.
 Rules: give RESEARCH POSSIBILITIES, never definitive identifications; never claim authenticity or monetary value; confidence at most "Moderate".
 Only describe and mark features you can actually see in the photos. If a feature is not visible, say so in "gaps".
 Return ONLY JSON matching:
@@ -24,13 +29,19 @@ Return ONLY JSON matching:
  "marks":[{"photo_index":int,"marks":[{"type":"arrow"|"circle"|"line"|"measure"|"box","coords":[...],"label":str,"explanation":str,"links_to":{"kind":"candidate"|"feature"|"date","ref":str}}]}],
  "alternatives":[str],
  "measurements":{"scale_visible":bool,"length_mm":num|null,"width_mm":num|null,"thickness_mm":num|null,"note":str},
- "next_photos":[str],"gaps":[str],"caveat":str}
+ "next_photos":[str],"gaps":[str],"caveat":str,
+ "classification":{"category":{"value":"artifact"|"fossil"|"rock","confidence":C,"why":str},"type":{"value":str,"confidence":C,"why":str},"material":{"value":str,"confidence":C,"why":str},
+   "era":{"human_period":str|null,"geologic_period":str|null,"range":str|null,"confidence":C,"why":str}},
+ "origin":[{"region":str,"setting":str,"confidence":C,"why":str}]}
+where C is "Low"|"Low-moderate"|"Moderate".
 Coordinates are normalized 0-1 relative to each image (x by width, y by height). arrow/line/measure/box: [x1,y1,x2,y2]; circle: [cx,cy,r] with r as a fraction of width.
 Use at most 3 candidates and at most 8 marks per photo. For "feature" links use the exact checklist names provided.
 Comparison: "similar_verified_examples" are owner-verified reference finds (with photos labelled REFERENCE). Compare form, base/stem, flaking and size against them and say which ones it resembles or differs from in "why"/"why_not"; never copy their type without visible evidence.
 Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate length/width/thickness in mm from it and explain how in "note"; otherwise set scale_visible false and the numbers null.
 "next_photos": the 1-4 specific photos that would most improve the identification (e.g. "square-on base view under raking light").
-"alternatives": other plausible types worth ruling out (names only).`;
+"alternatives": other plausible types worth ruling out (names only).
+"classification": your best autonomous call for category, type, material and era/period, each with its own confidence and visible evidence.
+"origin": up to 3 likely regions or geologic settings where this kind of material/type occurs (e.g. "Miocene volcanic tuff, Idaho/Oregon"). Country/state/province or geologic province level ONLY: never coordinates, addresses, landmarks or site names.`;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
@@ -81,6 +92,8 @@ Deno.serve(async (req) => {
   const mm = (v: unknown) => { const n = Number(v); return Number.isFinite(n) && n > 0 && n < 1000 ? Math.round(n) : null; };
   const m = res.measurements || {}; res.measurements = m.scale_visible ? { scale_visible: true, length_mm: mm(m.length_mm), width_mm: mm(m.width_mm), thickness_mm: mm(m.thickness_mm), note: String(m.note || "").slice(0, 300) } : { scale_visible: false, length_mm: null, width_mm: null, thickness_mm: null, note: "No usable scale visible." };
   res.similar_used = similar.map(x => ({ catalog_id: x.catalog_id, confirmed_type: x.confirmed_type, why: x.why_similar }));
+  // Stage 3: classification + origin, clamped server-side (Moderate cap, coordinates/addresses dropped)
+  const cl = AiSchema.clampClassification(res); res.classification = cl.classification; res.origin = cl.origin;
   res.caveat = "AI-generated research possibilities from photos, not an identification. No authenticity or value claims. Review every mark before saving.";
   return json({ ok: true, catalog_id: body.catalog_id, model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", result: res });
 });
