@@ -1,6 +1,6 @@
 /* Rolling Oak Catalog service worker: offline app shell.
    Same-origin GETs: network-first for data/*.json and HTML, cache-first for static assets. Never caches Supabase API calls. */
-const VERSION = "ro-v8.5";
+const VERSION = "ro-v8.6";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "favicon.ico", "assets/css/styles.css", "assets/css/redesign.css", "assets/js/redesign.js", "assets/js/config.js", "assets/js/brand.js", "assets/js/corrections.js", "assets/js/cloud.js", "assets/js/analysis.js", "assets/js/score.js", "assets/js/prompt.js", "assets/js/marks.js", "assets/js/features.js", "assets/js/retrieve.js", "assets/js/learning.js", "assets/js/stage2.js", "assets/js/s5.js", "assets/js/nav.js", "assets/js/auth-options.js", "assets/js/app.js",
   "assets/brand/icon.svg", "assets/brand/icon-small.svg", "assets/brand/lockup-dark.svg", "assets/brand/lockup-light.svg", "assets/brand/icon-192.png", "data/catalog.json", "data/reference/points.json", "data/reference/fossils.json", "data/reference/rocks.json", "data/learned/learned-examples.json"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });

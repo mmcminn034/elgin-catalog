@@ -160,7 +160,7 @@
   const signUp = (email, password) => sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect() } });
   const signOut = () => sb.auth.signOut();
   /* Google OAuth + phone (SMS) OTP. MOCK: code "000000" fails, anything else succeeds. */
-  const google = () => MOCK ? (MOCK.oauth = "google", Promise.resolve({})) : sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: C.siteUrl || redirect() } });
+  const google = () => MOCK ? (MOCK.oauth = "google", Promise.resolve({})) : sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: redirect() } /* return to the domain the user came from (unearthedfinds.com or github.io) */ });
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
