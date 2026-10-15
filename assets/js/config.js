@@ -7,6 +7,7 @@ window.ROLLING_OAK_CLOUD = {
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
   bucket: "find-photos",
   timeoutMs: 6000,
+  adminUserId: "a4779d71-ff10-4c11-864d-c79f83214b00", // owner/admin account: the only one that sees the Reference Library UI (not a secret; RLS enforces data access)
   siteUrl: "https://unearthedfinds.com/",
   defaultCollection: { slug: "rolling-oak", name: "Rolling Oak", description: "Artifacts, fossils, rocks and minerals, documented one find at a time.", owner_name: "PolForge, LLC" },
   defaultRegion: "Bastrop County, Texas", // public, county-level area shown for finds (never exact)

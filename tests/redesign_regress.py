@@ -3,7 +3,7 @@ import sys, json, os
 from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8765/"; SS = sys.argv[2] if len(sys.argv) > 2 else ""; fails = []; errs = []
 def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i); ok or fails.append(n)
-OWNER = {"online": True, "user": {"id": "u1", "email": "mark@example.com"}, "profile": {"display_name": "Mark McMinn", "membership": "member"},
+OWNER = {"adminUserId": "u1", "online": True, "user": {"id": "u1", "email": "mark@example.com"}, "profile": {"display_name": "Mark McMinn", "membership": "member"},
          "collections": [{"id": "c1", "slug": "rolling-oak", "name": "Rolling Oak", "role": "owner", "is_public": False}], "members": {"c1": {"members": [], "invites": []}}, "comments": []}
 def page(b, w, h, mock=OWNER):
     ctx = b.new_context(viewport={"width": w, "height": h}); pg = ctx.new_page(); pg.on("pageerror", lambda e: errs.append(str(e)))
@@ -15,7 +15,7 @@ def go(pg, h): pg.goto(U + h); pg.wait_for_timeout(700)
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path="/usr/bin/google-chrome"); ctx, pg = page(b, 1280, 900)
     chk("sidebar visible at 1280", pg.locator(".side-nav").is_visible())
-    chk("sidebar brand + subtitle + location card", "AI-Powered Catalog Tool" in pg.inner_text(".side-brand") and pg.locator(".side-loc .shield").count() == 1)
+    chk("sidebar brand + subtitle + location card", "Discover. Catalog. Preserve." in pg.inner_text(".side-brand") and pg.locator(".side-loc .shield").count() == 1)
     chk("topbar user name + role", "Mark McMinn" in pg.inner_text("#tbUser") and "Owner" in pg.inner_text("#tbUser"), pg.inner_text("#tbUser").replace("\n", " "))
     for r in ["catalog", "review", "library", "settings"]: chk(f"sidebar link {r}", pg.locator(f".side-main a[data-route={r}]").count() == 1)
     for r in ["discover", "pricing", "about", "timeline", "people", "labels"]: chk(f"link reachable {r}", pg.locator(f"a[href='#/{r}']").count() >= 1)
@@ -62,7 +62,7 @@ with sync_playwright() as p:
     ctx.close()
     ctx, pg = page(b, 390, 844)
     chk("mobile: sidebar hidden", not pg.locator(".side-nav").is_visible()); chk("mobile: hamburger visible", pg.locator("#menuBtn").is_visible())
-    pg.click("#menuBtn"); pg.wait_for_timeout(200); chk("mobile drawer has Review/Library/Settings", all(pg.locator(f"#navMenu a[data-route={r}]").is_visible() for r in ["review", "library", "settings", "discover", "pricing"]))
+    pg.click("#menuBtn"); pg.wait_for_timeout(200); chk("mobile drawer has Review/Library/Settings", all(pg.locator(f"#navMenu a[data-route={r}]").is_visible() for r in ["review", "library", "settings"]) and pg.locator("#navMenu [data-explore]").is_visible())
     shot(pg, "mobile-menu-390.png"); pg.keyboard.press("Escape")
     shot(pg, "mobile-catalog-390.png")
     go(pg, "#/record/ELG-001"); pg.wait_for_selector(".rv-layout"); chk("mobile: no horizontal overflow", pg.evaluate("(()=>{const b=document.querySelector('.modal-body');return b.scrollWidth<=b.clientWidth+1 && document.querySelector('.rv-main').getBoundingClientRect().right<=innerWidth+1})()")); shot(pg, "mobile-review-390.png")

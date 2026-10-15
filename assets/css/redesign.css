@@ -106,3 +106,21 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.005em}
 @media (prefers-reduced-motion:reduce){.site-header nav.nav-menu{animation:none}}
 
 .side-motto{font-style:italic;color:var(--accent,#A8481E)!important}.auth-brand{display:flex;gap:10px;align-items:center;margin-bottom:8px}.auth-brand strong{display:block;font-family:var(--serif);font-size:1.15rem}.auth-brand .muted{display:block;font-size:.85rem;font-style:italic}.brand-motto{font-style:italic}@media (max-width:420px){.brand-txt{font-size:1.05rem}}
+
+/* ---- Logos, Explore group, theme toggle ---- */
+.side-brand picture img{width:44px;height:44px;display:block}
+.logo-swap .logo-d{display:none}[data-theme=dark] .logo-swap .logo-d{display:block}[data-theme=dark] .logo-swap .logo-l{display:none}
+.logo-swap img{display:block;max-width:100%;height:auto}
+.auth-brand{justify-content:center}.auth-logo img{max-height:180px;width:auto;margin:0 auto}
+.about-logo{margin:4px 0 18px}.about-logo img{max-width:min(420px,100%)}
+.side-explore{display:flex;align-items:center;gap:10px;width:100%;margin-top:14px;padding:9px 12px;border:0;border-radius:10px;background:none;color:var(--ink);font:inherit;font-weight:500;cursor:pointer;text-align:left}
+.side-explore:hover{background:var(--surface2)}.side-explore .chev{width:16px;height:16px;margin-left:auto;fill:none;stroke:currentColor;stroke-width:2;transition:transform .15s}
+.side-explore[aria-expanded=true] .chev{transform:rotate(180deg)}
+.side-explore:focus-visible,.side-theme:focus-visible,.nav-explore:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.side-more{display:flex;flex-direction:column;gap:2px;padding-left:22px}.side-more[hidden]{display:none!important}
+.side-foot{margin-top:auto;padding-top:12px}.side-theme{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.side-theme:hover{background:var(--surface2)}
+[data-theme=dark] .side-more a[aria-current=page]{color:#f3b496}
+.site-header nav.nav-menu .nav-explore{display:flex!important;justify-content:space-between}.nav-explore[aria-expanded=true] .chev{display:inline-block;transform:rotate(180deg)}
+.nav-sub{display:flex;flex-direction:column;padding-left:14px;border-left:2px solid rgba(255,255,255,.15);margin-left:10px}.nav-sub[hidden]{display:none!important}
+.side-foot+.side-loc{margin-top:10px}

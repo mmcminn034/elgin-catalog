@@ -22,4 +22,18 @@
     ma.addEventListener("click", () => { close(false); auth.click(); }); }
   /* Desktop (>= 901px) uses the sidebar only: close the drawer if the window grows past the breakpoint. */
   const mq = matchMedia("(min-width: 901px)"); (mq.addEventListener ? mq.addEventListener("change", e => { if (e.matches) close(false); }) : mq.addListener(e => { if (e.matches) close(false); }));
+  /* Theme toggle copies (sidebar footer): mirror the real #themeToggle (which owns the elgin-theme storage key). */
+  const tt = document.getElementById("themeToggle");
+  if (tt) { const syncT = () => document.querySelectorAll("[data-theme-toggle]").forEach(b => { b.textContent = tt.textContent; b.setAttribute("aria-pressed", tt.getAttribute("aria-pressed") || "false"); }); syncT();
+    new MutationObserver(syncT).observe(tt, { childList: true, characterData: true, subtree: true, attributes: true });
+    document.addEventListener("click", e => { if (e.target.closest("[data-theme-toggle]")) tt.click(); }); }
+  /* Explore group (sidebar + mobile menu): one shared open/closed state, persisted; auto-expands when a child page is active. */
+  const KEY = "ue-explore-open", groups = () => [...document.querySelectorAll("[data-explore-group]")], toggles = () => [...document.querySelectorAll("[data-explore]")];
+  const setExplore = (open, save = true) => { groups().forEach(g => g.hidden = !open); toggles().forEach(t => t.setAttribute("aria-expanded", String(open))); if (save) try { localStorage.setItem(KEY, open ? "1" : "0"); } catch {} };
+  const route = () => (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1];
+  const childActive = () => groups().some(g => [...g.querySelectorAll("a[data-route]")].some(a => a.dataset.route === route()));
+  let saved = null; try { saved = localStorage.getItem(KEY); } catch {}
+  setExplore(saved === "1" || childActive(), false);
+  toggles().forEach(t => t.addEventListener("click", e => { e.stopPropagation(); setExplore(t.getAttribute("aria-expanded") !== "true"); }));
+  addEventListener("hashchange", () => { if (childActive()) setExplore(true, false); });
 })();

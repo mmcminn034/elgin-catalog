@@ -91,14 +91,14 @@
     const code = id => { if (!qr) return '<span class="noqr">QR unavailable offline</span>'; const q = qr(0, "M"); q.addData(findUrl(id)); q.make(); return q.createSvgTag({ cellSize: 2, margin: 0, scalable: true }).replace("<svg ", `<svg role="img" aria-label="QR code for ${id}" `); };
     const cells = [...Array(skip).fill(null), ...rs]; const pages = []; for (let i = 0; i < Math.max(1, cells.length); i += f.per) pages.push(cells.slice(i, i + f.per));
     $("#labSheet").className = "sheet " + f.cls;
-    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.svg" alt="">${window.Brand ? Brand.name() : "Rolling Oak Catalog"}</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "UnEarthed Finds")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
+    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.png" alt="">${window.Brand ? Brand.name() : "Rolling Oak Catalog"}</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "UnEarthed Finds")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
   }
 
   /* ---------- profile ---------- */
   async function renderProfile() {
     const b = $("#profileBody"); if (!st().user) { b.innerHTML = signInFirst("Sign in to create your public collector profile."); return; }
     await init(); const p = prof || {};
-    b.innerHTML = `<form id="profForm" class="prof"><div class="prof-av"><img id="avImg" src="${esc(p.avatar_url || "assets/brand/icon.svg")}" alt="Your avatar"><label class="btn">Change photo<input type="file" accept="image/*" id="avFile" class="sr-only"></label></div>
+    b.innerHTML = `<form id="profForm" class="prof"><div class="prof-av"><img id="avImg" src="${esc(p.avatar_url || "assets/brand/icon.png")}" alt="Your avatar"><label class="btn">Change photo<input type="file" accept="image/*" id="avFile" class="sr-only"></label></div>
       <div class="prof-f"><label class="field"><span>Display name</span><input name="display_name" value="${esc(p.display_name)}" maxlength="60" required></label>
       <label class="field"><span>Bio</span><textarea name="bio" rows="4" maxlength="500" placeholder="What you collect, where, and why">${esc(p.bio)}</textarea></label>
       <label class="check"><input type="checkbox" name="is_public" ${p.is_public !== false ? "checked" : ""}> Show my profile publicly</label>
@@ -116,7 +116,7 @@
     if (!d) { b.innerHTML = "<h1>Collection not found</h1><p>It may be private or the link may be wrong.</p>"; return; }
     const c = d.collection, o = d.owner || {}, finds = App.all.filter(r => r.is_public !== false && (!c.id || !r.collection_id || r.collection_id === c.id)), counts = ["artifact", "fossil", "rock"].map(k => [k, finds.filter(r => App.kindOf(r) === k).length]);
     b.innerHTML = `<header class="col-hero"><p class="kicker">Public collection</p><h1 id="col-h">${esc(c.name)}</h1><p class="lede">${esc(c.description || "")}</p>
-      <div class="owner-card"><img src="${esc(o.avatar_url || "assets/brand/icon.svg")}" alt=""><div><strong>${esc(o.display_name || "Collector")}</strong>${o.bio ? `<p>${esc(o.bio)}</p>` : ""}</div></div>
+      <div class="owner-card"><img src="${esc(o.avatar_url || "assets/brand/icon.png")}" alt=""><div><strong>${esc(o.display_name || "Collector")}</strong>${o.bio ? `<p>${esc(o.bio)}</p>` : ""}</div></div>
       <dl class="stats">${counts.map(([k, n]) => `<div><dt>${esc(App.KINDS[k].label)}</dt><dd>${n}</dd></div>`).join("")}</dl>
       <div class="row"><button type="button" class="btn" id="shareCol">🔗 Share this collection</button></div></header>
       <div class="grid col-grid">${finds.map(r => { const p = App.pics(r)[0]; return `<button class="card" data-open="${esc(r.catalog_id)}">${p ? `<div class="card-img"><img src="${esc(p.thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span></div>` : ""}<h3>${esc(r.object_type || "")}</h3><div class="meta">${esc(App.KINDS[App.kindOf(r)].label)} · ${esc(App.eraOf(r))}</div></button>`; }).join("")}</div>`;

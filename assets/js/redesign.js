@@ -46,7 +46,7 @@
       <p class="help">${esc(window.Learn ? Learn.DISCLAIMER : "Research suggestions only, not identifications.")}</p></section>`;
     const refs = refMatches(r, t), err = window.Analysis && Analysis.loadErrors && Analysis.loadErrors().length;
     const regionOf = e => (e.admin1 || []).find(a => a === (Analysis.regionHint ? Analysis.regionHint(r).admin1 : "")) || (e.admin1 || [])[0] || e.continent || "";
-    const row = `<section class="rv-card rv-refs" aria-labelledby="rvRefH"><div class="rv-refs-h"><h3 id="rvRefH">Reference Matches</h3><span class="muted" title="Published typology, not the find">ⓘ published typology, not the find</span><a class="btn outline small" href="#/library?q=${encodeURIComponent(t ? String(t.x.c.name).replace(/\s*\(.*$/, "") : "")}">View All Matches ↗</a></div>
+    const row = `<section class="rv-card rv-refs" aria-labelledby="rvRefH"><div class="rv-refs-h"><h3 id="rvRefH">Reference Matches</h3><span class="muted" title="Published typology, not the find">ⓘ published typology, not the find</span><a class="btn outline small needs-admin"${isAdmin() ? "" : " hidden"} href="#/library?q=${encodeURIComponent(t ? String(t.x.c.name).replace(/\s*\(.*$/, "") : "")}">View All Matches ↗</a></div>
       ${refs.length ? `<div class="rv-ref-row">${refs.slice(0, 4).map(m => { const s = (m.entry.sources || [])[0] || {}; return `<article class="rv-ref">${sil(m.entry.category || k, m.entry.name + " silhouette placeholder")}<div><h4>${esc(srcName(m.entry))}</h4><p>${esc(m.entry.name)}</p><p class="muted">${esc(regionOf(m.entry))}</p></div><span class="score-b" title="Relative match score">${rel(m.score)}</span><span class="rv-ref-links">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">Source ↗</a> · ` : ""}<button type="button" class="btn ghost small" data-refd="${esc(m.entry.id)}">Details</button></span></article>`; }).join("")}</div>` : `<p class="${err ? "err" : "help"}" ${err ? 'role="alert"' : ""}>${err ? "⚠ Reference data failed to load; reload to retry." : "No published references match the recorded features yet."}</p>`}
       <p class="rv-foot">Reference datasets are sourced from public archaeological repositories. Silhouettes are placeholders; no source images are copied.</p></section>`;
     return `<div class="rv-layout" data-rv-for="${esc(r.catalog_id)}">${main}${panel}</div>${row}<h3 class="gal-h rv-more">Full record</h3>`;
@@ -76,7 +76,13 @@
   }
   let LIB = { q: "", region: "", source: "", period: "", page: 0 };
   const hashQ = () => decodeURIComponent((location.hash.match(/[?&]q=([^&]*)/) || [, ""])[1]);
+
+  /* Reference Library: owner/admin only (UI + route). Scoring keeps using the reference data for everyone. */
+  const isAdmin = () => { const C = window.ROLLING_OAK_CLOUD || {}, st = window.Cloud && Cloud.state ? Cloud.state() : {}; return !!(st.user && st.user.id === (window.ROLLING_OAK_MOCK ? window.ROLLING_OAK_MOCK.adminUserId : C.adminUserId)); }; /* the mock id is the Playwright harness only */
+  function adminGate() { const a = isAdmin(); document.querySelectorAll(".needs-admin").forEach(el => el.hidden = !a);
+    if (/^#\/library/.test(location.hash) && !a && (!window.Cloud || !Cloud.isSettled || Cloud.isSettled())) { location.replace("#/catalog"); if (window.App && App.toast) App.toast("The Reference Library is only available to the collection owner."); return false; } return true; }
   function library() {
+    if (!adminGate() || !isAdmin()) return;
     const host = $("#libraryBody"); if (!host) return; const pub = window.Analysis && Analysis.pub && Analysis.pub();
     if (!pub) { host.innerHTML = Analysis && Analysis.loadErrors && Analysis.loadErrors().length ? '<p class="err" role="alert">⚠ Reference data failed to load. Reload to retry.</p>' : '<p class="help">Loading reference data…</p>'; setTimeout(library, 600); return; }
     const T = pub.types, uniq = a => [...new Set(a.filter(Boolean))].sort();
@@ -108,7 +114,7 @@
       <section class="set-card"><h2>Appearance</h2><label class="check"><input type="checkbox" id="setDark" ${dark ? "checked" : ""}> Dark mode</label><button type="button" class="btn" data-set="install">⤓ Add to home screen</button></section>
       <section class="set-card"><h2>Data &amp; privacy</h2><p class="help">🔒 Exact find locations live only in an owner-only table and are never shown publicly. Exports leave location out unless you choose otherwise in the catalog toolbar.</p><div class="row"><button type="button" class="btn" data-set="csv">Export CSV</button><button type="button" class="btn" data-set="json">Export JSON</button><a class="btn" href="#/labels">Print QR labels</a>${st && st.user ? '<a class="btn needs-editor" href="#/map">Private find map</a>' : ""}</div></section>
       <section class="set-card"><h2>Confidence scoring</h2>${S ? `<p class="help">Rules engine cap ${S.rulesCap}% · AI cap ${S.aiCap}% · Verified + references agree: ${S.verifiedMax}%. Bands: ${S.bands.map(([n, l]) => `${l} ≥${n}%`).join(", ")}.</p>` : ""}<p class="help">${esc(window.Learn ? Learn.DISCLAIMER : "")}</p><a class="btn" href="#/about">About &amp; methods</a></section>
-      <section class="set-card"><h2>More</h2><ul class="links"><li><a href="#/discover">Discover public finds</a></li><li><a href="#/timeline">Deep time</a></li><li><a href="#/people">People &amp; land</a></li><li><a href="#/about">About, legal &amp; disclaimers</a></li><li><a href="#/library">Reference Library</a></li></ul></section></div>`;
+      <section class="set-card"><h2>More</h2><ul class="links"><li><a href="#/discover">Discover public finds</a></li><li><a href="#/timeline">Deep time</a></li><li><a href="#/people">People &amp; land</a></li><li><a href="#/about">About, legal &amp; disclaimers</a></li>${isAdmin() ? '<li><a href="#/library">Reference Library</a></li>' : ""}</ul></section></div>`;
     host.querySelector("#setDark").onchange = () => $("#themeToggle").click();
     host.onclick = e => { const b = e.target.closest("[data-set]"); if (!b) return; const a = b.dataset.set;
       if (a === "auth") $("#authBtn").click(); else if (a === "csv") $("#exportCsv").click(); else if (a === "json") $("#exportJson").click(); else if (a === "install") { const i = $("#installBtn"); if (i && !i.hidden) i.click(); else App.toast("Use your browser's menu: Add to Home Screen."); } };
@@ -121,9 +127,9 @@
     const name = p.display_name || st.user.email || "You"; u.hidden = false; u.querySelector("strong").textContent = name; u.querySelector(".tb-who span").textContent = role;
     const av = u.querySelector(".tb-av"); if (p.avatar_url && /^https:/.test(p.avatar_url)) { av.style.backgroundImage = `url("${p.avatar_url}")`; av.textContent = ""; } else av.textContent = name.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join(""); }
   addEventListener("load", () => { setTimeout(who, 900); if (window.Cloud && Cloud.on) Cloud.on(() => setTimeout(who, 50)); });
-  function onRoute() { topbar(); const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1]; document.querySelectorAll(".side-nav a[data-route]").forEach(a => a.dataset.route === v || (v === "record" && a.dataset.route === "catalog") ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  function onRoute() { adminGate(); topbar(); const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1]; document.querySelectorAll(".side-nav a[data-route]").forEach(a => a.dataset.route === v || (v === "record" && a.dataset.route === "catalog") ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (v === "review") reviewQueue(); if (v === "library") library(); if (v === "settings") settings(); document.body.classList.remove("side-open"); }
-  addEventListener("hashchange", onRoute); addEventListener("load", () => setTimeout(onRoute, 300));
+  addEventListener("hashchange", onRoute); addEventListener("load", () => { if (window.Cloud && Cloud.on) Cloud.on(() => { adminGate(); if (/^#\/library/.test(location.hash)) library(); }); }); addEventListener("load", () => setTimeout(onRoute, 300));
   document.addEventListener("click", e => { if (e.target.closest("#sideToggle")) { const o = document.body.classList.toggle("side-open"); $("#sideToggle").setAttribute("aria-expanded", o); } });
-  window.Redesign = { reviewHtml, library, settings, reviewQueue, refMatches };
+  window.Redesign = { isAdmin, adminGate, reviewHtml, library, settings, reviewQueue, refMatches };
 })();
