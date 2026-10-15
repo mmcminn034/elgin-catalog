@@ -46,3 +46,12 @@ flowchart LR
 - Catalog, Discover, Pricing, the Add-find wizard, measurement entry and print share the same tokens. Print hides the shell.
 
 Test: `python3 tests/redesign_regress.py URL [shots]` (desktop 1280 and mobile 390).
+
+## Matched to the review-screen mockup (2026-10-15)
+- **Sidebar** (fixed, 240 px): logo, serif brand name (`Brand.name()`), "AI-Powered Catalog Tool"; Catalog / Review / Reference Library / Settings with line icons and a terracotta-tinted active pill; Explore links; a "Location · Private" card with a green shield.
+- **Top bar**: serif page title ("Find Review" on a record) plus a terracotta ID pill; Add find, sync, Account/sign-in, user avatar (initials or profile photo), name and role, ☰ with every link. On mobile the logo returns to the top bar and the sidebar is replaced by the ☰ drawer.
+- **Record** opens as a page beside the sidebar (still the accessible modal underneath, so Escape, focus and tabs work).
+  - **Main card**: title, green ✓ Verified badge, Edit find (opens the Review form); large photo on a light background with thumbnails; 2×2 grid (Status pill, Material, Length, Width); Notes with a character count; Location: Private badge.
+  - **AI Analysis card**: dark-green block with the large earned % and "<band> Confidence" with a shield, colour-shifted to amber or red for lower scores; "Why this score:" paragraph built from the strongest signed factors, plus "Show every factor" with linked sources; Suggested Type chips (top 3); solid green Keep and outlined Correct this / Add Measurement.
+  - **Reference Matches card**: four source / type / region cards with dark-green relative scores (retrieval score ÷ 12, capped at 0.99) and silhouette placeholders, View All Matches (Reference Library search for the top type), and the footnote "Reference datasets are sourced from public archaeological repositories."
+- Page `h1`s are visually hidden on desktop (the top-bar title replaces them) but stay in the DOM for screen readers.

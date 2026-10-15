@@ -18,40 +18,54 @@
     const pub = window.Analysis && Analysis.pub && Analysis.pub(); if (!pub || !window.Prompt) return [];
     return Prompt.rankReferences(r, pub.types, pub.meta.trait_patterns, { k: 6, region: Analysis.regionHint ? Analysis.regionHint(r) : {}, category: kindOf(r), hintNames: t ? t.rk.slice(0, 3).map(x => String(x.c.name).replace(/\s*\(.*$/, "")) : [] });
   }
+  const SHIELD = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>';
+  const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m7.5 12.5 3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.2"/></svg>';
+  const SPARK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2l1.8 5.2L17 9l-5.2 1.8L10 16l-1.8-5.2L3 9l5.2-1.8zM18 13l.9 2.6 2.6.9-2.6.9L18 20l-.9-2.6-2.6-.9 2.6-.9z"/></svg>';
+  const rel = s => Math.max(0.01, Math.min(0.99, s / 12)).toFixed(2); /* relative match score: retrieval score / 12 (a strong name + trait + size + region match) */
+  const whyText = sc => { const pos = sc.factors.filter(f => f.sign === "+" && !/^Starting point/.test(f.label)).sort((a, b) => b.pts - a.pts).slice(0, 4).map(f => f.label.replace(/^\d+ /, m => m).toLowerCase());
+    const neg = sc.factors.filter(f => f.sign === "-" && !/^Capped/.test(f.label)).sort((a, b) => b.pts - a.pts).slice(0, 2).map(f => f.label.toLowerCase());
+    return (pos.length ? (sc.pct >= 80 ? "Strong evidence: " : sc.pct >= 50 ? "Supporting evidence: " : "Limited evidence: ") + pos.join("; ") + "." : "Little evidence recorded yet.") + (neg.length ? " Held back by: " + neg.join("; ") + "." : ""); };
   function reviewHtml(r) {
-    const ps = window.App ? App.pics(r) : [], t = topScore(r), sc = t && t.sc, k = kindOf(r);
+    const ps = window.App ? App.pics(r) : [], t = topScore(r), sc = t && t.sc, k = kindOf(r), verified = r.status === "Verified";
     const big = ps[0] ? `<button type="button" class="rv-main" data-lb="0" aria-label="Enlarge ${esc(ps[0].label)}"><img id="rvMainImg" src="${esc(ps[0].src || ps[0].thumb)}" alt="${esc(r.catalog_id)} ${esc(ps[0].label)}"></button>` : `<div class="rv-main rv-empty">${sil(k)}<p class="help">No photos yet.</p></div>`;
     const thumbs = ps.length > 1 ? `<div class="rv-thumbs" role="group" aria-label="Photo thumbnails">${ps.map((p, j) => `<button type="button" class="rv-th${j ? "" : " on"}" data-rvth="${j}" aria-label="Show ${esc(p.label)}" aria-pressed="${!j}"><img src="${esc(p.thumb)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
-    const word = sc ? `${sc.pct}% ${sc.band === "Low-moderate" ? "Low-moderate" : sc.band} Confidence` : "No match yet";
-    const panel = `<section class="rv-ai" aria-labelledby="rvAiH"><h3 id="rvAiH">AI Analysis <span class="muted">rules engine · earned score</span></h3>
-      ${sc ? `<div class="rv-conf rv-${sc.color}" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${sc.pct}" aria-label="Confidence ${sc.pct}%"><div class="rv-conf-top"><strong>${esc(word)}</strong></div><div class="rv-bar"><i style="width:${sc.pct}%"></i></div></div>` : '<p class="help">Add key features, measurements and photos to earn a score.</p>'}
-      ${t ? `<p class="rv-type"><span class="muted">Suggested type</span><br><strong>${esc(t.x.c.name)}</strong>${t.x.c.period ? ` <span class="muted">· ${esc(t.x.c.period)}</span>` : ""}</p>` : ""}
-      ${sc ? `<details class="why-score rv-why"><summary>Why this score</summary><ul>${sc.factors.map(f => `<li class="${f.sign === "+" ? "fplus" : "fminus"}"><strong>${f.sign}${f.pts}</strong> ${esc(f.label)}${f.source ? ` <a href="${esc(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.name)}</a>` : ""}</li>`).join("")}</ul></details>` : ""}
-      <div class="rv-acts"><button type="button" class="btn primary" data-rv="keep">✓ Keep</button><button type="button" class="btn" data-rv="correct">✎ Correct this</button><button type="button" class="btn" data-rv="measure">📏 Add measurement</button></div>
-      <p class="help">${esc(window.Learn ? Learn.DISCLAIMER : "Research suggestions only, not identifications.")}</p></section>`;
     const stat = window.S5 ? S5.badge(r) : `<span class="badge">${esc(r.status || "Draft")}</span>`, mm = v => v ? esc(v) + " mm" : '<span class="muted">not recorded</span>';
-    const vis = window.Learn && Learn.vis ? Learn.vis(r) : (r.is_public ? "public" : "private");
-    const fields = `<section class="rv-fields" aria-label="Find details"><div class="rv-badges">${stat}<span class="loc-badge" title="Exact locations are never shown publicly">🔒 Location: ${esc(r.location_sharing && r.location_sharing !== "Private" ? r.location_sharing + " only" : "Private")}</span><span class="chip">${esc(vis)}</span></div>
-      <dl class="rv-dl"><div><dt>Material</dt><dd>${esc(r.material) || '<span class="muted">not recorded</span>'}</dd></div><div><dt>Length</dt><dd>${mm(r.length_mm)}</dd></div><div><dt>Width</dt><dd>${mm(r.width_mm)}</dd></div><div><dt>Method</dt><dd>${esc(r.measure_method) || '<span class="muted">—</span>'}</dd></div>
-      <div class="rv-notes"><dt>Notes</dt><dd>${esc(r.owner_observations || r.key_features) || '<span class="muted">No notes yet.</span>'}</dd></div></dl></section>`;
-    const refs = refMatches(r, t);
-    const row = `<section class="rv-refs" aria-labelledby="rvRefH"><h3 id="rvRefH">Reference Matches <span class="muted">published typology, not the find</span></h3>${refs.length ? `<div class="rv-ref-row">${refs.map(m => { const s = (m.entry.sources || [])[0] || {}; return `<article class="rv-ref">${sil(m.entry.category || k, m.entry.name + " silhouette placeholder")}<div><h4>${esc(m.entry.name)}</h4><p class="muted">${esc([m.entry.period, m.entry.dates].filter(Boolean).join(" · ") || m.entry.typology_system)}</p><p><span class="src-tag">${esc(srcName(m.entry))}</span> <span class="chip">match ${esc(m.score)}</span></p><p class="rv-ref-links">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">Source page ↗</a>` : ""} <button type="button" class="btn ghost small" data-refd="${esc(m.entry.id)}">Details</button></p></div></article>`; }).join("")}</div>` : `<p class="help">${window.Analysis && Analysis.loadErrors && Analysis.loadErrors().length ? "⚠ Reference data failed to load; reload to retry." : "No published references match the recorded features yet."}</p>`}<p class="help">Images are never copied from sources; silhouettes are generic placeholders. Follow the source link to see published photos.</p></section>`;
-    return `<div class="rv-layout" data-rv-for="${esc(r.catalog_id)}"><div class="rv-left">${big}${thumbs}${fields}</div>${panel}</div>${row}<h3 class="gal-h rv-more">Full record</h3>`;
+    const notes = String(r.owner_observations || r.key_features || ""), loc = r.location_sharing && r.location_sharing !== "Private" ? r.location_sharing + " only" : "Private";
+    const main = `<section class="rv-card rv-left" aria-labelledby="rvTitle"><div class="rv-titlebar"><h3 id="rvTitle">${esc(t && verified ? t.x.c.name + " · " + (r.object_type || "") : r.object_type || "Find")}</h3>${verified ? `<span class="ver">${CHECK} Verified</span>` : ""}<button type="button" class="btn outline" data-rv="edit">✎ Edit find</button></div>
+      ${big}${thumbs}
+      <div class="rv-grid"><dl class="rv-f"><dt>Status</dt><dd>${stat}</dd></dl><dl class="rv-f"><dt>Material</dt><dd>${esc(r.material) || '<span class="muted">not recorded</span>'}</dd></dl>
+      <dl class="rv-f"><dt>Length</dt><dd>${mm(r.length_mm)}</dd></dl><dl class="rv-f"><dt>Width</dt><dd>${mm(r.width_mm)}</dd></dl></div>
+      <div class="rv-notes"><h4>Notes</h4><p>${esc(notes) || '<span class="muted">No notes yet.</span>'}</p><div class="rv-cc">${notes.length} / 500</div></div>
+      <p class="rv-meta"><span class="loc-badge" title="Exact locations are never shown publicly">🔒 Location: ${esc(loc)}</span> <span class="chip">${esc(window.Learn && Learn.vis ? Learn.vis(r) : "")}</span> <span class="chip">${esc(r.measure_method || "Not measured")}</span></p></section>`;
+    const sug = t ? t.rk.slice(0, 3) : [];
+    const panel = `<section class="rv-card rv-ai" aria-labelledby="rvAiH"><h3 id="rvAiH">${SPARK} AI Analysis</h3>
+      ${sc ? `<div class="rv-conf rv-${sc.color}" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${sc.pct}" aria-label="Confidence ${sc.pct}%"><span class="lab">Confidence Score</span><span class="big">${sc.pct}%</span><span class="band">${esc(sc.band)} Confidence ${SHIELD}</span><span class="bar"><i style="width:${sc.pct}%"></i></span></div>
+      <div class="rv-why"><h4>Why this score:</h4><p>${esc(whyText(sc))}</p><details class="why-score"><summary>Show every factor (${sc.factors.length})</summary><ul>${sc.factors.map(f => `<li class="${f.sign === "+" ? "fplus" : "fminus"}"><strong>${f.sign}${f.pts}</strong> ${esc(f.label)}${f.source ? ` <a href="${esc(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.name)}</a>` : ""}</li>`).join("")}</ul></details></div>` : '<p class="help">Add key features, measurements and photos to earn a score.</p>'}
+      ${sug.length ? `<div class="rv-sugg"><h4>Suggested Type</h4><div class="chips">${sug.map((x, i) => `<span class="chip type"${i ? ' style="opacity:.8"' : ""}>${esc(x.c.name)}</span>`).join("")}</div></div>` : ""}
+      <div class="rv-acts"><button type="button" class="btn green" data-rv="keep">✓ Keep</button><button type="button" class="btn outline" data-rv="correct">✎ Correct this</button><button type="button" class="btn outline" data-rv="measure">📏 Add Measurement</button></div>
+      <p class="help">${esc(window.Learn ? Learn.DISCLAIMER : "Research suggestions only, not identifications.")}</p></section>`;
+    const refs = refMatches(r, t), err = window.Analysis && Analysis.loadErrors && Analysis.loadErrors().length;
+    const regionOf = e => (e.admin1 || []).find(a => a === (Analysis.regionHint ? Analysis.regionHint(r).admin1 : "")) || (e.admin1 || [])[0] || e.continent || "";
+    const row = `<section class="rv-card rv-refs" aria-labelledby="rvRefH"><div class="rv-refs-h"><h3 id="rvRefH">Reference Matches</h3><span class="muted" title="Published typology, not the find">ⓘ published typology, not the find</span><a class="btn outline small" href="#/library?q=${encodeURIComponent(t ? String(t.x.c.name).replace(/\s*\(.*$/, "") : "")}">View All Matches ↗</a></div>
+      ${refs.length ? `<div class="rv-ref-row">${refs.slice(0, 4).map(m => { const s = (m.entry.sources || [])[0] || {}; return `<article class="rv-ref">${sil(m.entry.category || k, m.entry.name + " silhouette placeholder")}<div><h4>${esc(srcName(m.entry))}</h4><p>${esc(m.entry.name)}</p><p class="muted">${esc(regionOf(m.entry))}</p></div><span class="score-b" title="Relative match score">${rel(m.score)}</span><span class="rv-ref-links">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">Source ↗</a> · ` : ""}<button type="button" class="btn ghost small" data-refd="${esc(m.entry.id)}">Details</button></span></article>`; }).join("")}</div>` : `<p class="${err ? "err" : "help"}" ${err ? 'role="alert"' : ""}>${err ? "⚠ Reference data failed to load; reload to retry." : "No published references match the recorded features yet."}</p>`}
+      <p class="rv-foot">Reference datasets are sourced from public archaeological repositories. Silhouettes are placeholders; no source images are copied.</p></section>`;
+    return `<div class="rv-layout" data-rv-for="${esc(r.catalog_id)}">${main}${panel}</div>${row}<h3 class="gal-h rv-more">Full record</h3>`;
   }
   function decorateModal() {
     const p = $("#mBody #panel-0"), r = window.App && App.current; if (!p || !r || p.querySelector(".rv-layout")) return;
-    p.insertAdjacentHTML("afterbegin", reviewHtml(r)); $("#modal")?.classList.add("rv-wide");
+    p.insertAdjacentHTML("afterbegin", reviewHtml(r)); $("#modal")?.classList.add("rv-wide"); topbar();
   }
   document.addEventListener("click", e => {
     const th = e.target.closest("[data-rvth]"); if (th) { const r = App.current, ps = App.pics(r), j = +th.dataset.rvth, img = $("#rvMainImg"); if (img && ps[j]) { img.src = ps[j].src || ps[j].thumb; img.alt = `${r.catalog_id} ${ps[j].label}`; img.closest("[data-lb]").dataset.lb = j; }
       document.querySelectorAll("[data-rvth]").forEach(b => { const on = b === th; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); }); return; }
     const b = e.target.closest("[data-rv]"); if (!b) return; const a = b.dataset.rv;
     if (a === "measure") { $("#tab-1")?.click(); return; }
+    if (a === "edit") { $("#tab-3")?.click(); return; }
     const tgt = document.querySelector(`#panel-0 [data-corr=${a === "keep" ? "keep" : "open"}][data-f=type]`);
     if (tgt) { tgt.click(); if (a === "correct") setTimeout(() => (document.querySelector("#panel-0 [data-cf=type]") || tgt).scrollIntoView({ block: "center" }), 50); }
     else if (a === "correct") $("#tab-3")?.click(); else window.App && App.toast("Sign in as an editor to keep or correct suggestions.");
   });
-  new MutationObserver(decorateModal).observe(document.documentElement, { childList: true, subtree: true });
+  new MutationObserver(() => { decorateModal(); const h = document.querySelector(".site-header"); if (h) document.documentElement.style.setProperty("--tbh", h.offsetHeight + "px"); const tt = $("#tbTitle"); if (tt && !$("#modal").hidden !== (tt.textContent === "Find Review")) topbar(); }).observe(document.documentElement, { childList: true, subtree: true });
 
   /* ---------- new views ---------- */
   function reviewQueue() {
@@ -61,6 +75,7 @@
       ${need.length ? `<ul class="rq">${need.map(r => { const t = topScore(r), sc = t && t.sc, p = App.pics(r)[0]; return `<li><a class="rq-item" href="#/record/${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : sil(kindOf(r))}<span class="rq-t"><strong>${esc(r.catalog_id)}</strong> ${esc(r.object_type || "")}<span class="muted">${esc(App.KINDS[kindOf(r)].label)} · ${t ? esc(t.x.c.name) : "no match yet"}</span></span>${sc ? `<span class="rq-pct rv-${sc.color}">${sc.pct}%</span>` : ""}${window.S5 ? S5.badge(r) : ""}</a></li>`; }).join("")}</ul>` : '<p class="empty">Nothing waiting. Every find has been reviewed.</p>'}`;
   }
   let LIB = { q: "", region: "", source: "", period: "", page: 0 };
+  const hashQ = () => decodeURIComponent((location.hash.match(/[?&]q=([^&]*)/) || [, ""])[1]);
   function library() {
     const host = $("#libraryBody"); if (!host) return; const pub = window.Analysis && Analysis.pub && Analysis.pub();
     if (!pub) { host.innerHTML = Analysis && Analysis.loadErrors && Analysis.loadErrors().length ? '<p class="err" role="alert">⚠ Reference data failed to load. Reload to retry.</p>' : '<p class="help">Loading reference data…</p>'; setTimeout(library, 600); return; }
@@ -83,6 +98,7 @@
         <p class="lib-src">${(t.sources || []).slice(0, 2).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener" class="src-tag" title="${esc(s.license)}">${esc(/pidba/i.test(s.name) ? "PIDBA" : s.name)} ↗</a>`).join(" ")} <button type="button" class="btn ghost small" data-refd="${esc(t.id)}">Details</button></p></div></article>`).join("") || '<p class="empty">No reference types match these filters.</p>';
       $("#libPrev").disabled = LIB.page === 0; $("#libNext").disabled = LIB.page >= pages - 1;
     }
+    const hq = hashQ(); if (hq && $("#libQ").value !== hq) { $("#libQ").value = hq; set(); return; }
     draw();
   }
   function settings() {
@@ -97,7 +113,15 @@
     host.onclick = e => { const b = e.target.closest("[data-set]"); if (!b) return; const a = b.dataset.set;
       if (a === "auth") $("#authBtn").click(); else if (a === "csv") $("#exportCsv").click(); else if (a === "json") $("#exportJson").click(); else if (a === "install") { const i = $("#installBtn"); if (i && !i.hidden) i.click(); else App.toast("Use your browser's menu: Add to Home Screen."); } };
   }
-  function onRoute() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1]; document.querySelectorAll(".side-nav a[data-route]").forEach(a => a.dataset.route === v || (v === "record" && a.dataset.route === "catalog") ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  const TITLES = { catalog: "Catalog", review: "Review", library: "Reference Library", settings: "Settings", discover: "Discover", add: "Add a find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Find map", labels: "QR labels", profile: "Profile", members: "Members", pricing: "Membership", c: "Collection", find: "Find" };
+  function topbar() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], cur = window.App && App.current, rec = v === "record" && cur;
+    const tt = $("#tbTitle"), id = $("#tbId"); if (!tt) return; tt.textContent = rec ? "Find Review" : TITLES[v] || "Catalog"; id.hidden = !rec; if (rec) id.textContent = cur.catalog_id; }
+  async function who() { const u = $("#tbUser"); if (!u || !window.Cloud) return; const st = Cloud.state(); if (!st.user) { u.hidden = true; return; }
+    let p = {}, role = "Member"; try { p = (await (Cloud.profile ? Cloud.profile() : null)) || {}; p = p.data || p; } catch {} try { const c = await (Cloud.collections ? Cloud.collections() : null); const L = (c && (c.data || c)) || []; if (L[0] && L[0].role) role = L[0].role[0].toUpperCase() + L[0].role.slice(1); } catch {}
+    const name = p.display_name || st.user.email || "You"; u.hidden = false; u.querySelector("strong").textContent = name; u.querySelector(".tb-who span").textContent = role;
+    const av = u.querySelector(".tb-av"); if (p.avatar_url && /^https:/.test(p.avatar_url)) { av.style.backgroundImage = `url("${p.avatar_url}")`; av.textContent = ""; } else av.textContent = name.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join(""); }
+  addEventListener("load", () => { setTimeout(who, 900); if (window.Cloud && Cloud.on) Cloud.on(() => setTimeout(who, 50)); });
+  function onRoute() { topbar(); const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1]; document.querySelectorAll(".side-nav a[data-route]").forEach(a => a.dataset.route === v || (v === "record" && a.dataset.route === "catalog") ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
     if (v === "review") reviewQueue(); if (v === "library") library(); if (v === "settings") settings(); document.body.classList.remove("side-open"); }
   addEventListener("hashchange", onRoute); addEventListener("load", () => setTimeout(onRoute, 300));
   document.addEventListener("click", e => { if (e.target.closest("#sideToggle")) { const o = document.body.classList.toggle("side-open"); $("#sideToggle").setAttribute("aria-expanded", o); } });

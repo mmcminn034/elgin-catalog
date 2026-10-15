@@ -26,14 +26,32 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<aside class="side-nav" aria-label="Sections">
+  <a class="side-brand" href="#/catalog"><img src="assets/brand/icon.svg" alt="" width="40" height="40"><span><strong class="side-title" data-brand="{name}">Rolling Oak Catalog</strong><span class="side-sub">AI-Powered Catalog Tool</span></span></a>
+  <nav aria-label="Main sections" class="side-main">
+    <a href="#/catalog" data-route="catalog"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5L12 3zM3 7.5V16.5L12 21l9-4.5V7.5M12 12v9"/></svg>Catalog</a>
+    <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg>Review</a>
+    <a href="#/library" data-route="library"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 15h7"/></svg>Reference Library</a>
+    <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</a>
+  </nav>
+  <p class="side-h">Explore</p>
+  <nav aria-label="More pages" class="side-more">
+    <a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a>
+    <a href="#/labels" data-route="labels">Labels</a><a href="#/pricing" data-route="pricing">Membership</a><a href="#/about" data-route="about">About &amp; legal</a>
+  </nav>
+  <div class="side-loc" role="note"><svg viewBox="0 0 24 24" class="lock" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg><span><strong>Location</strong><br>Private</span><svg viewBox="0 0 24 24" class="shield" aria-label="Protected"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none"/></svg></div>
+  <p class="side-note">Exact find spots stay in an owner-only table and are never shown publicly.</p>
+</aside>
 <header class="site-header">
   <div class="wrap header-row">
     <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home" data-brand="{name} home" data-brand-attr="aria-label">
       <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" data-brand="{name}, {home}" data-brand-attr="alt" width="251" height="58">
     </a>
+    <div class="tb-head"><span class="tb-title" id="tbTitle">Catalog</span><span class="id-pill" id="tbId" hidden></span></div>
     <a class="btn primary add-cta" href="#/add" aria-label="Add find"><span aria-hidden="true">＋</span><span class="add-txt"> Add find</span></a>
     <span class="sync-pill" id="syncPill" role="status">Offline copy</span>
     <button id="authBtn" class="btn ghost" hidden>Sign in</button>
+    <span class="tb-user" id="tbUser" hidden><span class="tb-av" aria-hidden="true"></span><span class="tb-who"><strong></strong><span></span></span></span>
     <button type="button" id="menuBtn" class="btn ghost icon menu-btn" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <nav aria-label="Primary" id="navMenu" class="nav-menu" hidden>
       <a href="#/catalog" data-route="catalog">Catalog</a>
@@ -59,20 +77,6 @@
 <div class="notice" role="note"><div class="wrap"><strong>Research catalog.</strong> AI suggestions are possibilities for research, not identifications. No authenticity or value claims are made.</div></div>
 
 <div class="app-shell">
-<aside class="side-nav" aria-label="Sections">
-  <nav aria-label="Main sections" class="side-main">
-    <a href="#/catalog" data-route="catalog"><span class="si" aria-hidden="true">▦</span>Catalog</a>
-    <a href="#/review" data-route="review"><span class="si" aria-hidden="true">✓</span>Review</a>
-    <a href="#/library" data-route="library"><span class="si" aria-hidden="true">📚</span>Reference Library</a>
-    <a href="#/settings" data-route="settings"><span class="si" aria-hidden="true">⚙</span>Settings</a>
-  </nav>
-  <p class="side-h">Explore</p>
-  <nav aria-label="More pages" class="side-more">
-    <a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a>
-    <a href="#/labels" data-route="labels">Labels</a><a href="#/pricing" data-route="pricing">Membership</a><a href="#/about" data-route="about">About &amp; legal</a>
-  </nav>
-  <p class="side-note">🔒 Exact locations are always private.</p>
-</aside>
 <main id="main" class="wrap" tabindex="-1">
   <!-- CATALOG -->
   <section id="view-catalog" class="view" aria-labelledby="cat-h">
