@@ -202,8 +202,9 @@
     $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody")); if (window.Learn) Learn.decorate(i, r, $("#mBody")); if (window.S2) S2.decorate(i, r, $("#mBody"));
     const f = $("#reviewForm"); if (f) {
       f.onsubmit = async e => { e.preventDefault(); const o = { ...(local.find(x => x.catalog_id === r.catalog_id) || { catalog_id: r.catalog_id }) };
-        const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !/^\d+(\.\d+)?(\s*-\s*\d+(\.\d+)?)?$/.test(f[k].value.trim()));
-        if (bad) { f[bad].focus(); return toast("Measurements must be numbers, e.g. 62 or 60-70"); }
+        const MEAS = /^((~|≈)\s*|ca\.?\s*|c\.\s*|approx\.?\s*|about\s*)?\d+(\.\d+)?(\s*(-|–|to)\s*~?\d+(\.\d+)?)?\s*(mm|g)?$/i; // also accepts approximate values like ~51, ≈ 60-70, about 38
+        const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !MEAS.test(f[k].value.trim()));
+        if (bad) { f[bad].focus(); return toast(`Review not saved: ${f[bad].name.replace("_mm", "").replace("_g", "")} must be a number, e.g. 62, 60-70 or ~62`, { warn: true }); }
         new FormData(f).forEach((v, k) => o[k] = String(v).trim()); await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id);
         if (o.status === "Reviewed" && r.status !== "Reviewed" && current.suggestion_1) { await Analysis.learn(current, kindOf(current), current.suggestion_1, "Marked Reviewed (top possibility)"); toast("Review saved · added as a verified example"); } else toast("Review saved"); selectTab(3); };
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
