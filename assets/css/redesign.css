@@ -98,10 +98,10 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.005em}
 .site-header .brand{align-items:center;gap:10px;text-decoration:none}.brand-txt{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.25rem;color:#fff8ec}
 @media (min-width:901px){#menuBtn,.site-header nav.nav-menu{display:none!important}}
 @media (max-width:900px){.side-nav{display:none!important}
-  .site-header nav.nav-menu{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);max-height:none;height:100vh;border-radius:0;z-index:80;padding:64px 12px 20px;overflow:auto;box-shadow:-12px 0 32px rgba(0,0,0,.35);animation:navIn .2s ease-out}
+  .site-header nav.nav-menu{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);max-height:none;height:100vh;border-radius:0;z-index:80;padding:64px 12px 20px;overflow:auto;box-shadow:-12px 0 32px rgba(0,0,0,.35),0 0 0 100vmax rgba(0,0,0,.45);animation:navIn .2s ease-out}
   .site-header nav.nav-menu[hidden]{display:none!important}
   #menuBtn{position:relative;z-index:81}
-  body:has(#navMenu:not([hidden]))::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:70}}
+}
 @keyframes navIn{from{transform:translateX(100%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.site-header nav.nav-menu{animation:none}}
 
