@@ -21,7 +21,7 @@
     era: { label: "Era / period", get: r => r.era || r.geologic_period || (window.App ? App.eraOf(r) : ""), key: "era" },
     origin: { label: "Likely origin", get: originOf, key: "origin_confirmed", coarse: true }
   };
-  const sourceOf = (r, f) => (r.field_sources && r.field_sources[f]) || (f === "origin" ? (r.origin_confirmed ? "owner" : "rules") : f === "category" ? (r.category_kept ? "owner" : "rules") : (r.ai_accepted_at && f === "type" ? "AI" : r.local_analysis ? "rules" : "owner"));
+  const sourceOf = (r, f) => (r.field_sources && r.field_sources[f]) || (f === "origin" ? (r.origin_confirmed || r.provenance_answer === "local" || r.provenance_answer === "collection" ? "owner" : "rules") : f === "category" ? (r.category_kept ? "owner" : "rules") : (r.ai_accepted_at && f === "type" ? "AI" : r.local_analysis ? "rules" : "owner"));
   const all = () => { try { return JSON.parse(localStorage.getItem(LS) || "[]"); } catch { return []; } };
   const save = l => { try { localStorage.setItem(LS, JSON.stringify(l.slice(-2000))); } catch {} };
   /* accuracy per field: of the suggestions reviewed, how many were kept vs corrected (owner "keep" clicks count as kept) */
