@@ -51,7 +51,7 @@ images/ELG-xxx/       owner photos (EXIF stripped, max 1600px, NN.jpg + NN_thumb
 Edit `data/catalog.json` (or export JSON from the app **without** private location), commit, and push.
 
 ## License
-MIT © 2026 Mark McMinn
+MIT © 2026 PolForge, LLC
 
 ## Analysis engine & learning loop
 - `assets/js/analysis.js`: transparent, rule-based scoring. Candidates come from `data/reference/points.json`, `fossils.json` and `rocks.json` (traits, typical sizes, approximate dates, look-alikes). Each score lists its reasons and conflicts. Confidence is capped at Moderate.

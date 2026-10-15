@@ -117,7 +117,7 @@
   const eraOf = r => { if (kindOf(r) === "fossil") return r.geologic_period ? (GEO.find(g => r.geologic_period.includes(g.id)) || {}).id || "Undetermined" : "Undetermined"; if (kindOf(r) === "rock") return "Undetermined"; if (r.era && r.era !== "Undetermined") return r.era; const t = (r.suggestion_1 || "") + " " + (r.era || ""); const e = ERAS.find(x => t.includes(x.id)); return r.era === "Undetermined" ? "Undetermined" : (e ? e.id : "Undetermined"); };
   const GEO = [
     { id: "Quaternary", dates: "~2.6 million years ago–present", text: "Ice Age and modern river terraces. Gravels along Central Texas creeks carry reworked older rocks and fossils, plus Pleistocene mammal bones in places." },
-    { id: "Paleogene", dates: "~66–23 million years ago", text: "East of the Balcones zone, Paleocene–Eocene sands and clays (e.g. the Midway and Wilcox groups near Elgin) hold marine shells, petrified wood and lignite." },
+    { id: "Paleogene", dates: "~66–23 million years ago", text: "East of the Balcones zone, Paleocene–Eocene sands and clays (e.g. the Midway and Wilcox groups of Central Texas) hold marine shells, petrified wood and lignite." },
     { id: "Cretaceous", dates: "~145–66 million years ago", text: "Shallow seas covered Central Texas. Limestones, chalks and marls (e.g. the Austin Chalk, Taylor and Navarro groups) yield ammonites, echinoids, Exogyra oysters, clams and shark teeth." }];
   let tlMode = "human";
   function renderTimeline() {
@@ -269,8 +269,8 @@
     return { inc, rows: filtered().map(r => { const o = {}; COLS.forEach(c => o[c] = r[c] ?? ""); if (inc) o[PRIVATE] = r[PRIVATE] ?? ""; o.annotations = marksJson(r).photos.filter(p => p.annotations.length); return o; }) }; }
   function download(name, text, type) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
   const cq = v => { v = Array.isArray(v) ? histText(v) : String(v ?? ""); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
-  $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("elgin_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };
-  $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("elgin_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
+  $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("unearthed_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };
+  $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("unearthed_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
 
   /* ---------- wizard ---------- */
   const STEPS = ["Category", "Photos", "Measurements", "Description", "AI analysis", "Review & save"];

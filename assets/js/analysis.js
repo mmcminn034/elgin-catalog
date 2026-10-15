@@ -59,7 +59,7 @@
       if (hit) { (hit.refs = hit.refs || []).push(e); return; } // points.json wins on overlap; the published entry adds sources, region and size context
       types.push({ id: "ref:" + e.id, name: e.name, period: [e.period, e.typology_system].filter(Boolean).join(" · "), dates: e.dates || "", length_mm: e.length_mm, traits: [], refTraits: e.traits || [], excludes: [],
         compare: (e.similar || []).slice(0, 4).map(n => [n, "listed as similar by the source"]), refs: [e], ref: true, aliases: e.aliases || [] }); }); }
-  const regionHint = r => { const B = window.ROLLING_OAK_BRAND || {}, home = String(B.homeLabel || "").split(",").pop().trim();
+  const regionHint = r => { const B = window.ROLLING_OAK_BRAND || {}, home = String(B.homeAdmin1 || B.homeLabel || "").split(",").pop().trim(); /* internal home state for the region hint; not displayed */
     const a1 = r.admin1 || (r.provenance_answer === "collection" ? String(r.origin_confirmed || r.provenance || "").split(/[,(]/)[0].trim() : home); return { admin1: a1, country: r.country || "US", continent: "North America" }; };
   const refTraitHits = (c, t) => [...new Set([...(c.refTraits || []), ...((c.refs || [])[0]?.traits || [])])].filter(tag => PAT[tag] && PAT[tag].test(window.Prompt ? Prompt.affirmed(t) : t));
   const regionMatch = (c, reg) => (c.refs || []).some(e => (e.admin1 || []).some(a => a.toLowerCase() === String(reg.admin1 || "").toLowerCase()));

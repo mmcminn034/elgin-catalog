@@ -91,7 +91,7 @@
     const code = id => { if (!qr) return '<span class="noqr">QR unavailable offline</span>'; const q = qr(0, "M"); q.addData(findUrl(id)); q.make(); return q.createSvgTag({ cellSize: 2, margin: 0, scalable: true }).replace("<svg ", `<svg role="img" aria-label="QR code for ${id}" `); };
     const cells = [...Array(skip).fill(null), ...rs]; const pages = []; for (let i = 0; i < Math.max(1, cells.length); i += f.per) pages.push(cells.slice(i, i + f.per));
     $("#labSheet").className = "sheet " + f.cls;
-    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.svg" alt="">${window.Brand ? Brand.name() : "Rolling Oak Catalog"}</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "Elgin, Texas")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
+    $("#labSheet").innerHTML = pages.map(pg => `<div class="page">${pg.map(r => r ? `<div class="lab"><div class="lab-qr">${code(r.catalog_id)}</div><div class="lab-t"><div class="lab-brand"><img src="assets/brand/icon-small.svg" alt="">${window.Brand ? Brand.name() : "Rolling Oak Catalog"}</div><div class="lab-id">${esc(r.catalog_id)}</div><div class="lab-type">${esc(r.object_type || App.KINDS[App.kindOf(r)].label)}</div><div class="lab-date">${esc(r.date_found ? "Found " + r.date_found : "UnEarthed")}</div></div></div>` : '<div class="lab empty"></div>').join("")}</div>`).join("");
   }
 
   /* ---------- profile ---------- */

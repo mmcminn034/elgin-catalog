@@ -2,7 +2,7 @@
 // node tools/reference/prompt_example.js <request-body.json> <verified_examples.json> > ai_prompt_example.txt
 const fs = require("fs"), P = require("../../assets/js/prompt.js"), R = require("../../assets/js/retrieve.js");
 const body = JSON.parse(fs.readFileSync(process.argv[2])), ex = JSON.parse(fs.readFileSync(process.argv[3]));
-const pub = JSON.parse(fs.readFileSync(__dirname + "/../../data/reference/public-types.json")), SITE = "https://mmcminn034.github.io/elgin-catalog/";
+const pub = JSON.parse(fs.readFileSync(__dirname + "/../../data/reference/public-types.json")), SITE = "https://unearthedfinds.com/";
 const target = { ...(body.record || {}), catalog_id: body.catalog_id, category: body.kind, region: body.region };
 const top = R.rankSimilar(target, ex.length ? ex : body.examples || [], { k: 3 });
 const similar = top.map(t => ({ catalog_id: t.example.catalog_id, confirmed_type: t.example.confirmed_type, region: t.example.region, era: t.example.era, material: t.example.material, length_mm: t.example.length_mm, notes: t.example.notes || t.example.features, why_similar: t.why, photo: SITE + "images/" + t.example.catalog_id + "/01.jpg" }));

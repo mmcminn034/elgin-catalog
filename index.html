@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-brand="{name} — Artifacts, fossils &amp; rocks of {home}">Rolling Oak Catalog — Artifacts, fossils &amp; rocks of Elgin, Texas</title>
-<meta name="description" content="Rolling Oak Catalog: a research catalog of artifacts, fossils, rocks and minerals from Elgin, Texas. AI suggestions are possibilities, not identifications.">
-<meta property="og:title" content="Rolling Oak Catalog" data-brand="{name}" data-brand-attr="content">
-<meta property="og:description" content="Documenting artifacts, fossils and rocks from Elgin, Texas, one find at a time.">
-<meta name="application-name" content="Rolling Oak Catalog" data-brand="{name}" data-brand-attr="content">
+<title data-brand="{name} — {tagline}">UnEarthed — AI-Powered Catalog Tool</title>
+<meta name="description" content="UnEarthed, the AI-Powered Catalog Tool: a research catalog of artifacts, fossils, rocks and minerals from anywhere in the world. AI suggestions are possibilities, not identifications.">
+<meta property="og:title" content="UnEarthed" data-brand="{name}" data-brand-attr="content">
+<meta property="og:description" content="AI-Powered Catalog Tool: documenting artifacts, fossils and rocks, one find at a time.">
+<meta name="application-name" content="UnEarthed" data-brand="{name}" data-brand-attr="content">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://mmcminn034.github.io/elgin-catalog/">
-<meta property="og:image" content="https://mmcminn034.github.io/elgin-catalog/assets/brand/og-image.png">
-<meta property="og:image:alt" content="Rolling Oak Catalog logo: an oak leaf shaped like a stone point, Elgin, Texas">
+<meta property="og:url" content="https://unearthedfinds.com/">
+<meta property="og:image" content="https://unearthedfinds.com/assets/brand/og-image.png">
+<meta property="og:image:alt" content="UnEarthed logo: an oak leaf shaped like a stone point">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://mmcminn034.github.io/elgin-catalog/assets/brand/og-image.png">
+<meta name="twitter:image" content="https://unearthedfinds.com/assets/brand/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
@@ -27,7 +27,7 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <aside class="side-nav" aria-label="Sections">
-  <a class="side-brand" href="#/catalog"><img src="assets/brand/icon.svg" alt="" width="40" height="40"><span><strong class="side-title" data-brand="{name}">Rolling Oak Catalog</strong><span class="side-sub">AI-Powered Catalog Tool</span></span></a>
+  <a class="side-brand" href="#/catalog"><img src="assets/brand/icon.svg" alt="" width="40" height="40"><span><strong class="side-title" data-brand="{name}">UnEarthed</strong><span class="side-sub">AI-Powered Catalog Tool</span></span></a>
   <nav aria-label="Main sections" class="side-main">
     <a href="#/catalog" data-route="catalog"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5L12 3zM3 7.5V16.5L12 21l9-4.5V7.5M12 12v9"/></svg>Catalog</a>
     <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg>Review</a>
@@ -44,8 +44,8 @@
 </aside>
 <header class="site-header">
   <div class="wrap header-row">
-    <a class="brand" href="#/catalog" aria-label="Rolling Oak Catalog home" data-brand="{name} home" data-brand-attr="aria-label">
-      <img class="lockup" src="assets/brand/lockup-dark.svg" alt="Rolling Oak Catalog, Elgin, Texas" data-brand="{name}, {home}" data-brand-attr="alt" width="251" height="58">
+    <a class="brand" href="#/catalog" aria-label="UnEarthed home" data-brand="{name} home" data-brand-attr="aria-label">
+      <img class="lockup-icon" src="assets/brand/icon.svg" alt="" width="36" height="36"><span class="brand-txt" data-brand="{name}">UnEarthed</span>
     </a>
     <div class="tb-head"><span class="tb-title" id="tbTitle">Catalog</span><span class="id-pill" id="tbId" hidden></span></div>
     <a class="btn primary add-cta" href="#/add" aria-label="Add find"><span aria-hidden="true">＋</span><span class="add-txt"> Add find</span></a>
@@ -69,6 +69,7 @@
       <a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a>
       <a href="#/pricing" data-route="pricing">Membership</a>
       <hr aria-hidden="true">
+      <button type="button" id="menuAuth" class="nav-item">Sign in</button>
       <button type="button" id="installBtn" class="nav-item" hidden>⤓ Add to home screen</button>
       <button type="button" id="themeToggle" class="nav-item" aria-pressed="false" aria-label="Toggle dark mode">☾</button>
     </nav>
@@ -83,8 +84,8 @@
     <div class="hero">
       <img class="hero-bg" src="images/ELG-001/01.jpg" alt="ELG-001, a long stemmed dart point of cream and tan chert, front view">
       <div class="hero-text">
-        <p class="kicker" data-brand="{home}" data-home-only>Elgin, Texas</p>
-        <h1 id="cat-h" data-brand-split>Rolling Oak <span class="grad">Catalog</span></h1>
+        <p class="kicker" data-brand="{home}" data-home-only hidden></p>
+        <h1 id="cat-h" data-brand-split>Un<span class="grad">Earthed</span></h1>
         <p class="hero-sub">Artifacts, fossils, rocks and minerals from Central Texas: documented carefully, one find at a time.</p>
         <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg glass" href="#/add">Add a find</a><a class="btn lg glass" href="#/timeline">Explore deep time</a></div>
       </div>
@@ -226,7 +227,7 @@
   <section id="view-timeline" class="view" aria-labelledby="tl-h" hidden>
     <p class="kicker">Deep time</p><h1 id="tl-h">13,000 years in Central Texas</h1>
     <div class="tl-toggle" role="group" aria-label="Timeline scale"><button type="button" class="btn" data-mode="human" aria-pressed="true">Human eras (artifacts)</button><button type="button" class="btn" data-mode="geo" aria-pressed="false">Geologic eras (fossils)</button></div>
-    <p class="lede" id="tlLedeGeo" hidden>Long before people arrived, Central Texas lay beneath shallow seas. These are simplified geologic periods for rocks near Elgin. Placement of fossils is a tentative hypothesis based on each record’s period guess.</p>
+    <p class="lede" id="tlLedeGeo" hidden>Long before people arrived, Central Texas lay beneath shallow seas. These are simplified geologic periods for the rocks in this collection. Placement of fossils is a tentative hypothesis based on each record’s period guess.</p>
     <p class="lede" id="tlLede">A simplified outline of the cultural periods archaeologists use for Central Texas. Dates are approximate and vary between sources. <strong>Where finds appear below, the placement is tentative:</strong> it follows each find’s top research suggestion, not a confirmed identification.</p>
     <div class="knap" aria-hidden="true"></div>
     <ol class="timeline" id="timeline"></ol>
@@ -236,7 +237,7 @@
   <!-- PEOPLE & LAND -->
   <section id="view-people" class="view prose" aria-labelledby="pl-h" hidden>
     <p class="kicker">People &amp; land</p><h1 id="pl-h">Acknowledging the land and its people</h1>
-    <p class="lede">The land around Elgin, in Central Texas, is the ancestral homeland of Indigenous peoples, including the Tonkawa, Coahuiltecan peoples, and others. People have lived on this land for more than 13,000 years, and their descendants are still here today.</p>
+    <p class="lede">Every find comes from land that is the ancestral homeland of Indigenous peoples. In Central Texas, where this collection began, that includes the Tonkawa, Coahuiltecan peoples, and others, who have lived there for more than 13,000 years; their descendants are still here today.</p>
     <p>The objects in this catalog were made by people whose descendants are living communities. These objects are part of their heritage, not just curiosities or collectibles. We document them to learn and to keep a careful record, and we know our understanding is limited. Where we use type names and period labels, those are archaeologists’ categories, not the names or histories the makers’ descendants would necessarily use.</p>
     <div class="knap" aria-hidden="true"></div>
     <h2>Learn from the source</h2>
@@ -259,7 +260,7 @@
   <!-- ABOUT -->
   <section id="view-about" class="view prose" aria-labelledby="about-h" hidden>
     <h1 id="about-h">About &amp; methods</h1>
-    <p>Rolling Oak Catalog is a personal research record of surface finds from private land near Elgin, Texas: artifacts, fossils, and rocks &amp; minerals. Each entry documents material, measurements, photos and a short list of possible identifications, so the collection can be studied, corrected and, if the owner chooses, shared with researchers.</p>
+    <p>UnEarthed, the AI-Powered Catalog Tool, is a research record of surface finds from anywhere in the world: artifacts, fossils, and rocks &amp; minerals. Each entry documents material, measurements, photos and a short list of possible identifications, so the collection can be studied, corrected and, if the owner chooses, shared with researchers.</p>
     <h2>Honest-AI principles</h2>
     <ul>
       <li><strong>Possibilities, not identifications.</strong> Suggestions are ranked options with a stated confidence level.</li>
@@ -383,7 +384,7 @@
   <p class="help">🔒 Exact find locations are stored only in an owner-only table and are never shown publicly.</p></div></dialog>
 <dialog id="aiDlg" aria-labelledby="aiH"><div class="auth-card ai-card"><div class="modal-head"><h2 id="aiH">AI photo analysis</h2><button class="btn ghost icon" id="aiClose" aria-label="Close">✕</button></div><div id="aiBody"></div></div></dialog>
 <div id="printArea" aria-hidden="true"></div>
-<footer class="site-footer"><div class="wrap"><span data-brand="{name} · {home} · © 2026 {owner}">Rolling Oak Catalog · Elgin, Texas · © 2026 Mark McMinn</span> · MIT License · Research suggestions only, not identifications.</div></footer>
+<footer class="site-footer"><div class="wrap"><span data-brand="{name} · {tagline} · © 2026 {owner}">UnEarthed · AI-Powered Catalog Tool · © 2026 PolForge, LLC</span> · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
 <script src="assets/js/config.js" defer></script>
 <script src="assets/js/brand.js" defer></script>

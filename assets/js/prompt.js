@@ -19,7 +19,7 @@ Return ONLY JSON matching:
 Coordinates are normalized 0-1 relative to each image (x by width, y by height). arrow/line/measure/box: [x1,y1,x2,y2]; circle: [cx,cy,r] with r as a fraction of width.
 Use at most 3 candidates and at most 8 marks per photo. For "feature" links use the exact checklist names provided.
 Comparison: "similar_verified_examples" are the owner's verified finds (photos labelled REFERENCE). "external_references" are PUBLISHED TYPOLOGY summaries (labelled EXTERNAL REFERENCE, not the find), each with its source and license. Compare form, base/stem, flaking and size against both; cite reference ids in "reference_ids" and name the source in factors. Never copy a type without visible evidence. A reference from the find's region is a mild hint, not proof; types from anywhere in the world may apply.
-Origin: region or geologic setting only (e.g. "Edwards Plateau chert, Texas"), never coordinates or street addresses.
+Origin: region or geologic setting only (e.g. "Edwards Plateau chert, Texas" or "Paris Basin flint, France"), never coordinates or street addresses.
 Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate length/width/thickness in mm from it and explain how in "note"; otherwise set scale_visible false and the numbers null.
 "next_photos": the 1-4 specific photos that would most improve the identification (e.g. "square-on base view under raking light").
 "alternatives": other plausible types worth ruling out (names only).`;

@@ -15,4 +15,11 @@
     else if (e.key === "Home") { e.preventDefault(); it[0].focus(); } else if (e.key === "End") { e.preventDefault(); it[it.length - 1].focus(); }
     else if (e.key === "Tab" && ((e.shiftKey && i === 0) || (!e.shiftKey && i === it.length - 1))) close(false); });
   addEventListener("hashchange", () => close(false));
+  /* Sign in / out inside the menu mirrors the header auth button (same handler, same label). */
+  const auth = document.getElementById("authBtn"), ma = document.getElementById("menuAuth");
+  if (auth && ma) { const sync = () => { ma.textContent = auth.textContent.trim() || "Sign in"; ma.hidden = false; }; sync();
+    new MutationObserver(sync).observe(auth, { childList: true, characterData: true, subtree: true, attributes: true });
+    ma.addEventListener("click", () => { close(false); auth.click(); }); }
+  /* Desktop (>= 901px) uses the sidebar only: close the drawer if the window grows past the breakpoint. */
+  const mq = matchMedia("(min-width: 901px)"); (mq.addEventListener ? mq.addEventListener("change", e => { if (e.matches) close(false); }) : mq.addListener(e => { if (e.matches) close(false); }));
 })();

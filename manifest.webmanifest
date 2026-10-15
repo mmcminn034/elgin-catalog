@@ -1,7 +1,7 @@
 {
-  "name": "Rolling Oak Catalog",
-  "short_name": "Rolling Oak",
-  "description": "Artifacts, fossils, rocks and minerals from Elgin, Texas: documented one find at a time.",
+  "name": "UnEarthed: AI-Powered Catalog Tool",
+  "short_name": "UnEarthed",
+  "description": "Artifacts, fossils, rocks and minerals from anywhere in the world: documented one find at a time.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

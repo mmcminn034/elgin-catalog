@@ -12,7 +12,7 @@ const Retrieve = (globalThis as any).Retrieve as { rankSimilar: (t: unknown, ex:
 // deno-lint-ignore no-explicit-any
 const Prompt = (globalThis as any).Prompt; // deno-lint-ignore no-explicit-any
 const Score = (globalThis as any).Score;
-const SITE = (Deno.env.get("SITE_URL") || "https://mmcminn034.github.io/elgin-catalog/").replace(/\/?$/, "/");
+const SITE = (Deno.env.get("SITE_URL") || "https://unearthedfinds.com/").replace(/\/?$/, "/");
 
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type", "Access-Control-Allow-Methods": "POST, OPTIONS" };
 const json = (b: unknown, status = 200) => new Response(JSON.stringify(b), { status, headers: { ...CORS, "Content-Type": "application/json" } });
