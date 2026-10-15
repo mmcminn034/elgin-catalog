@@ -52,7 +52,7 @@
   const promptContext = r => { const c = check(r); return { profile: P && P.name, expected_materials: P && P.expected.materials, flagged_non_local: c.reasons.map(x => x.reason), owner_provenance: r.provenance || null, acquisition: r.acquisition || null, provenance_answer: r.provenance_answer || null }; };
   /* ---- Likely origin (Stage 2): ranked, coarse-only, never coordinates. ----
      Sources in priority order: owner-confirmed origin > owner provenance (local / collection) > AI guess (r.origin_guess, members) > rules.
-     Confidence is capped at Moderate. Output is region / geologic-setting level only. */
+     Confidence is 0-100% with the AI ceiling of 95%. Output is region / geologic-setting level only. */
   const COARSE = s => { s = String(s || "").trim(); return s && !/\d+\.\d{3,}|\b\d{2,5}\s+\w+\s+(st|rd|ave|lane|ln|dr|road|street|hwy)\b/i.test(s) ? s : ""; };
   const CAP = c => ({ moderate: "Moderate", "low-moderate": "Low-Moderate", low: "Low" })[String(c || "").toLowerCase()] || "Low";
   function settingsFor(r) { if (!W) return []; const t = textOf(r); return W.settings.filter(x => { const re = new RegExp(x.pattern, "gi"); let m; while ((m = re.exec(t))) if (!negated(t, m.index)) return true; return false; }); }

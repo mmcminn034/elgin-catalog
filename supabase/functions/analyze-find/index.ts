@@ -12,6 +12,9 @@ const Retrieve = (globalThis as any).Retrieve as { rankSimilar: (t: unknown, ex:
 // deno-lint-ignore no-explicit-any
 const Prompt = (globalThis as any).Prompt; // deno-lint-ignore no-explicit-any
 const Score = (globalThis as any).Score;
+import "../_shared/ai_schema.js"; // sets globalThis.AiSchema (Stage 3 classification/origin clamp; tests/ai_schema_test.js)
+// deno-lint-ignore no-explicit-any
+const AiSchema = (globalThis as any).AiSchema as { clampClassification: (r: unknown) => { classification: unknown; origin: unknown[] } };
 const SITE = (Deno.env.get("SITE_URL") || "https://mmcminn034.github.io/elgin-catalog/").replace(/\/?$/, "/");
 
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type", "Access-Control-Allow-Methods": "POST, OPTIONS" };
@@ -80,6 +83,8 @@ Deno.serve(async (req) => {
   const mm = (v: unknown) => { const n = Number(v); return Number.isFinite(n) && n > 0 && n < 1000 ? Math.round(n) : null; };
   const m = res.measurements || {}; res.measurements = m.scale_visible ? { scale_visible: true, length_mm: mm(m.length_mm), width_mm: mm(m.width_mm), thickness_mm: mm(m.thickness_mm), note: String(m.note || "").slice(0, 300) } : { scale_visible: false, length_mm: null, width_mm: null, thickness_mm: null, note: "No usable scale visible." };
   res.similar_used = similar.map(x => ({ catalog_id: x.catalog_id, confirmed_type: x.confirmed_type, why: x.why_similar }));
+  // Stage 3: classification + origin, clamped server-side (0-100%, AI ceiling 95; coordinates/addresses dropped)
+  const cl = AiSchema.clampClassification(res); res.classification = cl.classification; res.origin = cl.origin;
   res.caveat = "AI-generated research possibilities with an evidence-based confidence score (AI alone is capped at 95%), not an identification. No authenticity or value claims. Review every mark before saving.";
   return json({ ok: true, catalog_id: body.catalog_id, model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", result: res });
 });

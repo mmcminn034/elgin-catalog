@@ -206,6 +206,7 @@
       <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>
       ${[...marksBy].map(([pi, ms]) => { const p = ps[pi]; if (!p) return ""; return `<h3>Suggested marks · ${esc(p.label)}</h3><div class="ai-photo"><div class="mk-wrap" data-pi="${pi}"><img src="${esc(p.src)}" alt="${esc(p.label)}"></div>
         <ol class="ai-marks">${ms.map((m, k) => `<li><label class="check"><input type="checkbox" data-mk="${pi}:${k}" checked> <span class="mk-n">${k + 1}</span></label><input class="ai-lbl" data-lbl="${pi}:${k}" value="${esc(m.label)}" aria-label="Label for mark ${k + 1}"><p class="help">${esc(m.explanation)}</p></li>`).join("")}</ol></div>`; }).join("")}
+      ${window.Analysis && Analysis.aiClassHtml ? Analysis.aiClassHtml(out, true) : ""}
       ${(out.gaps || []).length ? `<h3>What would help</h3><ul>${out.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
       ${out.measurements && (out.measurements.length_mm || out.measurements.note) ? `<h3>Measurements from the scale photo</h3><p>${["length_mm", "width_mm", "thickness_mm"].filter(k => out.measurements[k]).map(k => `${k.split("_")[0]} ≈ ${esc(out.measurements[k])} mm`).join(" · ") || "Not measurable"} ${out.measurements.note ? `<span class="muted">${esc(out.measurements.note)}</span>` : ""}</p><p class="help">Approximate: read from the photo, not a caliper.</p>` : ""}
       ${(out.next_photos || []).length ? `<h3>Next photos to take</h3><ul>${out.next_photos.map(g => `<li>📷 ${esc(g)}</li>`).join("")}</ul>` : ""}
@@ -223,6 +224,10 @@
       const cands = (out.candidates || []).filter((_, k) => body.querySelector(`[data-cand="${k}"]`).checked), patch = {};
       if (cands.length) { cands.slice(0, 3).forEach((c, k) => patch["suggestion_" + (k + 1)] = c.name); patch.confidence = cands[0].confidence;
         patch.owner_observations = [r.owner_observations, `AI photo analysis reviewed and accepted by owner on ${new Date().toLocaleDateString("en-CA")}.`].filter(Boolean).join(" "); }
+      // Stage 3: keep the clamped classification + origin as suggestions (never overwrites owner fields; owner reviews them in Review suggestions)
+      const keepCls = body.querySelector("#aiClsKeep"); if (keepCls && keepCls.checked && (out.classification || (out.origin || []).length)) {
+        patch.ai_result = { classification: out.classification || null, origin: out.origin || [], model: res.data.model || "", ts: new Date().toISOString() };
+        if ((out.origin || []).length) patch.origin_guess = out.origin; patch.field_sources = { ...(r.field_sources || {}), type: cands.length ? "AI" : (r.field_sources || {}).type }; patch.ai_accepted_at = new Date().toISOString(); }
       if (Object.keys(patch).length) await App.patch(r.catalog_id, patch);
       for (const [pi, ms] of marksBy) { const keep = ms.map((m, k) => ({ ...m, label: (body.querySelector(`[data-lbl="${pi}:${k}"]`).value || m.label), source: "ai" })).filter((_, k) => body.querySelector(`[data-mk="${pi}:${k}"]`).checked);
         if (keep.length) { const cur = App.marksFor(App.all.find(x => x.catalog_id === r.catalog_id), ps[pi].i); await App.saveMarks(r.catalog_id, ps[pi].i, [...cur, ...keep]); } }

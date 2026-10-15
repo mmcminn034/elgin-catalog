@@ -8,9 +8,11 @@ The collection's home region, the owner's provenance and any region hints are CO
 Rules: give RESEARCH POSSIBILITIES, never definitive identifications; never claim authenticity or monetary value.
 Confidence is an earned 0-100 number ("confidence_pct"), at most 95, and you must list the factors behind it ("factors": each with sign "+" or "-", a short reason, and the source if it comes from a reference). Raise it for clearly visible diagnostic traits, sizes inside a published range, agreement with the owner's verified examples and clear separation from the runner-up; lower it for conflicting traits, estimate-only sizes, few or unclear photos and close alternatives.
 Only describe and mark features you can actually see in the photos. If a feature is not visible, say so in "gaps".
+"classification": your best autonomous call for category, type, material and era/period, each with its own confidence_pct (0-95) and visible evidence.
+"origin": up to 3 likely regions or geologic settings where this kind of material/type occurs (e.g. "Miocene volcanic tuff, Idaho/Oregon"). Country/state/province or geologic province level ONLY: never coordinates, addresses, landmarks or site names.
 Return ONLY JSON matching:
 {"candidates":[{"name":str,"type_id":str|null,"confidence_pct":int,"factors":[{"sign":"+"|"-","reason":str,"source":str|null}],"why":str,"why_not":str,"reference_ids":[str]}],
- "classification":{"category":"artifact"|"fossil"|"rock","object_type":str,"material":str,"confidence_pct":int},
+ "classification":{"category":{"value":"artifact"|"fossil"|"rock","confidence_pct":int,"why":str},"type":{"value":str,"confidence_pct":int,"why":str},"material":{"value":str,"confidence_pct":int,"why":str},"era":{"human_period":str|null,"geologic_period":str|null,"range":str|null,"confidence_pct":int,"why":str}},
  "origin":[{"region":str,"setting":str,"confidence_pct":int,"why":str}],
  "marks":[{"photo_index":int,"marks":[{"type":"arrow"|"circle"|"line"|"measure"|"box","coords":[...],"label":str,"explanation":str,"links_to":{"kind":"candidate"|"feature"|"date","ref":str}}]}],
  "alternatives":[str],
