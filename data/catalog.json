@@ -4161,5 +4161,181 @@
         ]
       }
     ]
+  },
+  {
+    "catalog_id": "ELG-034",
+    "category": "rock",
+    "object_type": "Chert nodule with iron-stained cortex",
+    "material": "Chert nodule with iron-stained cortex",
+    "color": "Orange-brown cortex; light glossy chert in spalls",
+    "length_mm": "~75",
+    "width_mm": "~60",
+    "thickness_mm": "~40",
+    "measure_method": "Estimate (mm ruler in photos)",
+    "length_source": "estimate",
+    "width_source": "estimate",
+    "thickness_source": "estimate",
+    "condition": "Whole nodule",
+    "condition_notes": "Rough iron-stained cortex; small glossy spalls at lower left.",
+    "key_features": "Rough orange-brown cortex; small glossy light chert spalls at lower left (photos 1, 5).",
+    "suggestion_1": "Natural chert nodule with cortex",
+    "suggestion_2": "Tested cobble",
+    "suggestion_3": "Iron-stained limestone or concretion",
+    "confidence": "Moderate",
+    "era": "Undetermined",
+    "region": "Bastrop County, Texas (Elgin area)",
+    "provenance": "Bastrop County, Texas (Elgin area)",
+    "acquisition": "Surface find on the Elgin property (owner confirmed local)",
+    "provenance_answer": "local",
+    "visibility": "private",
+    "is_public": false,
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) natural chert nodule with cortex, Moderate (capped): rough, orange-brown, iron-stained cortex covers most of the surface. (2) Tested cobble, Low-Moderate: small glossy, light chert spalls at lower left (photos 1, 5) could be test removals, or natural spalls. (3) Iron-stained limestone or concretion, Low: the glossy fresh spots point to chert.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "open_questions": "Are the glossy spots flake scars (test removals) or natural spalls? Next photos: close-ups of the glossy spots.",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-034/01.jpg",
+        "thumb": "images/ELG-034/01_thumb.jpg",
+        "view": "front",
+        "label": "Front with glossy spot, mm ruler (primary)",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.35,
+              0.15,
+              0.71,
+              0.88
+            ],
+            "label": "Rough orange-brown cortex",
+            "explanation": "Rough, orange-brown, iron-stained cortex covers most of the surface. That is typical of a chert nodule's outer rind; no clear flake scars are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural chert nodule with cortex"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.45,
+              0.63,
+              0.04
+            ],
+            "label": "Small glossy light chert spall",
+            "explanation": "A small glossy, light-coloured spot where the cortex has come off and fresh chert shows. It may be a natural spall or a test removal; a close-up would show whether it has flake-scar features (ripples, a point of impact).",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Tested cobble"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-034/02.jpg",
+        "thumb": "images/ELG-034/02_thumb.jpg",
+        "view": "back",
+        "label": "Back",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.34,
+              0.23,
+              0.73,
+              0.82
+            ],
+            "label": "Rough orange-brown cortex",
+            "explanation": "Rough, orange-brown, iron-stained cortex covers most of the surface. That is typical of a chert nodule's outer rind; no clear flake scars are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural chert nodule with cortex"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-034/03.jpg",
+        "thumb": "images/ELG-034/03_thumb.jpg",
+        "view": "edge",
+        "label": "Side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.35,
+              0.84,
+              0.9
+            ],
+            "label": "Rough orange-brown cortex",
+            "explanation": "Rough, orange-brown, iron-stained cortex covers most of the surface. That is typical of a chert nodule's outer rind; no clear flake scars are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural chert nodule with cortex"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-034/04.jpg",
+        "thumb": "images/ELG-034/04_thumb.jpg",
+        "view": "edge",
+        "label": "Other side",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.38,
+              0.23,
+              0.71,
+              0.95
+            ],
+            "label": "Rough orange-brown cortex",
+            "explanation": "Rough, orange-brown, iron-stained cortex covers most of the surface. That is typical of a chert nodule's outer rind; no clear flake scars are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural chert nodule with cortex"
+            }
+          }
+        ]
+      },
+      {
+        "path": "images/ELG-034/05.jpg",
+        "thumb": "images/ELG-034/05_thumb.jpg",
+        "view": "front",
+        "label": "Front, glossy spot",
+        "annotations": [
+          {
+            "type": "box",
+            "coords": [
+              0.42,
+              0.17,
+              0.73,
+              0.84
+            ],
+            "label": "Rough orange-brown cortex",
+            "explanation": "Rough, orange-brown, iron-stained cortex covers most of the surface. That is typical of a chert nodule's outer rind; no clear flake scars are visible.",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Natural chert nodule with cortex"
+            }
+          },
+          {
+            "type": "circle",
+            "coords": [
+              0.53,
+              0.64,
+              0.04
+            ],
+            "label": "Small glossy light chert spall",
+            "explanation": "A small glossy, light-coloured spot where the cortex has come off and fresh chert shows. It may be a natural spall or a test removal; a close-up would show whether it has flake-scar features (ripples, a point of impact).",
+            "links_to": {
+              "kind": "candidate",
+              "ref": "Tested cobble"
+            }
+          }
+        ]
+      }
+    ]
   }
 ]
