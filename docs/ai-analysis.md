@@ -4,7 +4,7 @@
 1. Verifies the caller's Supabase session and checks `profiles.membership = 'member'`. Otherwise it returns 402.
 2. Receives the find's photo URLs (https only, max 6), the owner's notes, our reference knowledge base subset (`data/reference/*.json`) and the checklist feature names.
 3. Loads shared `verified_examples` for that category (RLS applies).
-4. Calls any **OpenAI-compatible** `/chat/completions` vision endpoint with a strict system prompt: possibilities only, no authenticity/value claims, confidence capped at Moderate, mark only visible features.
+4. Calls any **OpenAI-compatible** `/chat/completions` vision endpoint with a strict system prompt: possibilities only, no authenticity/value claims, confidence as a 0-100 percentage capped at 95 with signed factors (see docs/confidence-scoring.md), mark only visible features. Up to 5 published reference summaries are added, labelled EXTERNAL REFERENCE (see docs/ai-prompt.md).
 5. Sanitizes the JSON. It keeps at most 3 candidates and 8 marks per photo, clamps coordinates to 0–1 in our annotations format (`arrow|line|measure|box: [x1,y1,x2,y2]`, `circle: [cx,cy,r]`), and adds a fixed caveat.
 
 The client button **🤖 Analyze photos with AI** (AI analysis tab, members only) shows candidates and suggested marks drawn on the photos.

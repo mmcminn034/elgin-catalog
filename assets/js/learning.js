@@ -4,7 +4,7 @@
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const DISCLAIMER = "Research suggestions only, not identifications. No authenticity or value claims. Confidence is capped at Moderate.";
+  const DISCLAIMER = "Research suggestions only, not identifications. No authenticity or value claims. Confidence is an evidence-based score: the rules engine and AI alone stop at 95%; only an owner-Verified find that agrees with published references reaches 100%.";
   const REGION = C.defaultRegion || "Bastrop County, Texas";
   const VERDICTS = { match: ["👍", "Matches well"], close: ["🤏", "Close but not quite"], wrong: ["👎", "Wrong ID"] };
   const st = () => (window.Cloud ? Cloud.state() : { user: null });
@@ -31,7 +31,7 @@
   /* confidence modifier from past agreement: never raises above Moderate */
   function modify(conf, s) { if (!s || s.n < 3) return { conf, note: s ? `${s.n} feedback so far, too few to adjust confidence` : "" };
     let i = Math.max(0, LEVELS.indexOf(conf)); if (s.rate < 0.5) { i = Math.max(1, i - 1); return { conf: LEVELS[i], note: `lowered: past suggestions of this type agreed only ${Math.round(s.rate * 100)}% of the time (n=${s.n})` }; }
-    return { conf, note: `${Math.round(s.rate * 100)}% agreement on this type (n=${s.n})${s.rate >= 0.8 ? ", historically reliable, but still capped at Moderate" : ""}` }; }
+    return { conf, note: `${Math.round(s.rate * 100)}% agreement on this type (n=${s.n})${s.rate >= 0.8 ? ", historically reliable (score still capped at 95% unless owner-Verified)" : ""}` }; }
 
   /* ---------- low-confidence prompts ---------- */
   const VIEWS = { artifact: ["front", "back", "edge", "base", "scale"], fossil: ["front", "back", "edge", "scale"], rock: ["front", "back", "scale"] };
@@ -130,7 +130,7 @@
   async function renderAbout() { const h = $("#learnPanel"); if (!h) return; const s = await stats(), ex = Analysis.all();
     h.innerHTML = `<h3>How the AI learns</h3><ol class="learn-steps"><li><strong>Suggest.</strong> The rule engine (and, for Supporters, the vision model) ranks possible types from the reference knowledge base.</li><li><strong>Retrieve.</strong> The most similar owner-verified references (type, traits, material, size, region, era) are pulled in as comparison context.</li><li><strong>Feedback.</strong> “Matches well / Close / Wrong ID” and corrections are stored per type.</li><li><strong>Adjust.</strong> Types that often get “Wrong ID” have their confidence lowered; nothing is ever raised above Moderate.</li><li><strong>Verify.</strong> Owners/editors promote well-documented finds to verified references, which grows the library.</li></ol>
       <p><strong>${ex.length}</strong> verified reference${ex.length === 1 ? "" : "s"} · <strong>${s.reduce((a, x) => a + x.n, 0)}</strong> feedback responses.</p>
-      ${s.length ? `<table class="chk acc"><caption class="sr-only">Agreement rate per type</caption><thead><tr><th>Type</th><th>👍 Match</th><th>🤏 Close</th><th>👎 Wrong</th><th>Agreement</th><th>Effect on confidence</th></tr></thead><tbody>${s.map(x => `<tr><td>${esc(x.type)}</td><td>${x.match}</td><td>${x.close}</td><td>${x.wrong}</td><td><span class="acc-bar" aria-hidden="true"><i style="width:${Math.round(x.rate * 100)}%"></i></span> ${Math.round(x.rate * 100)}%</td><td>${x.n < 3 ? "needs ≥3 responses" : x.rate < 0.5 ? "lowered one level" : "none (capped at Moderate)"}</td></tr>`).join("")}</tbody></table><p class="help">Agreement = (matches + ½ close) ÷ responses.</p>` : '<p class="help">No feedback yet. Use the 👍 / 🤏 / 👎 buttons on any find\'s AI analysis tab.</p>'}
+      ${s.length ? `<table class="chk acc"><caption class="sr-only">Agreement rate per type</caption><thead><tr><th>Type</th><th>👍 Match</th><th>🤏 Close</th><th>👎 Wrong</th><th>Agreement</th><th>Effect on confidence</th></tr></thead><tbody>${s.map(x => `<tr><td>${esc(x.type)}</td><td>${x.match}</td><td>${x.close}</td><td>${x.wrong}</td><td><span class="acc-bar" aria-hidden="true"><i style="width:${Math.round(x.rate * 100)}%"></i></span> ${Math.round(x.rate * 100)}%</td><td>${x.n < 3 ? "needs ≥3 responses" : x.rate < 0.5 ? "lowered one level" : "none (scores are earned; rules and AI stop at 95%)"}</td></tr>`).join("")}</tbody></table><p class="help">Agreement = (matches + ½ close) ÷ responses.</p>` : '<p class="help">No feedback yet. Use the 👍 / 🤏 / 👎 buttons on any find\'s AI analysis tab.</p>'}
       <p class="help">${DISCLAIMER}</p>`; }
 
   /* ---------- decorate the detail modal ---------- */

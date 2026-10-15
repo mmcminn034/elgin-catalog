@@ -178,6 +178,15 @@
   }
 
   /* ---------- AI analysis dialog ---------- */
+  /* AI candidate: 0-100 (server-clamped, AI ceiling 95) with factors; older responses with text labels map to bands */
+  function aiPct(c) { if (!window.Score) return `<span class="chip">${esc(c.confidence)}</span>`; const p = Score.clampPct(c.confidence_pct != null ? c.confidence_pct : c.confidence), col = Score.color(p);
+    return `<span class="pct pct-${col} pct-inline"><span class="pct-n">${p}%</span><span class="pct-bar"><i style="width:${p}%"></i></span></span>${(c.factors || []).length ? `<details class="why-score"><summary>Why this score</summary><ul>${Score.clampFactors(c.factors).map(f => `<li class="${f.sign === "+" ? "fplus" : "fminus"}"><strong>${f.sign}</strong> ${esc(f.reason)}${f.source ? ` <span class="muted">(${esc(f.source)})</span>` : ""}</li>`).join("")}</ul></details>` : ""}`; }
+  /* exact system prompt + assembled user text (the server re-ranks verified examples from the shared library) */
+  function promptPreview(r, kind, payload, n) { if (!window.Prompt) return "";
+    const pub = window.Analysis && Analysis.pub ? Analysis.pub() : null, refs = pub ? Prompt.rankReferences(payload.record, pub.types, pub.meta.trait_patterns, { k: 5, region: payload.region_hint || {}, category: kind, hintNames: payload.rules_top }).map(Prompt.refBrief) : [];
+    const ctx = { external_references: refs, reference_status: pub ? "ok" : "unavailable: public-types.json did not load", kind, record: payload.record, region: payload.region, region_check: payload.region_check, reference_types: payload.kb, checklist_features: payload.checklist, similar_verified_examples: payload.similar };
+    return `<details class="ai-prompt"><summary>View AI prompt</summary><p class="help">Exactly what the model receives: the system prompt, then the user message; ${n} photo${n === 1 ? "" : "s"} follow as image parts, plus one REFERENCE photo per verified example. The server re-ranks verified examples from the shared library.</p>
+      <h4>System</h4><pre>${esc(Prompt.SYSTEM)}</pre><h4>User</h4><pre>${esc(Prompt.buildUserText(ctx, n))}</pre></details>`; }
   async function analyze(r) {
     const dlg = $("#aiDlg"), body = $("#aiBody"), kind = App.kindOf(r), ps = App.pics(r).map((p, i) => ({ ...p, i })).filter(p => !String(p.src).startsWith("data:")).slice(0, 6);
     $("#aiClose").onclick = () => dlg.close(); dlg.showModal();
@@ -185,18 +194,25 @@
     body.innerHTML = '<p class="help" role="status">🤖 Analyzing photos… this can take 20–40 seconds.</p>';
     const KB = Analysis.kb()[kind] || {}, payload = { catalog_id: r.catalog_id, kind, photos: ps.map(p => ({ url: new URL(p.src, C.siteUrl || location.href).href, label: p.label })),
       region_check: window.Region ? Region.promptContext(r) : null, record: { object_type: r.object_type, material: r.material, key_features: r.key_features, owner_observations: r.owner_observations, length_mm: r.length_mm, measure_method: r.measure_method },
-      kb: (KB.types || []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: t.traits, length_mm: t.length_mm })), checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind), similar: window.Learn ? Learn.similar(r, 3).map(x => ({ catalog_id: x.example.catalog_id, confirmed_type: x.example.confirmed_type, why: x.why })) : [], region: window.Learn ? Learn.regionOf(r) : "" };
+      kb: (window.Analysis ? Analysis.rank(r, kind).slice(0, 5).map(x => x.c) : []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: (t.traits && t.traits.length ? t.traits : t.refTraits || []).slice(0, 12), length_mm: t.length_mm })), /* rules engine top candidates only; the server adds the top-5 published references */ checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind).slice(0, 20).map(e => ({ catalog_id: e.catalog_id, category: e.category, confirmed_type: e.confirmed_type, type_ids: e.type_ids, features: String(e.features || "").slice(0, 300), length_mm: e.length_mm, material: e.material, region: e.region })), /* fallback only: the server ranks the shared library */ similar: window.Learn ? Learn.similar(r, 3).map(x => ({ catalog_id: x.example.catalog_id, confirmed_type: x.example.confirmed_type, why: x.why })) : [], region: window.Learn ? Learn.regionOf(r) : "",
+      region_hint: window.Analysis && Analysis.regionHint ? Analysis.regionHint(r) : null,
+      rules_top: window.Analysis ? Analysis.rank(r, kind).slice(0, 3).map(x => String(x.c.name).replace(/\s*\(.*$/, "")) : [] };
+    const pv = promptPreview(r, kind, payload, ps.length);
+    body.insertAdjacentHTML("beforeend", pv);
     const res = await Cloud.analyze(payload);
-    if (res.error) { body.innerHTML = `<p class="err">AI analysis isn't available: ${esc(res.error)}</p>`; return; }
+    if (res.error) { body.innerHTML = `<p class="err" role="alert">⚠ AI analysis failed: ${esc(res.error)}. Nothing was changed. The rules-engine suggestions on the Analysis tab still work.</p>` + pv; return; }
     const out = res.data.result || res.data, marksBy = new Map((out.marks || []).map(m => [m.photo_index, m.marks || []]));
     body.innerHTML = `<p class="recat"><span>⚠ ${esc(out.caveat || "AI suggestions are research possibilities, not identifications.")}</span></p>
-      <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> <span class="chip">${esc(c.confidence)}</span></label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>
+      <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>
       ${[...marksBy].map(([pi, ms]) => { const p = ps[pi]; if (!p) return ""; return `<h3>Suggested marks · ${esc(p.label)}</h3><div class="ai-photo"><div class="mk-wrap" data-pi="${pi}"><img src="${esc(p.src)}" alt="${esc(p.label)}"></div>
         <ol class="ai-marks">${ms.map((m, k) => `<li><label class="check"><input type="checkbox" data-mk="${pi}:${k}" checked> <span class="mk-n">${k + 1}</span></label><input class="ai-lbl" data-lbl="${pi}:${k}" value="${esc(m.label)}" aria-label="Label for mark ${k + 1}"><p class="help">${esc(m.explanation)}</p></li>`).join("")}</ol></div>`; }).join("")}
       ${(out.gaps || []).length ? `<h3>What would help</h3><ul>${out.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
       ${out.measurements && (out.measurements.length_mm || out.measurements.note) ? `<h3>Measurements from the scale photo</h3><p>${["length_mm", "width_mm", "thickness_mm"].filter(k => out.measurements[k]).map(k => `${k.split("_")[0]} ≈ ${esc(out.measurements[k])} mm`).join(" · ") || "Not measurable"} ${out.measurements.note ? `<span class="muted">${esc(out.measurements.note)}</span>` : ""}</p><p class="help">Approximate: read from the photo, not a caliper.</p>` : ""}
       ${(out.next_photos || []).length ? `<h3>Next photos to take</h3><ul>${out.next_photos.map(g => `<li>📷 ${esc(g)}</li>`).join("")}</ul>` : ""}
       ${(out.alternatives || []).length ? `<p class="muted"><strong>Also consider:</strong> ${out.alternatives.map(esc).join(", ")}</p>` : ""}
+      ${out.reference_status && out.reference_status !== "ok" ? `<p class="err" role="alert">⚠ Published reference layer was ${esc(out.reference_status)} for this run.</p>` : ""}
+      ${(out.external_references_used || []).length ? `<p class="help">External references given to the model: ${out.external_references_used.map(x => esc(x.name)).join(", ")}</p>` : ""}
+      ${pv}
       ${(out.similar_used || []).length ? `<p class="help">Compared against verified references: ${out.similar_used.map(x => esc(x.catalog_id + " " + x.confirmed_type)).join(", ")}</p>` : ""}
       <div id="aiFb"></div>
       <div class="row"><button type="button" class="btn primary" id="aiAccept">Accept selected</button><button type="button" class="btn" id="aiDiscard">Discard</button></div>`;

@@ -77,7 +77,7 @@
     return `<section class="origin" aria-label="Likely origin"><h3 class="gal-h">🌍 Likely origin <span class="muted">(region or geologic setting; never an exact spot)</span></h3>
       ${o.items.length ? `<ol class="origin-list">${o.items.map(x => `<li><strong>${esc(x.region)}</strong>${x.setting ? ` <span class="muted">· ${esc(x.setting)}</span>` : ""} ${conf(x.confidence)}<br><span class="help">${esc(x.source)}${x.why ? ": " + esc(x.why) : ""}</span></li>`).join("")}</ol>` : ""}
       ${o.settings.length ? `<p class="help"><strong>Where similar material occurs:</strong></p><ul class="origin-where">${o.settings.map(x => `<li>${esc(x.name)}: <span class="muted">${esc((x.where || []).join("; "))}</span></li>`).join("")}</ul>` : ""}
-      <p class="help">Research suggestions only. Confidence is capped at Moderate. The owner's provenance always wins; members' AI analysis can refine this.</p></section>`;
+      <p class="help">Research suggestions only (region-level hints, not identifications). The owner's provenance always wins; members' AI analysis can refine this.</p></section>`;
   }
   window.Region = { likelyOrigin, originHtml, loadWorld, homeId, world: () => W, packs: () => IDX, load, check, answered, isCollection, stateOnly, bannerHtml, answer, feedback, promptContext, profile: () => P };
 })();
