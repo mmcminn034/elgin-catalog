@@ -35,7 +35,7 @@
   }
   /* Returns cloud finds as catalog records, or null to signal "use the offline copy". */
   async function loadFinds() {
-    if (MOCK) { emit(); return null; }
+    if (MOCK) { emit(); return MOCK.finds || null; } // MOCK.finds: test harness "cloud rows" (cross-device read-back)
     if (!sb) return null;
     try { const { data, error } = await withTimeout(sb.from("finds").select("*, photos(*)").order("catalog_id"));
       if (error || !Array.isArray(data)) { online = false; reason = error ? error.message : "cloud not reachable"; emit(); return null; }
@@ -65,7 +65,7 @@
     if (MOCK) { if (user) (MOCK.pushed = MOCK.pushed || []).push(normalizeRow(Object.fromEntries(FIELDS.map(k => [k, rec[k] ?? null])))); return { ok: !!user, msg: "mock" }; }
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
-      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); ["origin_confirmed", "country", "admin1"].forEach(k => { if (rec[k]) row[k] = rec[k]; }); normalizeRow(row); row.category = row.category || "artifact";
+      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); ["origin_confirmed", "country", "admin1"].forEach(k => { if (rec[k]) row[k] = rec[k]; }); if (C.schema008) { if ("show_on_discover" in rec) row.show_on_discover = !!rec.show_on_discover; if (rec.measure_refs) { try { row.measure_refs = typeof rec.measure_refs === "string" ? JSON.parse(rec.measure_refs) : rec.measure_refs; } catch {} } } normalizeRow(row); row.category = row.category || "artifact";
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
@@ -108,6 +108,8 @@
   async function addCorrection(row) { if (MOCK) { (MOCK.corrections = MOCK.corrections || []).push(row); return {}; } if (!sb || !user) return { error: "offline" };
     const r = await q(sb.from("corrections").insert({ catalog_id: row.catalog_id, owner: user.id, field: row.field, old_value: row.old_value, new_value: row.new_value, reason: row.reason, is_public: false })); return r; }
   async function typeAccuracy() { if (MOCK) return MOCK.accuracy || null; if (!sb) return null; const r = await q(sb.rpc("type_accuracy")); return r.error ? null : r.data; }
+  async function setDiscover(id, on) { if (MOCK) { (MOCK.discoverSet = MOCK.discoverSet || {})[id] = on; return {}; } if (!sb || !user) return {};
+    const up = on ? { visibility: "public", is_public: true } : {}; if (C.schema008) up.show_on_discover = !!on; return Object.keys(up).length ? q(sb.from("finds").update(up).eq("catalog_id", id)) : {}; } // show_on_discover needs migration 008 (C.schema008)
   async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
   /* Stage 2: discover + comments */
   const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug";
@@ -162,5 +164,5 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

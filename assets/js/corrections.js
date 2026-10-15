@@ -36,7 +36,7 @@
       <label class="field grow"><span>Why (optional)</span><input data-cr placeholder="e.g. caliper shows a ground stem"></label>
       <label class="switch"><input type="checkbox" data-cvref> <span>Also save as a verified reference</span></label>
       <button type="button" class="btn primary small" data-corr="save" data-f="${f}">Save correction</button></div></li>`; }).join("");
-    return `<section class="corr" aria-label="Review suggestions"><h3 class="gal-h">🧭 Review suggestions <span class="muted">(your corrections teach the library)</span></h3><ul class="cf-list">${rows}</ul>
+    return `<section class="corr" aria-label="Review suggestions"><h3 class="gal-h">🧭 Review suggestions <span class="muted">(your corrections teach the library)</span></h3>${window.S5 && S5.needs(r) ? `<p class="s5-panel-mark">${S5.badge(r)} <span class="help">Checked everything below?</span> <button type="button" class="btn primary small" data-s5-status="Reviewed">✓ Mark as Reviewed</button></p>` : ""}<ul class="cf-list">${rows}</ul>
       <p class="help">Corrections are private to your collection. “Verified reference” adds this find to the library used for similar examples. Research suggestions only.</p></section>`;
   }
   async function record(r, f, oldV, newV, reason, kept) {
@@ -48,7 +48,7 @@
   async function onClick(e, r) {
     const b = e.target.closest("[data-corr]"); if (!b || !r) return false; const f = b.dataset.f, d = FIELDS[f], li = b.closest("[data-cf]"), act = b.dataset.corr;
     if (act === "open") { const fm = $(".cf-form", li); fm.hidden = !fm.hidden; if (!fm.hidden) $("[data-cv]", fm).focus(); return true; }
-    if (act === "keep") { await record(r, f, d.get(r), d.get(r), "", true); App.toast(`Kept ${d.label.toLowerCase()} for ${r.catalog_id}`); App.reselect && App.reselect(); return true; }
+    if (act === "keep") { await record(r, f, d.get(r), d.get(r), "", true); if (window.S5 && S5.needs(r)) await App.patch(r.catalog_id, { status: "Reviewed", status_ts: new Date().toISOString() }); /* Keep on a main field advances a Draft */ App.toast(`Kept ${d.label.toLowerCase()} for ${r.catalog_id}`); App.reselect && App.reselect(); return true; }
     const nv = ($("[data-cv]", li).value || "").trim(), why = ($("[data-cr]", li).value || "").trim(), vref = $("[data-cvref]", li).checked, ov = d.get(r);
     if (!nv) { App.toast("Enter the corrected value"); return true; }
     if (d.coarse && !coarse(nv)) { App.toast("Origin must be a region or setting (no coordinates or street address)"); return true; }

@@ -2,6 +2,7 @@
 /* Brand + locale: the ONE place to rename the app or change the home region. tools/gen_share_pages.py reads this block too. */
 window.ROLLING_OAK_BRAND = {"name": "Rolling Oak Catalog", "short": "Rolling Oak", "tagline": "Artifacts, fossils, rocks and minerals: documented carefully, one find at a time.", "homeLabel": "Elgin, Texas", "homeRegion": "bastrop-tx", "owner": "Mark McMinn"};
 window.ROLLING_OAK_CLOUD = {
+  schema008: false, // set true only after supabase/migrations/008_status_discover_measure.sql is applied (show_on_discover, measure_refs columns)
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
   bucket: "find-photos",

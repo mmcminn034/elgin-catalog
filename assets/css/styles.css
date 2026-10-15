@@ -528,3 +528,20 @@ label.btn{position:relative}
 .acc-chip{background:#efe6d8;color:#4a3a22}.cf-form{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin-top:8px}.btn.small{padding:4px 10px;font-size:.85em}
 .simw ol{margin:4px 0 0 20px;padding:0}.simw li{margin:0 0 6px}
 [data-theme=dark] .corr,[data-theme=dark] .simw{background:#211a14;border-color:#3a2f25}
+/* S5: status progression, Discover toggle, measurement sources */
+.badge.NeedsReview{background:#fff1d6;color:#7a4a05;border:1px solid #e0a54a}.badge.Verified{background:linear-gradient(135deg,#d9ecff,#c3dcf7);color:#0f4a80}
+[data-theme=dark] .badge.NeedsReview{background:#3a2a10;color:#ffd79a}[data-theme=dark] .badge.Verified{background:rgba(110,170,240,.18);color:#b8d8ff}
+.needs-flag{display:inline-block;margin-left:6px;font-size:.74rem;font-weight:700;color:#8a4b00;background:#fff4e0;border:1px solid #e0a54a;border-radius:999px;padding:2px 8px}
+[data-theme=dark] .needs-flag{background:#3a2a10;color:#ffd79a}
+.card.needs{box-shadow:inset 4px 0 0 #e0a54a}
+.s5-status{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px;margin:0 0 12px;border:1px solid var(--line,#ddd);border-radius:12px;background:var(--surface2,#f6f3ee)}
+.s5-status .grow{flex:1}.s5-st-l{font-weight:700}.s5-mark{font-size:1rem}
+.s5-panel-mark{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 10px}
+.s5-disc{display:block;margin:0 0 12px;padding:10px 12px;border:1px dashed var(--line,#ccc);border-radius:12px}.s5-disc .help{display:block;margin:4px 0 0 26px}
+.s5-bl{list-style:none;padding:0;max-height:55vh;overflow:auto;margin:8px 0}.s5-bl li{padding:6px 0;border-bottom:1px solid var(--line,#eee)}
+.msrc-ruler{background:#e8f3f2;color:#1d5f5b;border:1.5px dashed #2F8F8A}[data-theme=dark] .msrc-ruler{background:#123331;color:#9fe0da}
+.dim-field[data-src=measured] input{border:2px solid #1f6b45;background:#eef8f2}
+.dim-field[data-src=photo_estimate] input,.dim-field[data-src=estimate] input{border:2px dashed #b7791f;background:#fffaf0}
+.dim-field[data-src=ruler] input{border:2px dashed #2F8F8A;background:#f2fbfa}
+[data-theme=dark] .dim-field[data-src] input{background:transparent}
+.s5-scale{margin:10px 0;border-left:4px solid #2F8F8A}
