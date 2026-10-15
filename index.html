@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/redesign.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -36,6 +37,9 @@
     <button type="button" id="menuBtn" class="btn ghost icon menu-btn" aria-expanded="false" aria-controls="navMenu" aria-label="Menu"><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
     <nav aria-label="Primary" id="navMenu" class="nav-menu" hidden>
       <a href="#/catalog" data-route="catalog">Catalog</a>
+      <a href="#/review" data-route="review">Review</a>
+      <a href="#/library" data-route="library">Reference Library</a>
+      <a href="#/settings" data-route="settings">Settings</a>
       <a href="#/discover" data-route="discover">Discover</a>
       <a href="#/timeline" data-route="timeline">Deep time</a>
       <a href="#/people" data-route="people">People &amp; land</a>
@@ -54,6 +58,21 @@
 </header>
 <div class="notice" role="note"><div class="wrap"><strong>Research catalog.</strong> AI suggestions are possibilities for research, not identifications. No authenticity or value claims are made.</div></div>
 
+<div class="app-shell">
+<aside class="side-nav" aria-label="Sections">
+  <nav aria-label="Main sections" class="side-main">
+    <a href="#/catalog" data-route="catalog"><span class="si" aria-hidden="true">▦</span>Catalog</a>
+    <a href="#/review" data-route="review"><span class="si" aria-hidden="true">✓</span>Review</a>
+    <a href="#/library" data-route="library"><span class="si" aria-hidden="true">📚</span>Reference Library</a>
+    <a href="#/settings" data-route="settings"><span class="si" aria-hidden="true">⚙</span>Settings</a>
+  </nav>
+  <p class="side-h">Explore</p>
+  <nav aria-label="More pages" class="side-more">
+    <a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a>
+    <a href="#/labels" data-route="labels">Labels</a><a href="#/pricing" data-route="pricing">Membership</a><a href="#/about" data-route="about">About &amp; legal</a>
+  </nav>
+  <p class="side-note">🔒 Exact locations are always private.</p>
+</aside>
 <main id="main" class="wrap" tabindex="-1">
   <!-- CATALOG -->
   <section id="view-catalog" class="view" aria-labelledby="cat-h">
@@ -312,7 +331,14 @@
   <section id="view-c" class="view" aria-labelledby="col-h" hidden><div id="collectionBody"></div></section>
   <!-- PRICING -->
   <section id="view-pricing" class="view" aria-labelledby="price-h" hidden><div id="pricingBody"></div></section>
+  <!-- REVIEW QUEUE (redesign) -->
+  <section id="view-review" class="view" aria-labelledby="rq-h" hidden><p class="kicker">Workflow</p><h1 id="rq-h">Review queue</h1><p class="lede">Finds that still need your review, with the rules engine's earned confidence.</p><div id="reviewBody"></div></section>
+  <!-- REFERENCE LIBRARY (redesign) -->
+  <section id="view-library" class="view" aria-labelledby="lib-h" hidden><p class="kicker">Published typology</p><h1 id="lib-h">Reference Library</h1><p class="lede">Browse the published reference types the engine compares against. Filter by region, source and period. Links go to the original sources; no images are copied.</p><div id="libraryBody"></div></section>
+  <!-- SETTINGS (redesign) -->
+  <section id="view-settings" class="view" aria-labelledby="set-h" hidden><p class="kicker">Account</p><h1 id="set-h">Settings</h1><div id="settingsBody"></div></section>
 </main>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden>
   <div class="modal-card">
@@ -372,5 +398,6 @@
 <script src="assets/js/auth-options.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 <script src="assets/js/nav.js" defer></script>
+<script src="assets/js/redesign.js" defer></script>
 </body>
 </html>

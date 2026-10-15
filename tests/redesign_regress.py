@@ -1,0 +1,63 @@
+"""Redesign regression + screenshots (mocked cloud). Usage: python3 tests/redesign_regress.py URL [screenshot_dir]"""
+import sys, json, os
+from playwright.sync_api import sync_playwright
+U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8765/"; SS = sys.argv[2] if len(sys.argv) > 2 else ""; fails = []; errs = []
+def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i); ok or fails.append(n)
+OWNER = {"online": True, "user": {"id": "u1", "email": "mark@example.com"}, "profile": {"display_name": "Mark McMinn", "membership": "member"},
+         "collections": [{"id": "c1", "slug": "rolling-oak", "name": "Rolling Oak", "role": "owner", "is_public": False}], "members": {"c1": {"members": [], "invites": []}}, "comments": []}
+def page(b, w, h, mock=OWNER):
+    ctx = b.new_context(viewport={"width": w, "height": h}); pg = ctx.new_page(); pg.on("pageerror", lambda e: errs.append(str(e)))
+    pg.add_init_script("window.ROLLING_OAK_MOCK=" + json.dumps(mock)); pg.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]"))
+    pg.goto(U); pg.wait_for_selector(".card"); pg.wait_for_timeout(1200); return ctx, pg
+def shot(pg, name, full=False):
+    if SS: os.makedirs(SS, exist_ok=True); pg.screenshot(path=os.path.join(SS, name), full_page=full); print("shot", name)
+def go(pg, h): pg.goto(U + h); pg.wait_for_timeout(700)
+with sync_playwright() as p:
+    b = p.chromium.launch(executable_path="/usr/bin/google-chrome"); ctx, pg = page(b, 1280, 900)
+    chk("sidebar visible at 1280", pg.locator(".side-nav").is_visible())
+    for r in ["catalog", "review", "library", "settings"]: chk(f"sidebar link {r}", pg.locator(f".side-main a[data-route={r}]").count() == 1)
+    for r in ["discover", "pricing", "about", "timeline", "people", "labels"]: chk(f"link reachable {r}", pg.locator(f"a[href='#/{r}']").count() >= 1)
+    chk("top bar keeps Add find + sign-in", pg.locator(".site-header .add-cta").count() == 1 and pg.locator("#authBtn").count() == 1)
+    chk("disclaimer notice kept", "not identifications" in pg.inner_text(".notice"))
+    chk("catalog filters kept", all(pg.locator(s).count() == 1 for s in ["#q", "#fStatus", "#fCat", "#fConf", "#exportCsv", "#inclPrivate"]))
+    shot(pg, "catalog-1280.png")
+    # review screen, high confidence: ELG-001 verified as Nolan
+    pg.evaluate("(()=>{const r=App.all.find(x=>x.catalog_id==='ELG-001'); r.status='Verified'; r.suggestion_1='Nolan (Middle Archaic)';})()")
+    go(pg, "#/record/ELG-001"); pg.wait_for_selector(".rv-layout")
+    chk("review: hero photo + thumbnails", pg.locator(".rv-main img").count() == 1 and pg.locator(".rv-th").count() > 1)
+    t = pg.inner_text(".rv-ai"); chk("review: big confidence text", "% " in t and "Confidence" in t, t[:40].replace("\n", " "))
+    chk("review: high confidence green", pg.locator(".rv-conf.rv-green").count() == 1)
+    chk("review: Keep/Correct/Add measurement", all(pg.locator(f"[data-rv={a}]").count() == 1 for a in ["keep", "correct", "measure"]))
+    chk("review: Suggested type", "Suggested type" in t)
+    f = pg.inner_text(".rv-fields"); chk("review: status/material/length/width/notes + Location Private", all(x in f for x in ["MATERIAL", "LENGTH", "WIDTH", "NOTES", "Location: Private"]) or all(x.lower() in f.lower() for x in ["material", "length", "width", "notes", "location: private"]), f[:80].replace("\n", " "))
+    chk("review: Verified badge", "verified" in f.lower())
+    rc = pg.locator(".rv-ref"); chk("reference matches row", rc.count() >= 3, str(rc.count()))
+    chk("ref cards link to source, no hotlinked images", pg.locator(".rv-ref a[href^='http']").count() >= 1 and pg.locator(".rv-ref img").count() == 0)
+    chk("old tabs and full record kept", pg.locator("#tab-3").count() == 1 and pg.locator("#panel-0 .corr, #panel-0 [data-corr]").count() > 0)
+    pg.locator(".rv-th").nth(1).click(); pg.wait_for_timeout(200); chk("thumbnail swaps main photo", "02" in (pg.get_attribute("#rvMainImg", "src") or ""))
+    pg.locator(".rv-why summary").click(); pg.wait_for_timeout(150); shot(pg, "review-high-confidence-1280.png")
+    pg.click("[data-rv=measure]"); pg.wait_for_timeout(400); chk("Add measurement opens measurements", pg.locator("#tab-1[aria-selected=true]").count() == 1)
+    pg.click("#tab-3"); pg.wait_for_timeout(400); pg.locator("#reviewForm input[name=length_mm]").scroll_into_view_if_needed(); shot(pg, "measurement-entry-1280.png")
+    pg.click("#mClose"); pg.wait_for_timeout(300)
+    go(pg, "#/review"); chk("review queue lists finds", pg.locator(".rq-item").count() > 0, str(pg.locator(".rq-item").count())); shot(pg, "review-queue-1280.png")
+    go(pg, "#/library"); pg.wait_for_selector(".lib-card"); n0 = pg.locator(".lib-card").count(); chk("library shows cards", n0 > 10, str(n0))
+    pg.select_option("#libRegion", "Texas"); pg.wait_for_timeout(200); c1 = pg.inner_text("#libCount"); chk("library region filter", "of 290" in c1, c1)
+    pg.select_option("#libRegion", ""); pg.select_option("#libSource", label="PIDBA (Paleoindian Database of the Americas)"); pg.wait_for_timeout(200); chk("library source filter", "of 45" in pg.inner_text("#libCount") or "PIDBA" in pg.inner_text("#libGrid"), pg.inner_text("#libCount"))
+    pg.select_option("#libSource", ""); pg.fill("#libQ", "clovis"); pg.wait_for_timeout(200); chk("library search", "Clovis" in pg.inner_text("#libGrid"))
+    pg.fill("#libQ", ""); pg.select_option("#libPeriod", "Paleoindian") if pg.locator("#libPeriod option[value='Paleoindian'], #libPeriod option:text-is('Paleoindian')").count() else None; pg.wait_for_timeout(200)
+    pg.fill("#libQ", ""); pg.select_option("#libPeriod", ""); pg.locator(".lib-card [data-refd]").first.click(); pg.wait_for_timeout(200); chk("library detail dialog", pg.locator("#refDlg[open]").count() == 1); pg.evaluate("document.getElementById('refDlg').close()")
+    chk("library no images hotlinked", pg.locator(".lib-card img").count() == 0); shot(pg, "reference-library-1280.png")
+    go(pg, "#/settings"); chk("settings cards", pg.locator(".set-card").count() >= 4); shot(pg, "settings-1280.png")
+    for h in ["#/discover", "#/pricing", "#/add", "#/about", "#/labels"]: go(pg, h); chk(f"view renders {h}", pg.locator(".view:not([hidden])").count() == 1)
+    go(pg, "#/add"); shot(pg, "add-wizard-1280.png"); go(pg, "#/discover"); shot(pg, "discover-1280.png"); go(pg, "#/pricing"); shot(pg, "pricing-1280.png")
+    ctx.close()
+    ctx, pg = page(b, 390, 844)
+    chk("mobile: sidebar hidden", not pg.locator(".side-nav").is_visible()); chk("mobile: hamburger visible", pg.locator("#menuBtn").is_visible())
+    pg.click("#menuBtn"); pg.wait_for_timeout(200); chk("mobile drawer has Review/Library/Settings", all(pg.locator(f"#navMenu a[data-route={r}]").is_visible() for r in ["review", "library", "settings", "discover", "pricing"]))
+    shot(pg, "mobile-menu-390.png"); pg.keyboard.press("Escape")
+    shot(pg, "mobile-catalog-390.png")
+    go(pg, "#/record/ELG-001"); pg.wait_for_selector(".rv-layout"); chk("mobile: no horizontal overflow", pg.evaluate("(()=>{const b=document.querySelector('.modal-body');return b.scrollWidth<=b.clientWidth+1 && document.querySelector('.rv-main').getBoundingClientRect().right<=innerWidth+1})()")); shot(pg, "mobile-review-390.png")
+    pg.click("#mClose"); go(pg, "#/library"); pg.wait_for_selector(".lib-card"); chk("mobile: page width ok", pg.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), str(pg.evaluate("document.documentElement.scrollWidth"))); shot(pg, "mobile-library-390.png")
+    ctx.close(); b.close()
+chk("no page errors", not errs, "; ".join(errs[:3]))
+print(f"{len(fails)} FAIL" if fails else "ALL PASS"); sys.exit(1 if fails else 0)

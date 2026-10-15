@@ -15,6 +15,7 @@ Supabase provides sign-in, sharing, cloud sync and the optional AI photo analysi
 | [privacy.md](privacy.md) | Location handling, visibility, RLS, and the GitHub image caveat |
 | [run-deploy-extend.md](run-deploy-extend.md) | Running locally, deploying, secret names, extending |
 | [testing.md](testing.md) | Unit tests, Playwright regressions, the shared-module check |
+| [ui-redesign.md](ui-redesign.md) | Preview redesign: shell, review screen, Reference Library, Settings |
 | [limitations-roadmap.md](limitations-roadmap.md) | Known limits and next steps |
 
 Older topic notes are kept: [ai-analysis.md](ai-analysis.md), [auth-setup.md](auth-setup.md), [learning.md](learning.md), [membership.md](membership.md).
