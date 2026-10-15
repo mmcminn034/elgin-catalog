@@ -34,7 +34,7 @@ Deno.serve(async (req) => {
   const active = prof?.membership === "member" && (!prof.membership_expires || new Date(prof.membership_expires) > new Date());
   if (!active) return json({ error: "Supporter membership required for AI photo analysis" }, 402);
 
-  let body: { catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[] };
+  let body: { catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[] };
   try { body = await req.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
   const photos = (body.photos || []).filter(p => /^https:\/\//.test(p.url)).slice(0, 6);
   if (!photos.length) return json({ error: "No https photo URLs" }, 400);
