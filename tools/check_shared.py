@@ -1,5 +1,5 @@
-"""Fail if the browser and edge-function copies of retrieve.js differ."""
+"""Fail if the browser and edge-function copies of the shared pure modules differ."""
 import pathlib, sys
 r = pathlib.Path(__file__).resolve().parent.parent
-a, b = (r / "assets/js/retrieve.js").read_text(), (r / "supabase/functions/_shared/retrieve.js").read_text()
-sys.exit(0 if a == b else print("retrieve.js copies differ: cp assets/js/retrieve.js supabase/functions/_shared/") or 1)
+bad = [f for f in ("retrieve.js", "score.js", "prompt.js") if (r / "assets/js" / f).exists() and (r / "assets/js" / f).read_text() != (r / "supabase/functions/_shared" / f).read_text()]
+sys.exit(0 if not bad else print("copies differ: " + ", ".join(bad) + " (cp assets/js/<file> supabase/functions/_shared/)") or 1)

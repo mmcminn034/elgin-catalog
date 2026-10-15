@@ -4,7 +4,7 @@
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const DISCLAIMER = "Research suggestions only, not identifications. No authenticity or value claims. Confidence is capped at Moderate.";
+  const DISCLAIMER = "Research suggestions only, not identifications. No authenticity or value claims. Confidence is an evidence-based score: the rules engine and AI alone stop at 95%; only an owner-Verified find that agrees with published references reaches 100%.";
   const REGION = C.defaultRegion || "Bastrop County, Texas";
   const VERDICTS = { match: ["👍", "Matches well"], close: ["🤏", "Close but not quite"], wrong: ["👎", "Wrong ID"] };
   const st = () => (window.Cloud ? Cloud.state() : { user: null });
@@ -31,7 +31,7 @@
   /* confidence modifier from past agreement: never raises above Moderate */
   function modify(conf, s) { if (!s || s.n < 3) return { conf, note: s ? `${s.n} feedback so far, too few to adjust confidence` : "" };
     let i = Math.max(0, LEVELS.indexOf(conf)); if (s.rate < 0.5) { i = Math.max(1, i - 1); return { conf: LEVELS[i], note: `lowered: past suggestions of this type agreed only ${Math.round(s.rate * 100)}% of the time (n=${s.n})` }; }
-    return { conf, note: `${Math.round(s.rate * 100)}% agreement on this type (n=${s.n})${s.rate >= 0.8 ? ", historically reliable, but still capped at Moderate" : ""}` }; }
+    return { conf, note: `${Math.round(s.rate * 100)}% agreement on this type (n=${s.n})${s.rate >= 0.8 ? ", historically reliable (score still capped at 95% unless owner-Verified)" : ""}` }; }
 
   /* ---------- low-confidence prompts ---------- */
   const VIEWS = { artifact: ["front", "back", "edge", "base", "scale"], fossil: ["front", "back", "edge", "scale"], rock: ["front", "back", "scale"] };
