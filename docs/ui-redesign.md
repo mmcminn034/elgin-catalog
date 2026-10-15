@@ -4,7 +4,7 @@ Warm earth-tone dashboard: beige background `#f4ede1`, terracotta primary `#b050
 - Text-colour contrast is ≥4.5:1, except that yellow is used only on large or bold text (≥3:1).
 - Dark mode is kept and adapted.
 - Files: `assets/css/redesign.css` (overrides only, loaded after styles.css) and `assets/js/redesign.js`.
-- Service worker version: `ro-v8.4`.
+- Service worker version: `ro-v8.5` (main after publish; Stage 3 stays ro-v9).
 
 ```mermaid
 flowchart LR

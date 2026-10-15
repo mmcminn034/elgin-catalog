@@ -51,6 +51,7 @@ with sync_playwright() as p:
         chk("AI failure visible (no silent failure)", pg.locator("#aiBody [role=alert]").count() >= 1 and "AI analysis failed" in pg.inner_text("#aiBody"))
         chk("prompt view still offered after failure", pg.locator("#aiBody details.ai-prompt").count() == 1); pg.evaluate("document.getElementById('aiDlg').close()")
         body = pg.evaluate("window.__body"); chk("payload carries region_hint", bool(body and body.get("region_hint")))
+        sz = len(json.dumps(body or {})); chk("payload is small (top candidates only, no full reference list)", body and sz < 20000 and len(body.get("kb", [])) <= 5 and len(body.get("examples", [])) <= 20, f"{sz} bytes, kb={len((body or {}).get('kb', []))}")
         if body: open("/tmp/elg001_ai_body.json", "w").write(json.dumps(body))
     else: chk("AI run button (member)", False)
     # high case: owner-Verified find agreeing with references
