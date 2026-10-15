@@ -269,8 +269,8 @@
     return { inc, rows: filtered().map(r => { const o = {}; COLS.forEach(c => o[c] = r[c] ?? ""); if (inc) o[PRIVATE] = r[PRIVATE] ?? ""; o.annotations = marksJson(r).photos.filter(p => p.annotations.length); return o; }) }; }
   function download(name, text, type) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
   const cq = v => { v = Array.isArray(v) ? histText(v) : String(v ?? ""); return /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v; };
-  $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("unearthed_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };
-  $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("unearthed_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
+  $("#exportCsv").onclick = () => { const x = exportRows(); if (!x) return; const c = x.inc ? [...COLS, PRIVATE] : COLS; download("unearthed_finds_catalog.csv", [c.join(","), ...x.rows.map(r => c.map(k => cq(r[k])).join(","))].join("\n"), "text/csv"); };
+  $("#exportJson").onclick = () => { const x = exportRows(); if (x) download("unearthed_finds_catalog.json", JSON.stringify(x.rows, null, 2), "application/json"); };
 
   /* ---------- wizard ---------- */
   const STEPS = ["Category", "Photos", "Measurements", "Description", "AI analysis", "Review & save"];

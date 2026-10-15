@@ -4,7 +4,7 @@ root = pathlib.Path(__file__).resolve().parent.parent; SITE = "https://unearthed
 # Brand comes from the single config value in assets/js/config.js (window.ROLLING_OAK_BRAND).
 _m = re.search(r"ROLLING_OAK_BRAND\s*=\s*(\{.*?\});", (root / "assets/js/config.js").read_text(), re.S)
 BRAND = json.loads(_m.group(1)) if _m else {}
-NAME = BRAND.get("name", "UnEarthed")
+NAME = BRAND.get("name", "UnEarthed Finds")
 out = root / "share"; out.mkdir(exist_ok=True)
 for r in json.load(open(root / "data/catalog.json")):
     if r.get("is_public") is False or r.get("visibility", "public") != "public": continue

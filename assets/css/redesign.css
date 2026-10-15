@@ -104,3 +104,5 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.005em}
   body:has(#navMenu:not([hidden]))::after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:70}}
 @keyframes navIn{from{transform:translateX(100%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.site-header nav.nav-menu{animation:none}}
+
+.side-motto{font-style:italic;color:var(--accent,#A8481E)!important}.auth-brand{display:flex;gap:10px;align-items:center;margin-bottom:8px}.auth-brand strong{display:block;font-family:var(--serif);font-size:1.15rem}.auth-brand .muted{display:block;font-size:.85rem;font-style:italic}.brand-motto{font-style:italic}@media (max-width:420px){.brand-txt{font-size:1.05rem}}
