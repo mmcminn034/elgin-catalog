@@ -15,7 +15,7 @@
     return { x: rk[0], rk, sc: Analysis.scoreOf ? Analysis.scoreOf(r, rk[0], rk[1], k) : null };
   }
   function refMatches(r, t) {
-    const pub = window.Analysis && Analysis.pub && Analysis.pub(); if (!pub || !window.Prompt) return [];
+    const pub = window.Analysis && (Analysis.pubFor ? Analysis.pubFor(kindOf(r)) : Analysis.pub && Analysis.pub()); if (!pub || !window.Prompt) return [];
     return Prompt.rankReferences(r, pub.types, pub.meta.trait_patterns, { k: 6, region: Analysis.regionHint ? Analysis.regionHint(r) : {}, category: kindOf(r), hintNames: t ? t.rk.slice(0, 3).map(x => String(x.c.name).replace(/\s*\(.*$/, "")) : [] });
   }
   const SHIELD = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>';
@@ -83,24 +83,28 @@
     if (/^#\/library/.test(location.hash) && !a && (!window.Cloud || !Cloud.isSettled || Cloud.isSettled())) { location.replace("#/catalog"); if (window.App && App.toast) App.toast("The Reference Library is only available to the collection owner."); return false; } return true; }
   function library() {
     if (!adminGate() || !isAdmin()) return;
-    const host = $("#libraryBody"); if (!host) return; const pub = window.Analysis && Analysis.pub && Analysis.pub();
+    const host = $("#libraryBody"); if (!host) return; const cat = LIB.cat || "artifact", pub = window.Analysis && (Analysis.pubFor ? Analysis.pubFor(cat) : Analysis.pub && Analysis.pub());
     if (!pub) { host.innerHTML = Analysis && Analysis.loadErrors && Analysis.loadErrors().length ? '<p class="err" role="alert">⚠ Reference data failed to load. Reload to retry.</p>' : '<p class="help">Loading reference data…</p>'; setTimeout(library, 600); return; }
     const T = pub.types, uniq = a => [...new Set(a.filter(Boolean))].sort();
     const regions = uniq(T.flatMap(t => [t.continent, ...(t.admin1 || [])])), sources = uniq(T.flatMap(t => (t.sources || []).map(s => s.name))), periods = uniq(T.map(t => t.period).flatMap(p => String(p || "").split(" / ")));
-    if (!host.querySelector("#libQ")) host.innerHTML = `<div class="toolbar" role="search"><label class="field grow"><span class="sr-only">Search references</span><input id="libQ" type="search" placeholder="Search type names and aliases…"></label>
+    const CATS = [["artifact", "Artifacts"], ["fossil", "Fossils"], ["rock", "Rocks & Minerals"]];
+    if (host.dataset.cat !== cat) { host.dataset.cat = cat; host.innerHTML = ""; }
+    if (!host.querySelector("#libQ")) host.innerHTML = `<div class="lib-tabs" role="tablist" aria-label="Reference layer">${CATS.map(([k, l]) => `<button type="button" role="tab" class="lib-tab" data-libcat="${k}" aria-selected="${k === cat}" tabindex="${k === cat ? 0 : -1}">${l}</button>`).join("")}</div><div class="toolbar" role="search"><label class="field grow"><span class="sr-only">Search references</span><input id="libQ" type="search" placeholder="${cat === "artifact" ? "Search type names and aliases…" : cat === "fossil" ? "Search taxa, groups, formations…" : "Search rocks and minerals…"}"></label>
       <label class="field"><span class="sr-only">Region</span><select id="libRegion"><option value="">All regions</option>${regions.map(x => `<option>${esc(x)}</option>`).join("")}</select></label>
       <label class="field"><span class="sr-only">Source</span><select id="libSource"><option value="">All sources</option>${sources.map(x => `<option>${esc(x)}</option>`).join("")}</select></label>
       <label class="field"><span class="sr-only">Period</span><select id="libPeriod"><option value="">All periods</option>${periods.map(x => `<option>${esc(x)}</option>`).join("")}</select></label></div><p class="count" id="libCount" aria-live="polite"></p><div class="lib-grid" id="libGrid"></div><div class="row lib-pg"><button type="button" class="btn" id="libPrev">← Previous</button><button type="button" class="btn" id="libNext">Next →</button></div>
       <p class="help">${esc(pub.types.length)} published reference summaries: facts and links only, with each entry's source, retrieval date and license. Home-region types appear first. Not the owner's finds.</p>`;
-    const set = () => { LIB = { q: $("#libQ").value.trim().toLowerCase(), region: $("#libRegion").value, source: $("#libSource").value, period: $("#libPeriod").value, page: 0 }; draw(); };
+    host.querySelectorAll("[data-libcat]").forEach(b => { b.onclick = () => { LIB = { q: "", region: "", source: "", period: "", page: 0, cat: b.dataset.libcat }; library(); host.querySelector(`[data-libcat=${b.dataset.libcat}]`)?.focus(); };
+      b.onkeydown = e => { if (!/Arrow(Left|Right)/.test(e.key)) return; const i = CATS.findIndex(c => c[0] === cat), n = CATS[(i + (e.key === "ArrowRight" ? 1 : CATS.length - 1)) % CATS.length][0]; host.querySelector(`[data-libcat=${n}]`).click(); }; });
+    const set = () => { LIB = { q: $("#libQ").value.trim().toLowerCase(), region: $("#libRegion").value, source: $("#libSource").value, period: $("#libPeriod").value, page: 0, cat }; draw(); };
     ["#libQ", "#libRegion", "#libSource", "#libPeriod"].forEach(s => $(s).oninput = set); $("#libPrev").onclick = () => { LIB.page = Math.max(0, LIB.page - 1); draw(); }; $("#libNext").onclick = () => { LIB.page++; draw(); };
     function draw() {
-      const L = T.filter(t => (!LIB.q || [t.name, ...(t.aliases || [])].some(n => String(n).toLowerCase().includes(LIB.q))) && (!LIB.region || t.continent === LIB.region || (t.admin1 || []).includes(LIB.region))
-        && (!LIB.source || (t.sources || []).some(s => s.name === LIB.source)) && (!LIB.period || String(t.period || "").split(" / ").includes(LIB.period))).sort((a, b) => (b.texas - a.texas) || ((a.home_priority || 3) - (b.home_priority || 3)) || a.name.localeCompare(b.name));
+      const L = T.filter(t => (!LIB.q || [t.name, ...(t.aliases || []), ...(t.formations || []), ...Object.values(t.taxonomy || {})].some(n => String(n).toLowerCase().includes(LIB.q))) && (!LIB.region || t.continent === LIB.region || (t.admin1 || []).includes(LIB.region))
+        && (!LIB.source || (t.sources || []).some(s => s.name === LIB.source)) && (!LIB.period || String(t.period || "").split(" / ").includes(LIB.period))).sort((a, b) => ((b.rules ? 1 : 0) - (a.rules ? 1 : 0)) || (b.texas - a.texas) || ((a.home_priority || 3) - (b.home_priority || 3)) || a.name.localeCompare(b.name));
       const N = 48, pages = Math.max(1, Math.ceil(L.length / N)); LIB.page = Math.min(LIB.page, pages - 1);
       $("#libCount").textContent = `Showing ${L.length ? LIB.page * N + 1 : 0}–${Math.min(L.length, (LIB.page + 1) * N)} of ${L.length} reference types`;
       $("#libGrid").innerHTML = L.slice(LIB.page * N, (LIB.page + 1) * N).map(t => `<article class="lib-card">${sil(t.category, t.name + " silhouette placeholder")}<div><h3>${esc(t.name)}</h3><p class="muted">${esc([t.period, t.dates].filter(Boolean).join(" · ") || t.typology_system)}</p>
-        <p class="muted">${esc([t.continent, (t.admin1 || []).slice(0, 4).join(", ") + ((t.admin1 || []).length > 4 ? ` +${t.admin1.length - 4}` : "")].filter(Boolean).join(": "))}</p>${t.length_mm ? `<p class="chip">L ${t.length_mm[0]}–${t.length_mm[1]} mm</p>` : ""}
+        <p class="muted">${esc([t.continent, (t.admin1 || []).slice(0, 4).join(", ") + ((t.admin1 || []).length > 4 ? ` +${t.admin1.length - 4}` : "")].filter(Boolean).join(": "))}</p>${t.properties && t.properties.hardness ? `<p class="chip">Mohs ${esc(t.properties.hardness)}</p>` : ""}${t.genera ? "" : ""}${t.rules ? `<p class="chip">${t.category === "fossil" ? (t.fossil_kind === "pseudo" ? "Pseudofossil" : "Group") : "Rock / variety"}</p>` : ""}${t.length_mm ? `<p class="chip">L ${t.length_mm[0]}–${t.length_mm[1]} mm</p>` : ""}
         <p class="lib-src">${(t.sources || []).slice(0, 2).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener" class="src-tag" title="${esc(s.license)}">${esc(/pidba/i.test(s.name) ? "PIDBA" : s.name)} ↗</a>`).join(" ")} <button type="button" class="btn ghost small" data-refd="${esc(t.id)}">Details</button></p></div></article>`).join("") || '<p class="empty">No reference types match these filters.</p>';
       $("#libPrev").disabled = LIB.page === 0; $("#libNext").disabled = LIB.page >= pages - 1;
     }

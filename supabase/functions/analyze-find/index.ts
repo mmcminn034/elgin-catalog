@@ -50,8 +50,9 @@ Deno.serve(async (req) => {
 
   // EXTERNAL REFERENCES: published typology (reference_types table from migration 009; falls back to the static JSON). Visible status, never silent.
   let refRows: unknown[] = [], patterns: Record<string, string> = {}, reference_status = "ok";
-  try { const pj = await (await fetch(SITE + "data/reference/public-types.json")).json(); patterns = pj.meta?.trait_patterns || {}; refRows = pj.types || [];
-    const { data: rt, error: re } = await sb.from("reference_types").select("id, name, aliases, typology_system, category, period, dates, continent, country, admin1, length_mm, width_mm, thickness_mm, traits, similar_types, sources").limit(5000);
+  try { const layer = body.kind === "fossil" ? "public-fossils" : body.kind === "rock" ? "public-minerals" : "public-types"; /* only the find's own category layer is ranked; the top 5 go to the prompt */
+    const pj = await (await fetch(SITE + "data/reference/" + layer + ".json")).json(); patterns = pj.meta?.trait_patterns || {}; refRows = pj.types || [];
+    const { data: rt, error: re } = layer !== "public-types" ? { data: null, error: null } : await sb.from("reference_types").select("id, name, aliases, typology_system, category, period, dates, continent, country, admin1, length_mm, width_mm, thickness_mm, traits, similar_types, sources").limit(5000);
     if (!re && rt && rt.length) refRows = rt.map((x: Record<string, unknown>) => ({ ...x, similar: x.similar_types })); } catch (e) { reference_status = "unavailable: " + String(e).slice(0, 80); }
   if (!refRows.length && reference_status === "ok") reference_status = "unavailable: no reference rows";
   const rh = (body as { region_hint?: { admin1?: string; country?: string; continent?: string } }).region_hint || {};
