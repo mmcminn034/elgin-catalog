@@ -48,7 +48,7 @@
   async function onClick(e, r) {
     const b = e.target.closest("[data-corr]"); if (!b || !r) return false; const f = b.dataset.f, d = FIELDS[f], li = b.closest("[data-cf]"), act = b.dataset.corr;
     if (act === "open") { const fm = $(".cf-form", li); fm.hidden = !fm.hidden; if (!fm.hidden) $("[data-cv]", fm).focus(); return true; }
-    if (act === "keep") { await record(r, f, d.get(r), d.get(r), "", true); if (window.S5 && S5.needs(r)) await App.patch(r.catalog_id, { status: "Reviewed", status_ts: new Date().toISOString() }); /* Keep on a main field advances a Draft */ App.toast(`Kept ${d.label.toLowerCase()} for ${r.catalog_id}`); App.reselect && App.reselect(); return true; }
+    if (act === "keep") { await record(r, f, d.get(r), d.get(r), "", true); /* Keep records feedback only; status changes only via the explicit Mark as Reviewed button or the Status control */ App.toast(`Kept ${d.label.toLowerCase()} for ${r.catalog_id}`); App.reselect && App.reselect(); return true; }
     const nv = ($("[data-cv]", li).value || "").trim(), why = ($("[data-cr]", li).value || "").trim(), vref = $("[data-cvref]", li).checked, ov = d.get(r);
     if (!nv) { App.toast("Enter the corrected value"); return true; }
     if (d.coarse && !coarse(nv)) { App.toast("Origin must be a region or setting (no coordinates or street address)"); return true; }

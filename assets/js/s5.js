@@ -18,8 +18,8 @@
   const options = cur => LIST.map(s => `<option value="${s}" ${norm(cur) === s ? "selected" : ""}>${esc(LABEL[s])}</option>`).join("");
   const canEdit = () => { const s = window.Cloud ? Cloud.state() : { user: null }; if (!s.user) return !s.online; return window.Features && Features.isEditor ? Features.isEditor() : false; };
   async function setStatus(r, s, why) { await App.patch(r.catalog_id, { status: s, status_ts: new Date().toISOString() }); App.toast(`${r.catalog_id}: ${LABEL[s]}${why ? " · " + why : ""}`); }
-  /* Draft finds auto-advance to Reviewed when the owner confirms something (Save review, Keep). Needs review is a deliberate flag, also advanced. */
-  const autoAdvance = r => needs(r) ? "Reviewed" : null;
+  /* No automatic status changes: saves, Keep/Correct, measurements and photos keep the current status. Kept for API compatibility. */
+  const autoAdvance = () => null;
   function statusBar(r) {
     return `<div class="s5-status" data-s5-bar><span class="s5-st-l">Status</span> ${badge(r)}${needs(r) ? ' <span class="needs-flag">⚑ Still needs review</span>' : ""}
       ${canEdit() ? `<span class="grow"></span>${needs(r) ? `<button type="button" class="btn primary s5-mark" data-s5-status="Reviewed">✓ Mark as Reviewed</button>` : ""}

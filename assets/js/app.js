@@ -196,7 +196,7 @@
         <h3 class="gal-h">Owner review</h3><label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="4">${esc(r.owner_observations)}</textarea></label>
         <div class="row"><label class="field"><span>Status</span><select name="status">${window.S5 ? S5.options(r.status) : `<option ${r.status !== "Reviewed" ? "selected" : ""}>Draft</option><option ${r.status === "Reviewed" ? "selected" : ""}>Reviewed</option>`}</select></label>
         <label class="field grow"><span>🔒 Private location (owner only, kept in this browser)</span><input name="${PRIVATE}" value="${esc(r[PRIVATE])}"></label></div>
-        <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save review</button></div></form>`
+        <div class="wiz-nav">${r._src !== "seed" ? '<button type="button" class="btn" id="revert">' + (r._src === "local" ? "Delete find" : "Revert my edits") + "</button>" : ""}<span class="grow"></span><button class="btn primary">Save changes</button></div></form>`
     ][i]();
     const ev = i === 0 && ps.length ? '<h3 class="gal-h">Evidence viewer</h3><div id="evHost"></div>' : "";
     $("#mBody").innerHTML = recatBanner(r, kindOf(r), r.category_kept) + `<div role="tabpanel" id="panel-${i}" aria-labelledby="tab-${i}" tabindex="0">${ev}${html}</div>`; mountEvidence(); if (window.Features) Features.decorate(i, r, $("#mBody")); if (window.Learn) Learn.decorate(i, r, $("#mBody")); if (window.S2) S2.decorate(i, r, $("#mBody")); if (window.S5) S5.decorate(i, r, $("#mBody"));
@@ -206,7 +206,7 @@
         const bad = ["length_mm", "width_mm", "thickness_mm", "weight_g"].find(k => f[k].value.trim() && !MEAS.test(f[k].value.trim()));
         if (bad) { f[bad].focus(); return toast(`Review not saved: ${f[bad].name.replace("_mm", "").replace("_g", "")} must be a number, e.g. 62, 60-70 or ~62`, { warn: true }); }
         new FormData(f).forEach((v, k) => o[k] = String(v).trim()); const sSel = f.querySelector("select[name=status]");
-        if (window.S5 && S5.needs(r) && S5.needs(o) && !(sSel && sSel.dataset.touched)) o.status = "Reviewed"; // Save review advances an untouched Draft to Reviewed
+        if (!(sSel && sSel.dataset.touched)) { if (r.status) o.status = r.status; else delete o.status; } // status changes only when the owner picks it in the Status control (or an explicit Mark as Reviewed / Save as verified button); plain saves keep it
         await DB.put(o); local = await DB.all(); const id = r.catalog_id; refresh(); current = all.find(x => x.catalog_id === id);
         if (o.status === "Reviewed" && r.status !== "Reviewed" && r.status !== "Verified" && current.suggestion_1) { await Analysis.learn(current, kindOf(current), current.suggestion_1, "Marked Reviewed (top possibility)"); toast("Review saved · added as a verified example"); } else toast("Review saved"); selectTab(3); };
       const rv = $("#revert"); if (rv) rv.onclick = async () => { if (!confirm(rv.textContent + "?")) return; await DB.del(r.catalog_id); local = await DB.all(); refresh(); closeModal(); };
