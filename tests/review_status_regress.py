@@ -6,7 +6,7 @@ U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8765/"; fails = []; 
 def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i); ok or fails.append(n)
 OWNER = {"online": True, "user": {"id": "u1", "email": "mark@example.com"}, "profile": {"display_name": "Mark McMinn", "membership": "member"},
          "collections": [{"id": "c1", "slug": "rolling-oak", "name": "Rolling Oak", "role": "owner", "is_public": True}], "members": {"c1": {"members": [], "invites": []}}, "comments": []}
-IDS = sys.argv[2].split(",") if len(sys.argv) > 2 else ["ELG-020", "ELG-017"]
+IDS = sys.argv[2].split(",") if len(sys.argv) > 2 else ["ELG-020", "ELG-018"]
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path="/usr/bin/google-chrome"); ctx = b.new_context(viewport={"width": 1280, "height": 900}); pg = ctx.new_page()
     pg.on("pageerror", lambda e: errs.append(str(e)))

@@ -493,7 +493,7 @@
     "measure_method": "Not measured",
     "condition": "Complete?",
     "key_features": "Leaf/triangular outline, rounded base, fine edge retouch",
-    "suggestion_1": "Late Archaic triangular/leaf dart",
+    "suggestion_1": "Leaf-shaped biface / dart (period undetermined)",
     "suggestion_2": "Resharpened knife tip",
     "suggestion_3": "",
     "confidence": "Low",
@@ -508,7 +508,8 @@
         "label": "In display case"
       }
     ],
-    "era": "Undetermined"
+    "era": "Undetermined",
+    "context_notes": "Re-review 2026-10-16: refined from \"Late Archaic triangular/leaf dart\". Leaf-shaped outline with no diagnostic haft, so the Late Archaic dating is not supported."
   },
   {
     "catalog_id": "ELG-005",
@@ -522,7 +523,7 @@
     "measure_method": "Not measured",
     "condition": "Complete?",
     "key_features": "Broad asymmetric outline, some cortex",
-    "suggestion_1": "Knife",
+    "suggestion_1": "Large biface, possible preform (knife use unconfirmed)",
     "suggestion_2": "Scraper",
     "suggestion_3": "Large preform",
     "confidence": "Low",
@@ -537,7 +538,8 @@
         "label": "In display case"
       }
     ],
-    "era": "Undetermined"
+    "era": "Undetermined",
+    "context_notes": "Re-review 2026-10-16: refined from \"Knife\". Thick, irregular edges and no visible use-wear. A preform scores close to a knife."
   },
   {
     "catalog_id": "ELG-006",
@@ -588,9 +590,9 @@
   },
   {
     "catalog_id": "ELG-007",
-    "category": "artifact",
-    "object_type": "Pebble",
-    "material": "Quartzite or rose quartz?",
+    "category": "rock",
+    "object_type": "Natural rose quartz pebble",
+    "material": "Rose quartz",
     "color": "Pink",
     "length_mm": "",
     "width_mm": "",
@@ -598,10 +600,10 @@
     "measure_method": "Not measured",
     "condition": "Whole",
     "key_features": "Smooth water-rounded, no flake scars seen",
-    "suggestion_1": "Natural creek pebble",
-    "suggestion_2": "Hammerstone/polisher",
-    "suggestion_3": "",
-    "confidence": "Low (artifact)",
+    "suggestion_1": "Natural rose quartz pebble (water-worn)",
+    "suggestion_2": "Quartzite pebble",
+    "suggestion_3": "Hammerstone/polisher (unlikely: no pecking or polish seen)",
+    "confidence": "Moderate",
     "owner_observations": "",
     "open_questions": "Sharper photo; look for pecking or polish",
     "status": "Draft",
@@ -614,7 +616,18 @@
       }
     ],
     "era": "Undetermined",
-    "category_note": "Kept under Artifacts for now; likely a natural pebble and may move to Rocks & Minerals after review."
+    "category_note": "Moved from Artifacts to Rocks & Minerals in the 2026-10-16 re-review. Previous ID: Natural creek pebble.",
+    "category_kept": "rock",
+    "category_history": [
+      {
+        "from": "artifact",
+        "to": "rock",
+        "date": "2026-10-16",
+        "ts": "2026-10-16T16:40:00Z",
+        "reason": "Owner correction: re-review against the reference layers (previous ID: Natural creek pebble)"
+      }
+    ],
+    "context_notes": "Re-review 2026-10-16: reclassified from \"Natural creek pebble\". Water-rounded quartz pebble with no flake scars, pecking or polish. Artifact rules top out at 28%; it matches the rocks layer entries for rose quartz and natural pebbles."
   },
   {
     "catalog_id": "ELG-008",
@@ -1263,7 +1276,7 @@
     "context_notes": "Personal collection piece (brought from Nevada); not an Elgin surface find. Research suggestions only, not an identification. Ranked: (1) silicified petrified wood, Moderate (the evidence is strong, but confidence is capped at Moderate from photos): longitudinal fibrous grain, transverse checking (shrinkage cracks) and curved growth bands on the end grain are classic wood structures preserved in silica. (2) Fibrous or banded chalcedony, Low: chalcedony can be banded and fibrous, but it does not show cross-grain checking or growth-ring geometry. (3) Worked artifact, Very low: the edges are natural conchoidal breaks with no platform, bulb or patterned retouch.\n\nContext (general): this piece is from Mark's personal collection, brought from Nevada (exact locality unknown). It is not a surface find from the Elgin property. Nevada has abundant Miocene petrified wood, roughly 10-20 million years old. It is preserved in Tertiary volcanic ash beds, where silica from the volcanic ash replaced the wood. Examples include Virgin Valley in Humboldt County, famous for opalized wood, and petrified wood in Esmeralda, Mineral and Nye counties. Opalized vs agatized: opalized wood (opal, hardness about 5.5-6) tends to be lighter for its size and may craze or crack as it dries out. Agatized wood (chalcedony, hardness about 7) scratches glass easily and is more stable. A careful glass scratch test on an inconspicuous spot can help. Palm vs hardwood: on a wet or polished end grain, palm shows scattered rod-like fibres (dots), while hardwood shows growth rings crossed by fine rays.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
     "owner_observations": "Added from the owner's photos after the in-app entry failed to upload; this record is canonical.",
     "open_questions": "Palm or hardwood? Opalized or agatized (hardness/scratch test)? Width, thickness and weight. Next photos: 1) polished or wet end-grain macro with a loupe (rings vs palm rods), 2) full-length view with the ruler, 3) weight on a scale.",
-    "status": "Draft",
+    "status": "Reviewed",
     "era": "",
     "category_history": [
       {
@@ -1519,7 +1532,7 @@
     "condition": "Whole cobble; weathering cracks",
     "condition_notes": "Weathering cracks; angular spall on face B.",
     "key_features": "Round, symmetric, smooth-floored shallow pit centred on face A; angular-edged depression with crack on face B (likely natural spall); rounded water-worn cortex. Raking light: shallow, even, bowl-shaped pit with fairly smooth floor; pecking not resolvable at this resolution.",
-    "suggestion_1": "Pitted stone / nutting / anvil stone (Archaic-Late Prehistoric ground stone)",
+    "suggestion_1": "Sandstone cobble, possible pitted stone (pitting unconfirmed)",
     "suggestion_2": "Natural cobble with weathering/solution pit (less likely after raking-light view)",
     "suggestion_3": "Mano / handstone (check for flattened ground faces)",
     "confidence": "Moderate",
@@ -1530,7 +1543,7 @@
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) pitted stone (nutting or anvil stone), Archaic to Late Prehistoric ground stone, Moderate (capped): a round, symmetric, smooth-floored shallow pit is centred on face A, the classic position. (2) Natural cobble with a weathering or solution pit, Low-Moderate: sandstone can weather into round hollows. Without visible pecking, nature can't be ruled out. (3) Mano or handstone, Low: check for flattened, smoothed (ground) faces. The depression on face B is angular-edged with a crack, so it is most likely a natural spall.\n\nRaking-light view (photo 7): the pit is shallow, even and bowl-shaped with a fairly smooth floor and a regular rim. That fits a pitted stone better than random weathering. Pecking stipple can't be resolved at this resolution, so a daylight macro of the pit floor is still needed.\n\nLocal context (general): pitted stones are common at Central Texas Archaic sites. They were used to crack pecans and acorns and as anvils for bipolar knapping. Cobbles of sandstone and quartzite for them came from the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) pitted stone (nutting or anvil stone), Archaic to Late Prehistoric ground stone, Moderate (capped): a round, symmetric, smooth-floored shallow pit is centred on face A, the classic position. (2) Natural cobble with a weathering or solution pit, Low-Moderate: sandstone can weather into round hollows. Without visible pecking, nature can't be ruled out. (3) Mano or handstone, Low: check for flattened, smoothed (ground) faces. The depression on face B is angular-edged with a crack, so it is most likely a natural spall.\n\nRaking-light view (photo 7): the pit is shallow, even and bowl-shaped with a fairly smooth floor and a regular rim. That fits a pitted stone better than random weathering. Pecking stipple can't be resolved at this resolution, so a daylight macro of the pit floor is still needed.\n\nLocal context (general): pitted stones are common at Central Texas Archaic sites. They were used to crack pecans and acorns and as anvils for bipolar knapping. Cobbles of sandstone and quartzite for them came from the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.\n\nRe-review 2026-10-16: refined from \"Pitted stone / nutting / anvil stone (Archaic-Late Prehistoric ground stone)\". The depression may be natural weathering. A pecked pit cannot be confirmed from the photos.",
     "open_questions": "Is the pit pecked? Any ground faces or battered ends? Weight. Next photos: 1) raking low-angle daylight across the pit to show pecking stipple, 2) macro of the pit floor in daylight, 3) both ends close-up for battering, 4) weight, 5) any flattened or ground surfaces.",
     "status": "Draft",
     "photos": [
@@ -2154,7 +2167,7 @@
     "condition": "Whole cobble; one end battered",
     "condition_notes": "One end rough, crushed and pitted; sides smooth; small natural pit on one face.",
     "key_features": "One end rough, crushed and pitted, contrasting with smooth sides (photos 5-6); hand-sized, grippable elongated form with smooth water-rounded sides (photos 1-4); small pit on one face likely a natural weathered-out grain (photo 1).",
-    "suggestion_1": "Hammerstone / pestle",
+    "suggestion_1": "Elongated cobble, possible manuport (no use-wear seen)",
     "suggestion_2": "Natural river cobble with tumbling end damage",
     "suggestion_3": "Mano",
     "confidence": "Moderate",
@@ -2165,7 +2178,7 @@
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) hammerstone or pestle, Moderate (capped): one end is rough, crushed and pitted, in contrast to the smooth sides (photos 5-6), and the cobble is a hand-sized, easy-to-grip elongated form (photos 1-4). (2) Natural river cobble with tumbling end damage, Low-Moderate: ends of stream cobbles can be bruised in transport, so the battering needs a close look. (3) Mano, Low: no flattened ground face is visible.\n\nThe small pit on one face (photo 1) is most likely a natural weathered-out grain, not use. Quartzite and sandstone cobbles like this are common in the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) hammerstone or pestle, Moderate (capped): one end is rough, crushed and pitted, in contrast to the smooth sides (photos 5-6), and the cobble is a hand-sized, easy-to-grip elongated form (photos 1-4). (2) Natural river cobble with tumbling end damage, Low-Moderate: ends of stream cobbles can be bruised in transport, so the battering needs a close look. (3) Mano, Low: no flattened ground face is visible.\n\nThe small pit on one face (photo 1) is most likely a natural weathered-out grain, not use. Quartzite and sandstone cobbles like this are common in the Colorado River gravels near Elgin.\n\nResearch-only suggestions, not an identification, authentication or valuation.\n\nRe-review 2026-10-16: refined from \"Hammerstone / pestle\". No battering facets or end polish are visible, so hammerstone/pestle use is unconfirmed.",
     "open_questions": "Is the end battering concentrated and overlapping (use) or scattered (natural)? Is the other end battered too? Next photos: 1) raking-light close-up of each end, 2) caliper measurements (length, width, thickness), 3) weight.",
     "status": "Draft",
     "photos": [
@@ -2324,7 +2337,7 @@
   {
     "catalog_id": "ELG-024",
     "category": "fossil",
-    "object_type": "Silicified nodule with fossil coral or sponge",
+    "object_type": "Shell-hash limestone with Exogyra-type oyster",
     "material": "Silicified limestone / chalcedony nodule with chalky crust",
     "color": "Pale cream-buff crust with bluish-white chalcedony blebs",
     "length_mm": "~110",
@@ -2337,20 +2350,20 @@
     "condition": "Whole nodule; weathered crust",
     "condition_notes": "Crackled mosaic weathering on the back; chalky crust with chalcedony blebs.",
     "key_features": "Round ~30 mm cup with thick finely textured rim and ridges that seem to radiate toward the centre (photos 3-4); two more oval cups with rough fibrous floors (photos 1-2); glassy bluish-white chalcedony blebs in a pale chalky crust (photos 3-7); crackled mosaic back from natural weathering (photo 5); no flake scars.",
-    "suggestion_1": "Silicified nodule with fossil coral or sponge (likely Cretaceous)",
-    "suggestion_2": "Chert nodule with natural solution cups",
-    "suggestion_3": "Geode-like concretion",
+    "suggestion_1": "Shell-hash limestone with a coiled Exogyra-type oyster (Cretaceous)",
+    "suggestion_2": "Silicified nodule with fossil coral or sponge",
+    "suggestion_3": "Chert nodule with natural solution cups",
     "confidence": "Moderate",
-    "era": "Likely Cretaceous (if fossil)",
+    "era": "Cretaceous (Exogyra-bearing)",
     "region": "Bastrop County, Texas (Elgin area)",
     "provenance": "Bastrop County, Texas (Elgin area)",
     "acquisition": "Surface find on the Elgin property (owner confirmed local)",
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with fossil coral or sponge, likely Cretaceous, Moderate (capped): a round cup about 30 mm across with a thick, finely textured rim and ridges that seem to radiate toward the centre (photos 3-4) fits a coral calice or a silicified sponge. Two more oval cups with rough fibrous floors (photos 1-2) may be smaller fossils or dissolution moulds. (2) Chert nodule with natural solution cups, Low-Moderate: dissolution can hollow out round cups without any fossil. (3) Geode-like concretion, Low.\n\nGlassy bluish-white chalcedony blebs in a pale chalky crust (photos 3-7) show silicification within limestone. The crackled mosaic on the back (photo 5) is natural weathering. There are no flake scars, so this is not an artifact.\n\nLocal context (general): Cretaceous limestones and marls of Central Texas contain silicified corals and sponges, and they wash into local gravels.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with fossil coral or sponge, likely Cretaceous, Moderate (capped): a round cup about 30 mm across with a thick, finely textured rim and ridges that seem to radiate toward the centre (photos 3-4) fits a coral calice or a silicified sponge. Two more oval cups with rough fibrous floors (photos 1-2) may be smaller fossils or dissolution moulds. (2) Chert nodule with natural solution cups, Low-Moderate: dissolution can hollow out round cups without any fossil. (3) Geode-like concretion, Low.\n\nGlassy bluish-white chalcedony blebs in a pale chalky crust (photos 3-7) show silicification within limestone. The crackled mosaic on the back (photo 5) is natural weathering. There are no flake scars, so this is not an artifact.\n\nLocal context (general): Cretaceous limestones and marls of Central Texas contain silicified corals and sponges, and they wash into local gravels.\n\nResearch-only suggestions, not an identification, authentication or valuation.\n\nRe-review 2026-10-16: reclassified from \"Silicified nodule with fossil coral or sponge (likely Cretaceous)\". A coiled oyster beak and shell hash are visible. No coral corallites or sponge canals. The fossils layer matches shell-hash limestone and the Exogyra group.",
     "open_questions": "Coral or sponge? Next photos: 1) straight-down raking-light close-up of the ring cup (radiating septa = coral; a pore pattern = sponge), 2) caliper measurements (length, width, thickness), 3) weight.",
-    "status": "Draft",
+    "status": "Reviewed",
     "photos": [
       {
         "path": "images/ELG-024/01.jpg",
@@ -2756,7 +2769,7 @@
     "is_public": false,
     "context_notes": "Personal collection piece from Graveyard Point, Idaho; not an Elgin surface find. Research suggestions only, not an identification. Ranked: (1) tube agate / chalcedony nodule, Moderate (capped): dense white, worm-like chalcedony rods cross and branch through the cavity (photos 1-3). They form when silica coats needles or fibres that later dissolve. (2) Thunderegg-type nodule with tubular chalcedony, Low-Moderate: the rough, rusty, pitted rind with round eye-like spots (photos 2, 4, 5) fits a nodule weathered out of volcanic ash. (3) Silicified plant material, Low: some tubes could be plant casts, but the dense branching mass is typical of tube agate.\n\nThe crack through the rind (photo 4) is natural weathering, or the nodule was opened to show the interior.\n\nContext (general): Graveyard Point straddles the Idaho-Oregon line in Owyhee County, near Homedale and Marsing. It is known for plume and tube agate that formed in seams and pockets of Miocene volcanic ash and tuff beds, where silica-rich groundwater filled the cavities.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
     "open_questions": "Are the tubes hollow or filled? Next photos: 1) close-up of tube cross-sections (the eye-like spots), 2) caliper measurements (length, width, thickness), 3) weight.",
-    "status": "Draft",
+    "status": "Reviewed",
     "photos": [
       {
         "path": "images/ELG-026/01.jpg",
@@ -3371,7 +3384,7 @@
     "condition": "Whole nodule; weathered",
     "condition_notes": "Knobby weathered surface with pockets; tan-orange iron staining.",
     "key_features": "Round ~25 mm cup with raised rim (photo 1), similar to ELG-024; knobby rounded bumps and pockets typical of nodules weathered from Cretaceous limestone, with tan-orange iron staining (photos 2-5); no flake scars.",
-    "suggestion_1": "Silicified nodule with possible fossil coral or sponge",
+    "suggestion_1": "Silicified nodule; fossil not evident (possible pseudofossil)",
     "suggestion_2": "Chert nodule with natural solution cavities",
     "suggestion_3": "Limonite / iron concretion",
     "confidence": "Moderate",
@@ -3382,7 +3395,7 @@
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with a possible fossil coral or sponge, Moderate (capped): photo 1 shows a round cup about 25 mm across with a raised rim. It is similar to the ring cup on ELG-024 and may be a silicified coral or sponge, or a mould left where one dissolved. (2) Chert nodule with natural solution cavities, Low-Moderate: knobby, rounded bumps and pockets (photos 2-5) are typical of nodules weathered from Cretaceous limestone, and dissolution alone can make cups. (3) Limonite / iron concretion, Low: there is tan-orange iron staining, but the form fits a silicified nodule better.\n\nNo flake scars, so this is not an artifact. Similar to ELG-024 (silicified nodule with fossil coral or sponge); comparing the two cups side by side may help.\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) silicified nodule with a possible fossil coral or sponge, Moderate (capped): photo 1 shows a round cup about 25 mm across with a raised rim. It is similar to the ring cup on ELG-024 and may be a silicified coral or sponge, or a mould left where one dissolved. (2) Chert nodule with natural solution cavities, Low-Moderate: knobby, rounded bumps and pockets (photos 2-5) are typical of nodules weathered from Cretaceous limestone, and dissolution alone can make cups. (3) Limonite / iron concretion, Low: there is tan-orange iron staining, but the form fits a silicified nodule better.\n\nNo flake scars, so this is not an artifact. Similar to ELG-024 (silicified nodule with fossil coral or sponge); comparing the two cups side by side may help.\n\nResearch-only suggestions, not an identification, authentication or valuation.\n\nRe-review 2026-10-16: refined from \"Silicified nodule with possible fossil coral or sponge\". No definite fossil structure. The concretion pseudofossil entry scores level with sponge.",
     "open_questions": "Coral, sponge or dissolution cup? Next photos: 1) straight-down raking-light close-up of the ring cup (radiating septa = coral; a pore pattern = sponge), 2) caliper measurements (length, width, thickness), 3) weight.",
     "status": "Draft",
     "photos": [
@@ -4340,8 +4353,8 @@
   },
   {
     "catalog_id": "ELG-035",
-    "category": "fossil",
-    "object_type": "Limestone/flint nodule with quartz-lined fossil molds",
+    "category": "rock",
+    "object_type": "Limestone/chalk cobble with chert inclusions",
     "material": "Limestone or chert/flint nodule with drusy quartz pockets",
     "color": "Pale cream-grey rind; grey drusy quartz in pockets",
     "length_mm": "~140",
@@ -4354,9 +4367,9 @@
     "condition": "Whole nodule",
     "condition_notes": "Several rounded pockets lined with drusy quartz; chalky rind.",
     "key_features": "Grey drusy quartz pockets (photos 1, 7); chalky pale rind; no clear human working.",
-    "suggestion_1": "Limestone with fossil molds (shell/sponge) lined with drusy quartz",
-    "suggestion_2": "Chert/flint nodule in limestone rind with drusy pockets",
-    "suggestion_3": "Geode-like nodule",
+    "suggestion_1": "Limestone/chalk cobble with chert inclusions",
+    "suggestion_2": "Limestone with fossil molds (shell/sponge) lined with drusy quartz",
+    "suggestion_3": "Silicified limestone",
     "confidence": "Moderate",
     "era": "Undetermined",
     "region": "Bastrop County, Texas (Elgin area)",
@@ -4365,9 +4378,9 @@
     "provenance_answer": "local",
     "visibility": "private",
     "is_public": false,
-    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) limestone with fossil moulds (shell or sponge) lined with drusy quartz, Moderate (capped): several rounded pockets lined with grey drusy quartz (photos 1, 7) fit moulds left where fossils dissolved, later lined by quartz. (2) Chert or flint nodule in a limestone rind with drusy pockets, Low-Moderate: the chalky, pale rind could be the outer skin of a chert nodule. (3) Geode-like nodule, Low.\n\nNo clear human working (no flake scars or grinding).\n\nResearch-only suggestions, not an identification, authentication or valuation.",
+    "context_notes": "Surface find on private land. Research suggestions only, not an identification. Ranked: (1) limestone with fossil moulds (shell or sponge) lined with drusy quartz, Moderate (capped): several rounded pockets lined with grey drusy quartz (photos 1, 7) fit moulds left where fossils dissolved, later lined by quartz. (2) Chert or flint nodule in a limestone rind with drusy pockets, Low-Moderate: the chalky, pale rind could be the outer skin of a chert nodule. (3) Geode-like nodule, Low.\n\nNo clear human working (no flake scars or grinding).\n\nResearch-only suggestions, not an identification, authentication or valuation.\n\nRe-review 2026-10-16: reclassified from \"Limestone with fossil molds (shell/sponge) lined with drusy quartz\". No clear fossil molds. The drusy-lined cavities read as dissolution, plus chert knobs. Fossil rules score low (40-46%); the rocks layer matches limestone/chalk and silicified limestone.",
     "open_questions": "Do the pockets keep a fossil shape (shell outline, sponge texture)? Next photos: 1) close-ups of the pockets with a scale, 2) any broken face, to see the interior material.",
-    "status": "Draft",
+    "status": "Reviewed",
     "photos": [
       {
         "path": "images/ELG-035/01.jpg",
@@ -4570,6 +4583,17 @@
           }
         ]
       }
-    ]
+    ],
+    "category_kept": "rock",
+    "category_history": [
+      {
+        "from": "fossil",
+        "to": "rock",
+        "date": "2026-10-16",
+        "ts": "2026-10-16T16:40:00Z",
+        "reason": "Owner correction: re-review against the reference layers (previous ID: Limestone with fossil molds (shell/sponge) lined with drusy quartz)"
+      }
+    ],
+    "category_note": "Moved from Fossils to Rocks & Minerals in the 2026-10-16 re-review. Previous ID: Limestone with fossil molds (shell/sponge) lined with drusy quartz."
   }
 ]

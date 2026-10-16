@@ -1,4 +1,4 @@
--- 011: fossil and rocks & minerals reference layers in public.reference_types. WRITTEN ONLY, NOT APPLIED.
+-- 011: fossil and rocks & minerals reference layers in public.reference_types. Applied 2026-10-16. Down: 011_reference_fossil_mineral_down.sql.
 -- Additive: new nullable columns; existing artifact rows are untouched. Rows come from data/reference/public-fossils.json and
 -- public-minerals.json via tools/reference/gen_seed_sql.py -> supabase/seed/011_reference_fossil_mineral_seed.sql (run after this file).
 -- Access: owner-only read (same rule as 010); the service role bypasses RLS; no write policy (service role writes).

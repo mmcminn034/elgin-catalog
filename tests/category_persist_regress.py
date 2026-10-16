@@ -1,8 +1,13 @@
+import os
 import json, sys
 from playwright.sync_api import sync_playwright
 U=sys.argv[1] if len(sys.argv)>1 else "http://localhost:8765/"; TAG=sys.argv[2] if len(sys.argv)>2 else "after"
 O=f"/workspace/elgin-catalog-previews/s3-category-{TAG}-"; errs=[]; fails=[]
-seed=json.load(open("/tmp/ec/data/catalog.json"))
+# Fixture: ELG-007 in its pre-2026-10-16 state (an artifact pebble with a recategorize suggestion). The live data moved it to Rocks in the re-review.
+seed=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","data","catalog.json")))
+for _r in seed:
+    if _r["catalog_id"]=="ELG-007": _r.update(category="artifact", object_type="Pebble", suggestion_1="Natural creek pebble", category_note="", category_history=[]); _r.pop("category_kept",None)
+def route_seed(ctx): ctx.route("**/data/catalog.json*", lambda r: r.fulfill(status=200, content_type="application/json", body=json.dumps(seed)))
 def cloud_rows(cat="artifact", hist=None):
     out=[]
     for r in seed:
@@ -30,7 +35,7 @@ with sync_playwright() as p:
     pg.on("console", lambda m: m.type=="error" and errs.append(m.text)); pg.on("pageerror", lambda e: errs.append(str(e)))
     # Phase 1: signed-in but cloud sync off (mock) -> move must WARN visibly, not silently stay local
     ctx.add_init_script("window.ROLLING_OAK_MOCK={user:{id:'u1',email:'mark@example.com'},online:false}")
-    ctx.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]"))
+    ctx.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]")); route_seed(ctx)
     pg.goto(U); pg.wait_for_selector(".card"); pg.evaluate("document.querySelector('.card[data-id=\"ELG-007\"]').click()"); pg.wait_for_timeout(400)
     pg.screenshot(path=O+"1-banner.png")
     pg.click("[data-recat=move]"); pg.wait_for_timeout(700)
@@ -45,7 +50,7 @@ with sync_playwright() as p:
     # Phase 2: keep IndexedDB (same profile), now a REAL cloud pull returns stale artifact rows + seed refresh + SW update
     ctx2=b.new_context(viewport={"width":1280,"height":900}); pg=ctx2.new_page()
     pg.on("console", lambda m: m.type=="error" and errs.append(m.text)); pg.on("pageerror", lambda e: errs.append(str(e)))
-    route_cloud(ctx2, cloud_rows("artifact"))
+    route_cloud(ctx2, cloud_rows("artifact")); route_seed(ctx2)
     pg.goto(U); pg.wait_for_selector(".card")
     # move with real (unauthenticated) client, then reload with stale cloud data
     pg.evaluate("document.querySelector('.card[data-id=\"ELG-007\"]').click()"); pg.wait_for_timeout(400); pg.click("[data-recat=move]"); pg.wait_for_timeout(600); pg.keyboard.press("Escape")
