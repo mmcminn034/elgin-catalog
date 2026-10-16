@@ -388,7 +388,8 @@
   function renderModel() { $("#modelPanel").innerHTML = Analysis.panelHtml();
     $("#exLearn").onclick = () => download("learned-examples.json", Analysis.exportJSON(), "application/json");
     $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
-  function route() { const v = (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], view = ["catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find", "discover", "review", "library", "settings"].includes(v) ? v : "catalog";
+  function route() { const h = location.hash, home = !h || h === "#" || h === "#/", signed = !!(window.Cloud && Cloud.state && Cloud.state().user); // no hash: signed-out visitors land on Home, signed-in users on the catalog
+    const v = (h.match(/^#\/(\w+)/) || [, home && !signed ? "home" : "catalog"])[1], view = ["home", "catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find", "discover", "review", "library", "settings"].includes(v) ? v : "catalog";
     const param = (location.hash.match(/^#\/\w+\/([\w-]+)/) || [])[1];
     if (v === "record" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
     if (v === "find" && current) { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; }
@@ -397,7 +398,7 @@
     if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
     if (view === "about" && window.Analysis) { renderModel(); if (window.Learn) Learn.renderAbout(); }
     if (window.Features) Features.render(view, param);
-    document.title = { catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection", find: "Find", discover: "Discover public finds", review: "Review queue", library: "Reference Library", settings: "Settings" }[view] + " — " + (window.Brand ? Brand.name() : "Rolling Oak Catalog"); if (view === "find" && window.Learn) Promise.resolve(Learn.renderPublic(param)).then(() => window.S2 && S2.afterPublic(param)); if (window.S2) S2.render(view); }
+    document.title = { home: "Discover. Catalog. Preserve.", catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", c: "Collection", find: "Find", discover: "Discover public finds", review: "Review queue", library: "Reference Library", settings: "Settings" }[view] + " — " + (window.Brand ? Brand.name() : "Rolling Oak Catalog"); if (view === "find" && window.Learn) Promise.resolve(Learn.renderPublic(param)).then(() => window.S2 && S2.afterPublic(param)); if (window.S2) S2.render(view); }
   window.addEventListener("hashchange", () => { if (/^#\/record\//.test(location.hash)) { const id = location.hash.split("/")[2]; route(); if (!current || current.catalog_id !== id) openModal(id); return; }
     if (location.hash === "#browse") { route(); $("#browse").focus({ preventScroll: true }); $("#browse").scrollIntoView({ behavior: "smooth" }); return; } route(); $("#main").focus({ preventScroll: true }); window.scrollTo(0, 0); });
   function setTheme(t) { document.documentElement.dataset.theme = t; $("#themeToggle").setAttribute("aria-pressed", t === "dark"); $("#themeToggle").textContent = t === "dark" ? "☀ Light mode" : "☾ Dark mode"; try { localStorage.setItem("elgin-theme", t); } catch {} }
@@ -435,7 +436,7 @@
     let saved; try { saved = localStorage.getItem("elgin-theme"); } catch {}
     setTheme(saved || "dark"); // dark is the default theme
     route(); drawThumbs(); applyKind(); showStep(0);
-    if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); }
+    if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); route(); /* re-route now the session is known (no-hash Home vs catalog) */ }
     const cloudRows = window.Cloud ? await Cloud.loadFinds() : null;
     let json = [];
     try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); json = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }

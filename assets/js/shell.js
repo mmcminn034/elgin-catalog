@@ -26,6 +26,7 @@
   function run() { if (busy) return; busy = true; try {
       const pub = !signedIn(); body.classList.toggle("is-public", pub); body.classList.toggle("signed-in", !pub); body.classList.toggle("public-route", PUBLIC_ROUTES.has(route()));
       document.querySelectorAll("[data-public-only]").forEach(el => el.hidden = !pub); document.querySelectorAll("[data-owner-only]").forEach(el => el.hidden = pub);
+      document.querySelectorAll("a.side-brand, a.brand").forEach(a => a.setAttribute("href", pub ? "#/home" : "#/catalog")); // logo goes Home when signed out
       scope().forEach(r => clean(r, true));
       if (!pub) document.querySelectorAll("#main, #modal, .site-header").forEach(r => clean(r, false)); // Elgin text only, owner views keep IDs
     } finally { busy = false; } }

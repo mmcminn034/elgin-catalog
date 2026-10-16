@@ -36,7 +36,7 @@ with sync_playwright() as p:
     # Phase 1: signed-in but cloud sync off (mock) -> move must WARN visibly, not silently stay local
     ctx.add_init_script("window.ROLLING_OAK_MOCK={user:{id:'u1',email:'mark@example.com'},online:false}")
     ctx.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]")); route_seed(ctx)
-    pg.goto(U); pg.wait_for_selector(".card"); pg.evaluate("document.querySelector('.card[data-id=\"ELG-007\"]').click()"); pg.wait_for_timeout(400)
+    pg.goto(U + "#/catalog"); pg.wait_for_selector(".card"); pg.evaluate("document.querySelector('.card[data-id=\"ELG-007\"]').click()"); pg.wait_for_timeout(400)
     pg.screenshot(path=O+"1-banner.png")
     pg.click("[data-recat=move]"); pg.wait_for_timeout(700)
     pg.screenshot(path=O+"2-after-move-toast.png")
@@ -51,7 +51,7 @@ with sync_playwright() as p:
     ctx2=b.new_context(viewport={"width":1280,"height":900}); pg=ctx2.new_page()
     pg.on("console", lambda m: m.type=="error" and errs.append(m.text)); pg.on("pageerror", lambda e: errs.append(str(e)))
     route_cloud(ctx2, cloud_rows("artifact")); route_seed(ctx2)
-    pg.goto(U); pg.wait_for_selector(".card")
+    pg.goto(U + "#/catalog"); pg.wait_for_selector(".card")
     # move with real (unauthenticated) client, then reload with stale cloud data
     pg.evaluate("document.querySelector('.card[data-id=\"ELG-007\"]').click()"); pg.wait_for_timeout(400); pg.click("[data-recat=move]"); pg.wait_for_timeout(600); pg.keyboard.press("Escape")
     pg.reload(); pg.wait_for_selector(".card"); chk("stale cloud pull", kind(pg), "Rocks")
@@ -67,7 +67,7 @@ with sync_playwright() as p:
     ctx3=b.new_context(viewport={"width":1280,"height":900}); pg=ctx3.new_page()
     pg.on("console", lambda m: m.type=="error" and errs.append(m.text)); pg.on("pageerror", lambda e: errs.append(str(e)))
     route_cloud(ctx3, cloud_rows("rock", [{"from":"artifact","to":"rock","date":"2026-10-13","ts":"2026-10-13T14:00:00.000Z","reason":"owner confirmed"}]))
-    pg.goto(U); pg.wait_for_selector(".card")
+    pg.goto(U + "#/catalog"); pg.wait_for_selector(".card")
     pg.evaluate("""() => new Promise(res => { const q = indexedDB.open('elgin-catalog'); q.onsuccess = () => { const db = q.result; const st = db.objectStoreNames[0]; const t = db.transaction(st,'readwrite');
       t.objectStore(st).put({catalog_id:'ELG-007', category:'artifact', object_type:'Pebble', notes:'old edit', category_history:[]}); t.oncomplete = () => res(); }; })""")
     pg.reload(); pg.wait_for_selector(".card"); chk("stale local copy vs newer cloud", kind(pg), "Rocks")

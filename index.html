@@ -21,9 +21,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
-<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.0">
-<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.0">
-<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.0">
+<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.1">
+<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.1">
+<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.1">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -83,18 +83,23 @@
 
 <div class="app-shell">
 <main id="main" class="wrap" tabindex="-1">
-  <!-- CATALOG -->
-  <section id="view-catalog" class="view" aria-labelledby="cat-h">
-    <div class="landing" id="landing" data-public-only>
+  <!-- HOME (landing) -->
+  <section id="view-home" class="view home-view" aria-labelledby="home-h" hidden>
+    <div class="landing" id="landing">
       <picture class="landing-logo"><source media="(max-width:640px)" srcset="assets/brand/logo-dark-stacked.webp" type="image/webp"><source srcset="assets/brand/icon.webp" type="image/webp"><img src="assets/brand/icon-512.png" alt="UnEarthed Finds logo" width="320" height="320"></picture>
       <div class="landing-txt">
-        <h1 id="cat-h" class="landing-word">UnEarthed Finds</h1>
+        <h1 id="home-h" class="landing-word">UnEarthed Finds</h1>
         <p class="landing-tag">Discover. Catalog. Preserve.</p>
         <p class="landing-sub">Artifacts, fossils, rocks and minerals from anywhere in the world.</p>
         <div class="landing-cta"><button type="button" class="btn lg warm-solid" data-auth-open="signin">Sign in</button><button type="button" class="btn lg warm-outline" data-auth-open="signup">Create account</button></div>
+        <p class="landing-explore"><a href="#/discover">Explore finds →</a></p>
       </div>
     </div>
-    <h1 class="owner-h" data-owner-only hidden>Your catalog</h1>
+    <p class="privacy-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg> Exact find locations stay private and are never shown publicly.</p>
+  </section>
+  <!-- CATALOG -->
+  <section id="view-catalog" class="view" aria-labelledby="cat-h">
+    <h1 class="owner-h" id="cat-h">Your catalog</h1>
     <div class="knap" aria-hidden="true"></div>
     <h2 class="sec-h" id="browse" tabindex="-1">The collection</h2>
     <div class="ctabs" role="tablist" aria-label="Collections">
@@ -116,7 +121,6 @@
     </div>
     <p class="count" id="count" aria-live="polite"></p>
     <div class="grid" id="grid"></div>
-    <p class="privacy-note" data-public-only><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg> Exact find locations stay private and are never shown publicly.</p>
   </section>
 
   <!-- WIZARD -->
@@ -399,24 +403,24 @@
 </nav>
 <footer class="site-footer"><div class="wrap"><span class="foot-owner">© 2026 PolForge, LLC</span> · <span data-brand="{name}">UnEarthed Finds</span> · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
-<script src="assets/js/config.js?v=ro-v9.0" defer></script>
-<script src="assets/js/brand.js?v=ro-v9.0" defer></script>
-<script src="assets/js/cloud.js?v=ro-v9.0" defer></script>
-<script src="assets/js/score.js?v=ro-v9.0" defer></script>
-<script src="assets/js/prompt.js?v=ro-v9.0" defer></script>
-<script src="assets/js/analysis.js?v=ro-v9.0" defer></script>
-<script src="assets/js/marks.js?v=ro-v9.0" defer></script>
-<script src="assets/js/retrieve.js?v=ro-v9.0" defer></script>
-<script src="assets/js/learning.js?v=ro-v9.0" defer></script>
-<script src="assets/js/region.js?v=ro-v9.0" defer></script>
-<script src="assets/js/corrections.js?v=ro-v9.0" defer></script>
-<script src="assets/js/features.js?v=ro-v9.0" defer></script>
-<script src="assets/js/stage2.js?v=ro-v9.0" defer></script>
-<script src="assets/js/s5.js?v=ro-v9.0" defer></script>
-<script src="assets/js/auth-options.js?v=ro-v9.0" defer></script>
-<script src="assets/js/app.js?v=ro-v9.0" defer></script>
-<script src="assets/js/nav.js?v=ro-v9.0" defer></script>
-<script src="assets/js/redesign.js?v=ro-v9.0" defer></script>
-<script src="assets/js/shell.js?v=ro-v9.0" defer></script>
+<script src="assets/js/config.js?v=ro-v9.1" defer></script>
+<script src="assets/js/brand.js?v=ro-v9.1" defer></script>
+<script src="assets/js/cloud.js?v=ro-v9.1" defer></script>
+<script src="assets/js/score.js?v=ro-v9.1" defer></script>
+<script src="assets/js/prompt.js?v=ro-v9.1" defer></script>
+<script src="assets/js/analysis.js?v=ro-v9.1" defer></script>
+<script src="assets/js/marks.js?v=ro-v9.1" defer></script>
+<script src="assets/js/retrieve.js?v=ro-v9.1" defer></script>
+<script src="assets/js/learning.js?v=ro-v9.1" defer></script>
+<script src="assets/js/region.js?v=ro-v9.1" defer></script>
+<script src="assets/js/corrections.js?v=ro-v9.1" defer></script>
+<script src="assets/js/features.js?v=ro-v9.1" defer></script>
+<script src="assets/js/stage2.js?v=ro-v9.1" defer></script>
+<script src="assets/js/s5.js?v=ro-v9.1" defer></script>
+<script src="assets/js/auth-options.js?v=ro-v9.1" defer></script>
+<script src="assets/js/app.js?v=ro-v9.1" defer></script>
+<script src="assets/js/nav.js?v=ro-v9.1" defer></script>
+<script src="assets/js/redesign.js?v=ro-v9.1" defer></script>
+<script src="assets/js/shell.js?v=ro-v9.1" defer></script>
 </body>
 </html>

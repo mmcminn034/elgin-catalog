@@ -12,7 +12,7 @@ with sync_playwright() as p:
     b = p.chromium.launch(executable_path='/usr/bin/google-chrome'); ctx = b.new_context(); pg = ctx.new_page()
     ctx.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]"))
     pg.on("pageerror", lambda e: errs.append(str(e)))
-    pg.goto(U); pg.wait_for_selector(".card")
+    pg.goto(U + "#/catalog"); pg.wait_for_selector(".card")
     rows = [{"length_source": a, "width_source": a, "thickness_source": a, "weight_source": a, "heat_treatment": h, "visibility": v, "material": ""} for a, h, v in itertools.product(vals, heat, vis)]
     out = pg.evaluate("rows => rows.map(r => Cloud.normalizeRow({...r}))", rows)
     for i, o in zip(rows, out):

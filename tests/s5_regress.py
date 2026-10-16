@@ -13,7 +13,7 @@ DISC = [{"catalog_id": "ELG-001", "category": "artifact", "object_type": "Stemme
 def page(b, mock, w=1280, h=900):
     ctx = b.new_context(viewport={"width": w, "height": h}); pg = ctx.new_page(); pg.on("pageerror", lambda e: errs.append(str(e)))
     pg.add_init_script("window.ROLLING_OAK_MOCK=" + json.dumps(mock)); pg.add_init_script("window.confirm=()=>true")
-    pg.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]")); pg.goto(U); pg.wait_for_selector(".card"); pg.wait_for_timeout(900); return ctx, pg
+    pg.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]")); pg.goto(U + "#/catalog"); pg.wait_for_selector(".card"); pg.wait_for_timeout(900); return ctx, pg
 def rec(pg, id, k="status"): return pg.evaluate(f"(App.all.find(x=>x.catalog_id==='{id}')||{{}})['{k}']")
 def openr(pg, id, tab=0):
     pg.goto(U + "#/record/" + id); pg.wait_for_selector("#modal:not([hidden])"); pg.wait_for_timeout(300)

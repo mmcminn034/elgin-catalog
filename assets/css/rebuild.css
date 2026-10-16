@@ -72,3 +72,7 @@ body.is-public .cid-big,body.is-public #mId,body.is-public .id-pill,body.public-
 .landing-cta .btn{display:inline-flex;align-items:center;justify-content:center;text-align:center}
 @media (max-width:640px){.landing{background:#171717}}
 @media (max-width:900px){.site-header .tb-user{display:none!important}body:has(#modal:not([hidden])) .bottom-nav,body:has(dialog[open]) .bottom-nav{display:none}}
+/* Home (landing) route */
+.home-view .landing{min-height:min(72vh,640px);margin-top:28px}
+.landing-explore{margin:1.4em 0 0}.landing-explore a{color:#f3d3a4;font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.home-view .privacy-note{margin-top:28px}
