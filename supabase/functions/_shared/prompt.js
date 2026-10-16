@@ -47,7 +47,8 @@ Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate le
     }).filter(x => x.score >= 2 && (x.hits >= 2 || /^(name or alias|among the rules)/.test(x.why[0] || ""))).sort((a, b) => b.score - a.score).slice(0, k);
   }
   const refBrief = x => ({ id: x.entry.id, name: x.entry.name, typology_system: x.entry.typology_system, period: x.entry.period, dates: x.entry.dates, region: [x.entry.continent, (x.entry.admin1 || []).slice(0, 8).join(", ")].filter(Boolean).join(": "),
-    length_mm: x.entry.length_mm, width_mm: x.entry.width_mm, thickness_mm: x.entry.thickness_mm, traits: x.entry.traits, similar: (x.entry.similar || []).slice(0, 6), why_retrieved: x.why,
+    length_mm: x.entry.length_mm, width_mm: x.entry.width_mm, thickness_mm: x.entry.thickness_mm, traits: x.entry.traits, similar: (x.entry.similar || x.entry.similar_types || []).slice(0, 6), why_retrieved: x.why,
+    diagnostic: x.entry.diagnostic ? String(x.entry.diagnostic).slice(0, 300) : undefined, formations: x.entry.formations, age_ma: x.entry.age_ma, properties: x.entry.properties, lookalikes: x.entry.lookalikes, localities: x.entry.localities, group: x.entry.group,
     source: (x.entry.sources || []).map(s => `${s.name} <${s.url}> (retrieved ${s.retrieved}; ${s.license})`).join(" | ") });
   /* user message text (everything except the image parts, which follow in order) */
   function buildUserText(ctx, nPhotos) {
