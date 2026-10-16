@@ -433,7 +433,7 @@
   /* ---------- boot ---------- */
   (async () => {
     let saved; try { saved = localStorage.getItem("elgin-theme"); } catch {}
-    setTheme(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+    setTheme(saved || "dark"); // dark is the default theme
     route(); drawThumbs(); applyKind(); showStep(0);
     if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); }
     const cloudRows = window.Cloud ? await Cloud.loadFinds() : null;

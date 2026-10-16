@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-brand="{name} — {tagline}">UnEarthed Finds — AI-Powered Catalog Tool</title>
+<title data-brand="{name} — {motto}">UnEarthed Finds — Discover. Catalog. Preserve.</title>
 <meta name="description" content="UnEarthed Finds, the AI-Powered Catalog Tool: a research catalog of artifacts, fossils, rocks and minerals from anywhere in the world. AI suggestions are possibilities, not identifications.">
 <meta property="og:title" content="UnEarthed Finds" data-brand="{name}" data-brand-attr="content">
-<meta property="og:description" content="AI-Powered Catalog Tool: documenting artifacts, fossils and rocks, one find at a time.">
+<meta property="og:description" content="Discover. Catalog. Preserve. Artifacts, fossils, rocks and minerals from anywhere in the world.">
 <meta name="application-name" content="UnEarthed Finds" data-brand="{name}" data-brand-attr="content">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/brand/icon-32.png" type="image/png" sizes="32x32"><link rel="icon" href="assets/brand/icon-16.png" type="image/png" sizes="16x16">
@@ -21,8 +21,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
-<link rel="stylesheet" href="assets/css/styles.css?v=ro-v8.17">
-<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v8.17">
+<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.0">
+<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.0">
+<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.0">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -31,7 +32,7 @@
   <nav aria-label="Main sections" class="side-main">
     <a href="#/catalog" data-route="catalog"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5L12 3zM3 7.5V16.5L12 21l9-4.5V7.5M12 12v9"/></svg>Catalog</a>
     <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg>Review</a>
-    <a href="#/add" data-route="add"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add find</a>
+    <a href="#/add" data-route="add"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add Find</a>
     <a href="#/library" data-route="library" class="needs-admin" hidden><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 15h7"/></svg>Reference Library</a>
     <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</a>
   </nav>
@@ -42,11 +43,12 @@
   <div class="side-foot"><button type="button" class="side-theme" data-theme-toggle aria-pressed="false">☾ Dark mode</button></div>
   <div class="side-loc" role="note"><svg viewBox="0 0 24 24" class="lock" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg><span><strong>Location</strong><br>Private</span><svg viewBox="0 0 24 24" class="shield" aria-label="Protected"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none"/></svg></div>
   <p class="side-note">Exact find spots stay in an owner-only table and are never shown publicly.</p>
+  <p class="side-copy">© 2026 PolForge, LLC</p>
 </aside>
 <header class="site-header">
   <div class="wrap header-row">
     <a class="brand" href="#/catalog" aria-label="UnEarthed Finds home" data-brand="{name} home" data-brand-attr="aria-label">
-      <picture><source srcset="assets/brand/icon.webp" type="image/webp"><img class="lockup-icon" src="assets/brand/icon.png" alt="" width="36" height="36"></picture><span class="brand-txt" data-brand="{name}">UnEarthed Finds</span>
+      <picture><source srcset="assets/brand/icon.webp" type="image/webp"><img class="lockup-icon" src="assets/brand/icon.png" alt="" width="36" height="36"></picture><span class="brand-stack"><span class="brand-txt" data-brand="{name}">UnEarthed Finds</span><span class="brand-tag">Discover. Catalog. Preserve.</span></span>
     </a>
     <div class="tb-head"><span class="tb-title" id="tbTitle">Catalog</span><span class="id-pill" id="tbId" hidden></span></div>
     <a class="btn primary add-cta" href="#/add" aria-label="Add find"><span aria-hidden="true">＋</span><span class="add-txt"> Add find</span></a>
@@ -83,16 +85,16 @@
 <main id="main" class="wrap" tabindex="-1">
   <!-- CATALOG -->
   <section id="view-catalog" class="view" aria-labelledby="cat-h">
-    <div class="hero">
-      <img class="hero-bg" src="images/ELG-001/01.jpg" alt="ELG-001, a long stemmed dart point of cream and tan chert, front view">
-      <div class="hero-text">
-        <p class="kicker" data-brand="{home}" data-home-only hidden></p><p class="kicker brand-motto" data-brand="{motto}">Discover. Catalog. Preserve.</p>
-        <h1 id="cat-h" data-brand-split>UnEarthed <span class="grad">Finds</span></h1>
-        <p class="hero-sub">Artifacts, fossils, rocks and minerals from anywhere in the world: documented carefully, one find at a time.</p>
-        <div class="hero-cta"><a class="btn primary lg" href="#browse">Browse finds</a><a class="btn lg glass" href="#/add">Add a find</a><a class="btn lg glass" href="#/timeline">Explore deep time</a></div>
+    <div class="landing" id="landing" data-public-only>
+      <picture class="landing-logo"><source media="(max-width:640px)" srcset="assets/brand/logo-dark-stacked.webp" type="image/webp"><source srcset="assets/brand/icon.webp" type="image/webp"><img src="assets/brand/icon-512.png" alt="UnEarthed Finds logo" width="320" height="320"></picture>
+      <div class="landing-txt">
+        <h1 id="cat-h" class="landing-word">UnEarthed Finds</h1>
+        <p class="landing-tag">Discover. Catalog. Preserve.</p>
+        <p class="landing-sub">Artifacts, fossils, rocks and minerals from anywhere in the world.</p>
+        <div class="landing-cta"><button type="button" class="btn lg warm-solid" data-auth-open="signin">Sign in</button><button type="button" class="btn lg warm-outline" data-auth-open="signup">Create account</button></div>
       </div>
-      <p class="hero-cap">ELG-001 · stemmed dart point, front view</p>
     </div>
+    <h1 class="owner-h" data-owner-only hidden>Your catalog</h1>
     <div class="knap" aria-hidden="true"></div>
     <h2 class="sec-h" id="browse" tabindex="-1">The collection</h2>
     <div class="ctabs" role="tablist" aria-label="Collections">
@@ -114,6 +116,7 @@
     </div>
     <p class="count" id="count" aria-live="polite"></p>
     <div class="grid" id="grid"></div>
+    <p class="privacy-note" data-public-only><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg> Exact find locations stay private and are never shown publicly.</p>
   </section>
 
   <!-- WIZARD -->
@@ -387,25 +390,33 @@
   <p class="help">🔒 Exact find locations are stored only in an owner-only table and are never shown publicly.</p></div></dialog>
 <dialog id="aiDlg" aria-labelledby="aiH"><div class="auth-card ai-card"><div class="modal-head"><h2 id="aiH">AI photo analysis</h2><button class="btn ghost icon" id="aiClose" aria-label="Close">✕</button></div><div id="aiBody"></div></div></dialog>
 <div id="printArea" aria-hidden="true"></div>
-<footer class="site-footer"><div class="wrap"><span data-brand="{name} · {tagline} · © 2026 {owner}">UnEarthed Finds · AI-Powered Catalog Tool · © 2026 PolForge, LLC</span> · MIT License · Research suggestions only, not identifications.</div></footer>
+<nav class="bottom-nav" aria-label="Quick navigation">
+  <a href="#/catalog" data-route="catalog"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.5 12 12l9-4.5L12 3zM3 7.5V16.5L12 21l9-4.5V7.5M12 12v9"/></svg><span>Catalog</span></a>
+  <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg><span>Review</span></a>
+  <a href="#/add" data-route="add" class="bn-add"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add Find</span></a>
+  <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
+  <button type="button" data-open-menu aria-controls="navMenu" aria-label="More pages"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span>More</span></button>
+</nav>
+<footer class="site-footer"><div class="wrap"><span class="foot-owner">© 2026 PolForge, LLC</span> · <span data-brand="{name}">UnEarthed Finds</span> · MIT License · Research suggestions only, not identifications.</div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
-<script src="assets/js/config.js?v=ro-v8.17" defer></script>
-<script src="assets/js/brand.js?v=ro-v8.17" defer></script>
-<script src="assets/js/cloud.js?v=ro-v8.17" defer></script>
-<script src="assets/js/score.js?v=ro-v8.17" defer></script>
-<script src="assets/js/prompt.js?v=ro-v8.17" defer></script>
-<script src="assets/js/analysis.js?v=ro-v8.17" defer></script>
-<script src="assets/js/marks.js?v=ro-v8.17" defer></script>
-<script src="assets/js/retrieve.js?v=ro-v8.17" defer></script>
-<script src="assets/js/learning.js?v=ro-v8.17" defer></script>
-<script src="assets/js/region.js?v=ro-v8.17" defer></script>
-<script src="assets/js/corrections.js?v=ro-v8.17" defer></script>
-<script src="assets/js/features.js?v=ro-v8.17" defer></script>
-<script src="assets/js/stage2.js?v=ro-v8.17" defer></script>
-<script src="assets/js/s5.js?v=ro-v8.17" defer></script>
-<script src="assets/js/auth-options.js?v=ro-v8.17" defer></script>
-<script src="assets/js/app.js?v=ro-v8.17" defer></script>
-<script src="assets/js/nav.js?v=ro-v8.17" defer></script>
-<script src="assets/js/redesign.js?v=ro-v8.17" defer></script>
+<script src="assets/js/config.js?v=ro-v9.0" defer></script>
+<script src="assets/js/brand.js?v=ro-v9.0" defer></script>
+<script src="assets/js/cloud.js?v=ro-v9.0" defer></script>
+<script src="assets/js/score.js?v=ro-v9.0" defer></script>
+<script src="assets/js/prompt.js?v=ro-v9.0" defer></script>
+<script src="assets/js/analysis.js?v=ro-v9.0" defer></script>
+<script src="assets/js/marks.js?v=ro-v9.0" defer></script>
+<script src="assets/js/retrieve.js?v=ro-v9.0" defer></script>
+<script src="assets/js/learning.js?v=ro-v9.0" defer></script>
+<script src="assets/js/region.js?v=ro-v9.0" defer></script>
+<script src="assets/js/corrections.js?v=ro-v9.0" defer></script>
+<script src="assets/js/features.js?v=ro-v9.0" defer></script>
+<script src="assets/js/stage2.js?v=ro-v9.0" defer></script>
+<script src="assets/js/s5.js?v=ro-v9.0" defer></script>
+<script src="assets/js/auth-options.js?v=ro-v9.0" defer></script>
+<script src="assets/js/app.js?v=ro-v9.0" defer></script>
+<script src="assets/js/nav.js?v=ro-v9.0" defer></script>
+<script src="assets/js/redesign.js?v=ro-v9.0" defer></script>
+<script src="assets/js/shell.js?v=ro-v9.0" defer></script>
 </body>
 </html>
