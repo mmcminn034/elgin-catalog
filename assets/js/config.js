@@ -3,7 +3,7 @@
 window.ROLLING_OAK_BRAND = {"name": "UnEarthed Finds", "short": "UnEarthed", "motto": "Discover. Catalog. Preserve.", "tagline": "AI-Powered Catalog Tool", "homeLabel": "", "homeAdmin1": "Texas", "homeRegion": "bastrop-tx", "owner": "PolForge, LLC"};
 window.ROLLING_OAK_CLOUD = {
   schema008: true,
-  schema012: false, // set true only after supabase/migrations/012_membership_v1.sql is applied (plans, UF public ids, experts, merch, AI cap)
+  schema012: true, // set true only after supabase/migrations/012_membership_v1.sql is applied (plans, UF public ids, experts, merch, AI cap)
   membership: { free_private_limit: 5, ai_daily_cap: 50, lapse_grace_days: 7, free_expert_questions_month: 3 }, // UI defaults; the database app_config table is the source of truth once 012 is applied
   checkoutEnabled: false, // Stripe not connected: checkout buttons say "Coming soon". Set true after deploying create-checkout + stripe-webhook with Stripe secrets. // set true only after supabase/migrations/008_status_discover_measure.sql is applied (show_on_discover, measure_refs columns)
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",

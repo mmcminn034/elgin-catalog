@@ -54,3 +54,10 @@ The owner account (`app_config.owner_user_id`) is always Lifetime and admin.
    - set `checkoutEnabled: true`.
 
 Rollback: run `012_membership_v1_down.sql`, which restores the 008/011 shapes and maps annual/lifetime back to `member`.
+
+## Production notes (applied 2026-10-16)
+- Migration 012 was applied to production on 2026-10-16; `schema012: true` in config.js since ro-v9.5. Rollback: `supabase/migrations/012_membership_v1_down.sql`, then set `schema012: false` and bump. Pre-migration backup: tag `backup/pre-membership-2026-10-16` plus table exports in /workspace/backups/pre-membership-2026-10-16/.
+- **Legacy members-collection rule (`uf_eligible`)**: a find marked public that sits in a legacy `members`-visibility catalog (Rolling Oak) gets a UF id only if it is on Discover (`show_on_discover`). That kept anonymous exposure exactly as before: only the 4 Discover finds have UF ids.
+- **The finds read policy and `can_view_find` are unchanged.** Anonymous users still read 0 rows from `finds`. Public items are served only through `public_find(p_uf)` (curated columns, no owner, catalog or location) and the `discover_finds` view.
+- Changing a catalog's visibility re-evaluates its finds' UF ids through the `collections_zz_vis_cascade` trigger.
+- Known limitation: `catalog_id` (ELG-NNN) is a global primary key generated on the client, so two users can collide. This needs per-user prefixes before opening sign-ups widely.
