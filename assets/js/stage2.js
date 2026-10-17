@@ -122,7 +122,7 @@
     $$("[data-del]", host).forEach(b => b.onclick = async () => { if (!confirm("Delete this comment?")) return; await Cloud.deleteComment(b.closest("li").dataset.id); renderComments(host, r); }); }
 
   /* ---------- Discover ---------- */
-  const SAFE = ["catalog_id", "category", "object_type", "material", "era", "region", "suggestion_1", "suggestion_2", "suggestion_3", "confidence", "status", "key_features", "length_mm", "width_mm", "thickness_mm", "weight_g", "length_source", "width_source", "thickness_source", "weight_source", "measure_method", "thumb", "verified"];
+  const SAFE = ["catalog_id", "category", "object_type", "material", "era", "region", "suggestion_1", "suggestion_2", "suggestion_3", "confidence", "status", "key_features", "length_mm", "width_mm", "thickness_mm", "weight_g", "length_source", "width_source", "thickness_source", "weight_source", "measure_method", "thumb", "verified", "public_id", "title"];
   const safe = r => { const o = {}; SAFE.forEach(k => { if (r[k] != null) o[k] = r[k]; }); return o; };
   let dState = { q: "", region: "", kind: "", type: "", era: "", material: "", conf: "", page: 1 }, dData = null, dSrc = "";
   const PAGE = 12;
