@@ -21,9 +21,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
-<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.4">
-<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.4">
-<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.4">
+<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.5-m2">
+<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.5-m2">
+<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.5-m2">
+<link rel="stylesheet" href="assets/css/membership.css?v=ro-v9.5-m2">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -34,11 +35,15 @@
     <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg>Review</a>
     <a href="#/add" data-route="add"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add Find</a>
     <a href="#/library" data-route="library" class="needs-admin" hidden><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 15h7"/></svg>Reference Library</a>
+    <a href="#/experts" data-route="experts"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7M16.5 3.5l1 1.8 2 .3-1.5 1.4.4 2-1.9-1-1.9 1 .4-2-1.5-1.4 2-.3z"/></svg>Experts</a>
+    <a href="#/merch" data-route="merch"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c-.5 1.7-2 3-4 3S8.5 4.7 8 3z"/></svg>Merch</a>
+    <a href="#/membership" data-route="pricing"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17l-5.9 3.2 1.3-6.6L2.5 9l6.6-.8z"/></svg>Membership</a>
+    <a href="#/admin" data-route="admin" class="needs-admin" hidden><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="M9 12h6M12 9v6"/></svg>Owner admin</a>
     <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>Settings</a>
   </nav>
   <div class="side-group">
     <button type="button" class="side-explore" data-explore aria-expanded="false" aria-controls="sideExplore"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Explore<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
-    <nav aria-label="Explore" class="side-more" id="sideExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a><a href="#/labels" data-route="labels">Labels</a><a href="#/map" data-route="map" class="needs-editor" hidden>Map</a><a href="#/members" data-route="members" class="needs-user" hidden>Members</a><a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a><a href="#/pricing" data-route="pricing">Membership</a><a href="#/about" data-route="about">About &amp; legal</a></nav>
+    <nav aria-label="Explore" class="side-more" id="sideExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a><a href="#/labels" data-route="labels">Labels</a><a href="#/map" data-route="map" class="needs-editor" hidden>Map</a><a href="#/members" data-route="members" class="needs-user" hidden>Members</a><a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a><a href="#/about" data-route="about">About &amp; legal</a></nav>
   </div>
   <div class="side-foot"><button type="button" class="side-theme" data-theme-toggle aria-pressed="false">☾ Dark mode</button></div>
   <div class="side-loc" role="note"><svg viewBox="0 0 24 24" class="lock" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg><span><strong>Location</strong><br>Private</span><svg viewBox="0 0 24 24" class="shield" aria-label="Protected"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none"/></svg></div>
@@ -62,6 +67,10 @@
       <a href="#/review" data-route="review"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v13H4zM4 6l2-3h12l2 3M9 11h6"/></svg><span>Review</span></a>
       <a href="#/add" data-route="add"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add Find</span></a>
       <a href="#/library" data-route="library" class="needs-admin" hidden><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6zM15 3v4h4M9 11h7M9 15h7"/></svg><span>Reference Library</span></a>
+      <a href="#/experts" data-route="experts"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7M16.5 3.5l1 1.8 2 .3-1.5 1.4.4 2-1.9-1-1.9 1 .4-2-1.5-1.4 2-.3z"/></svg><span>Experts</span></a>
+      <a href="#/merch" data-route="merch"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c-.5 1.7-2 3-4 3S8.5 4.7 8 3z"/></svg><span>Merch</span></a>
+      <a href="#/membership" data-route="pricing"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17l-5.9 3.2 1.3-6.6L2.5 9l6.6-.8z"/></svg><span>Membership</span></a>
+      <a href="#/admin" data-route="admin" class="needs-admin" hidden><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="M9 12h6M12 9v6"/></svg><span>Owner admin</span></a>
       <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
       <button type="button" class="nav-item nav-explore" data-explore aria-expanded="false" aria-controls="navExplore"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span class="nx-l">Explore</span> <span class="chev" aria-hidden="true">▾</span></button>
       <div class="nav-sub" id="navExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a>
@@ -71,7 +80,7 @@
         <a href="#/map" data-route="map" class="needs-editor" hidden>Map</a>
         <a href="#/members" data-route="members" class="needs-user" hidden>Members</a>
         <a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a>
-        <a href="#/pricing" data-route="pricing">Membership</a>
+        
         <a href="#/about" data-route="about">About &amp; legal</a></div>
       <hr aria-hidden="true">
       <button type="button" id="menuAuth" class="nav-item">Sign in</button>
@@ -220,6 +229,12 @@
         </div>
       </fieldset>
       <fieldset class="step" data-step="5" hidden><legend>Review &amp; save</legend>
+        <div class="mem-save" id="memSave">
+          <label class="field"><span>Find name <span class="muted">(your display title)</span></span><input name="title" maxlength="120" placeholder="e.g. Creek-bed dart point" autocomplete="off"></label>
+          <div class="row"><label class="field grow"><span>Catalog</span><select name="collection_id" id="wizCatalog"><option value="">My finds</option></select></label>
+          <label class="field"><span>Visibility</span><select name="visibility" id="wizVis"><option value="private">🔒 Private</option><option value="public">🌐 Public</option></select></label></div>
+          <div id="wizGate" aria-live="polite"></div>
+        </div>
         <label class="field"><span>Owner observations &amp; corrections</span><textarea name="owner_observations" rows="3"></textarea></label>
         <label class="field"><span>Status</span><select name="status"><option>Draft</option><option>Reviewed</option></select></label>
         <div id="summary" class="summary"></div>
@@ -346,6 +361,11 @@
   <!-- PUBLIC COLLECTION -->
   <section id="view-c" class="view" aria-labelledby="col-h" hidden><div id="collectionBody"></div></section>
   <!-- PRICING -->
+  <section id="view-merch" class="view" aria-labelledby="merch-h" hidden><div id="merchBody"></div></section>
+  <section id="view-experts" class="view" aria-labelledby="exp-h" hidden><div id="expertsBody"></div></section>
+  <section id="view-catalogs" class="view" aria-labelledby="cats-h" hidden><div id="catalogsBody"></div></section>
+  <section id="view-admin" class="view" aria-labelledby="adm-h" hidden><div id="adminBody"></div></section>
+  <section id="view-p" class="view" aria-label="Shared find" hidden><div id="sharedFind"></div></section>
   <section id="view-pricing" class="view" aria-labelledby="price-h" hidden><div id="pricingBody"></div></section>
   <!-- REVIEW QUEUE (redesign) -->
   <section id="view-review" class="view" aria-labelledby="rq-h" hidden><p class="kicker">Workflow</p><h1 id="rq-h">Review queue</h1><p class="lede">Finds that still need your review, with the rules engine's earned confidence.</p><div id="reviewBody"></div></section>
@@ -397,24 +417,25 @@
 <div id="printArea" aria-hidden="true"></div>
 <footer class="site-footer"><div class="wrap"><span class="foot-owner">© 2026 PolForge, LLC</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
-<script src="assets/js/config.js?v=ro-v9.4" defer></script>
-<script src="assets/js/brand.js?v=ro-v9.4" defer></script>
-<script src="assets/js/cloud.js?v=ro-v9.4" defer></script>
-<script src="assets/js/score.js?v=ro-v9.4" defer></script>
-<script src="assets/js/prompt.js?v=ro-v9.4" defer></script>
-<script src="assets/js/analysis.js?v=ro-v9.4" defer></script>
-<script src="assets/js/marks.js?v=ro-v9.4" defer></script>
-<script src="assets/js/retrieve.js?v=ro-v9.4" defer></script>
-<script src="assets/js/learning.js?v=ro-v9.4" defer></script>
-<script src="assets/js/region.js?v=ro-v9.4" defer></script>
-<script src="assets/js/corrections.js?v=ro-v9.4" defer></script>
-<script src="assets/js/features.js?v=ro-v9.4" defer></script>
-<script src="assets/js/stage2.js?v=ro-v9.4" defer></script>
-<script src="assets/js/s5.js?v=ro-v9.4" defer></script>
-<script src="assets/js/auth-options.js?v=ro-v9.4" defer></script>
-<script src="assets/js/app.js?v=ro-v9.4" defer></script>
-<script src="assets/js/nav.js?v=ro-v9.4" defer></script>
-<script src="assets/js/redesign.js?v=ro-v9.4" defer></script>
-<script src="assets/js/shell.js?v=ro-v9.4" defer></script>
+<script src="assets/js/config.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/brand.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/cloud.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/score.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/prompt.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/analysis.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/marks.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/retrieve.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/learning.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/region.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/corrections.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/features.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/membership.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/stage2.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/s5.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/auth-options.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/app.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/nav.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/redesign.js?v=ro-v9.5-m2" defer></script>
+<script src="assets/js/shell.js?v=ro-v9.5-m2" defer></script>
 </body>
 </html>

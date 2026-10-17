@@ -30,9 +30,16 @@ Deno.serve(async (req) => {
   const auth = req.headers.get("Authorization") || "";
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: auth } } });
   const { data: { user } } = await sb.auth.getUser(); if (!user) return json({ error: "Sign in required" }, 401);
-  const { data: prof } = await sb.from("profiles").select("membership, membership_expires").eq("id", user.id).single();
-  const active = prof?.membership === "member" && (!prof.membership_expires || new Date(prof.membership_expires) > new Date());
-  if (!active) return json({ error: "Supporter membership required for AI photo analysis" }, 402);
+  // Membership v1 (migration 012): AI identification is available on every plan. A per-account daily SAFETY cap (app_config.ai_daily_cap,
+  // default 50) is taken atomically in the database. Falls back to the pre-012 rule if the RPC does not exist yet (deploy order safety).
+  const { data: quota, error: qe } = await sb.rpc("ai_quota_take");
+  if (qe) {
+    const { data: prof } = await sb.from("profiles").select("membership, membership_expires").eq("id", user.id).single();
+    const active = ["member", "annual", "lifetime"].includes(String(prof?.membership)) && (!prof?.membership_expires || new Date(prof.membership_expires) > new Date());
+    if (!active) return json({ error: "Supporter membership required for AI photo analysis" }, 402);
+  } else if (quota && quota.allowed === false) {
+    return json({ error: "Daily AI limit reached for today. It resets at midnight UTC.", code: "ai_daily_cap", used: quota.used, cap: quota.cap }, 429);
+  }
 
   let body: { catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[] };
   try { body = await req.json(); } catch { return json({ error: "Invalid JSON" }, 400); }

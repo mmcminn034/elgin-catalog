@@ -1,0 +1,46 @@
+/* Membership v1 (preview): pricing tiers, gates, catalogs, merch, experts, admin, UF share page, lapse banner. Uses the theme tokens from styles/rebuild. */
+.pr-head{max-width:760px;margin:0 auto 18px;text-align:center}
+.pr-head h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(28px,4vw,44px);line-height:1.1;margin:.2em 0}
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1080px;margin:0 auto}
+@media (max-width:900px){.tiers{grid-template-columns:1fr;max-width:520px}}
+.tier{position:relative;border:1px solid var(--line);border-radius:16px;padding:22px 20px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
+.tier h2{margin:0;font-size:20px}
+.tier .price{margin:.2em 0 0;display:flex;align-items:baseline;gap:6px}.tier .amt{font-size:36px;font-weight:700}.tier .per{color:var(--muted)}
+.tier ul{list-style:none;padding:0;margin:10px 0 16px;display:grid;gap:8px;flex:1}
+.tier li{padding-left:24px;position:relative}.tier li::before{content:"✓";position:absolute;left:0;color:var(--sage);font-weight:700}
+.tier.feat{border:2px solid var(--accent);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.tier.current{outline:2px solid var(--sage);outline-offset:2px}
+.tier .plan-tag{position:absolute;top:-12px;right:16px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.tier .btn{width:100%;justify-content:center}
+.pr-faq{max-width:760px;margin:28px auto 0}.pr-faq dt{font-weight:700;margin-top:12px}.pr-faq dd{margin:4px 0 0}
+#checkoutMsg{text-align:center;min-height:1.4em}
+.gate-warn{border:1px solid #c2410c;background:rgba(194,65,12,.1);color:inherit;border-radius:10px;padding:10px 14px;margin:10px 0}
+.mem-save{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px;background:var(--surface)}
+.mem-dlg{max-width:520px;border:0;border-radius:16px;padding:22px;background:var(--surface);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.mem-dlg::backdrop{background:rgba(0,0,0,.5)}.mem-dlg h2{margin-top:0}.mem-dlg .row{gap:8px;flex-wrap:wrap;margin-top:12px}
+.m-card{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:16px 0;background:var(--surface)}
+.m-card h2{margin:0 0 10px;font-size:18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.m-form .row{gap:10px;flex-wrap:wrap}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}@media (max-width:900px){.exp-grid{grid-template-columns:1fr}}
+.exp-list,.q-list,.cat-list,.keep-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.q-list>li,.cat-row{border-top:1px solid var(--line);padding-top:10px}
+.q-list blockquote{margin:6px 0 0 0;padding:8px 12px;border-left:3px solid var(--sage);background:rgba(47,107,79,.08);border-radius:6px}
+.q-ph{width:72px;height:72px;object-fit:cover;border-radius:8px;margin:4px 6px 4px 0}
+.chip.prio{background:var(--accent);color:#fff}
+.vbadge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--sage)}
+.cat-main{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.cat-rename{margin-top:6px;gap:8px}
+.merch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.merch-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--surface)}.merch-card.draft{opacity:.75;border-style:dashed}
+.merch-card img,.merch-ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:grid;place-items:center;font-size:56px;background:rgba(127,127,127,.12)}
+.merch-empty{text-align:center;padding:40px 16px}
+.uf-chip{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+.lapse-banner{background:#7a1f12;color:#fff;padding:8px 0;font-size:14px}.lapse-banner a{color:#fff;text-decoration:underline}
+.card-sub{opacity:.8}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lock-note{display:block;margin-top:4px}
+.tier,.m-card,.mem-save,.merch-card,.mem-dlg{color:var(--ink)}
+.tier .plan-tag,.chip.prio{color:var(--accent-ink)}
+.tier.feat{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 10%,var(--surface)),var(--surface))}
+.tier .amt{font-family:var(--wm,Georgia,serif)}
+.tier .per{font-size:15px;white-space:nowrap}
+.q-list blockquote{background:var(--sage-bg)}

@@ -18,7 +18,7 @@ with sync_playwright() as p:
     chk("sidebar brand + subtitle + location card", "Discover. Catalog. Preserve." in pg.inner_text(".side-brand") and pg.locator(".side-loc .shield").count() == 1)
     chk("topbar user name + role", "Mark McMinn" in pg.inner_text("#tbUser") and "Owner" in pg.inner_text("#tbUser"), pg.inner_text("#tbUser").replace("\n", " "))
     for r in ["catalog", "review", "library", "settings"]: chk(f"sidebar link {r}", pg.locator(f".side-main a[data-route={r}]").count() == 1)
-    for r in ["discover", "pricing", "about", "timeline", "people", "labels"]: chk(f"link reachable {r}", pg.locator(f"a[href='#/{r}']").count() >= 1)
+    for r in ["discover", "pricing", "about", "timeline", "people", "labels"]: chk(f"link reachable {r}", pg.locator(f"a[href='#/{r}']").count() + (pg.locator("a[href='#/membership']").count() if r == "pricing" else 0) >= 1)  # membership v1: the pricing page link is #/membership (#/pricing still routes)
     chk("top bar keeps Add find + sign-in", pg.locator(".site-header .add-cta").count() == 1 and pg.locator("#authBtn").count() == 1)
     chk("disclaimer notice kept", "not identifications" in pg.inner_text(".notice"))
     chk("catalog filters kept", all(pg.locator(s).count() == 1 for s in ["#q", "#fStatus", "#fCat", "#fConf", "#exportCsv", "#inclPrivate"]))
