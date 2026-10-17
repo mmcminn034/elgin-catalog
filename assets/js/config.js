@@ -2,7 +2,10 @@
 /* Brand + locale: the ONE place to rename the app or change the home region. tools/gen_share_pages.py reads this block too. */
 window.ROLLING_OAK_BRAND = {"name": "UnEarthed Finds", "short": "UnEarthed", "motto": "Discover. Catalog. Preserve.", "tagline": "AI-Powered Catalog Tool", "homeLabel": "", "homeAdmin1": "Texas", "homeRegion": "bastrop-tx", "owner": "PolForge, LLC"};
 window.ROLLING_OAK_CLOUD = {
-  schema008: true, // set true only after supabase/migrations/008_status_discover_measure.sql is applied (show_on_discover, measure_refs columns)
+  schema008: true,
+  schema012: false, // set true only after supabase/migrations/012_membership_v1.sql is applied (plans, UF public ids, experts, merch, AI cap)
+  membership: { free_private_limit: 5, ai_daily_cap: 50, lapse_grace_days: 7, free_expert_questions_month: 3 }, // UI defaults; the database app_config table is the source of truth once 012 is applied
+  checkoutEnabled: false, // Stripe not connected: checkout buttons say "Coming soon". Set true after deploying create-checkout + stripe-webhook with Stripe secrets. // set true only after supabase/migrations/008_status_discover_measure.sql is applied (show_on_discover, measure_refs columns)
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
   bucket: "find-photos",
@@ -12,7 +15,6 @@ window.ROLLING_OAK_CLOUD = {
   defaultCollection: { slug: "rolling-oak", name: "Rolling Oak", description: "Artifacts, fossils, rocks and minerals, documented one find at a time.", owner_name: "PolForge, LLC" },
   defaultRegion: "Bastrop County, Texas", // public, county-level area shown for finds (never exact)
   freeFindLimit: 50,
-  membershipPrice: "$10/year",
   // Sign-in options: keep false until the provider is configured in Supabase (see docs/auth-setup.md)
   authGoogle: false,
   authPhone: false,

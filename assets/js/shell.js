@@ -8,7 +8,7 @@
   const signedIn = () => !!(window.Cloud && Cloud.state && Cloud.state().user);
   const route = () => (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1];
   const PUBLIC_ROUTES = new Set(["discover", "find"]);
-  const nameOf = id => { const r = window.App && App.all && App.all.find(x => x.catalog_id === id); return (r && (r.object_type || r.suggestion_1)) || "Find"; };
+  const nameOf = id => { const r = window.App && App.all && App.all.find(x => x.catalog_id === id); return (r && (r.title || r.object_type || r.suggestion_1)) || "Find"; };
   const ELGIN = [[/\s*\(Elgin area\)/g, ""], [/\bthe Elgin property\b/g, "the property"], [/\bnot an Elgin surface find\b/g, "not a local surface find"], [/\bElgin\b/g, "local"]];
   const fixText = (t, ids) => { let o = t; if (ids) o = o.replace(ID_RE, m => nameOf(m)); if (o.includes("Elgin")) ELGIN.forEach(([a, b]) => o = o.replace(a, b)); return o; };
   const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "INPUT", "SELECT", "OPTION", "NOSCRIPT"]);

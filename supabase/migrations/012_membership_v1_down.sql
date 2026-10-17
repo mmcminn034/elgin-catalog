@@ -1,7 +1,7 @@
 -- Down for 012 (preview). Restores the 008/011 shapes. Data in the new tables is dropped.
 begin;
 drop trigger if exists finds_zz_public_id on public.finds; drop trigger if exists collections_zz_public_id on public.collections;
-drop trigger if exists finds_zy_private_gate on public.finds; drop trigger if exists answers_mark on public.expert_answers;
+drop trigger if exists finds_zy_private_gate on public.finds; drop trigger if exists collections_zz_vis_cascade on public.collections; drop function if exists public.collection_vis_cascade(); drop function if exists public.uf_eligible(jsonb, text); drop trigger if exists answers_mark on public.expert_answers;
 drop function if exists public.ask_expert(text, text, jsonb); drop function if exists public.mark_question_answered();
 drop table if exists public.expert_answers, public.expert_questions, public.expert_invites, public.experts, public.products, public.ai_usage, public.membership_notices, public.plan_grants, public.public_ids cascade;
 drop function if exists public.admin_decide_expert(uuid, text, text); drop function if exists public.is_expert(uuid);

@@ -116,11 +116,22 @@ end $$;
 
 -- assigns/reactivates a UF id when an item or catalog becomes public; hides it (null) when it goes private again.
 -- The same UF id is reused if it is made public again, so old share links keep working.
+-- Eligibility for a UF id ("public on the web"):
+--   catalogs: visibility = 'public'.
+--   finds: visibility = 'public' AND (no catalog, or the catalog is not a legacy 'members' collection, or the find is shown on Discover).
+--   The legacy 'members' collection rule keeps today's exposure unchanged: a find marked public inside a members-only collection
+--   (Rolling Oak) stays off the open web unless it is on Discover. New catalogs are 'private' or 'public', so the plain rule applies.
+create or replace function public.uf_eligible(j jsonb, k text) returns boolean language sql stable security definer set search_path = public as $$
+  select case when k = 'catalog' then j->>'visibility' = 'public'
+    else j->>'visibility' = 'public' and (j->>'collection_id' is null or coalesce((j->>'show_on_discover')::boolean, false)
+      or not exists (select 1 from collections c where c.id = (j->>'collection_id')::uuid and c.visibility = 'members')) end $$;
+-- assigns/reactivates a UF id when an item or catalog becomes public; hides it (null) when it stops being public.
+-- The same UF id is reused if it is made public again, so old share links keep working.
 create or replace function public.sync_public_id() returns trigger language plpgsql security definer set search_path = public as $$
-declare k text := case when tg_table_name = 'finds' then 'find' else 'catalog' end; r text; pid text;
+declare k text := case when tg_table_name = 'finds' then 'find' else 'catalog' end; j jsonb := to_jsonb(new); r text; pid text;
 begin
-  r := case when tg_table_name = 'finds' then to_jsonb(new) ->> 'catalog_id' else to_jsonb(new) ->> 'id' end;
-  if new.visibility = 'public' then
+  r := case when k = 'find' then j ->> 'catalog_id' else j ->> 'id' end;
+  if public.uf_eligible(j, k) then
     select public_id into pid from public_ids where kind = k and ref = r;
     if pid is null then pid := public.gen_uf_id(); insert into public_ids (public_id, kind, ref) values (pid, k, r);
     else update public_ids set active = true where public_id = pid; end if;
@@ -130,36 +141,36 @@ begin
   end if;
   return new;
 end $$;
+-- when a catalog's visibility changes, recompute its finds' UF ids (no-op update fires the finds trigger)
+create or replace function public.collection_vis_cascade() returns trigger language plpgsql security definer set search_path = public as $$
+declare prev text := current_setting('request.jwt.claim.role', true);
+begin
+  if new.visibility is distinct from old.visibility then
+    perform set_config('request.jwt.claim.role', 'service_role', true);   -- recompute only; visibility values are unchanged, so no gate applies
+    update finds set visibility = visibility where collection_id = new.id;
+    perform set_config('request.jwt.claim.role', coalesce(prev, ''), true);
+  end if; return new;
+end $$;
+drop trigger if exists collections_zz_vis_cascade on public.collections;
 -- triggers fire in name order: finds_normalize_enums -> finds_sync_visibility -> finds_zy_private_gate -> finds_zz_public_id
 drop trigger if exists finds_zz_public_id on public.finds;
 create trigger finds_zz_public_id before insert or update on public.finds for each row execute function public.sync_public_id();
 drop trigger if exists collections_zz_public_id on public.collections;
 create trigger collections_zz_public_id before insert or update on public.collections for each row execute function public.sync_public_id();
--- backfill: everything already public gets a UF id now (private items get none)
+-- backfill: everything public on the web today gets a UF id now (private items, and public finds in the members-only legacy collection that aren't on Discover, get none)
 do $$ declare r record; pid text; begin
-  for r in select catalog_id from public.finds where visibility = 'public' and public_id is null order by created_at loop
-    pid := public.gen_uf_id(); insert into public.public_ids (public_id, kind, ref) values (pid, 'find', r.catalog_id);
-    update public.finds set public_id = pid where catalog_id = r.catalog_id; end loop;
-  for r in select id from public.collections where visibility = 'public' and public_id is null loop
-    pid := public.gen_uf_id(); insert into public.public_ids (public_id, kind, ref) values (pid, 'catalog', r.id::text);
-    update public.collections set public_id = pid where id = r.id; end loop;
+  for r in select f.catalog_id from public.finds f where f.public_id is null and public.uf_eligible(to_jsonb(f), 'find') order by f.created_at loop
+    pid := public.gen_uf_id(); insert into public.public_ids (public_id, kind, ref) values (pid, 'find', r.catalog_id) on conflict (kind, ref) do nothing;
+    update public.finds set public_id = (select public_id from public.public_ids where kind = 'find' and ref = r.catalog_id) where catalog_id = r.catalog_id; end loop;
+  for r in select c.id from public.collections c where c.visibility = 'public' and c.public_id is null loop
+    pid := public.gen_uf_id(); insert into public.public_ids (public_id, kind, ref) values (pid, 'catalog', r.id::text) on conflict (kind, ref) do nothing;
+    update public.collections set public_id = (select public_id from public.public_ids where kind = 'catalog' and ref = r.id::text) where id = r.id; end loop;
 end $$;
+create trigger collections_zz_vis_cascade after update of visibility, is_public on public.collections for each row execute function public.collection_vis_cascade();
 -- users cannot write public_id themselves: the trigger above runs on every insert/update and always recomputes it from the registry
 
--- A public item is readable even inside a private catalog (it has a UF id); private items and exact locations never are.
-drop policy if exists "finds read" on public.finds;
-create policy "finds read" on public.finds for select using (
-  (visibility = 'public' and (public.collection_is_public(collection_id) or public_id is not null)) or owner = auth.uid()
-  or (visibility <> 'private' and public.collection_role(collection_id) is not null) or public.collection_role(collection_id) = 'owner');
-
--- photos/corrections policies call can_view_find, so keep it identical to the finds read rule
-create or replace function public.can_view_find(fid text) returns boolean language sql stable security definer set search_path = public as $$
-  select exists (select 1 from finds f where f.catalog_id = fid and (
-    (f.visibility = 'public' and (public.collection_is_public(f.collection_id) or f.public_id is not null))
-    or f.owner = auth.uid()
-    or (f.visibility <> 'private' and public.collection_role(f.collection_id) is not null)
-    or public.collection_role(f.collection_id) = 'owner'));
-$$;
+-- Read rules on public.finds / photos are UNCHANGED (003): anon still reads no rows from finds directly.
+-- Public items are served only through public_find(uf) (curated columns, no owner/location/notes) and the discover_finds view.
 
 -- Public lookups by UF id (no catalog_id, no owner id, no location fields)
 create or replace function public.public_find(p_uf text) returns table (public_id text, title text, category text, object_type text, material text, era text,

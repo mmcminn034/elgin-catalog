@@ -13,12 +13,12 @@
   const leaflet = async (cluster) => { css(LIB.leafletCss); await script(LIB.leaflet); if (cluster) { css(LIB.clusterCss); css(LIB.clusterCss2); await script(LIB.cluster); } return window.L; };
   let prof = null, cols = [], ready = null;
   const st = () => (window.Cloud ? Cloud.state() : { user: null, online: false });
-  const isMember = () => !!prof && prof.membership === "member" && (!prof.membership_expires || new Date(prof.membership_expires) > new Date());
+  const isMember = () => window.Membership ? Membership.isMember() : !!prof && ["member", "annual", "lifetime"].includes(prof.membership) && (prof.membership === "lifetime" || !prof.membership_expires || new Date(prof.membership_expires) > new Date());
   const isEditor = () => cols.some(c => c.role === "owner" || c.role === "editor");
   let readyFor; async function init() { const uid = st().user && st().user.id; if (ready && readyFor === uid) return ready; readyFor = uid; return ready = (async () => { if (st().user) { prof = await Cloud.profile(); cols = await Cloud.collections(); } nav(); })(); }
   function nav() { $$(".needs-user").forEach(a => a.hidden = !st().user); $$(".needs-editor").forEach(a => a.hidden = !(st().user && isEditor())); }
-  const shareUrl = r => (C.siteUrl || location.href.split("#")[0]) + (r && r._src === "seed" ? `share/${r.catalog_id}.html` : `#/find/${r.catalog_id}`);
-  const findUrl = id => (C.siteUrl || location.href.split("#")[0]) + "#/find/" + id;
+  const shareUrl = r => (C.siteUrl || location.href.split("#")[0]) + (r && r.public_id && r.is_public !== false && (r.visibility || "public") === "public" ? `#/p/${r.public_id}` : r && r._src === "seed" ? `share/${r.catalog_id}.html` : `#/find/${r.catalog_id}`);
+  const findUrl = id => { const r = window.App && App.all.find(x => x.catalog_id === id), pub = r && r.public_id && (r.visibility || (r.is_public === false ? "editors" : "public")) === "public"; return (C.siteUrl || location.href.split("#")[0]) + (pub ? "#/p/" + r.public_id : "#/find/" + id); }; /* QR: UF link for public finds; old ELG links keep redirecting */
   const signInFirst = msg => `<div class="gate"><p>${msg}</p><button type="button" class="btn primary" data-signin>Sign in</button></div>`;
   document.addEventListener("click", e => { if (e.target.closest("[data-signin]")) { const b = $("#authBtn"); if (b && !b.hidden) b.click(); else App.toast("Sign-in is unavailable offline"); } });
 
@@ -102,7 +102,7 @@
       <div class="prof-f"><label class="field"><span>Display name</span><input name="display_name" value="${esc(p.display_name)}" maxlength="60" required></label>
       <label class="field"><span>Bio</span><textarea name="bio" rows="4" maxlength="500" placeholder="What you collect, where, and why">${esc(p.bio)}</textarea></label>
       <label class="check"><input type="checkbox" name="is_public" ${p.is_public !== false ? "checked" : ""}> Show my profile publicly</label>
-      <p>Membership: <span class="badge ${isMember() ? "Reviewed" : "Draft"}">${isMember() ? "Supporter member" : "Free"}</span> ${isMember() ? "" : '<a href="#/pricing">Become a member</a>'}</p>
+      <p>Membership: <span class="badge ${isMember() ? "Reviewed" : "Draft"}">${window.Membership ? ({ free: "Free", annual: "Annual", lifetime: "Lifetime" })[Membership.plan()] : isMember() ? "Supporter member" : "Free"}</span> ${isMember() ? "" : '<a href="#/membership">See plans</a>'}</p>
       <div class="row"><button class="btn primary">Save profile</button><a class="btn" href="#/c/${esc((cols[0] || C.defaultCollection).slug)}">View public collection</a></div></div></form>`;
     $("#avFile").onchange = async e => { const f = e.target.files[0]; if (!f) return; const url = await App.stripExif(f), blob = await (await fetch(url)).blob(), r = await Cloud.uploadAvatar(blob); if (r.error) return App.toast(r.error); $("#avImg").src = r.url; p.avatar_url = r.url; App.toast("Photo updated. Save to keep it."); };
     $("#profForm").onsubmit = async e => { e.preventDefault(); const f = e.target, np = { display_name: f.display_name.value.trim(), bio: f.bio.value.trim(), avatar_url: p.avatar_url || null, is_public: f.is_public.checked };
@@ -143,6 +143,7 @@
 
   /* ---------- pricing / membership ---------- */
   async function renderPricing() {
+    if (window.Membership) return; /* membership.js renders the new pricing page */
     await init(); const lim = C.freeFindLimit || 50;
     $("#pricingBody").innerHTML = `<p class="kicker">Membership</p><h1 id="price-h">Free for collectors. Supporters keep it growing.</h1>
       <div class="plans"><div class="plan"><h2>Free</h2><p class="price">$0</p><ul>${[`Up to ${lim} finds`, "Artifacts, fossils & rocks catalog", "Rule-based analysis + learning from your verified IDs", "Evidence marks & markup tool", "Phone add flow, location capture & private map", "QR labels, sharing & public collection page", "Shared editing with family (owner/editor/viewer)"].map(x => `<li>✓ ${x}</li>`).join("")}</ul></div>
@@ -168,11 +169,11 @@
       bar.querySelector('[data-act=review]').onclick = () => { const f = bar.querySelector(".rev-form"); if (!s.user) { f.hidden = false; f.innerHTML = signInFirst("Sign in to request an expert review of this find."); return; }
         f.hidden = false; f.innerHTML = `<label class="field"><span>What would you like an expert to look at?</span><textarea rows="3" id="revNote" placeholder="e.g. Is the stem ground? Which point type?"></textarea></label><button type="button" class="btn primary" id="revSend">Send request</button>`;
         $("#revSend").onclick = async () => { const res = await Cloud.requestReview(r.catalog_id, $("#revNote").value.trim()); f.innerHTML = res.error ? `<p class="err">${esc(res.error)}</p>` : '<p class="help ok">✓ Review requested. You\'ll see the answer on this record.</p>'; }; };
-      const v = bar.querySelector('[data-act=vis]'); if (v) v.onchange = async () => { await App.patch(r.catalog_id, { is_public: v.value === "1" }); App.toast(`${r.catalog_id} is now ${v.value === "1" ? "public" : "private"}`); };
+      const v = bar.querySelector('[data-act=vis]'); if (v) v.onchange = async () => { const g = window.Membership && Membership.guardVis(r, v.value === "1" ? "public" : "editors"); if (g) { v.value = "1"; App.toast("🔒 " + g, { warn: true, ms: 7000 }); return; } await App.patch(r.catalog_id, { is_public: v.value === "1" }); App.toast(`${r.catalog_id} is now ${v.value === "1" ? "public" : "private"}`); };
     }
     if (i === 2) { const box = document.createElement("div"); box.className = "ai-box";
-      box.innerHTML = isMember() ? `<button type="button" class="btn primary" id="aiRun">🤖 Analyze photos with AI</button><span class="help">Sends this find's photos to the AI model. You review every suggestion before anything is saved.</span>`
-        : `<strong>🤖 AI photo analysis</strong> <span class="chip">Supporters</span><p class="help">A vision model looks at the photos and suggests ranked candidates plus evidence marks for you to accept or edit. <a href="#/pricing">See membership</a></p>`;
+      box.innerHTML = (window.Membership ? Membership.canUseAI() : isMember()) ? `<button type="button" class="btn primary" id="aiRun">🤖 Analyze photos with AI</button><span class="help">Sends this find's photos to the AI model. You review every suggestion before anything is saved.</span>`
+        : `<strong>🤖 AI photo analysis</strong> <span class="chip">${window.Membership ? "Free with an account" : "Supporters"}</span><p class="help">A vision model looks at the photos and suggests ranked candidates plus evidence marks for you to accept or edit. ${window.Membership ? '<button type="button" class="btn small" onclick="document.getElementById(\'authBtn\')?.click()">Sign in to use it</button>' : '<a href="#/pricing">See membership</a>'}</p>`;
       panel.prepend(box); const b = box.querySelector("#aiRun"); if (b) b.onclick = () => analyze(r); }
     if (i === 3) { const inp = panel.querySelector('input[name="find_location_private"]'); if (inp && editor !== false) { const h = document.createElement("div"); h.className = "cap-host"; inp.closest(".field").after(h); captureWidget(h, inp); } }
   }
@@ -230,7 +231,7 @@
   }
 
   /* ---------- gating ---------- */
-  function canAddFind(all) { const s = st(); if (!s.user || isMember()) return true; return all.length < (C.freeFindLimit || 50); }
+  function canAddFind(all) { if (window.Membership) return true; /* membership v1: unlimited finds; the private-item gate applies instead */ const s = st(); if (!s.user || isMember()) return true; return all.length < (C.freeFindLimit || 50); }
 
   /* ---------- PWA install ---------- */
   let deferred = null;

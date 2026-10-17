@@ -85,10 +85,10 @@
 
   /* ---------- visibility ---------- */
   function visSelect(r) { const v = vis(r); return `<label class="field vis"><span>Visibility</span><select data-act="vis3" aria-describedby="visHelp-${esc(r.catalog_id)}">${Object.entries(VIS).map(([k, [ic, t]]) => `<option value="${k}" ${k === v ? "selected" : ""}>${ic} ${t}</option>`).join("")}</select><small class="help" id="visHelp-${esc(r.catalog_id)}">${esc(VIS[v][2])}</small></label>`; }
-  async function setVis(r, v) { await App.patch(r.catalog_id, { visibility: v, is_public: v === "public" }); if (window.Cloud && Cloud.setFindVisibility) await Cloud.setFindVisibility(r.catalog_id, v); App.toast(`${r.catalog_id}: ${VIS[v][1]}`); }
+  async function setVis(r, v) { const g = window.Membership && Membership.guardVis(r, v); if (g) { App.toast("🔒 " + g, { warn: true, ms: 7000 }); App.reselect && App.reselect(); return; } await App.patch(r.catalog_id, { visibility: v, is_public: v === "public" }); if (window.Cloud && Cloud.setFindVisibility) await Cloud.setFindVisibility(r.catalog_id, v); App.toast(`${r.catalog_id}: ${VIS[v][1]}`); }
 
   /* ---------- share menu ---------- */
-  const pageUrl = r => (C.siteUrl || location.href.split("#")[0]) + (r._src === "seed" ? `share/${r.catalog_id}.html` : `#/find/${r.catalog_id}`);
+  const pageUrl = r => (C.siteUrl || location.href.split("#")[0]) + (r.public_id && vis(r) === "public" ? `#/p/${r.public_id}` : r._src === "seed" ? `share/${r.catalog_id}.html` : `#/find/${r.catalog_id}`); /* public items share by UF id; legacy links still resolve */
   function shareMenu(anchor, r) { $$(".share-menu").forEach(m => m.remove()); const url = pageUrl(r), title = `${r.catalog_id} · ${r.object_type || "Find"} · ${window.Brand ? Brand.name() : "Rolling Oak Catalog"}`;
     const m = document.createElement("div"); m.className = "share-menu"; m.setAttribute("role", "menu"); m.setAttribute("aria-label", "Share " + r.catalog_id);
     m.innerHTML = `${vis(r) !== "public" ? `<p class="help warn">${VIS[vis(r)][0]} This find is ${esc(VIS[vis(r)][1].toLowerCase())}; the link only works for people who can see it.</p>` : ""}

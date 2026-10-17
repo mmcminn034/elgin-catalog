@@ -5,8 +5,8 @@
 (() => {
   "use strict";
   const C = window.ROLLING_OAK_CLOUD || {}, PRIVATE = "find_location_private";
-  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear","provenance","acquisition","provenance_answer"];
-  const OPTIONAL = ["provenance","acquisition","provenance_answer"]; // migration 005; dropped automatically if the columns aren't there yet
+  const FIELDS = ["catalog_id","category","object_type","material","color","length_mm","width_mm","thickness_mm","weight_g","measure_method","condition","key_features","suggestion_1","suggestion_2","suggestion_3","confidence","owner_observations","open_questions","date_found","context_notes","location_sharing","status","era","geologic_period","formation","preservation","hardness","luster","streak","category_note","category_kept","visibility","region","length_source","width_source","thickness_source","weight_source","condition_notes","heat_treatment","heat_notes","use_wear","provenance","acquisition","provenance_answer","title"];
+  const OPTIONAL = ["provenance","acquisition","provenance_answer","title","keep_private","collection_id"]; // migration 005; dropped automatically if the columns aren't there yet
   let missingCols = new Set();
   const TRACK = ["category", "object_type", "material", "suggestion_1", "status", "confidence"];
   let sb = null, user = null, online = false, reason = "", listeners = [];
@@ -31,7 +31,7 @@
   function catStamp(h) { if (!Array.isArray(h) || !h.length) return ""; return h.map(x => String((x && (x.ts || x.date)) || "")).sort().pop() + "#" + String(h.length).padStart(4, "0"); }
   function toRecord(f) {
     const r = {}; FIELDS.forEach(k => { if (f[k] != null) r[k] = f[k]; });
-    r.category_history = f.category_history || []; r.photo_annotations = f.annotations && Object.keys(f.annotations).length ? f.annotations : undefined; r.is_public = f.is_public; r._owner = f.owner;
+    r.category_history = f.category_history || []; r.photo_annotations = f.annotations && Object.keys(f.annotations).length ? f.annotations : undefined; r.is_public = f.is_public; r._owner = f.owner; if (f.public_id) r.public_id = f.public_id; if (f.collection_id) r.collection_id = f.collection_id; if (f.keep_private) r.keep_private = true;
     r.photos = (f.photos || []).sort((a, b) => a.sort - b.sort).map(p => { const src = p.storage_path ? publicUrl(p.storage_path) : p.repo_path; return { path: src, thumb: p.thumb_path ? (p.storage_path ? publicUrl(p.thumb_path) : p.thumb_path) : src, view: p.view, label: p.label || p.view || "photo" }; });
     return r;
   }
@@ -64,10 +64,10 @@
     if ("visibility" in row) { const v = String(row.visibility ?? "").trim().toLowerCase(); row.visibility = ["private", "editors", "public"].includes(v) ? v : null; }
     Object.keys(row).forEach(k => { if (row[k] === "") row[k] = null; }); return row; }
   async function pushFind(rec, prev, marksFor) {
-    if (MOCK) { if (user) (MOCK.pushed = MOCK.pushed || []).push(normalizeRow(Object.fromEntries(FIELDS.map(k => [k, rec[k] ?? null])))); return { ok: !!user, msg: "mock" }; }
+    if (MOCK) { if (user) { const g = window.Membership && Membership.serverGate ? Membership.serverGate(rec) : null; if (g) return { ok: false, msg: g }; (MOCK.pushed = MOCK.pushed || []).push({ ...normalizeRow(Object.fromEntries(FIELDS.map(k => [k, rec[k] ?? null]))), ...(rec.collection_id ? { collection_id: rec.collection_id } : {}) }); } return { ok: !!user, msg: "mock" }; }
     if (!sb || !online || !user) return { ok: false, msg: "not signed in" };
     try {
-      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); ["origin_confirmed", "country", "admin1"].forEach(k => { if (rec[k]) row[k] = rec[k]; }); if (C.schema008) { if ("show_on_discover" in rec) row.show_on_discover = !!rec.show_on_discover; if (rec.measure_refs) { try { row.measure_refs = typeof rec.measure_refs === "string" ? JSON.parse(rec.measure_refs) : rec.measure_refs; } catch {} } } normalizeRow(row); row.category = row.category || "artifact";
+      const row = { owner: user.id, is_public: rec.visibility ? rec.visibility === "public" : rec.is_public !== false }; FIELDS.forEach(k => row[k] = rec[k] ?? null); ["origin_confirmed", "country", "admin1"].forEach(k => { if (rec[k]) row[k] = rec[k]; }); if (C.schema008) { if ("show_on_discover" in rec) row.show_on_discover = !!rec.show_on_discover; if (rec.measure_refs) { try { row.measure_refs = typeof rec.measure_refs === "string" ? JSON.parse(rec.measure_refs) : rec.measure_refs; } catch {} } } if (rec.collection_id) row.collection_id = rec.collection_id; if ("keep_private" in rec) row.keep_private = !!rec.keep_private; normalizeRow(row); row.category = row.category || "artifact";
       row.category_history = Array.isArray(rec.category_history) ? rec.category_history : [];
       const ann = {}; (rec.photos || []).forEach((_, i) => { const m = marksFor(rec, i); if (m.length) ann[i] = m; }); row.annotations = ann;
       if (PRIVATE in row) delete row[PRIVATE]; // belt and braces: never in public table
@@ -114,7 +114,7 @@
     const up = on ? { visibility: "public", is_public: true } : {}; if (C.schema008) up.show_on_discover = !!on; return Object.keys(up).length ? q(sb.from("finds").update(up).eq("catalog_id", id)) : {}; } // show_on_discover needs migration 008 (C.schema008)
   async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
   /* Stage 2: discover + comments */
-  const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug";
+  const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug" + (C.schema012 ? ",public_id,title" : "");
   async function discover() { if (MOCK) return MOCK.discover || null; if (!sb) return null;
     const r = await q(sb.from("discover_finds").select(DISCOVER_COLS).order("catalog_id").limit(1000)); if (r.error || !Array.isArray(r.data)) return null;
     return r.data.map(d => ({ ...d, thumb: d.thumb_storage ? publicUrl(d.thumb_storage) : d.thumb_repo, visibility: "public" })); }
@@ -157,14 +157,16 @@
     try { const { data, error } = await sb.functions.invoke("analyze-find", { body }); if (error) { let msg = error.message; try { msg = (await error.context.json()).error || msg; } catch {} return { error: msg }; } return { data }; } catch (e) { return { error: e.message }; } }
   /* auth */
   const redirect = () => location.origin + location.pathname;
-  const magicLink = email => sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect() } });
-  const signIn = (email, password) => sb.auth.signInWithPassword({ email, password });
-  const signUp = (email, password) => sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect() } });
+  /* MOCK (tests only): email link is "sent"; password sign-in succeeds for MOCK.accounts[email] === password; sign-up records the account */
+  const magicLink = email => MOCK ? ((MOCK.magic = [...(MOCK.magic || []), email]), Promise.resolve({})) : sb.auth.signInWithOtp({ email, options: { emailRedirectTo: redirect() } });
+  const signIn = (email, password) => { if (MOCK) { const ok = (MOCK.accounts || {})[email] === password; if (ok) { user = { id: "u-" + email.split("@")[0], email }; MOCK.noReload = true; emit(); } return Promise.resolve(ok ? {} : { error: { message: "Invalid login credentials" } }); }
+    return sb.auth.signInWithPassword({ email, password }); };
+  const signUp = (email, password) => MOCK ? (((MOCK.accounts = MOCK.accounts || {})[email] = password), Promise.resolve({})) : sb.auth.signUp({ email, password, options: { emailRedirectTo: redirect() } });
   const signOut = () => sb.auth.signOut();
   /* Google OAuth + phone (SMS) OTP. MOCK: code "000000" fails, anything else succeeds. */
   const google = () => MOCK ? (MOCK.oauth = "google", Promise.resolve({})) : sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: redirect() } /* return to the domain the user came from (unearthedfinds.com or github.io) */ });
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { client: () => sb, whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();
