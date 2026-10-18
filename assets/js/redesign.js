@@ -69,7 +69,7 @@
 
   /* ---------- new views ---------- */
   function reviewQueue() {
-    const host = $("#reviewBody"); if (!host || !window.App) return; const need = App.all.filter(r => window.S5 ? S5.needs(r) : r.status !== "Reviewed");
+    const host = $("#reviewBody"); if (!host || !window.App) return; const need = App.all.filter(r => (!window.Access || Access.canEdit(r)) && (window.S5 ? S5.needs(r) : r.status !== "Reviewed")); /* review = editing: owner/editor finds only */
     const by = s => App.all.filter(r => (r.status || "Draft") === s).length;
     host.innerHTML = `<dl class="stats rv-stats"><div><dt>Still needs review</dt><dd>${need.length}</dd></div><div><dt>Reviewed</dt><dd>${by("Reviewed")}</dd></div><div><dt>Verified</dt><dd>${by("Verified")}</dd></div><div><dt>Total</dt><dd>${App.all.length}</dd></div></dl>
       ${need.length ? `<ul class="rq">${need.map(r => { const t = topScore(r), sc = t && t.sc, p = App.pics(r)[0]; return `<li><a class="rq-item" href="#/record/${esc(r.catalog_id)}">${p ? `<img src="${esc(p.thumb)}" alt="" loading="lazy">` : sil(kindOf(r))}<span class="rq-t"><strong>${esc(r.catalog_id)}</strong> ${esc(r.object_type || "")}<span class="muted">${esc(App.KINDS[kindOf(r)].label)} · ${t ? esc(t.x.c.name) : "no match yet"}</span></span>${sc ? `<span class="rq-pct rv-${sc.color}">${sc.pct}%</span>` : ""}${window.S5 ? S5.badge(r) : ""}</a></li>`; }).join("")}</ul>` : '<p class="empty">Nothing waiting. Every find has been reviewed.</p>'}`;

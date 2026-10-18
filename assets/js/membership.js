@@ -105,7 +105,8 @@
     const r = App.all.find(x => x.catalog_id === r0.catalog_id) || r0, key = [r.catalog_id, vis(r), r.public_id || "", plan()].join("|"); if (box.dataset.m12 === key) return; box.dataset.m12 = key;
     $$(".m12-x", box).forEach(e => e.remove()); const meta = box.querySelector(".rv-meta"), pub = vis(r) === "public" && r.public_id;
     if (meta) meta.insertAdjacentHTML("beforeend", pub ? ` <span class="chip uf-chip m12-x" title="Public ID: used in share links">🌐 ${esc(r.public_id)}</span> <button type="button" class="btn small outline m12-x" data-m12="copy">🔗 Copy public link</button>` : vis(r) === "public" ? ` <span class="chip m12-x">🌐 Public</span>` : "");
-    const acts = box.querySelector(".rv-acts"); if (acts && !acts.querySelector("[data-m12=ask]")) acts.insertAdjacentHTML("beforeend", `<button type="button" class="btn outline" data-m12="ask">🧑‍🔬 Ask an Expert</button>`);
+    const acts = box.querySelector(".rv-acts"), mayAsk = !!st().user && (!window.Access || Access.canEdit(r)); if (!mayAsk) $$("[data-m12=ask]", box).forEach(e => e.remove());
+    if (acts && mayAsk && !acts.querySelector("[data-m12=ask]")) acts.insertAdjacentHTML("beforeend", `<button type="button" class="btn outline" data-m12="ask">🧑‍🔬 Ask an Expert</button>`);
     $$("#mBody select[data-act=vis3], #mBody select[data-act=vis]").forEach(sel => { const locked = st().user && !isMember() && vis(r) === "public";
       [...sel.options].forEach(op => { op.disabled = locked && !["public", "1"].includes(op.value); }); sel.title = locked ? LOCK_MSG : "";
       const note = sel.parentElement.querySelector(".lock-note"); if (locked && !note) sel.insertAdjacentHTML("afterend", `<small class="help lock-note">🔒 ${esc(LOCK_MSG)} <a href="#/membership">Plans</a></small>`); if (!locked && note) note.remove(); }); }
@@ -214,9 +215,18 @@
       const r = await addProduct({ name: f.name.value.trim(), description: f.description.value.trim() || null, price_cents: price, images: f.images.value.split(/\n+/).map(x => x.trim()).filter(x => /^https:\/\//.test(x)), variants, active: f.active.checked });
       toast(r.error || "Product added"); if (!r.error) renderMerch(); }; }
 
+  function bindExpForm() { const ef = $("#expForm"); if (ef) ef.onsubmit = async e => { e.preventDefault(); const r = await applyExpert({ name: ef.name.value.trim(), credentials: ef.credentials.value.trim(), specialties: ef.specialties.value.split(",").map(s => s.trim()).filter(Boolean), links: ef.links.value.split(/\n+/).map(s => s.trim()).filter(Boolean) }); toast(r.error || "Application sent. The owner reviews every application."); if (!r.error) renderExperts(); }; }
   async function renderExperts() { await load(); const host = $("#expertsBody"); if (!host) return; const me = await myExpert(), approved = await expertsList("approved"), u = st().user;
     const used = u ? await questionsUsed() : 0, left = isMember() ? "Unlimited" : Math.max(0, cfg.free_expert_questions_month - used), mineQ = await myQuestions();
     const expertView = me && me.status === "approved" ? await inbox() : null;
+    const privileged = isAdmin() || !!(me && me.status === "approved");
+    if (!privileged) { host.innerHTML = `<p class="kicker">Experts</p><h1 id="exp-h">Expert answers</h1><p class="lede">Ask a verified expert about one of your own finds: open the find and use <strong>Ask an Expert</strong>. Answers to your questions appear here.</p>
+      <div class="exp-grid">${u ? card("Your questions", mineQ.length ? `<ul class="q-list">${mineQ.map(x => `<li><p><strong>${esc(x.question)}</strong> <span class="chip">${esc(x.status)}</span></p>${answersFor(x).map(a => `<blockquote>${esc(a.body)}</blockquote>`).join("")}</li>`).join("")}</ul>` : `<p class="muted">No questions yet. ${isMember() ? "Members: unlimited questions, answered first." : `Free plan: ${left} of ${cfg.free_expert_questions_month} questions left this month.`}</p>`) : card("Ask an Expert", signInGate("Sign in to ask about your finds."))}
+      ${card(me ? `Your expert application <span class="chip">${esc(me.status)}</span>` : "Are you an archaeologist, paleontologist or mineralogist?", !u ? signInGate("Sign in to apply as an expert.") : me && me.status !== "pending" ? '<p class="help">Your application wasn\'t approved this time.</p>' : `<form id="expForm" class="m-form"><div class="row"><label class="field grow"><span>Name</span><input name="name" required value="${esc(me ? me.name : "")}"></label></div>
+          <label class="field"><span>Credentials</span><textarea name="credentials" rows="2" placeholder="Degrees, positions, publications, years of field work">${esc(me ? me.credentials : "")}</textarea></label>
+          <label class="field"><span>Specialties (comma separated)</span><input name="specialties" value="${esc(me ? (me.specialties || []).join(", ") : "")}" placeholder="Texas lithics, Cretaceous fossils"></label>
+          <label class="field"><span>Links (one per line)</span><textarea name="links" rows="2" placeholder="https://…">${esc(me ? (me.links || []).join("\n") : "")}</textarea></label><div class="row"><button class="btn primary">${me ? "Update application" : "Apply to become a verified expert"}</button></div></form>`)}</div>`;
+      bindExpForm(); return; }
     host.innerHTML = `<p class="kicker">Community</p><h1 id="exp-h">Experts</h1><p class="lede">Verified archaeologists, paleontologists and mineral specialists who answer questions about finds. Answers are expert opinions for research, not authentications or appraisals.</p>
       <div class="exp-grid">${card("Ask an Expert", u ? `<p class="help">${isMember() ? "Members: unlimited questions, answered first." : `Free plan: <strong>${left} of ${cfg.free_expert_questions_month}</strong> questions left this month.`} Open a find and use <strong>Ask an Expert</strong> to include its photos and details, or ask a general question:</p>
           <form id="askForm" class="m-form"><label class="field"><span>Your question</span><textarea name="q" rows="3" maxlength="4000" placeholder="e.g. How can I tell a Gary point from a Langtry?"></textarea></label><div class="row"><button class="btn primary">Send question</button></div><p class="help" id="askMsg" role="status"></p></form>` : signInGate("Sign in to ask an expert."))}
@@ -229,7 +239,7 @@
           <label class="field"><span>Specialties (comma separated)</span><input name="specialties" value="${esc(me ? (me.specialties || []).join(", ") : "")}" placeholder="Texas lithics, Cretaceous fossils"></label>
           <label class="field"><span>Links (one per line)</span><textarea name="links" rows="2" placeholder="https://…">${esc(me ? (me.links || []).join("\n") : "")}</textarea></label><div class="row"><button class="btn primary">${me ? "Update application" : "Apply"}</button></div></form>` : signInGate("Sign in to apply as an expert."))}`;
     const af = $("#askForm"); if (af) af.onsubmit = async e => { e.preventDefault(); const r = await ask(af.q.value, null); $("#askMsg").innerHTML = r.error ? `<span class="err">${esc(r.error)}</span>${r.limit ? ' <a href="#/membership">See plans</a>' : ""}` : "✓ Sent. You'll see the answer here."; if (!r.error) await renderExperts(); };
-    const ef = $("#expForm"); if (ef) ef.onsubmit = async e => { e.preventDefault(); const r = await applyExpert({ name: ef.name.value.trim(), credentials: ef.credentials.value.trim(), specialties: ef.specialties.value.split(",").map(s => s.trim()).filter(Boolean), links: ef.links.value.split(/\n+/).map(s => s.trim()).filter(Boolean) }); toast(r.error || "Application sent. The owner reviews every application."); if (!r.error) renderExperts(); };
+    bindExpForm();
     $$(".ans-form", host).forEach(f => f.onsubmit = async e => { e.preventDefault(); const r = await answer(f.closest("[data-q]").dataset.q, f.a.value); toast(r.error || "Answer sent"); if (!r.error) renderExperts(); }); }
   function askDialog(r) { let d = $("#askDlg"); if (!d) { d = document.createElement("dialog"); d.id = "askDlg"; d.className = "mem-dlg"; document.body.appendChild(d); }
     d.innerHTML = `<form method="dialog" id="askDlgForm"><h2>Ask an Expert</h2><p class="help">About <strong>${esc(nameOf(r))}</strong>. Its photos and recorded details are shared with verified experts. <strong>The location is never shared.</strong></p>
@@ -257,7 +267,8 @@
   async function renderShared(uf) { const host = $("#sharedFind"); if (!host) return; uf = String(uf || "").toUpperCase(); host.innerHTML = '<p class="help">Loading…</p>';
     if (!/^UF-[2-9A-HJKMNP-Z]{4,8}$/.test(uf)) { host.innerHTML = `<p>That isn't a valid public ID.</p><a class="btn" href="#/discover">Explore finds</a>`; return; }
     const r = await publicFind(uf); if (!r) { host.innerHTML = `<div class="gate"><p>🔒 <strong>${esc(uf)}</strong> isn't public right now.</p><a class="btn" href="#/discover">Explore public finds</a></div>`; return; }
-    const ps = (window.App && r.catalog_id ? App.pics(r) : (r.photos || []).map(p => ({ src: p.full || p.repo, thumb: p.repo, label: p.label || "photo" })));
+    if (window.Cloud && Cloud.signPaths) await Cloud.signPaths((r.photos || []).map(p => p.storage).filter(Boolean));
+    const ps = (window.App && r.catalog_id ? App.pics(r) : (r.photos || []).map(p => { const st0 = p.storage && window.Cloud ? Cloud.photoUrl(p.storage) : ""; return { src: st0 || p.full || p.repo, thumb: (p.repo && /^images\//.test(p.repo) ? p.repo : st0) || p.full, label: p.label || "photo" }; }).filter(p => p.src));
     const size = [r.length_mm && `L ${r.length_mm}`, r.width_mm && `W ${r.width_mm}`, r.thickness_mm && `T ${r.thickness_mm}`].filter(Boolean).join(" × ");
     document.title = `${nameOf(r)} · ${uf} — ${window.Brand ? Brand.name() : "UnEarthed Finds"}`;
     host.innerHTML = `<article class="pub uf-pub" aria-labelledby="ufH"><header class="pub-head"><p class="kicker">${esc((window.App && App.KINDS[App.kindOf(r)] || {}).label || r.category || "Find")} · ${esc(r.region || (C.defaultRegion || ""))}</p><h1 id="ufH">${esc(nameOf(r))}</h1>
@@ -277,7 +288,7 @@
     if (!b) { b = document.createElement("div"); b.id = "lapseBanner"; b.className = "lapse-banner"; b.setAttribute("role", "alert"); const n = $(".notice"); (n ? n.parentNode : document.body).insertBefore(b, n ? n.nextSibling : document.body.firstChild); }
     const days = Math.max(0, Math.ceil((lp.due - Date.now()) / 864e5));
     b.innerHTML = `<div class="wrap">⚠ Your Annual plan ended on ${lp.expired.toLocaleDateString("en-US")}. ${days ? `In <strong>${days} day${days === 1 ? "" : "s"}</strong>` : "Today"}, private items beyond ${cfg.free_private_limit} become public (exact locations stay private). <a href="#/membership">Renew</a> · <a href="#/catalogs">Choose which ${cfg.free_private_limit} stay private</a></div>`; }
-  function adminNav() { $$('a[data-route="admin"]').forEach(a => a.hidden = !isAdmin()); }
+  function adminNav() { $$('a[data-route="admin"]').forEach(a => a.hidden = !isAdmin()); if (window.Access) { Access.reset(); Access.load().then(Access.nav); } }
 
   let lastR = { k: "", t: 0 };
   async function render(view, param) { wrap(); const k = view + "/" + (param || "") + "/" + ((st().user || {}).id || ""); if (k === lastR.k && Date.now() - lastR.t < 1500) return; lastR = { k, t: Date.now() }; /* route() runs again after sign-in settles: don't wipe a form the user is typing in */
@@ -286,7 +297,7 @@
     if (view === "p") renderShared(param || (location.hash.split("/")[2] || "")); if (view === "find") legacyRedirect(param); if (view === "add") { wizard(); } }
   document.addEventListener("DOMContentLoaded", () => { wrap(); if (window.Cloud && Cloud.on) Cloud.on(() => { load(true).then(() => { adminNav(); }); });
     new MutationObserver(() => decorateFind()).observe(document.body, { childList: true, subtree: true }); });
-  window.Membership = { load, plan, isMember, isOwner, isAdmin, lapse, config: () => ({ ...cfg }), plans: () => PLANS, privateCount, canPrivate, guardVis, serverGate, beforeSave, wizard, render,
+  window.Membership = { isExpert: async () => { const me = await myExpert(); return !!(me && me.status === "approved"); }, load, plan, isMember, isOwner, isAdmin, lapse, config: () => ({ ...cfg }), plans: () => PLANS, privateCount, canPrivate, guardVis, serverGate, beforeSave, wizard, render,
     canUseAI: () => !!st().user, ask, questionsUsed, inbox, answer, products, addProduct, grantPlan, createCatalog, renameCatalog, publicFind, nameOf, Billing };
   window.Billing = Billing;
 })();

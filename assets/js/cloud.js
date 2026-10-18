@@ -14,6 +14,11 @@
   const state = () => ({ available: !!sb || !!MOCK, mock: !!MOCK, online, reason, user: user ? { id: user.id, email: user.email || null, phone: user.phone ? ("+" + String(user.phone).replace(/^\+/, "")) : null } : null });
   const withTimeout = (p, ms = C.timeoutMs || 6000) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms))]);
   const publicUrl = path => sb.storage.from(C.bucket).getPublicUrl(path).data.publicUrl;
+  /* 014: find photos live in the PRIVATE bucket; URLs are short-lived signed links that storage RLS only issues to people who may see the find */
+  const PRIV = C.privateBucket || "find-photos-private", signed = new Map();
+  const photoUrl = path => signed.get(path) || (C.privateBucket ? "" : publicUrl(path));
+  async function signPaths(paths) { const need = [...new Set(paths.filter(p => p && !signed.has(p)))]; if (!need.length || !sb || !C.privateBucket) return;
+    for (let i = 0; i < need.length; i += 100) { try { const { data } = await sb.storage.from(PRIV).createSignedUrls(need.slice(i, i + 100), 6 * 3600); (data || []).forEach(x => { if (x.signedUrl && x.path) signed.set(x.path, x.signedUrl); }); } catch {} } }
 
   const MOCK = window.ROLLING_OAK_MOCK || null; // test harness only (Playwright); never set in production
   let initP = null, settled = false;
@@ -32,7 +37,7 @@
   function toRecord(f) {
     const r = {}; FIELDS.forEach(k => { if (f[k] != null) r[k] = f[k]; });
     r.category_history = f.category_history || []; r.photo_annotations = f.annotations && Object.keys(f.annotations).length ? f.annotations : undefined; r.is_public = f.is_public; r._owner = f.owner; if (f.public_id) r.public_id = f.public_id; if (f.collection_id) r.collection_id = f.collection_id; if (f.keep_private) r.keep_private = true;
-    r.photos = (f.photos || []).sort((a, b) => a.sort - b.sort).map(p => { const src = p.storage_path ? publicUrl(p.storage_path) : p.repo_path; return { path: src, thumb: p.thumb_path ? (p.storage_path ? publicUrl(p.thumb_path) : p.thumb_path) : src, view: p.view, label: p.label || p.view || "photo" }; });
+    r.photos = (f.photos || []).sort((a, b) => a.sort - b.sort).map(p => { const src = p.storage_path ? photoUrl(p.storage_path) : p.repo_path; return { path: src, thumb: p.thumb_path ? (/^images\//.test(p.thumb_path) ? p.thumb_path : photoUrl(p.thumb_path)) : src, view: p.view, label: p.label || p.view || "photo" }; });
     return r;
   }
   /* Returns cloud finds as catalog records, or null to signal "use the offline copy". */
@@ -44,6 +49,7 @@
       // Reachable but empty (or nothing visible yet) is still ONLINE: edits must sync, not silently stay local.
       online = true; reason = "";
       if (!data.length) { emit(); return null; }
+      await signPaths(data.flatMap(f => (f.photos || []).flatMap(p => [p.storage_path, p.thumb_path && !/^images\//.test(p.thumb_path) ? p.thumb_path : null])));
       const recs = data.map(toRecord);
       if (user) { const loc = await withTimeout(sb.from("find_locations").select("catalog_id, location")).catch(() => ({})); (loc.data || []).forEach(l => { const r = recs.find(x => x.catalog_id === l.catalog_id); if (r) r[PRIVATE] = l.location; }); }
       emit(); return recs;
@@ -88,10 +94,10 @@
       for (const [i, p] of (rec.photos || []).entries()) {
         const src = p.src || p.path; if (!src || !String(src).startsWith("data:")) continue;
         const path = `${user.id}/${rec.catalog_id}/${String(i).padStart(2, "0")}.jpg`;
-        const up = await sb.storage.from(C.bucket).upload(path, await dataUrlToBlob(src), { contentType: "image/jpeg", upsert: true });
+        const up = await sb.storage.from(C.privateBucket || C.bucket).upload(path, await dataUrlToBlob(src), { contentType: "image/jpeg", upsert: true });
         if (up.error) { photoErr.push(`photo ${i + 1}: ${up.error.message}`); continue; }
         const pr = await sb.from("photos").upsert({ catalog_id: rec.catalog_id, owner: user.id, sort: i, storage_path: path, view: p.tag || p.view || null, label: p.label || p.tag || null, is_public: row.is_public }, { onConflict: "catalog_id,sort" });
-        if (pr.error) photoErr.push(`photo ${i + 1} record: ${pr.error.message}`); else photoUrls[i] = publicUrl(path);
+        if (pr.error) photoErr.push(`photo ${i + 1} record: ${pr.error.message}`); else { await signPaths([path]); photoUrls[i] = photoUrl(path) || src; }
       }
       if (photoErr.length) return { ok: false, msg: "the record uploaded but " + photoErr.join("; ") };
       if (rec[PRIVATE]) { const ll = parseLatLon(rec[PRIVATE]); await sb.from("find_locations").upsert({ catalog_id: rec.catalog_id, owner: user.id, location: rec[PRIVATE], lat: ll ? ll[0] : null, lon: ll ? ll[1] : null }, { onConflict: "catalog_id" }); }
@@ -118,7 +124,7 @@
   const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug" + (C.schema012 ? ",public_id,title" : "");
   async function discover() { if (MOCK) return MOCK.discover || null; if (!sb) return null;
     const r = await q(sb.from("discover_finds").select(DISCOVER_COLS).order("catalog_id").limit(1000)); if (r.error || !Array.isArray(r.data)) return null;
-    return r.data.map(d => ({ ...d, thumb: d.thumb_storage ? publicUrl(d.thumb_storage) : d.thumb_repo, visibility: "public" })); }
+    await signPaths(r.data.map(d => d.thumb_storage)); return r.data.map(d => ({ ...d, thumb: d.thumb_storage ? photoUrl(d.thumb_storage) : d.thumb_repo, visibility: "public" })); }
   async function comments(id) { if (MOCK) return (MOCK.comments || []).filter(c => c.catalog_id === id); if (!sb) return null;
     const r = await q(sb.from("comments").select("id,catalog_id,user_id,kind,body,resolved,created_at").eq("catalog_id", id).order("created_at")); if (r.error) return null;
     const ids = [...new Set(r.data.map(c => c.user_id))], pr = ids.length ? await q(sb.from(PROFV()).select("id,display_name,avatar_url").in("id", ids)) : { data: [] };
@@ -179,5 +185,5 @@
   async function myPrefix() { if (MOCK) return MOCK.serverNumbering && user ? (MOCK.prefix || "ELG") : null; if (!C.schema013 || !sb || !user) return null;
     const k = "ro-id-prefix:" + user.id; if (online) { const r = await q(sb.rpc("my_catalog_prefix")); if (!r.error && r.data && r.data.prefix) { try { localStorage.setItem(k, r.data.prefix); } catch {} return r.data.prefix; } }
     try { return localStorage.getItem(k); } catch { return null; } }
-  window.Cloud = { client: () => sb, serverNumbering, allocateId, myPrefix, whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  window.Cloud = { signPaths, photoUrl, client: () => sb, serverNumbering, allocateId, myPrefix, whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

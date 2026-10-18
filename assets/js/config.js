@@ -4,12 +4,14 @@ window.ROLLING_OAK_BRAND = {"name": "UnEarthed Finds", "short": "UnEarthed", "mo
 window.ROLLING_OAK_CLOUD = {
   schema008: true,
   schema012: true, // set true only after supabase/migrations/012_membership_v1.sql is applied (plans, UF public ids, experts, merch, AI cap)
+  schema014: true, // migration 014: public = UF id (Discover), default catalogs, private photo bucket
   schema013: true, // migration 013 applied: public_profiles view, server-side find numbering (allocate_catalog_id), AI quota refunds
   membership: { free_private_limit: 5, ai_daily_cap: 50, lapse_grace_days: 7, free_expert_questions_month: 3 }, // UI defaults; the database app_config table is the source of truth once 012 is applied
   checkoutEnabled: false, // Stripe not connected: checkout buttons say "Coming soon". Set true after deploying create-checkout + stripe-webhook with Stripe secrets. // set true only after supabase/migrations/008_status_discover_measure.sql is applied (show_on_discover, measure_refs columns)
   url: "https://qqllbazrwfebpnqhdwox.supabase.co",
   key: "sb_publishable_AgbAHVD0pUYDrXpdgjTFig_yQmSOPpr",
-  bucket: "find-photos",
+  bucket: "find-photos", // public bucket: avatars only since 014
+  privateBucket: "find-photos-private", // find photos (signed URLs; storage RLS = who may see the find)
   timeoutMs: 6000,
   adminUserId: "a4779d71-ff10-4c11-864d-c79f83214b00", // owner/admin account: the only one that sees the Reference Library UI (not a secret; RLS enforces data access)
   siteUrl: "https://unearthedfinds.com/",

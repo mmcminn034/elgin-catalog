@@ -5,7 +5,7 @@
   const PRIVATE = "find_location_private";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  let seed = [], local = [], all = [];
+  let seed = [], local = [], all = [], publicSeed = [], loaded = false;
 
   /* ---------- IndexedDB ---------- */
   const DB = { db: null,
@@ -50,7 +50,13 @@
       return true; }
     setPending([...pending(), id]); syncWarn(`⚠ ${id} saved on this device only. Cloud sync failed: ${res.msg}. It will retry next time.`); return false;
   }
-  DB.put = async o => { o.saved_ts = new Date().toISOString(); const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
+  /* write guard: only the owner/editors change an existing find; signed-out visitors can't write at all when the cloud is configured */
+  const writeRefusal = o => { const ex = all.find(x => x.catalog_id === o.catalog_id), cloud = window.Cloud && Cloud.state().available;
+    if (!myId() && cloud && !window.ROLLING_OAK_MOCK && !window.ROLLING_OAK_TEST_DEVICE) return "Sign in to add or edit finds.";
+    if (ex && !ex.created_local && window.Access && !Access.canEdit(ex)) return "This find is view-only for your account.";
+    if (!ex && !o.created_local && !local.some(x => x.catalog_id === o.catalog_id) && myId() && !(window.Access && Access.ownerDevice && Access.ownerDevice())) return "This find isn't in your catalogs.";
+    return null; };
+  DB.put = async o => { const no = writeRefusal(o); if (no) { toast("🔒 " + no, { warn: true }); throw new Error(no); } if (o.created_local && !o._uid && myId()) o._uid = myId(); o.saved_ts = new Date().toISOString(); const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
     if (!window.Cloud) return;
     if (!Cloud.state().user) { if (Cloud.state().available && o.created_local) { setPending([...pending(), o.catalog_id]); syncWarn(`⚠ ${/^TMP-/.test(o.catalog_id) ? "Your new find" : o.catalog_id} is saved on this device only: you're not signed in. Sign in (☰ menu → Sign in) and it will upload automatically.`); } return; }
     // Push exactly what was saved (merged over the current view), not whatever `all` holds 80 ms later.
@@ -58,6 +64,13 @@
     const st = Cloud.state();
     if (!st.online) { setPending([...pending(), o.catalog_id]); return syncWarn(`⚠ ${/^TMP-/.test(o.catalog_id) ? "Your new find" : o.catalog_id} saved on this device only. Cloud sync is off (${st.reason || "cloud not reachable"}). It will retry next time.`); }
     if (await pushOne(rec, snap)) toast(`☁ ${o.catalog_id} synced`); };
+  /* Remove local copies of finds this session may not see (e.g. Mark's finds seeded into a visitor's browser by older versions).
+     Never touches the user's own adds, or edits still waiting to sync (they may be the owner's unsynced work on a shared device);
+     skipped while signed in but offline (we can't tell what the user may see). */
+  async function purgeForeign(cloudRows) { const me = myId(); if (window.ROLLING_OAK_TEST_DEVICE) return; if (me && !cloudRows && !(window.ROLLING_OAK_MOCK)) return;
+    const pend = new Set(pending()), gone = [];
+    for (const r of local) { if (r.created_local || pend.has(r.catalog_id)) continue; if (me && seed.some(x => x.catalog_id === r.catalog_id)) continue; await _del(r.catalog_id); gone.push(r.catalog_id); }
+    if (gone.length) local = await DB.all(); }
   /* A find created on this device whose ID was later taken by the shared catalog (seed/cloud) gets the next free ID instead of overwriting it. */
   async function renumberCollisions() { const ids = new Set(seed.map(r => r.catalog_id)); const moved = [];
     const me = window.Cloud && Cloud.state().user ? Cloud.state().user.id : null;
@@ -74,13 +87,19 @@
   const stamp = h => (window.Cloud && Cloud.catStamp) ? Cloud.catStamp(h) : (Array.isArray(h) && h.length ? String(h[h.length - 1].ts || h[h.length - 1].date || "") + "#" + String(h.length).padStart(4, "0") : "");
   const decision = (from, to, reason) => ({ from, to, date: new Date().toLocaleDateString("en-CA"), ts: new Date().toISOString(), reason });
   const conflicts = new Map();
+  /* local IndexedDB records shown in this session: the user's own adds, and edit copies of finds they can see */
+  const localVisible = r => r.created_local ? (!r._uid || r._uid === myId()) && !!myId() : seed.some(x => x.catalog_id === r.catalog_id);
+  const myId = () => (window.Cloud && Cloud.state().user ? Cloud.state().user.id : null);
   function merge() {
     const m = new Map(seed.map(r => [r.catalog_id, { ...r, _src: "seed" }]));
-    local.map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => {
+    local.filter(localVisible).map(r => (r.category && !KINDS[String(r.category).toLowerCase()]) ? { ...r, object_type: r.object_type || r.category, category: "artifact" } : r).forEach(r => {
       const base = m.get(r.catalog_id) || {};
       // A canonical seed record (e.g. re-entered after a failed upload) beats any older local copy with the same ID; the local copy stays in IndexedDB, flagged.
       if (base.canonical_ts && !(r.saved_ts > base.canonical_ts)) { conflicts.set(r.catalog_id, r); return; }
       const out = { ...base, ...r, _src: m.has(r.catalog_id) ? "edited" : "local" };
+      // Photos: the cloud copy is canonical (fresh signed links; repo images of private finds moved to the private bucket in ro-v9.7)
+      // unless this device still holds photos that haven't uploaded yet (data: URLs).
+      if (base.photos && base.photos.length && !(r.photos || []).some(p => /^data:/.test((p && p.path) || ""))) out.photos = base.photos;
       // Owner category decisions: whichever side (cloud/seed vs this device) decided most recently wins, so a stale copy never undoes a move.
       if (stamp(base.category_history) > stamp(r.category_history)) CAT_KEYS.forEach(k => { if (k in base) out[k] = base[k]; else delete out[k]; });
       m.set(r.catalog_id, out); });
@@ -171,7 +190,20 @@
     fc.innerHTML = '<option value="">All types</option>' + cats.map(c => `<option>${esc(c)}</option>`).join(""); fc.value = cats.includes(v) ? v : "";
     $("#catList").innerHTML = cats.map(c => `<option value="${esc(c)}">`).join("");
   }
-  const inKind = () => all.filter(r => kindOf(r) === kind);
+  let catFilter = (() => { try { return localStorage.getItem("ro-cat-filter") || ""; } catch { return ""; } })();
+  const inCat = r => !catFilter || r.collection_id === catFilter;
+  const inKind = () => all.filter(r => kindOf(r) === kind && inCat(r));
+  /* catalog switcher + New catalog (sidebar link and Catalog header) */
+  function renderCatBar() { const sel = $("#catSwitch"); if (!sel) return; const cs = window.Access ? Access.cols() : [];
+    if (catFilter && !cs.some(c => c.id === catFilter)) catFilter = "";
+    sel.innerHTML = `<option value="">All my catalogs</option>` + cs.map(c => `<option value="${esc(c.id)}"${c.id === catFilter ? " selected" : ""}>${esc(c.name)}${c.role && c.role !== "owner" ? ` (${esc(c.role)})` : ""}</option>`).join("");
+    $("#catBar").hidden = !myId(); }
+  $("#catSwitch").addEventListener("change", e => { catFilter = e.target.value; try { localStorage.setItem("ro-cat-filter", catFilter); } catch {} renderStats(); renderGrid(); });
+  async function newCatalog() { const d = $("#newCatDlg"), f = $("#newCatForm"); if (!myId()) return toast("Sign in to create a catalog."); f.reset(); $("#newCatMsg").textContent = ""; d.showModal(); f.name.focus();
+    f.onsubmit = async e => { e.preventDefault(); const r = await Membership.createCatalog(f.name.value); if (r.error) { $("#newCatMsg").textContent = r.error.message || r.error; return; }
+      d.close(); if (window.Access) { Access.reset(); await Access.load(); } catFilter = (r.data && r.data.id) || ""; try { localStorage.setItem("ro-cat-filter", catFilter); } catch {} renderCatBar(); refresh(); toast(`Catalog “${f.name.value.trim()}” created`); if (location.hash !== "#/catalog") location.hash = "#/catalog"; };
+    $("[data-close]", d).onclick = () => d.close(); }
+  document.addEventListener("click", e => { const a = e.target.closest("[data-newcat], [data-newcat-btn]"); if (!a) return; e.preventDefault(); newCatalog(); });
   function filtered() {
     const q = $("#q").value.trim().toLowerCase(), st = $("#fStatus").value, ca = $("#fCat").value, co = $("#fConf").value;
     return inKind().filter(r => (!st || (st === "_needs" ? (window.S5 ? S5.needs(r) : r.status !== "Reviewed") : (r.status || "Draft") === st)) && (!ca || r.object_type === ca) && (!co || confBucket(r.confidence) === co)
@@ -193,16 +225,21 @@
         ${r._src !== "seed" ? `<span class="local">● ${r._src === "local" ? "Added in this browser" : "Edited in this browser"}</span>` : ""}
       </button>`).join("") : inKind().length ? '<p class="empty">No finds match these filters.</p>' : `<div class="empty-state"><div class="es-icon" aria-hidden="true">${KINDS[kind].icon}</div><h3>No ${KINDS[kind].label.toLowerCase()} yet. Add the first one!</h3><p>${KINDS[kind].empty}</p><p class="help">Same honest process as artifacts: photos with a scale, measurements, then ranked possibilities with caveats, never a definitive ID or value.</p><a class="btn primary lg" href="#/add?kind=${kind}">Add the first ${KINDS[kind].one}</a></div>`;
   }
-  const refresh = () => { merge(); renderStats(); renderGrid(); renderTimeline(); };
+  const refresh = () => { merge(); renderCatBar(); renderStats(); renderGrid(); renderTimeline(); };
 
   /* ---------- detail modal ---------- */
   let current = null, lastFocus = null, tab = 0;
   function openModal(id) {
     current = all.find(r => r.catalog_id === id); if (!current) return;
     lastFocus = document.activeElement; $("#mId").textContent = current.catalog_id; $("#mTitle").textContent = current.title || current.object_type || "Find";
+    const ro = !!(window.Access && !current.created_local && !Access.canEdit(current)); $("#modal").classList.toggle("ro-view", ro); // catalog viewers: read-only record
     $("#modal").hidden = false; document.body.style.overflow = "hidden"; selectTab(0); $("#tab-0").focus();
     if (location.hash !== "#/record/" + id) history.replaceState(null, "", "#/record/" + id);
   }
+  /* read-only record (viewer role): edit controls are hidden by CSS and refused here even if revealed */
+  document.addEventListener("click", e => { const m = $("#modal"); if (!m || !m.classList.contains("ro-view") || m.hidden) return;
+    const t = e.target.closest("#modal [data-rv]:not([data-rv=lb]), #modal [data-act], #modal [data-recat], #modal [data-prov], #modal [data-m12=ask], #modal [data-s5-status], #modal form button");
+    if (t) { e.preventDefault(); e.stopImmediatePropagation(); toast("🔒 This find is view-only for your account."); } }, true);
   function closeModal() { if (/^#\/record\//.test(location.hash)) history.replaceState(null, "", "#/catalog"); $("#modal").hidden = true; document.body.style.overflow = ""; current = null; lastFocus && lastFocus.focus(); }
   function selectTab(i) {
     tab = i; $$(".tabs [role=tab]").forEach((b, j) => { b.setAttribute("aria-selected", j === i); b.tabIndex = j === i ? 0 : -1; });
@@ -414,6 +451,11 @@
     $("#imLearn").onchange = async e => { const f = e.target.files[0]; if (!f) return; try { toast(`Imported ${await Analysis.importJSON(await f.text())} examples`); renderModel(); } catch { toast("Not a valid learned-examples.json"); } }; }
   function route() { const h = location.hash, home = !h || h === "#" || h === "#/", signed = !!(window.Cloud && Cloud.state && Cloud.state().user); // no hash: signed-out visitors land on Home, signed-in users on the catalog
     const v0 = (h.match(/^#\/(\w+)/) || [, home && !signed ? "home" : "catalog"])[1], v = v0 === "membership" ? "pricing" : v0, view = ["home", "catalog", "add", "about", "timeline", "people", "map", "labels", "profile", "members", "pricing", "c", "find", "discover", "review", "library", "settings", "membership", "merch", "experts", "catalogs", "admin", "p"].includes(v) ? v : "catalog";
+    if (window.Access && !Access.allowed(view)) { const settled = !window.Cloud || !Cloud.isSettled || Cloud.isSettled();
+      $$(".view").forEach(sec => sec.hidden = true);
+      if (settled) { location.replace("#/home"); setTimeout(() => toast("Sign in to open your catalog."), 50); }
+      return; }
+    if (window.Access) Access.nav();
     const param = (location.hash.match(/^#\/\w+\/([\w-]+)/) || [])[1];
     if (v === "record" && param && all.length && (!current || current.catalog_id !== param)) setTimeout(() => openModal(param), 0);
     if (v === "find" && current) { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; }
@@ -434,7 +476,7 @@
   ["#q", "#fStatus", "#fCat", "#fConf"].forEach(s => $(s).addEventListener("input", renderGrid));
 
   /* ---------- API for features.js ---------- */
-  window.App = { get all() { return all; }, get current() { return current; }, openModal, closeModal, kindOf, KINDS, eraOf, marksFor, pics, esc, toast, stripExif, download, refresh, route,
+  window.App = { get all() { return all; }, get publicSeed() { return publicSeed; }, get loaded() { return loaded; }, canEdit: r => !window.Access || Access.canEdit(r), get current() { return current; }, openModal, closeModal, kindOf, KINDS, eraOf, marksFor, pics, esc, toast, stripExif, download, refresh, route,
     async patch(id, obj) { const o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }), ...obj }; await DB.put(o); local = await DB.all(); refresh(); if (current && current.catalog_id === id) { current = all.find(x => x.catalog_id === id); } },
     async saveMarks(id, i, list) { const r = all.find(x => x.catalog_id === id), o = { ...(local.find(x => x.catalog_id === id) || { catalog_id: id }) }; o.photo_annotations = { ...(r.photo_annotations || {}), [i]: list }; await DB.put(o); local = await DB.all(); refresh(); if (current && current.catalog_id === id) current = all.find(x => x.catalog_id === id); },
     reselect() { if (current) selectTab(tab); } };
@@ -471,11 +513,16 @@
     let json = [];
     try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); json = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
     catch { if (!cloudRows) $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }
-    if (cloudRows) { // cloud wins field-by-field; the bundled copy only fills gaps (finds or photos not uploaded yet)
-      const byId = new Map(json.map(r => [r.catalog_id, r]));
-      cloudRows.forEach(c => { const j = byId.get(c.catalog_id) || {}; byId.set(c.catalog_id, { ...j, ...c, photos: (c.photos && c.photos.length) ? c.photos : (j.photos || []) }); });
-      seed = [...byId.values()]; // PRIVATE only present here for the signed-in owner (owner-only table)
-    } else seed = json;
+    publicSeed = json.filter(r => r.visibility ? r.visibility === "public" : r.is_public !== false); // bundled data = public finds only (Discover offline, public pages)
+    /* Catalog/Review data = ONLY catalogs the signed-in user owns or belongs to (RLS-scoped cloud rows). Nothing for signed-out visitors.
+       The bundled public copy never becomes anyone's catalog (test harness: the mock owner owns the seed, as the real owner does in the cloud). */
+    const MK = window.ROLLING_OAK_MOCK, me = myId(), mockOwner = !!window.ROLLING_OAK_TEST_DEVICE || !!(MK && me && (!MK.adminUserId || MK.adminUserId === me));
+    if (window.Access) await Access.load();
+    if ((me || window.ROLLING_OAK_TEST_DEVICE) && (cloudRows || mockOwner)) {
+      const byId = new Map((mockOwner ? json : []).map(r => [r.catalog_id, r]));
+      (cloudRows || []).forEach(c => { const j = byId.get(c.catalog_id) || {}; byId.set(c.catalog_id, { ...j, ...c, photos: (c.photos && c.photos.length) ? c.photos : (j.photos || []) }); });
+      seed = [...byId.values()].filter(r => !window.Access || Access.canView(r)); // PRIVATE only present here for the signed-in owner (owner-only table)
+    } else seed = [];
     try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch {}
     await Analysis.init(); if (window.Region) await Region.load();
     if (cloudRows) { const ex = await Cloud.loadExamples(); if (ex) Analysis.setShared(ex); }
@@ -483,7 +530,8 @@
     Analysis.learn = async (...a) => { const e = await _learn(...a); if (window.Cloud) Cloud.pushExample(e); return e; };
     Analysis.forget = async id => { await _forget(id); if (window.Cloud) Cloud.forgetExample(id); };
     renderAuth();
-    try { await DB.open(); local = await DB.all(); await renumberCollisions(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
+    try { await DB.open(); local = await DB.all(); await purgeForeign(cloudRows); await renumberCollisions(); } catch { toast("IndexedDB unavailable: additions won’t be saved."); }
+    loaded = true;
     refresh(); route(); retryPending();
     if (window.Cloud) { let had = !!Cloud.state().user; Cloud.on(st => { if (st.user && !had) { had = true; retryPending(); } }); }
     if (conflicts.size) { // move the stale local copy out of the way (backed up), so no later edit or sync retry can resurrect it over the canonical record

@@ -103,12 +103,12 @@
   function pdf(r) { if (App.current) App.closeModal(); location.hash = "#/find/" + r.catalog_id; setTimeout(() => { document.body.classList.add("print-summary"); const done = () => { document.body.classList.remove("print-summary"); removeEventListener("afterprint", done); }; addEventListener("afterprint", done); window.print(); if (!("onafterprint" in window)) setTimeout(done, 1000); }, 400); }
 
   /* ---------- public find page (#/find/ID) ---------- */
-  async function renderPublic(id) { const host = $("#publicFind"); if (!host) return; const r = App.all.find(x => x.catalog_id === id);
+  async function renderPublic(id) { const host = $("#publicFind"); if (!host) return; const r = App.all.find(x => x.catalog_id === id) || (App.publicSeed || []).find(x => x.catalog_id === id);
     /* lock screen: never the title, ID details or anything else about a find the visitor can't see */
     const lock = () => { document.title = window.Brand ? Brand.name() : "UnEarthed Finds"; host.innerHTML = st().user
       ? `<div class="gate"><p>🔒 This find isn't public, or it isn't shared with your account.</p><a class="btn" href="#/discover">Explore public finds</a></div>`
       : `<div class="gate"><p>🔒 This find isn't public. If you're the owner or a collection member, sign in to see it.</p><button type="button" class="btn primary" data-signin>Sign in</button> <a class="btn" href="#/discover">Explore public finds</a></div>`; };
-    if (!r) { if (App.all.length) lock(); else host.innerHTML = '<p class="help">Loading…</p>'; return; }
+    if (!r) { if (App.loaded) lock(); else host.innerHTML = '<p class="help">Loading…</p>'; return; }
     const v = vis(r); if (v !== "public" && !canEdit()) { lock(); return; }
     const kind = App.kindOf(r), ps = App.pics(r), sugg = [r.suggestion_1, r.suggestion_2, r.suggestion_3].filter(Boolean), conf = engineConf(r), rk = Analysis.rank(r, kind), size = [r.length_mm && `L ${r.length_mm}`, r.width_mm && `W ${r.width_mm}`, r.thickness_mm && `T ${r.thickness_mm}`].filter(Boolean).join(" × ");
     document.title = `${r.catalog_id} · ${r.object_type || "Find"} — ${window.Brand ? Brand.name() : "Rolling Oak Catalog"}`;

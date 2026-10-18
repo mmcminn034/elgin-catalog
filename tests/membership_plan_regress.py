@@ -4,13 +4,13 @@ import sys, json, re, os
 SEED = open(os.environ["EC_SEED"]).read() if os.environ.get("EC_SEED") else None  # optional full catalog fixture kept outside the repo
 from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8860/"; O = sys.argv[2] if len(sys.argv) > 2 else "/workspace/membership/"
-IMG = "images/ELG-016/01.jpg"; fails = []; errs = []
+IMG = "images/ELG-001/01.jpg"; fails = []; errs = []
 UFRE = re.compile(r"UF-[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{4}")
 def chk(n, ok, info=""):
     print(("PASS " if ok else "FAIL ") + n, info if info != "" else ""); ok or fails.append(n)
 def own(i, vis, pub=None, loc=None):
     r = {"catalog_id": f"FRE-00{i}", "_owner": "u2", "category": "artifact", "object_type": f"Test point {i}", "title": f"My find {i}", "material": "chert", "status": "Draft", "visibility": vis, "is_public": vis == "public",
-         "photos": [{"path": "images/ELG-016/01.jpg", "thumb": "images/ELG-016/01_thumb.jpg", "label": "front"}]}
+         "photos": [{"path": "images/ELG-001/01.jpg", "thumb": "images/ELG-001/01_thumb.jpg", "label": "front"}]}
     if pub: r["public_id"] = pub
     if loc: r["find_location_private"] = loc
     return r
@@ -153,16 +153,20 @@ with sync_playwright() as p:
     pg.evaluate("Learn && App.patch('FRE-006', {visibility:'private', is_public:false})"); pg.wait_for_timeout(500)
     chk("8i lock enforced in code (App.patch refused)", pg.evaluate("Learn.vis(App.all.find(x=>x.catalog_id==='FRE-006'))") == "public")
     res = pg.evaluate("Cloud.setFindVisibility('FRE-006','private')"); chk("8j lock enforced on the cloud write", bool(res.get("error")), res)
-    pg.keyboard.press("Escape"); pg.goto(U + "#/experts"); pg.wait_for_selector("#askForm")
-    for i in range(3):
-        pg.fill("#askForm [name=q]", f"Is this a Gary point? question {i}"); pg.click("#askForm button"); pg.wait_for_timeout(900)
-    pg.wait_for_selector("#askForm"); chk("8k 3 questions used this month", "0 of 3" in pg.inner_text("#expertsBody"), pg.inner_text("#expertsBody")[:200])
-    pg.fill("#askForm [name=q]", "One more question please"); pg.click("#askForm button"); pg.wait_for_timeout(600)
-    chk("8l 4th question refused on the free plan", "3 expert questions a month" in pg.inner_text("#askMsg")); shot(pg, "t08-expert-limit.png", True)
+    # 2026-10-18: questions are asked from the user's OWN find (Ask an Expert in the find); Experts is no longer a general ask page
+    def ask_on_find(pg, q):
+        rid = pg.evaluate("(App.all.find(r => Access.canEdit(r)) || {}).catalog_id"); pg.goto(U + "#/record/" + rid); pg.wait_for_selector(".rv-layout"); pg.wait_for_timeout(400)
+        pg.click("[data-m12=ask]"); pg.fill("#askDlgForm [name=q]", q); pg.click("#askSend"); pg.wait_for_timeout(800)
+        msg = pg.inner_text("#askDlgMsg") if pg.locator("#askDlg[open]").count() else ""; pg.keyboard.press("Escape"); pg.goto(U + "#/home"); pg.wait_for_timeout(300); return msg
+    pg.keyboard.press("Escape")
+    for i in range(3): ask_on_find(pg, f"Is this a Gary point? question {i}")
+    chk("8k 3 questions used this month", len(pg.evaluate("ROLLING_OAK_MOCK.m12.questions")) == 3, pg.evaluate("ROLLING_OAK_MOCK.m12.questions.length"))
+    msg = ask_on_find(pg, "One more question please")
+    chk("8l 4th question refused on the free plan", "3 expert questions a month" in msg, msg); shot(pg, "t08-expert-limit.png", True)
+    pg.goto(U + "#/experts"); pg.wait_for_selector("#expertsBody h1"); chk("8n free user: Experts page shows only their questions + apply (no inbox, no general ask)", pg.locator("#askForm, .inbox").count() == 0 and "Your questions" in pg.inner_text("#expertsBody"))
     c.close()
-    c, pg = ctx(b, ANNUAL); pg.goto(U + "#/experts"); pg.wait_for_selector("#askForm")
-    for i in range(5):
-        pg.fill("#askForm [name=q]", f"Member question {i}"); pg.click("#askForm button"); pg.wait_for_timeout(700)
+    c, pg = ctx(b, ANNUAL); pg.goto(U + "#/home"); pg.wait_for_timeout(1200)
+    for i in range(5): ask_on_find(pg, f"Member question {i}")
     q = pg.evaluate("ROLLING_OAK_MOCK.m12.questions"); chk("8m members: unlimited questions with priority", len(q) == 5 and all(x["priority"] > 0 for x in q), [(x["question"], x["priority"]) for x in q]); c.close()
 
     # experts: apply -> owner approves -> verified badge -> inbox answers (supports case 8 + the Experts spec)
@@ -201,12 +205,12 @@ with sync_playwright() as p:
     # 9. nav desktop + mobile
     for who, mk in [("free", FREE), ("owner", OWNER)]:
         c, pg = ctx(b, mk); pg.goto(U + "#/catalog"); pg.wait_for_selector(".card"); pg.wait_for_timeout(700)
-        side = pg.inner_text(".side-nav .side-main"); chk(f"9a desktop sidebar has Experts/Merch/Membership ({who})", all(x in side for x in ["Catalog", "Review", "Add Find", "Experts", "Merch", "Membership", "Settings"]))
+        side = pg.inner_text(".side-nav .side-main"); chk(f"9a desktop sidebar has Experts/Merch/Membership ({who})", all(x in side for x in ["Catalog", "Review", "Add Find", "Merch", "Membership", "Settings"]) and (("Experts" in side) == (who == "owner")))
         chk(f"9b owner admin link only for the owner ({who})", pg.locator('.side-nav a[data-route=admin]').is_visible() == (who == "owner"))
         chk(f"9c no hamburger on desktop ({who})", not pg.locator("#menuBtn").is_visible()); shot(pg, f"t09-desktop-{who}.png"); c.close()
     c, pg = ctx(b, FREE, 390, 844, True); pg.goto(U + "#/catalog"); pg.wait_for_selector(".card"); pg.wait_for_timeout(600)
     chk("9d mobile: hamburger only, no sidebar", pg.locator("#menuBtn").is_visible() and not pg.locator(".side-nav").is_visible())
-    pg.click("#menuBtn"); pg.wait_for_timeout(400); d = pg.inner_text("#navMenu"); chk("9e mobile drawer has Experts/Merch/Membership", all(x in d for x in ["Experts", "Merch", "Membership"]))
+    pg.click("#menuBtn"); pg.wait_for_timeout(400); d = pg.inner_text("#navMenu"); chk("9e mobile drawer has Merch/Membership, no Experts for regular users", all(x in d for x in ["Merch", "Membership"]) and "Experts" not in d)
     chk("9f admin hidden in the drawer for non-owners", not pg.locator('#navMenu a[data-route=admin]').is_visible()); shot(pg, "t09-mobile-drawer.png")
     pg.click('#navMenu a[data-route=merch]'); pg.wait_for_timeout(600); chk("9g drawer link navigates + closes", pg.evaluate("location.hash") == "#/merch" and not pg.locator("#navMenu").is_visible())
     pg.goto(U + "#/membership"); pg.wait_for_selector(".tiers"); shot(pg, "t09-mobile-pricing.png", True); c.close()

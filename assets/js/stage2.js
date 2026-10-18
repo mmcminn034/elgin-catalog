@@ -129,7 +129,7 @@
   async function loadDiscover() { const remote = window.Cloud && Cloud.discover ? await Cloud.discover() : null;
     if (remote && remote.length) { dSrc = "Shared catalog"; return remote.map(d => safe({ ...d, era: d.era || "Undetermined" })); }
     dSrc = st().online ? "Public finds" : "Offline copy (public finds)";
-    return App.all.filter(r => window.Learn ? Learn.vis(r) === "public" : r.is_public !== false).map(r => safe({ ...r, region: window.Learn ? Learn.regionOf(r) : "Texas", era: App.eraOf(r), category: App.kindOf(r), thumb: (App.pics(r)[0] || {}).thumb, verified: !!(window.Learn && Learn.verified(r)) })); }
+    return [...(App.publicSeed || []), ...App.all.filter(r => !(App.publicSeed || []).some(x => x.catalog_id === r.catalog_id))].filter(r => window.Learn ? Learn.vis(r) === "public" : r.is_public !== false).map(r => safe({ ...r, region: window.Learn ? Learn.regionOf(r) : "Texas", era: App.eraOf(r), category: App.kindOf(r), thumb: (App.pics(r)[0] || {}).thumb, verified: !!(window.Learn && Learn.verified(r)) })); }
   const matKey = m => String(m || "").split(/[\s/,(]/)[0].replace(/\?/g, "").trim() || "Unrecorded";
   const confKey = c => /moderate/i.test(c || "") && !/low/i.test(c) ? "Moderate" : /low-?moderate/i.test(c || "") ? "Low-moderate" : /low/i.test(c || "") ? "Low" : "Not set";
   async function renderDiscover() { const host = $("#discoverBody"); if (!host) return; if (!dData) { host.innerHTML = '<p class="help">Loading public finds…</p>'; dData = await loadDiscover(); }
