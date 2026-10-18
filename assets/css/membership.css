@@ -57,3 +57,4 @@
 #modal.ro-view [data-rv="edit"], #modal.ro-view .rv-acts, #modal.ro-view [data-act], #modal.ro-view [data-recat], #modal.ro-view [data-prov],
 #modal.ro-view [data-m12="ask"], #modal.ro-view [data-s5-status], #modal.ro-view form, #modal.ro-view .ro-hide { display: none !important; }
 #modal.ro-view .modal-head::after { content: "View only"; margin-left: .6rem; padding: .15rem .55rem; border-radius: 999px; font-size: .75rem; border: 1px solid currentColor; opacity: .75; }
+.tier button[data-soon]:disabled{opacity:.62;cursor:not-allowed;border-style:dashed}

@@ -193,7 +193,7 @@ with sync_playwright() as p:
     t = pg.inner_text("#pricingBody"); chk("P1 three tiers, correct prices, no monthly plan", "$29.99" in t and "$59.99" in t and "/year" in t and "one-time" in t and "month" not in re.sub(r"questions a month|this month", "", t).lower().replace("monthly plan", ""), "")
     chk("P2 old $10 member plan gone", "$10" not in t and "Supporter" not in t)
     chk("P3 AI cap not advertised", "50" not in t and "Unlimited AI identifications" in t)
-    pg.click("[data-checkout=lifetime]"); pg.wait_for_timeout(300); chk("P4 checkout says coming soon (Stripe not connected)", "coming soon" in pg.inner_text("#checkoutMsg").lower())
+    chk("P4 paid buttons are disabled 'Coming soon' (Stripe not connected)", pg.locator("[data-soon=lifetime]").is_disabled() and "aren't available yet" in pg.inner_text("#pricingBody") and pg.evaluate("Billing.checkout('lifetime').then(x => x.error)") == "coming_soon")
     shot(pg, "t-pricing-dark.png", True); c.close()
     c, pg = ctx(b, FREE, theme="light"); pg.goto(U + "#/membership"); pg.wait_for_selector(".tiers"); shot(pg, "t-pricing-light.png", True); c.close()
     c, pg = ctx(b, FREE); pg.goto(U + "#/merch"); pg.wait_for_selector("#merchBody h1"); chk("M1 merch empty state", "Merch is on the way" in pg.inner_text("#merchBody") and pg.locator("#prodForm").count() == 0); shot(pg, "t-merch-empty.png", True); c.close()

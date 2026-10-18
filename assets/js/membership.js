@@ -172,7 +172,9 @@
         return `<article class="tier${p.id === "lifetime" ? " feat" : ""}${on ? " current" : ""}" data-plan="${p.id}">${p.tag ? `<span class="plan-tag">${esc(p.tag)}</span>` : ""}<h2>${esc(p.name)}</h2><p class="price"><span class="amt">${price}</span><span class="per">${per}</span></p><p class="help">${esc(p.blurb)}</p>
           <ul>${p.features.map(f => `<li>${f.replace("{q}", cfg.free_expert_questions_month)}</li>`).join("")}</ul>
           ${on ? `<button type="button" class="btn" disabled>✓ Your plan</button>` : p.id === "free" ? (st().user ? `<button type="button" class="btn" disabled>Included</button>` : `<button type="button" class="btn" data-signin onclick="document.getElementById('authBtn')?.click()">Start free</button>`)
-            : `<button type="button" class="btn ${p.id === "lifetime" ? "primary" : "outline"}" data-checkout="${p.id}">Coming soon</button>`}</article>`; }).join("")}</div>
+            : C.checkoutEnabled && !MOCK ? `<button type="button" class="btn ${p.id === "lifetime" ? "primary" : "outline"}" data-checkout="${p.id}">Choose ${esc(p.name)}</button>`
+            : `<button type="button" class="btn outline" disabled aria-disabled="true" data-soon="${p.id}" title="Paid plans aren't available yet">Coming soon</button>`}</article>`; }).join("")}</div>
+      ${C.checkoutEnabled && !MOCK ? "" : `<p class="gate-warn pr-soon" role="note"><strong>Paid plans aren't available yet.</strong> Annual and Lifetime are coming soon. For now every account is on the Free plan${st().user ? "" : " — you can start free today"}, and nothing is charged.</p>`}
       <p class="help" id="checkoutMsg" role="status"></p>
       <section class="pr-faq"><h2>Good to know</h2><dl>
         <dt>What's private vs public?</dt><dd>Private items are visible only to you (and collaborators you invite). Public items get a short public ID like <code>UF-7K3M</code> for share links. Exact find locations are never public, on any plan.</dd>
@@ -182,8 +184,10 @@
       <p class="help">AI results are research possibilities, never identifications, authenticity or value claims.</p>`;
     $$("[data-checkout]", host).forEach(b => b.onclick = () => Billing.checkout(b.dataset.checkout)); }
   const Billing = { /* Stripe Checkout, wired but disabled until C.checkoutEnabled is true and the create-checkout edge function is deployed */
-    async checkout(planId) { const msg = $("#checkoutMsg"); if (!st().user) { if (msg) msg.textContent = "Sign in first so the plan attaches to your account."; $("#authBtn")?.click(); return { error: "signin" }; }
-      if (!C.checkoutEnabled || MOCK) { if (msg) msg.textContent = `${planId === "lifetime" ? "Lifetime" : "Annual"} checkout is coming soon. Thanks for your interest!`; return { error: "coming_soon" }; }
+    async checkout(planId) { const msg = $("#checkoutMsg");
+      // Paid plans are not on sale yet: never open sign-up from a paid button (it read as "sign up for Lifetime"). The plan itself is set only server-side (018_plan_guard.sql).
+      if (!C.checkoutEnabled || MOCK) { if (msg) msg.textContent = "Paid plans aren't available yet. Annual and Lifetime are coming soon; every account is on the Free plan for now."; return { error: "coming_soon" }; }
+      if (!st().user) { if (msg) msg.textContent = "Sign in first so the plan attaches to your account."; $("#authBtn")?.click(); return { error: "signin" }; }
       try { const { data, error } = await sb().functions.invoke("create-checkout", { body: { plan: planId } }); if (error || !data || !data.url) throw new Error((error && error.message) || "Checkout unavailable"); location.href = data.url; return {}; }
       catch (e) { if (msg) msg.textContent = "Checkout isn't available right now: " + e.message; return { error: e.message }; } } };
 
