@@ -49,6 +49,13 @@ try:
     except urllib.error.HTTPError as e: code = e.code
     chk("old public-bucket URL of a private photo is gone", code >= 400, code)
     s, b = call("POST", f"/storage/v1/object/find-photos-private/{UID}/{PRIVATE_ID}/x.jpg", None, tok=TOK, extra={"Content-Type": "image/jpeg"}); chk("other user can't upload into Mark's find folder", s >= 400, s)
+    def put_obj(path):
+        r = urllib.request.Request(SB + "/storage/v1/object/" + path, data=b"\xff\xd8\xff\xd9", headers={"apikey": ANON, "Authorization": "Bearer " + TOK, "Content-Type": "image/jpeg", "x-upsert": "true"}, method="POST")
+        try: return urllib.request.urlopen(r).status
+        except urllib.error.HTTPError as e: return e.code
+    chk("own avatar upload + replace works", put_obj(f"find-photos/{UID}/avatar.jpg") == 200 and put_obj(f"find-photos/{UID}/avatar.jpg") == 200)
+    chk("public bucket refuses anything but your own avatar", put_obj(f"find-photos/{UID}/ELG-001/x.jpg") >= 400 and put_obj(f"find-photos/{MARK}/avatar.jpg") >= 400)
+    call("DELETE", "/storage/v1/object/find-photos", {"prefixes": [f"{UID}/avatar.jpg"]}, key=SVC)
     s, b = call("GET", "/rest/v1/collections?select=name,owner", tok=TOK); chk("other user sees only their own catalog (My Collection), never Rolling Oak", isinstance(b, list) and [x["name"] for x in b] == ["My Collection"], b)
     # UI: signed-out visitor + other user
     with sync_playwright() as p:
@@ -87,6 +94,11 @@ try:
         r = pg.evaluate(f"App.patch('{PUBLIC_ID}', {{ object_type: 'HACK' }}).then(() => 'ok').catch(e => 'refused: ' + e.message)"); chk("[other user UI] App.patch on Mark's find refused", r.startswith("refused"), r)
         pg.click("[data-newcat-btn]"); pg.wait_for_timeout(500); pg.fill("#newCatForm [name=name]", "Creek finds test"); pg.click("#newCatForm button.primary"); pg.wait_for_timeout(2500)
         chk("[other user UI] New catalog created and selected", "Creek finds test" in pg.inner_text("#catSwitch"), pg.inner_text("#catSwitch")); pg.screenshot(path=O + "other-user-new-catalog.png")
+        pg.goto(U + "#/catalogs"); pg.wait_for_timeout(2500)
+        f = pg.locator('.cat-rename:has(input[value="Creek finds test"])').first
+        f.locator("[name=name]").fill("Creek finds renamed"); f.locator("button").first.click(); pg.wait_for_timeout(2000)
+        s2, b2 = call("GET", "/rest/v1/collections?select=name", tok=TOK); names = sorted(x["name"] for x in b2) if isinstance(b2, list) else b2
+        chk("[other user UI] catalog renamed (and only their own catalogs exist)", names == ["Creek finds renamed", "My Collection"], names); pg.screenshot(path=O + "other-user-rename.png")
         c.close(); br.close()
 finally:
     if UID:

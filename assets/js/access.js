@@ -16,7 +16,9 @@
     /* every account gets a default 'My Collection' (the database also creates it at sign-up) */
     if (!cols.some(c => c.role === "owner") && !MOCK && window.Cloud && Cloud.client && Cloud.client() && (window.ROLLING_OAK_CLOUD || {}).schema014) {
       try { const r = await Cloud.client().rpc("ensure_default_catalog"); if (!r.error) cols = await Cloud.collections(); } catch {} }
-    try { expert = !!(window.Membership && Membership.isExpert && await Membership.isExpert()); } catch { expert = false; } nav(); }
+    if (!cols.length) colsFor = null; // session not ready yet (or offline): try again on the next load
+    try { expert = !!(window.Membership && Membership.isExpert && await Membership.isExpert()); } catch { expert = false; } nav();
+    document.dispatchEvent(new CustomEvent("access:change")); }
   /* test harness only: the mock owner "owns" the bundled seed rows, as the real owner owns them in the cloud */
   const mockOwner = () => DEV || !!(MOCK && uid() && (!MOCK.adminUserId || uid() === MOCK.adminUserId));
   function roleFor(r) { const u = uid(); if (!r) return null; if (!u) return DEV && !r._owner ? "owner" : null;

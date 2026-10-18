@@ -6,4 +6,5 @@ create policy "find-photos owner update" on storage.objects for update to authen
 create policy "find-photos public read" on storage.objects for select using (bucket_id = 'find-photos');
 drop policy if exists "collections read" on public.collections;
 create policy "collections read" on public.collections for select using (is_public OR (collection_role(id) IS NOT NULL));
+drop policy if exists "find-photos own avatar read" on storage.objects;
 commit;

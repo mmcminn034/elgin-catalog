@@ -17,3 +17,9 @@ begin;
 drop policy if exists "collections read" on public.collections;
 create policy "collections read" on public.collections for select using (is_public or owner = auth.uid() or collection_role(id) is not null);
 commit;
+-- replacing an avatar (upsert) needs to see your own existing object; nobody can list anyone else's
+begin;
+drop policy if exists "find-photos own avatar read" on storage.objects;
+create policy "find-photos own avatar read" on storage.objects for select to authenticated
+  using (bucket_id = 'find-photos' and name = auth.uid()::text || '/avatar.jpg');
+commit;

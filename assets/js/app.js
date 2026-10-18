@@ -198,6 +198,7 @@
     if (catFilter && !cs.some(c => c.id === catFilter)) catFilter = "";
     sel.innerHTML = `<option value="">All my catalogs</option>` + cs.map(c => `<option value="${esc(c.id)}"${c.id === catFilter ? " selected" : ""}>${esc(c.name)}${c.role && c.role !== "owner" ? ` (${esc(c.role)})` : ""}</option>`).join("");
     $("#catBar").hidden = !myId(); }
+  document.addEventListener("access:change", () => { renderCatBar(); });
   $("#catSwitch").addEventListener("change", e => { catFilter = e.target.value; try { localStorage.setItem("ro-cat-filter", catFilter); } catch {} renderStats(); renderGrid(); });
   async function newCatalog() { const d = $("#newCatDlg"), f = $("#newCatForm"); if (!myId()) return toast("Sign in to create a catalog."); f.reset(); $("#newCatMsg").textContent = ""; d.showModal(); f.name.focus();
     f.onsubmit = async e => { e.preventDefault(); const r = await Membership.createCatalog(f.name.value); if (r.error) { $("#newCatMsg").textContent = r.error.message || r.error; return; }
