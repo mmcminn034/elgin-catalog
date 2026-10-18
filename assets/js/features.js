@@ -193,6 +193,23 @@
     if (res.code === "ai_daily_cap") return `<div class="ai-unavail" role="alert"><p>⏳ ${esc(res.error || "You've reached today's AI limit.")}${still}</p><p><a class="btn" href="#/membership">See plans</a></p></div>`;
     if (res.code === "sign_in_required") return `<div class="ai-unavail" role="alert"><p>🔒 Sign in to use AI photo analysis. It's free with an account.</p><p><button type="button" class="btn primary" data-auth-open="signin">Sign in</button></p></div>`;
     return `<div class="ai-unavail" role="alert"><p>🤖 AI photo analysis is unavailable right now. Please try again later.${still}</p>${res.code === "ai_no_credits" ? '<p class="help">The AI service is temporarily out of credits; this does not count against your daily allowance.</p>' : ""}</div>`; }
+  /* Similar reference images (Wikimedia Commons sample, credited) for candidates at moderate or higher confidence (>= 40%).
+     Signed in: similar_reference_media() RPC (table stays owner-only). Fallback/offline/mock: the same credited sample in data/reference/reference-media.json. */
+  let refJson = null;
+  const GENERIC = ["point", "arrowhead", "arrow point", "dart point", "projectile point", "flake", "core"];
+  async function refsFor(name, kind) {
+    const sbc = window.Cloud && Cloud.client && Cloud.client();
+    if (sbc && !window.ROLLING_OAK_MOCK && st().user) { try { const { data, error } = await sbc.rpc("similar_reference_media", { p_names: [name], p_kind: kind || null, p_limit: 3 }); if (!error && data) return data; } catch {} }
+    try { refJson = refJson || (await (await fetch("data/reference/reference-media.json", { cache: "force-cache" })).json()).items || []; } catch { refJson = []; }
+    const n = String(name).toLowerCase(), rx = k => new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
+    return refJson.filter(m => m.thumb_url && (!kind || m.kind === kind)).map(m => ({ ...m, matched: m.keywords.filter(k => k.length > 2 && rx(k).test(n)).sort((a, b) => GENERIC.includes(a) - GENERIC.includes(b) || b.length - a.length)[0] })).filter(m => m.matched)
+      .sort((a, b) => GENERIC.includes(a.matched) - GENERIC.includes(b.matched) || b.matched.length - a.matched.length || (a.id > b.id ? 1 : -1)).slice(0, 3); }
+  async function refThumbs(body, cands, kind) {
+    const pct = c => window.Score ? Score.clampPct(c.confidence_pct != null ? c.confidence_pct : c.confidence) : parseFloat(c.confidence_pct) || 0;
+    for (const [k, c] of cands.entries()) { const host = body.querySelector(`[data-ref-cand="${k}"]`); if (!host || pct(c) < 40) continue;
+      const list = await refsFor(String(c.name || "").replace(/\s*\(.*$/, "") + (c.name && /\(/.test(c.name) ? " " + c.name : ""), kind); if (!list.length) continue;
+      const general = list.every(m => GENERIC.includes(m.matched));
+      host.innerHTML = `<p class="help ai-refs-h">${general ? "General reference photos (no exact match for this type in our sample)" : "Similar reference photos"}, for comparison only:</p><ul class="ref-thumbs">${list.map(m => `<li><a href="${esc(m.source_url)}" target="_blank" rel="noopener"><img src="${esc(m.thumb_url)}" alt="${esc(m.title)}" loading="lazy" referrerpolicy="no-referrer" width="120" height="90"></a><span class="ref-credit"><a href="${esc(m.source_url)}" target="_blank" rel="noopener">${esc(m.title)}</a><br>${esc(m.attribution.split(" / ")[0])} · ${m.license_url ? `<a href="${esc(m.license_url)}" target="_blank" rel="noopener license">${esc(m.license)}</a>` : esc(m.license)} · ${esc(m.source)}</span></li>`).join("")}</ul>`; } }
   async function analyze(r) {
     const dlg = $("#aiDlg"), body = $("#aiBody"), kind = App.kindOf(r), ps = App.pics(r).map((p, i) => ({ ...p, i })).filter(p => !String(p.src).startsWith("data:")).slice(0, 6);
     $("#aiClose").onclick = () => dlg.close(); dlg.showModal();
@@ -210,7 +227,7 @@
     try { sessionStorage.removeItem("ro-ai-last"); } catch {}
     const out = res.data.result || res.data, marksBy = new Map((out.marks || []).map(m => [m.photo_index, m.marks || []]));
     body.innerHTML = `<p class="recat"><span>⚠ ${esc(out.caveat || "AI suggestions are research possibilities, not identifications.")}</span></p>
-      <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>
+      <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}<div class="ai-refs" data-ref-cand="${k}"></div></li>`).join("")}</ol>
       ${[...marksBy].map(([pi, ms]) => { const p = ps[pi]; if (!p) return ""; return `<h3>Suggested marks · ${esc(p.label)}</h3><div class="ai-photo"><div class="mk-wrap" data-pi="${pi}"><img src="${esc(p.src)}" alt="${esc(p.label)}"></div>
         <ol class="ai-marks">${ms.map((m, k) => `<li><label class="check"><input type="checkbox" data-mk="${pi}:${k}" checked> <span class="mk-n">${k + 1}</span></label><input class="ai-lbl" data-lbl="${pi}:${k}" value="${esc(m.label)}" aria-label="Label for mark ${k + 1}"><p class="help">${esc(m.explanation)}</p></li>`).join("")}</ol></div>`; }).join("")}
       ${(out.gaps || []).length ? `<h3>What would help</h3><ul>${out.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
@@ -224,6 +241,7 @@
       <div id="aiFb"></div>
       <div class="row"><button type="button" class="btn primary" id="aiAccept">Accept selected</button><button type="button" class="btn" id="aiDiscard">Discard</button></div>`;
     for (const [pi, ms] of marksBy) { const w = body.querySelector(`.mk-wrap[data-pi="${pi}"]`); if (w) Marks.overlay(w, w.querySelector("img"), ms, true); }
+    refThumbs(body, out.candidates || [], kind);
     $("#aiDiscard").onclick = () => dlg.close();
     if (window.Learn && (out.candidates || []).length) Learn.feedbackBox($("#aiFb"), r, out.candidates[0].name, "ai");
     $("#aiAccept").onclick = async () => {

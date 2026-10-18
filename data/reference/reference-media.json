@@ -1,0 +1,2362 @@
+{
+ "meta": {
+  "built": "2026-10-18",
+  "note": "Small freely licensed sample. Credits travel with every item; see docs/reference-sources.md.",
+  "counts": {
+   "Paleobiology Database (PBDB)": 15,
+   "Wikimedia Commons": 115
+  },
+  "skipped_categories": [
+   "Potsherds"
+  ]
+ },
+ "items": [
+  {
+   "id": "wmc:661438",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "clovis"
+   ],
+   "title": "Arch1 clovispoints2",
+   "category": "Clovis points",
+   "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Arch1_clovispoints2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Arch1_clovispoints2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Arch1_clovispoints2.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "USDA-photo / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:86359351",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "clovis"
+   ],
+   "title": "Clovis Rummells Maske (cropped)",
+   "category": "Clovis points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/Clovis_Rummells_Maske_%28cropped%29.jpg/330px-Clovis_Rummells_Maske_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Clovis_Rummells_Maske_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Clovis_Rummells_Maske_(cropped).jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Bill Whittaker (talk) / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:11125587",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "clovis"
+   ],
+   "title": "Clovis Rummells Maske",
+   "category": "Clovis points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Clovis_Rummells_Maske.jpg/330px-Clovis_Rummells_Maske.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Clovis_Rummells_Maske.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Clovis_Rummells_Maske.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Bill Whittaker (talk) / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:153954311",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "folsom"
+   ],
+   "title": "Carl Schwachheim shows the Folsom point",
+   "category": "Folsom points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Carl_Schwachheim_shows_the_Folsom_point.jpg/330px-Carl_Schwachheim_shows_the_Folsom_point.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Carl_Schwachheim_shows_the_Folsom_point.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Carl_Schwachheim_shows_the_Folsom_point.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Unknown authorUnknown author / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:124473019",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "folsom"
+   ],
+   "title": "Folsom Point",
+   "category": "Folsom points",
+   "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Folsom_Point.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Folsom_Point.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Folsom_Point.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "attribution": "Siyajkak / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:36813670",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "folsom"
+   ],
+   "title": "Folsom point-Blackwater Draw",
+   "category": "Folsom points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Folsom_point-Blackwater_Draw.jpg/330px-Folsom_point-Blackwater_Draw.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Folsom_point-Blackwater_Draw.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Folsom_point-Blackwater_Draw.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "SeriouslySerious / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:133268482",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "fishtail",
+    "fell's cave"
+   ],
+   "title": "Fishtail-point-found-in-Montenegro",
+   "category": "Fishtail points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Fishtail-point-found-in-Montenegro.png/330px-Fishtail-point-found-in-Montenegro.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Fishtail-point-found-in-Montenegro.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Fishtail-point-found-in-Montenegro.png",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Daniel Loponte , Mirian Carbonera, Romina Silvestre / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:133268627",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "fishtail",
+    "fell's cave"
+   ],
+   "title": "Fishtail-projectile-points-from-Brazil-redrawn-from-their-original-illustrations-a",
+   "category": "Fishtail points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Fishtail-projectile-points-from-Brazil-redrawn-from-their-original-illustrations-a.png/330px-Fishtail-projectile-points-from-Brazil-redrawn-from-their-original-illustrations-a.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Fishtail-projectile-points-from-Brazil-redrawn-from-their-original-illustrations-a.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Fishtail-projectile-points-from-Brazil-redrawn-from-their-original-illustrations-a.png",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Daniel Loponte , Mirian Carbonera, Romina Silvestre / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:60787142",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "fishtail",
+    "fell's cave"
+   ],
+   "title": "Orient fishtail points - Early Woodland collection - Robbins Museum - Middleborough, Massachusetts - DSC03818",
+   "category": "Fishtail points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Orient_fishtail_points_-_Early_Woodland_collection_-_Robbins_Museum_-_Middleborough%2C_Massachusetts_-_DSC03818.jpg/330px-Orient_fishtail_points_-_Early_Woodland_collection_-_Robbins_Museum_-_Middleborough%2C_Massachusetts_-_DSC03818.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Orient_fishtail_points_-_Early_Woodland_collection_-_Robbins_Museum_-_Middleborough%2C_Massachusetts_-_DSC03818.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Orient_fishtail_points_-_Early_Woodland_collection_-_Robbins_Museum_-_Middleborough,_Massachusetts_-_DSC03818.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Daderot / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:5673825",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "projectile point",
+    "dart point",
+    "arrow point",
+    "arrowhead",
+    "point"
+   ],
+   "title": "Na arrowheads",
+   "category": "Pre-Columbian North American projectile points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Na_arrowheads.jpg/330px-Na_arrowheads.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Na_arrowheads.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Na_arrowheads.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Esc861 / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:11857592",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "projectile point",
+    "dart point",
+    "arrow point",
+    "arrowhead",
+    "point"
+   ],
+   "title": "PSM V37 D779 Shell ornaments arrow points and stone from a war club",
+   "category": "Pre-Columbian North American projectile points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/PSM_V37_D779_Shell_ornaments_arrow_points_and_stone_from_a_war_club.jpg/330px-PSM_V37_D779_Shell_ornaments_arrow_points_and_stone_from_a_war_club.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/84/PSM_V37_D779_Shell_ornaments_arrow_points_and_stone_from_a_war_club.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:PSM_V37_D779_Shell_ornaments_arrow_points_and_stone_from_a_war_club.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Unknown authorUnknown author / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:36824649",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "projectile point",
+    "dart point",
+    "arrow point",
+    "arrowhead",
+    "point"
+   ],
+   "title": "StemmedFlutedPoint-Surface",
+   "category": "Pre-Columbian North American projectile points",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/StemmedFlutedPoint-Surface.jpg/330px-StemmedFlutedPoint-Surface.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/90/StemmedFlutedPoint-Surface.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:StemmedFlutedPoint-Surface.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mirko Clarke / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:1032483",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "arrowhead",
+    "arrow point"
+   ],
+   "title": "3D arrowhead 0001",
+   "category": "Arrowheads",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/3D_arrowhead_0001.jpg/330px-3D_arrowhead_0001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ab/3D_arrowhead_0001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:3D_arrowhead_0001.jpg",
+   "license": "CC BY-SA 2.5",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "attribution": "Alexander Kastler / CC BY-SA 2.5 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:190533587",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "arrowhead",
+    "arrow point"
+   ],
+   "title": "Another Arrowhead, Unknown provenance, Predynastic Egypt, RAMM Exeter",
+   "category": "Arrowheads",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/Another_Arrowhead%2C_Unknown_provenance%2C_Predynastic_Egypt%2C_RAMM_Exeter.jpg/330px-Another_Arrowhead%2C_Unknown_provenance%2C_Predynastic_Egypt%2C_RAMM_Exeter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Another_Arrowhead%2C_Unknown_provenance%2C_Predynastic_Egypt%2C_RAMM_Exeter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Another_Arrowhead,_Unknown_provenance,_Predynastic_Egypt,_RAMM_Exeter.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "SpeakingArch / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:190534254",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "arrowhead",
+    "arrow point"
+   ],
+   "title": "Another Arrowhead,Predynastic Egypt, Unknown provenance, RAMM Exeter",
+   "category": "Arrowheads",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Another_Arrowhead%2CPredynastic_Egypt%2C_Unknown_provenance%2C_RAMM_Exeter.jpg/330px-Another_Arrowhead%2CPredynastic_Egypt%2C_Unknown_provenance%2C_RAMM_Exeter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Another_Arrowhead%2CPredynastic_Egypt%2C_Unknown_provenance%2C_RAMM_Exeter.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Another_Arrowhead,Predynastic_Egypt,_Unknown_provenance,_RAMM_Exeter.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "SpeakingArch / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:1554936",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "biface",
+    "bifacial",
+    "hand axe",
+    "handaxe",
+    "chopper"
+   ],
+   "title": "Biface Extension",
+   "category": "Stone hand axes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Biface_Extension.png/330px-Biface_Extension.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Biface_Extension.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Biface_Extension.png",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Jos\u00e9 Manuel Benito \u00c1lvarez / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:49923744",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "biface",
+    "bifacial",
+    "hand axe",
+    "handaxe",
+    "chopper"
+   ],
+   "title": "Biface Sima de los Huesos",
+   "category": "Stone hand axes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Biface_Sima_de_los_Huesos.jpg/330px-Biface_Sima_de_los_Huesos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Biface_Sima_de_los_Huesos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Biface_Sima_de_los_Huesos.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "UtaUtaNapishtim / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:127381349",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "biface",
+    "bifacial",
+    "hand axe",
+    "handaxe",
+    "chopper"
+   ],
+   "title": "Biface, Paleolithic from M\u00fcnster-Gittrup - LWL-Arch\u00e4ologie f\u00fcr Westfalen in City Museum of M\u00fcnster",
+   "category": "Stone hand axes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Biface%2C_Paleolithic_from_M%C3%BCnster-Gittrup_-_LWL-Arch%C3%A4ologie_f%C3%BCr_Westfalen_in_City_Museum_of_M%C3%BCnster.jpg/330px-Biface%2C_Paleolithic_from_M%C3%BCnster-Gittrup_-_LWL-Arch%C3%A4ologie_f%C3%BCr_Westfalen_in_City_Museum_of_M%C3%BCnster.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Biface%2C_Paleolithic_from_M%C3%BCnster-Gittrup_-_LWL-Arch%C3%A4ologie_f%C3%BCr_Westfalen_in_City_Museum_of_M%C3%BCnster.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Biface,_Paleolithic_from_M%C3%BCnster-Gittrup_-_LWL-Arch%C3%A4ologie_f%C3%BCr_Westfalen_in_City_Museum_of_M%C3%BCnster.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Marsupium / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:55951421",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "scraper"
+   ],
+   "title": "Bronze Age Denticulated Scraper Lithic Implement (FindID 155530)",
+   "category": "Stone scrapers",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Bronze_Age_Denticulated_Scraper_Lithic_Implement_%28FindID_155530%29.jpg/330px-Bronze_Age_Denticulated_Scraper_Lithic_Implement_%28FindID_155530%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Bronze_Age_Denticulated_Scraper_Lithic_Implement_%28FindID_155530%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Bronze_Age_Denticulated_Scraper_Lithic_Implement_(FindID_155530).jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "The Portable Antiquities Scheme, John Davey, 2007-01-11 13:45:39 / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:32953849",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "scraper"
+   ],
+   "title": "Flint Scraper",
+   "category": "Stone scrapers",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3f/Flint_Scraper.jpg/330px-Flint_Scraper.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Flint_Scraper.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Flint_Scraper.jpg",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "attribution": "david coombes (original picture), Nina-marta (modification) / CC BY-SA 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:39172595",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "scraper"
+   ],
+   "title": "History of Inventions USNM 20 Scraper",
+   "category": "Stone scrapers",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/History_of_Inventions_USNM_20_Scraper.png/330px-History_of_Inventions_USNM_20_Scraper.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/History_of_Inventions_USNM_20_Scraper.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:History_of_Inventions_USNM_20_Scraper.png",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "United States National Museum (Smithsonian Institution), Washington D.C. / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:36800940",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "core",
+    "cobble core",
+    "flake",
+    "debitage"
+   ],
+   "title": "Bipolar Core",
+   "category": "Lithic cores",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/75/Bipolar_Core.jpg/330px-Bipolar_Core.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Bipolar_Core.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Bipolar_Core.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "ElphabaThropp13 / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:1505264",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "core",
+    "cobble core",
+    "flake",
+    "debitage"
+   ],
+   "title": "Kombewa core (nucleus)",
+   "category": "Lithic cores",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Kombewa_core_%28nucleus%29.png/330px-Kombewa_core_%28nucleus%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Kombewa_core_%28nucleus%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Kombewa_core_(nucleus).png",
+   "license": "CC BY-SA 2.5",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "attribution": "Jos\u00e9-Manuel Benito \u00c1lvarez (Espa\u00f1a) \u2014&gt; Locutus Borg / CC BY-SA 2.5 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:47587671",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "core",
+    "cobble core",
+    "flake",
+    "debitage"
+   ],
+   "title": "Lithic Core Negev",
+   "category": "Lithic cores",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Lithic_Core_Negev.jpg/330px-Lithic_Core_Negev.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Lithic_Core_Negev.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Lithic_Core_Negev.jpg",
+   "license": "CC0",
+   "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribution": "Wilson44691 / CC0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:30834027",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "metate",
+    "grinding slab",
+    "grinding stone"
+   ],
+   "title": "Agua Caliente Indian woman, Nievas Chaves, with a metate stone, 1903 (CHS-3833)",
+   "category": "Metate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Agua_Caliente_Indian_woman%2C_Nievas_Chaves%2C_with_a_metate_stone%2C_1903_%28CHS-3833%29.jpg/330px-Agua_Caliente_Indian_woman%2C_Nievas_Chaves%2C_with_a_metate_stone%2C_1903_%28CHS-3833%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Agua_Caliente_Indian_woman%2C_Nievas_Chaves%2C_with_a_metate_stone%2C_1903_%28CHS-3833%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Agua_Caliente_Indian_woman,_Nievas_Chaves,_with_a_metate_stone,_1903_(CHS-3833).jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "James, George Wharton / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:90896485",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "metate",
+    "grinding slab",
+    "grinding stone"
+   ],
+   "title": "Enelmetate",
+   "category": "Metate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Enelmetate.jpg/330px-Enelmetate.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Enelmetate.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Enelmetate.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineroplataoro / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:110704060",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "metate",
+    "grinding slab",
+    "grinding stone"
+   ],
+   "title": "Mano & Metate (9422007531)",
+   "category": "Metate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Mano_%26_Metate_%289422007531%29.jpg/330px-Mano_%26_Metate_%289422007531%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mano_%26_Metate_%289422007531%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Mano_%26_Metate_(9422007531).jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "CanyonlandsNPS / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:51657122",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "mano",
+    "quern",
+    "grinding stone"
+   ],
+   "title": "Hoana (ancient Hawaiian adze grinding stone), Bailey House Museum",
+   "category": "Querns",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Hoana_%28ancient_Hawaiian_adze_grinding_stone%29%2C_Bailey_House_Museum.JPG/330px-Hoana_%28ancient_Hawaiian_adze_grinding_stone%29%2C_Bailey_House_Museum.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Hoana_%28ancient_Hawaiian_adze_grinding_stone%29%2C_Bailey_House_Museum.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Hoana_(ancient_Hawaiian_adze_grinding_stone),_Bailey_House_Museum.JPG",
+   "license": "CC0",
+   "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribution": "Wmpearl / CC0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:114940378",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "mano",
+    "quern",
+    "grinding stone"
+   ],
+   "title": "Quern Stone",
+   "category": "Querns",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Quern_Stone.png/330px-Quern_Stone.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Quern_Stone.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Quern_Stone.png",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "A.-K. D. / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:58647791",
+   "source": "Wikimedia Commons",
+   "kind": "artifact",
+   "keywords": [
+    "mano",
+    "quern",
+    "grinding stone"
+   ],
+   "title": "Rotating quern, stone, probably Bronze Age, City of Prague Museum, 175480",
+   "category": "Querns",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Rotating_quern%2C_stone%2C_probably_Bronze_Age%2C_City_of_Prague_Museum%2C_175480.jpg/330px-Rotating_quern%2C_stone%2C_probably_Bronze_Age%2C_City_of_Prague_Museum%2C_175480.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Rotating_quern%2C_stone%2C_probably_Bronze_Age%2C_City_of_Prague_Museum%2C_175480.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Rotating_quern,_stone,_probably_Bronze_Age,_City_of_Prague_Museum,_175480.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Zde / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:3480078",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "exogyra",
+    "oyster"
+   ],
+   "title": "Exogyra sp.1 - Fosil",
+   "category": "Exogyra",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Exogyra_sp.1_-_Fosil.JPG/330px-Exogyra_sp.1_-_Fosil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Exogyra_sp.1_-_Fosil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Exogyra_sp.1_-_Fosil.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Fernando Losada Rodr\u00edguez / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:3480119",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "exogyra",
+    "oyster"
+   ],
+   "title": "Exogyra sp.2 - Fosil",
+   "category": "Exogyra",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Exogyra_sp.2_-_Fosil.JPG/330px-Exogyra_sp.2_-_Fosil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Exogyra_sp.2_-_Fosil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Exogyra_sp.2_-_Fosil.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Fernando Losada Rodr\u00edguez / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:111891945",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "exogyra",
+    "oyster"
+   ],
+   "title": "Exogyra",
+   "category": "Exogyra",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Exogyra.jpg/330px-Exogyra.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Exogyra.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Exogyra.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Francisco Ruiz Contreras / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:2121594",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "gryphaea",
+    "devil's toenail",
+    "oyster"
+   ],
+   "title": "Devil's toenails",
+   "category": "Gryphaea",
+   "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Devil%27s_toenails.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Devil%27s_toenails.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Devil%27s_toenails.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "attribution": "The original uploader was Tarquin at English Wikipedia. / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:4100947",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "gryphaea",
+    "devil's toenail",
+    "oyster"
+   ],
+   "title": "Fossil Bivalve Gryphaea",
+   "category": "Gryphaea",
+   "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Fossil_Bivalve_Gryphaea.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Fossil_Bivalve_Gryphaea.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Fossil_Bivalve_Gryphaea.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "attribution": "Dlloyd / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:103538662",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "gryphaea",
+    "devil's toenail",
+    "oyster"
+   ],
+   "title": "Gryphaea Fossil",
+   "category": "Gryphaea",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Gryphaea_Fossil.jpg/330px-Gryphaea_Fossil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Gryphaea_Fossil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Gryphaea_Fossil.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Hallettx / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:191100895",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "ammonite",
+    "heteromorph"
+   ],
+   "title": "(MHNT) Costidiscus recticostatus and Heteroceras emericianus - Alpes-de-Haute-Provence, France",
+   "category": "Heteromorph ammonites",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/%28MHNT%29_Costidiscus_recticostatus_and_Heteroceras_emericianus_-_Alpes-de-Haute-Provence%2C_France.jpg/330px-%28MHNT%29_Costidiscus_recticostatus_and_Heteroceras_emericianus_-_Alpes-de-Haute-Provence%2C_France.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/%28MHNT%29_Costidiscus_recticostatus_and_Heteroceras_emericianus_-_Alpes-de-Haute-Provence%2C_France.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:(MHNT)_Costidiscus_recticostatus_and_Heteroceras_emericianus_-_Alpes-de-Haute-Provence,_France.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Didier Descouens / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:54695504",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "ammonite",
+    "heteromorph"
+   ],
+   "title": "Ammonite cemetery",
+   "category": "Heteromorph ammonites",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Ammonite_cemetery.jpg/330px-Ammonite_cemetery.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Ammonite_cemetery.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Ammonite_cemetery.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Teresa Martin / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:17311169",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "ammonite",
+    "heteromorph"
+   ],
+   "title": "Ammoniti eteromorfe",
+   "category": "Heteromorph ammonites",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Ammoniti_eteromorfe.jpg/330px-Ammoniti_eteromorfe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Ammoniti_eteromorfe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Ammoniti_eteromorfe.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Ghedoghedo / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:68367567",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "crinoid"
+   ],
+   "title": "Crinoid P8130003",
+   "category": "Comatulida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/Crinoid_P8130003.jpg/330px-Crinoid_P8130003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Crinoid_P8130003.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Crinoid_P8130003.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Chris Light / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:68367565",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "crinoid"
+   ],
+   "title": "Crinoid P8130006",
+   "category": "Comatulida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Crinoid_P8130006.jpg/330px-Crinoid_P8130006.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Crinoid_P8130006.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Crinoid_P8130006.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Chris Light / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:16984493",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod"
+   ],
+   "title": "Victorithyris peterboroughensis brachial valve oblique",
+   "category": "Terebratulida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Victorithyris_peterboroughensis_brachial_valve_oblique.jpg/330px-Victorithyris_peterboroughensis_brachial_valve_oblique.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Victorithyris_peterboroughensis_brachial_valve_oblique.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Victorithyris_peterboroughensis_brachial_valve_oblique.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Dwergenpaartje / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:16984492",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod"
+   ],
+   "title": "Victorithyris peterboroughensis brachial valve",
+   "category": "Terebratulida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/Victorithyris_peterboroughensis_brachial_valve.jpg/330px-Victorithyris_peterboroughensis_brachial_valve.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Victorithyris_peterboroughensis_brachial_valve.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Victorithyris_peterboroughensis_brachial_valve.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Dwergenpaartje / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:16439950",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod",
+    "spirifer"
+   ],
+   "title": "Arduspirifer arduennensis",
+   "category": "Spiriferida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3e/Arduspirifer_arduennensis.jpg/330px-Arduspirifer_arduennensis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Arduspirifer_arduennensis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Arduspirifer_arduennensis.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Dwergenpaartje / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:49296412",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod",
+    "spirifer"
+   ],
+   "title": "Arduspirifer ardvennensis prolatestriatus",
+   "category": "Spiriferida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Arduspirifer_ardvennensis_prolatestriatus.jpg/330px-Arduspirifer_ardvennensis_prolatestriatus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Arduspirifer_ardvennensis_prolatestriatus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Arduspirifer_ardvennensis_prolatestriatus.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Ghedoghedo / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:574052",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod",
+    "spirifer"
+   ],
+   "title": "Brachiopod Neospirifer",
+   "category": "Spiriferida fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/45/Brachiopod_Neospirifer.jpg/330px-Brachiopod_Neospirifer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/45/Brachiopod_Neospirifer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Brachiopod_Neospirifer.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "attribution": "Dlloyd / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:64202076",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "echinoid",
+    "sea urchin",
+    "heart urchin"
+   ],
+   "title": "Hemicidaris intermedia 56",
+   "category": "Hemicidaris",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/03/Hemicidaris_intermedia_56.jpg/330px-Hemicidaris_intermedia_56.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Hemicidaris_intermedia_56.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Hemicidaris_intermedia_56.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Ghedoghedo / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:81016372",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "echinoid",
+    "sea urchin",
+    "heart urchin"
+   ],
+   "title": "Hemicidaris intermedia Cosmocaixa cropped",
+   "category": "Hemicidaris",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Hemicidaris_intermedia_Cosmocaixa_cropped.jpg/330px-Hemicidaris_intermedia_Cosmocaixa_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Hemicidaris_intermedia_Cosmocaixa_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Hemicidaris_intermedia_Cosmocaixa_cropped.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Remove \"cropped\" from file name and see original file / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:33357805",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "echinoid",
+    "sea urchin",
+    "heart urchin"
+   ],
+   "title": "Hemicidaris intermedia Cosmocaixa",
+   "category": "Hemicidaris",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Hemicidaris_intermedia_Cosmocaixa.JPG/330px-Hemicidaris_intermedia_Cosmocaixa.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Hemicidaris_intermedia_Cosmocaixa.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Hemicidaris_intermedia_Cosmocaixa.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Eduard Sol\u00e0 / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:172472552",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "shark tooth",
+    "shark teeth"
+   ],
+   "title": "Archaeogracilidens macer isolated teeth",
+   "category": "Shark teeth fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Archaeogracilidens_macer_isolated_teeth.jpg/330px-Archaeogracilidens_macer_isolated_teeth.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Archaeogracilidens_macer_isolated_teeth.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Archaeogracilidens_macer_isolated_teeth.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Eduardo Villalobos-Segura, Manuel Amadori, Sebastian Stumpf, Patrick L. Jambura, Arnaud Begat, Faviel A. Lopez-Romero, G / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:172472553",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "shark tooth",
+    "shark teeth"
+   ],
+   "title": "Archaeogracilidens macer lower jaw teeth",
+   "category": "Shark teeth fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Archaeogracilidens_macer_lower_jaw_teeth.jpg/330px-Archaeogracilidens_macer_lower_jaw_teeth.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/14/Archaeogracilidens_macer_lower_jaw_teeth.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Archaeogracilidens_macer_lower_jaw_teeth.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Eduardo Villalobos-Segura, Manuel Amadori, Sebastian Stumpf, Patrick L. Jambura, Arnaud Begat, Faviel A. Lopez-Romero, G / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:66778381",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "shark tooth",
+    "shark teeth"
+   ],
+   "title": "Carcharomodus-escheri-teeth",
+   "category": "Shark teeth fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8d/Carcharomodus-escheri-teeth.png/330px-Carcharomodus-escheri-teeth.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Carcharomodus-escheri-teeth.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Carcharomodus-escheri-teeth.png",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "J\u00dcRGEN KRIWET, HEIKE MEWIS, and OLIVER HAMPE / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:35205828",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "petrified wood",
+    "silicified wood",
+    "fossil wood"
+   ],
+   "title": "'Wood fossil",
+   "category": "Petrified wood",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/%27Wood_fossil.JPG/330px-%27Wood_fossil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/39/%27Wood_fossil.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%27Wood_fossil.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Arivumathi / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:20199649",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "petrified wood",
+    "silicified wood",
+    "fossil wood"
+   ],
+   "title": "439 Arg Barreales esposizione scavi legnofossile",
+   "category": "Petrified wood",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/439_Arg_Barreales_esposizione_scavi_legnofossile.JPG/330px-439_Arg_Barreales_esposizione_scavi_legnofossile.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/90/439_Arg_Barreales_esposizione_scavi_legnofossile.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:439_Arg_Barreales_esposizione_scavi_legnofossile.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Simona.cerrato / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:20199652",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "petrified wood",
+    "silicified wood",
+    "fossil wood"
+   ],
+   "title": "440 Arg Barreales esposizione scavi legnofossile",
+   "category": "Petrified wood",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/440_Arg_Barreales_esposizione_scavi_legnofossile.JPG/330px-440_Arg_Barreales_esposizione_scavi_legnofossile.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/440_Arg_Barreales_esposizione_scavi_legnofossile.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:440_Arg_Barreales_esposizione_scavi_legnofossile.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Simona.cerrato / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:50099862",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "belemnite"
+   ],
+   "title": "1867-Belemnite-canaliculatus",
+   "category": "Belemnites",
+   "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/1867-Belemnite-canaliculatus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/1867-Belemnite-canaliculatus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1867-Belemnite-canaliculatus.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Figuier, Guillaume Louis / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:135812574",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "belemnite"
+   ],
+   "title": "Belemnit (Donnerkeil, Senserbach)",
+   "category": "Belemnites",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Belemnit_%28Donnerkeil%2C_Senserbach%29.jpg/330px-Belemnit_%28Donnerkeil%2C_Senserbach%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Belemnit_%28Donnerkeil%2C_Senserbach%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Belemnit_(Donnerkeil,_Senserbach).jpg",
+   "license": "CC0",
+   "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribution": "Rhetos / CC0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:141059950",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "belemnite"
+   ],
+   "title": "Belemnite Fossils - geograph.org.uk - 5763147",
+   "category": "Belemnites",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/Belemnite_Fossils_-_geograph.org.uk_-_5763147.jpg/330px-Belemnite_Fossils_-_geograph.org.uk_-_5763147.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Belemnite_Fossils_-_geograph.org.uk_-_5763147.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Belemnite_Fossils_-_geograph.org.uk_-_5763147.jpg",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "attribution": "Anne Burgess / CC BY-SA 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:116866529",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "trilobite"
+   ],
+   "title": "\"Cedaria\" woosteri (fossil trilobite) (Eau Claire Formation, Middle Cambrian; Warren County core - 2627, Ohio, USA) 1",
+   "category": "Trilobita fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_1.jpg/330px-%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Cedaria%22_woosteri_(fossil_trilobite)_(Eau_Claire_Formation,_Middle_Cambrian;_Warren_County_core_-_2627,_Ohio,_USA)_1.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:116866530",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "trilobite"
+   ],
+   "title": "\"Cedaria\" woosteri (fossil trilobite) (Eau Claire Formation, Middle Cambrian; Warren County core - 2627, Ohio, USA) 2",
+   "category": "Trilobita fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_2.jpg/330px-%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/%22Cedaria%22_woosteri_%28fossil_trilobite%29_%28Eau_Claire_Formation%2C_Middle_Cambrian%3B_Warren_County_core_-_2627%2C_Ohio%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Cedaria%22_woosteri_(fossil_trilobite)_(Eau_Claire_Formation,_Middle_Cambrian;_Warren_County_core_-_2627,_Ohio,_USA)_2.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:96477650",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "trilobite"
+   ],
+   "title": "16177 Grand Canyon Trilobite Fossil (4739035423)",
+   "category": "Trilobita fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/99/16177_Grand_Canyon_Trilobite_Fossil_%284739035423%29.jpg/330px-16177_Grand_Canyon_Trilobite_Fossil_%284739035423%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/16177_Grand_Canyon_Trilobite_Fossil_%284739035423%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:16177_Grand_Canyon_Trilobite_Fossil_(4739035423).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "Grand Canyon National Park / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:116822762",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "coral",
+    "horn coral",
+    "rugose"
+   ],
+   "title": "Brachiopods & rugose corals in limestone (Richmondian Stage, Upper Ordovician; Southgate Hill roadcut, Indiana, USA)",
+   "category": "Rugosa fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Brachiopods_%26_rugose_corals_in_limestone_%28Richmondian_Stage%2C_Upper_Ordovician%3B_Southgate_Hill_roadcut%2C_Indiana%2C_USA%29.jpg/330px-Brachiopods_%26_rugose_corals_in_limestone_%28Richmondian_Stage%2C_Upper_Ordovician%3B_Southgate_Hill_roadcut%2C_Indiana%2C_USA%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Brachiopods_%26_rugose_corals_in_limestone_%28Richmondian_Stage%2C_Upper_Ordovician%3B_Southgate_Hill_roadcut%2C_Indiana%2C_USA%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Brachiopods_%26_rugose_corals_in_limestone_(Richmondian_Stage,_Upper_Ordovician;_Southgate_Hill_roadcut,_Indiana,_USA).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:88222592",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "coral",
+    "horn coral",
+    "rugose"
+   ],
+   "title": "Calceoloid rugose coral 2",
+   "category": "Rugosa fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Calceoloid_rugose_coral_2.jpg/330px-Calceoloid_rugose_coral_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Calceoloid_rugose_coral_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Calceoloid_rugose_coral_2.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:88222591",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "coral",
+    "horn coral",
+    "rugose"
+   ],
+   "title": "Calceoloid rugose coral 3",
+   "category": "Rugosa fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/Calceoloid_rugose_coral_3.jpg/330px-Calceoloid_rugose_coral_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Calceoloid_rugose_coral_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Calceoloid_rugose_coral_3.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:95044929",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "bivalve",
+    "clam",
+    "pelecypod"
+   ],
+   "title": "Ambonychia sp. (fossil bivalve) (Waynesville Formation, Upper Ordovician; Roaring Run, Warren County, Ohio, USA)",
+   "category": "Bivalvia fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Ambonychia_sp._%28fossil_bivalve%29_%28Waynesville_Formation%2C_Upper_Ordovician%3B_Roaring_Run%2C_Warren_County%2C_Ohio%2C_USA%29.jpg/330px-Ambonychia_sp._%28fossil_bivalve%29_%28Waynesville_Formation%2C_Upper_Ordovician%3B_Roaring_Run%2C_Warren_County%2C_Ohio%2C_USA%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/65/Ambonychia_sp._%28fossil_bivalve%29_%28Waynesville_Formation%2C_Upper_Ordovician%3B_Roaring_Run%2C_Warren_County%2C_Ohio%2C_USA%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Ambonychia_sp._(fossil_bivalve)_(Waynesville_Formation,_Upper_Ordovician;_Roaring_Run,_Warren_County,_Ohio,_USA).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:95044927",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "bivalve",
+    "clam",
+    "pelecypod"
+   ],
+   "title": "Bivalve fossil (Ashlock Formation, Upper Ordovician; Paint Lick Elementary School outcrop, Garrard County, Kentucky, USA) 1",
+   "category": "Bivalvia fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_1.jpg/330px-Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Bivalve_fossil_(Ashlock_Formation,_Upper_Ordovician;_Paint_Lick_Elementary_School_outcrop,_Garrard_County,_Kentucky,_USA)_1.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:95044928",
+   "source": "Wikimedia Commons",
+   "kind": "fossil",
+   "keywords": [
+    "bivalve",
+    "clam",
+    "pelecypod"
+   ],
+   "title": "Bivalve fossil (Ashlock Formation, Upper Ordovician; Paint Lick Elementary School outcrop, Garrard County, Kentucky, USA) 2",
+   "category": "Bivalvia fossils",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_2.jpg/330px-Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Bivalve_fossil_%28Ashlock_Formation%2C_Upper_Ordovician%3B_Paint_Lick_Elementary_School_outcrop%2C_Garrard_County%2C_Kentucky%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Bivalve_fossil_(Ashlock_Formation,_Upper_Ordovician;_Paint_Lick_Elementary_School_outcrop,_Garrard_County,_Kentucky,_USA)_2.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:84648230",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chert"
+   ],
+   "title": "\"Turritella Agate\" (partially chertified fossiliferous lacustrine limestone) (Laney Member, Green River Formation, Middle Eocene; North Barr",
+   "category": "Chert",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/%22Turritella_Agate%22_%28partially_chertified_fossiliferous_lacustrine_limestone%29_%28Laney_Member%2C_Green_River_Formation%2C_Middle_Eocene%3B_North_Barrel_Springs_Draw%2C_south_of_Wamsutter%2C_Wyoming%2C_USA%29_2_%2819687779650%29.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/%22Turritella_Agate%22_%28partially_chertified_fossiliferous_lacustrine_limestone%29_%28Laney_Member%2C_Green_River_Formation%2C_Middle_Eocene%3B_North_Barrel_Springs_Draw%2C_south_of_Wamsutter%2C_Wyoming%2C_USA%29_2_%2819687779650%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Turritella_Agate%22_(partially_chertified_fossiliferous_lacustrine_limestone)_(Laney_Member,_Green_River_Formation,_Middle_Eocene;_North_Barrel_Springs_Draw,_south_of_Wamsutter,_Wyoming,_USA)_2_(19687779650).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:105738059",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chert"
+   ],
+   "title": "1 FLAKE, CHERT, POSSIBLY HEAT ALTERED (890be44f-95bf-4e47-bfee-8813ab80c8b2)",
+   "category": "Chert",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/1_FLAKE%2C_CHERT%2C_POSSIBLY_HEAT_ALTERED_%28890be44f-95bf-4e47-bfee-8813ab80c8b2%29.jpg/330px-1_FLAKE%2C_CHERT%2C_POSSIBLY_HEAT_ALTERED_%28890be44f-95bf-4e47-bfee-8813ab80c8b2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/07/1_FLAKE%2C_CHERT%2C_POSSIBLY_HEAT_ALTERED_%28890be44f-95bf-4e47-bfee-8813ab80c8b2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1_FLAKE,_CHERT,_POSSIBLY_HEAT_ALTERED_(890be44f-95bf-4e47-bfee-8813ab80c8b2).jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Frank Ruggles / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:4161589",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chert"
+   ],
+   "title": "Chalk with cover of Caliche Naari and Chert lens a road 38",
+   "category": "Chert",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4a/Chalk_with_cover_of_Caliche_Naari_and_Chert_lens_a_road_38.jpg/330px-Chalk_with_cover_of_Caliche_Naari_and_Chert_lens_a_road_38.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Chalk_with_cover_of_Caliche_Naari_and_Chert_lens_a_road_38.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Chalk_with_cover_of_Caliche_Naari_and_Chert_lens_a_road_38.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Daniel Ventura / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:198277342",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "flint"
+   ],
+   "title": "Flint hagstone found on the shore of the Thames",
+   "category": "Flint",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Flint_hagstone_found_on_the_shore_of_the_Thames.jpg/330px-Flint_hagstone_found_on_the_shore_of_the_Thames.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Flint_hagstone_found_on_the_shore_of_the_Thames.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Flint_hagstone_found_on_the_shore_of_the_Thames.jpg",
+   "license": "CC0",
+   "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribution": "Netherzone / CC0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:190263982",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "flint"
+   ],
+   "title": "Fragment of Great Flint Knife, Early Dynastic Period, Temple of Kom-el-Ahmar, Egypt. Museum of Archaeology and Anthropology, Cambridge, Engl",
+   "category": "Flint",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Fragment_of_Great_Flint_Knife%2C_Early_Dynastic_Period%2C_Temple_of_Kom-el-Ahmar%2C_Egypt._Museum_of_Archaeology_and_Anthropology%2C_Cambridge%2C_England._..._less.jpg/330px-Fragment_of_Great_Flint_Knife%2C_Early_Dynastic_Period%2C_Temple_of_Kom-el-Ahmar%2C_Egypt._Museum_of_Archaeology_and_Anthropology%2C_Cambridge%2C_England._..._less.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/22/Fragment_of_Great_Flint_Knife%2C_Early_Dynastic_Period%2C_Temple_of_Kom-el-Ahmar%2C_Egypt._Museum_of_Archaeology_and_Anthropology%2C_Cambridge%2C_England._..._less.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Fragment_of_Great_Flint_Knife,_Early_Dynastic_Period,_Temple_of_Kom-el-Ahmar,_Egypt._Museum_of_Archaeology_and_Anthropology,_Cambridge,_England._..._less.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "SpeakingArch / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:187018624",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "flint"
+   ],
+   "title": "Large Ceremonial Flint Knife, Hierakonpolis Main Deposit, Ashmolean Museum, Oxford",
+   "category": "Flint",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Large_Ceremonial_Flint_Knife%2C_Hierakonpolis_Main_Deposit%2C_Ashmolean_Museum%2C_Oxford.jpg/330px-Large_Ceremonial_Flint_Knife%2C_Hierakonpolis_Main_Deposit%2C_Ashmolean_Museum%2C_Oxford.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Large_Ceremonial_Flint_Knife%2C_Hierakonpolis_Main_Deposit%2C_Ashmolean_Museum%2C_Oxford.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Large_Ceremonial_Flint_Knife,_Hierakonpolis_Main_Deposit,_Ashmolean_Museum,_Oxford.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "SpeakingArch / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:170320447",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "agate"
+   ],
+   "title": "\"Polka Dot Agate\" (Polka Dot Agate Mine, northeast of Madras, Oregon, USA) 1",
+   "category": "Agate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_1.jpg/330px-%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Polka_Dot_Agate%22_(Polka_Dot_Agate_Mine,_northeast_of_Madras,_Oregon,_USA)_1.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "James St. John / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:170320445",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "agate"
+   ],
+   "title": "\"Polka Dot Agate\" (Polka Dot Agate Mine, northeast of Madras, Oregon, USA) 3",
+   "category": "Agate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_3.jpg/330px-%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Polka_Dot_Agate%22_(Polka_Dot_Agate_Mine,_northeast_of_Madras,_Oregon,_USA)_3.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "James St. John / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:170320443",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "agate"
+   ],
+   "title": "\"Polka Dot Agate\" (Polka Dot Agate Mine, northeast of Madras, Oregon, USA) 4",
+   "category": "Agate",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_4.jpg/330px-%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/%22Polka_Dot_Agate%22_%28Polka_Dot_Agate_Mine%2C_northeast_of_Madras%2C_Oregon%2C_USA%29_4.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Polka_Dot_Agate%22_(Polka_Dot_Agate_Mine,_northeast_of_Madras,_Oregon,_USA)_4.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "James St. John / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:154732484",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "jasper"
+   ],
+   "title": "\"Succor Creek Jasper\" (Succor Creek Canyon area, Oregon, USA) 1",
+   "category": "Jasper",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_1.jpg/330px-%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Succor_Creek_Jasper%22_(Succor_Creek_Canyon_area,_Oregon,_USA)_1.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:154732487",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "jasper"
+   ],
+   "title": "\"Succor Creek Jasper\" (Succor Creek Canyon area, Oregon, USA) 2",
+   "category": "Jasper",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_2.jpg/330px-%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/49/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Succor_Creek_Jasper%22_(Succor_Creek_Canyon_area,_Oregon,_USA)_2.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:154732490",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "jasper"
+   ],
+   "title": "\"Succor Creek Jasper\" (Succor Creek Canyon area, Oregon, USA) 3",
+   "category": "Jasper",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_3.jpg/330px-%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/%22Succor_Creek_Jasper%22_%28Succor_Creek_Canyon_area%2C_Oregon%2C_USA%29_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:%22Succor_Creek_Jasper%22_(Succor_Creek_Canyon_area,_Oregon,_USA)_3.jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:137057829",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chalcedony"
+   ],
+   "title": "08 2023 Chalcedony blue",
+   "category": "Chalcedony",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/08_2023_Chalcedony_blue.png/330px-08_2023_Chalcedony_blue.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/08_2023_Chalcedony_blue.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:08_2023_Chalcedony_blue.png",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Jamescarolinewiki / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:129875049",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chalcedony"
+   ],
+   "title": "1085 Chalced\u00f3n - Svidovo",
+   "category": "Chalcedony",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8a/1085_Chalced%C3%B3n_-_Svidovo.jpg/330px-1085_Chalced%C3%B3n_-_Svidovo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8a/1085_Chalced%C3%B3n_-_Svidovo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1085_Chalced%C3%B3n_-_Svidovo.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:134277617",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "chalcedony"
+   ],
+   "title": "1129 Chalced\u00f3n - Svidovo",
+   "category": "Chalcedony",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/1129_Chalced%C3%B3n_-_Svidovo.jpg/330px-1129_Chalced%C3%B3n_-_Svidovo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/1129_Chalced%C3%B3n_-_Svidovo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1129_Chalced%C3%B3n_-_Svidovo.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:126757363",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "calcite"
+   ],
+   "title": "07Calcit-druse hg",
+   "category": "Calcite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/07Calcit-druse_hg.jpg/330px-07Calcit-druse_hg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/07Calcit-druse_hg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:07Calcit-druse_hg.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Hannes Grobe / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:31803247",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "calcite"
+   ],
+   "title": "430 Calcite",
+   "category": "Calcite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/430_Calcite.JPG/330px-430_Calcite.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/430_Calcite.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:430_Calcite.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Daniel Ventura / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:45313577",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "calcite"
+   ],
+   "title": "A \"calcite cave\u201d",
+   "category": "Calcite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/A_%22calcite_cave%E2%80%9D.JPG/330px-A_%22calcite_cave%E2%80%9D.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/A_%22calcite_cave%E2%80%9D.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:A_%22calcite_cave%E2%80%9D.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Patocsdori / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:132386038",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "celestine",
+    "celestite"
+   ],
+   "title": "1166 Celest\u00edn sadrovec - \u0160pania Dolina",
+   "category": "Celestine",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/1166_Celest%C3%ADn_sadrovec_-_%C5%A0pania_Dolina.jpg/330px-1166_Celest%C3%ADn_sadrovec_-_%C5%A0pania_Dolina.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/1166_Celest%C3%ADn_sadrovec_-_%C5%A0pania_Dolina.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1166_Celest%C3%ADn_sadrovec_-_%C5%A0pania_Dolina.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:35281602",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "celestine",
+    "celestite"
+   ],
+   "title": "Angelit, anhydryt, celestyt - Lima, Peru.",
+   "category": "Celestine",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Angelit%2C_anhydryt%2C_celestyt_-_Lima%2C_Peru..jpg/330px-Angelit%2C_anhydryt%2C_celestyt_-_Lima%2C_Peru..jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Angelit%2C_anhydryt%2C_celestyt_-_Lima%2C_Peru..jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Angelit,_anhydryt,_celestyt_-_Lima,_Peru..jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Lech Darski / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:10127327",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "celestine",
+    "celestite"
+   ],
+   "title": "Baryte-Celestine-Fluorite-39582",
+   "category": "Celestine",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Baryte-Celestine-Fluorite-39582.jpg/330px-Baryte-Celestine-Fluorite-39582.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Baryte-Celestine-Fluorite-39582.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Baryte-Celestine-Fluorite-39582.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Robert M. Lavinsky / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:10145392",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "selenite",
+    "gypsum"
+   ],
+   "title": "Atacamite-Gypsum-147014",
+   "category": "Selenite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d2/Atacamite-Gypsum-147014.jpg/330px-Atacamite-Gypsum-147014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Atacamite-Gypsum-147014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Atacamite-Gypsum-147014.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Robert M. Lavinsky / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:10145393",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "selenite",
+    "gypsum"
+   ],
+   "title": "Atacamite-Gypsum-147015",
+   "category": "Selenite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Atacamite-Gypsum-147015.jpg/330px-Atacamite-Gypsum-147015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Atacamite-Gypsum-147015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Atacamite-Gypsum-147015.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Robert M. Lavinsky / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:10162736",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "selenite",
+    "gypsum"
+   ],
+   "title": "Atacamite-Gypsum-224920",
+   "category": "Selenite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Atacamite-Gypsum-224920.jpg/330px-Atacamite-Gypsum-224920.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Atacamite-Gypsum-224920.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Atacamite-Gypsum-224920.jpg",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Robert M. Lavinsky / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:117148798",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "pyrite"
+   ],
+   "title": "- Sulfure - N\u00b0 2346 PYRITE ch 10 mm (Marmaissat) Torsiac (43) Sect 11 C inventaire et photo Guy PEGERE",
+   "category": "Pyrite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/-_Sulfure_-_N%C2%B0_2346_PYRITE_ch_10_mm_%28Marmaissat%29_Torsiac_%2843%29_Sect_11_C_inventaire_et_photo_Guy_PEGERE.jpg/330px--_Sulfure_-_N%C2%B0_2346_PYRITE_ch_10_mm_%28Marmaissat%29_Torsiac_%2843%29_Sect_11_C_inventaire_et_photo_Guy_PEGERE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/-_Sulfure_-_N%C2%B0_2346_PYRITE_ch_10_mm_%28Marmaissat%29_Torsiac_%2843%29_Sect_11_C_inventaire_et_photo_Guy_PEGERE.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:-_Sulfure_-_N%C2%B0_2346_PYRITE_ch_10_mm_(Marmaissat)_Torsiac_(43)_Sect_11_C_inventaire_et_photo_Guy_PEGERE.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "GuyAntimoine25 / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:25533698",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "pyrite"
+   ],
+   "title": "2 Pyrite crystals",
+   "category": "Pyrite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/2_Pyrite_crystals.JPG/330px-2_Pyrite_crystals.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/2_Pyrite_crystals.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2_Pyrite_crystals.JPG",
+   "license": "CC BY-SA 3.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribution": "Mauro Cateb / CC BY-SA 3.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:110296953",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "pyrite"
+   ],
+   "title": "A pyrite sphere",
+   "category": "Pyrite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/A_pyrite_sphere.jpg/330px-A_pyrite_sphere.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/A_pyrite_sphere.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:A_pyrite_sphere.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "PLBechly / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:127545424",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "hematite"
+   ],
+   "title": "1025 Hematit - Liptovsk\u00e1 L\u00fa\u017ena",
+   "category": "Hematite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/1025_Hematit_-_Liptovsk%C3%A1_L%C3%BA%C5%BEna.jpg/330px-1025_Hematit_-_Liptovsk%C3%A1_L%C3%BA%C5%BEna.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/1025_Hematit_-_Liptovsk%C3%A1_L%C3%BA%C5%BEna.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1025_Hematit_-_Liptovsk%C3%A1_L%C3%BA%C5%BEna.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:128097311",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "hematite"
+   ],
+   "title": "1037 Hematit - Donovaly",
+   "category": "Hematite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/1037_Hematit_-_Donovaly.jpg/330px-1037_Hematit_-_Donovaly.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/1037_Hematit_-_Donovaly.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1037_Hematit_-_Donovaly.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:128214229",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "hematite"
+   ],
+   "title": "1038 Kreme\u0148 hematit - Malu\u017ein\u00e1",
+   "category": "Hematite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/1038_Kreme%C5%88_hematit_-_Malu%C5%BEin%C3%A1.jpg/330px-1038_Kreme%C5%88_hematit_-_Malu%C5%BEin%C3%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/1038_Kreme%C5%88_hematit_-_Malu%C5%BEin%C3%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1038_Kreme%C5%88_hematit_-_Malu%C5%BEin%C3%A1.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:57022931",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "obsidian"
+   ],
+   "title": "2014-365-8 Obsidian Chimed (11850388346)",
+   "category": "Obsidian",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/2014-365-8_Obsidian_Chimed_%2811850388346%29.jpg/330px-2014-365-8_Obsidian_Chimed_%2811850388346%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/2014-365-8_Obsidian_Chimed_%2811850388346%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2014-365-8_Obsidian_Chimed_(11850388346).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "cogdogblog / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:66037171",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "obsidian"
+   ],
+   "title": "2017-Obsidian-Armenia-Vtorov",
+   "category": "Obsidian",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/2017-Obsidian-Armenia-Vtorov.jpg/330px-2017-Obsidian-Armenia-Vtorov.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/20/2017-Obsidian-Armenia-Vtorov.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2017-Obsidian-Armenia-Vtorov.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Ivan Petrovich Vtorov / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:67465537",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "obsidian"
+   ],
+   "title": "2017-Obsidian-conchoidal-fracture",
+   "category": "Obsidian",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/2017-Obsidian-conchoidal-fracture.jpg/330px-2017-Obsidian-conchoidal-fracture.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/2017-Obsidian-conchoidal-fracture.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2017-Obsidian-conchoidal-fracture.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Ivtorov / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:126854819",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "limonite",
+    "goethite"
+   ],
+   "title": "1020 Limonit - \u013dubietov\u00e1",
+   "category": "Limonite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/1020_Limonit_-_%C4%BDubietov%C3%A1.jpg/330px-1020_Limonit_-_%C4%BDubietov%C3%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/1020_Limonit_-_%C4%BDubietov%C3%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1020_Limonit_-_%C4%BDubietov%C3%A1.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:128994965",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "limonite",
+    "goethite"
+   ],
+   "title": "1060 Siderit limonit kreme\u0148 - R\u00e1ko\u0148",
+   "category": "Limonite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/1060_Siderit_limonit_kreme%C5%88_-_R%C3%A1ko%C5%88.jpg/330px-1060_Siderit_limonit_kreme%C5%88_-_R%C3%A1ko%C5%88.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/1060_Siderit_limonit_kreme%C5%88_-_R%C3%A1ko%C5%88.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1060_Siderit_limonit_kreme%C5%88_-_R%C3%A1ko%C5%88.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:129040402",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "limonite",
+    "goethite"
+   ],
+   "title": "1061 Antimonit limonit - D\u00fabrava",
+   "category": "Limonite",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/1061_Antimonit_limonit_-_D%C3%BAbrava.jpg/330px-1061_Antimonit_limonit_-_D%C3%BAbrava.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/42/1061_Antimonit_limonit_-_D%C3%BAbrava.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1061_Antimonit_limonit_-_D%C3%BAbrava.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Mineralysk / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:57004802",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "geode"
+   ],
+   "title": "2009-365-364 Lots of Geodes (4228867427)",
+   "category": "Geodes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/2009-365-364_Lots_of_Geodes_%284228867427%29.jpg/330px-2009-365-364_Lots_of_Geodes_%284228867427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/2009-365-364_Lots_of_Geodes_%284228867427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2009-365-364_Lots_of_Geodes_(4228867427).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "cogdogblog / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:59289581",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "geode"
+   ],
+   "title": "2015-10-10-10.46.55 ZS PMax Geode-1 (22085570131)",
+   "category": "Geodes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/2015-10-10-10.46.55_ZS_PMax_Geode-1_%2822085570131%29.jpg/330px-2015-10-10-10.46.55_ZS_PMax_Geode-1_%2822085570131%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/35/2015-10-10-10.46.55_ZS_PMax_Geode-1_%2822085570131%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2015-10-10-10.46.55_ZS_PMax_Geode-1_(22085570131).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "John Rusk from Berkeley, CA, United States of America / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:157393619",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "geode"
+   ],
+   "title": "Azurite geode cut in half 1",
+   "category": "Geodes",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Azurite_geode_cut_in_half_1.jpg/330px-Azurite_geode_cut_in_half_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Azurite_geode_cut_in_half_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Azurite_geode_cut_in_half_1.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "W.carter / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:46016365",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "quartz"
+   ],
+   "title": "100 kg quartz crystal, Shigar Valley, Pakistan",
+   "category": "Quartz",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/100_kg_quartz_crystal%2C_Shigar_Valley%2C_Pakistan.JPG/330px-100_kg_quartz_crystal%2C_Shigar_Valley%2C_Pakistan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/100_kg_quartz_crystal%2C_Shigar_Valley%2C_Pakistan.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:100_kg_quartz_crystal,_Shigar_Valley,_Pakistan.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "LZ6387 / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:70152797",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "quartz"
+   ],
+   "title": "18010138QuartzVarAgateB (25735465148)",
+   "category": "Quartz",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/18010138QuartzVarAgateB_%2825735465148%29.jpg/330px-18010138QuartzVarAgateB_%2825735465148%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e3/18010138QuartzVarAgateB_%2825735465148%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:18010138QuartzVarAgateB_(25735465148).jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "Randolph Black from Grass Lake, MI, United States / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:84732684",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "quartz"
+   ],
+   "title": "2009 04 19 - 4738 - Washington DC - Natural History Museum - Quartz with Malachite (3527546990)",
+   "category": "Quartz",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/2009_04_19_-_4738_-_Washington_DC_-_Natural_History_Museum_-_Quartz_with_Malachite_%283527546990%29.jpg/330px-2009_04_19_-_4738_-_Washington_DC_-_Natural_History_Museum_-_Quartz_with_Malachite_%283527546990%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/2009_04_19_-_4738_-_Washington_DC_-_Natural_History_Museum_-_Quartz_with_Malachite_%283527546990%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2009_04_19_-_4738_-_Washington_DC_-_Natural_History_Museum_-_Quartz_with_Malachite_(3527546990).jpg",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "attribution": "thisisbossi from Washington, DC, USA / CC BY-SA 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:37183015",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "concretion"
+   ],
+   "title": "Achilles Point concretions",
+   "category": "Concretions",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Achilles_Point_concretions.jpg/330px-Achilles_Point_concretions.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Achilles_Point_concretions.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Achilles_Point_concretions.jpg",
+   "license": "Public domain",
+   "license_url": null,
+   "attribution": "David Burgess (Carpenter0 at English Wikipedia) / Public domain / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:156577911",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "concretion"
+   ],
+   "title": "Ammonite-bearing concretion (Whitby Formation, Lower Jurassic; Yorkshire coast, England)",
+   "category": "Concretions",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Ammonite-bearing_concretion_%28Whitby_Formation%2C_Lower_Jurassic%3B_Yorkshire_coast%2C_England%29.jpg/330px-Ammonite-bearing_concretion_%28Whitby_Formation%2C_Lower_Jurassic%3B_Yorkshire_coast%2C_England%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Ammonite-bearing_concretion_%28Whitby_Formation%2C_Lower_Jurassic%3B_Yorkshire_coast%2C_England%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Ammonite-bearing_concretion_(Whitby_Formation,_Lower_Jurassic;_Yorkshire_coast,_England).jpg",
+   "license": "CC BY 2.0",
+   "license_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribution": "James St. John / CC BY 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:76446026",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "concretion"
+   ],
+   "title": "Ammonoid Fossil in Concretion - P9151650 (46048505111)",
+   "category": "Concretions",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Ammonoid_Fossil_in_Concretion_-_P9151650_%2846048505111%29.jpg/330px-Ammonoid_Fossil_in_Concretion_-_P9151650_%2846048505111%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Ammonoid_Fossil_in_Concretion_-_P9151650_%2846048505111%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Ammonoid_Fossil_in_Concretion_-_P9151650_(46048505111).jpg",
+   "license": "CC BY-SA 2.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "attribution": "t_y_l / CC BY-SA 2.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:63241152",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "opal"
+   ],
+   "title": "Anorthite labradorite et opale, galerie de min\u00e9ralogie du Mus\u00e9um national d'histoire naturelle",
+   "category": "Opal",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Anorthite_labradorite_et_opale%2C_galerie_de_min%C3%A9ralogie_du_Mus%C3%A9um_national_d%27histoire_naturelle.jpg/330px-Anorthite_labradorite_et_opale%2C_galerie_de_min%C3%A9ralogie_du_Mus%C3%A9um_national_d%27histoire_naturelle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Anorthite_labradorite_et_opale%2C_galerie_de_min%C3%A9ralogie_du_Mus%C3%A9um_national_d%27histoire_naturelle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Anorthite_labradorite_et_opale,_galerie_de_min%C3%A9ralogie_du_Mus%C3%A9um_national_d%27histoire_naturelle.jpg",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Eunostos / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:42244959",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "opal"
+   ],
+   "title": "Anorthite labradorite et opale",
+   "category": "Opal",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Anorthite_labradorite_et_opale.JPG/330px-Anorthite_labradorite_et_opale.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Anorthite_labradorite_et_opale.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Anorthite_labradorite_et_opale.JPG",
+   "license": "CC BY-SA 4.0",
+   "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribution": "Eunostos / CC BY-SA 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "wmc:151039681",
+   "source": "Wikimedia Commons",
+   "kind": "mineral",
+   "keywords": [
+    "opal"
+   ],
+   "title": "Black and Brown Opal",
+   "category": "Opal",
+   "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Black_and_Brown_Opal.jpg/330px-Black_and_Brown_Opal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Black_and_Brown_Opal.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Black_and_Brown_Opal.jpg",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribution": "Maatpublishing / CC BY 4.0 / Wikimedia Commons"
+  },
+  {
+   "id": "pbdb:16655",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "exogyra",
+    "oyster"
+   ],
+   "title": "Exogyra",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=16655",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "(Say 1820)",
+    "fea": 201.4,
+    "fla": 199.5,
+    "lea": 11.63,
+    "lla": 7.246,
+    "phl": "Mollusca",
+    "cll": "Bivalvia",
+    "odl": "Ostreida",
+    "fml": "Gryphaeidae"
+   }
+  },
+  {
+   "id": "pbdb:16691",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "gryphaea",
+    "devil's toenail"
+   ],
+   "title": "Gryphaea",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=16691",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Lamarck 1801",
+    "fea": 241.464,
+    "fla": 237,
+    "lea": 37.71,
+    "lla": 33.9,
+    "phl": "Mollusca",
+    "cll": "Bivalvia",
+    "odl": "Ostreida",
+    "fml": "Gryphaeidae"
+   }
+  },
+  {
+   "id": "pbdb:14505",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "ammonite"
+   ],
+   "title": "Ammonoidea",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=14505",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 16,
+    "att": "(Zittel 1884)",
+    "fea": 419.62,
+    "fla": 410.62,
+    "lea": 66,
+    "lla": 56,
+    "phl": "Mollusca",
+    "cll": "Cephalopoda",
+    "odl": "Ammonoidea"
+   }
+  },
+  {
+   "id": "pbdb:31590",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "crinoid"
+   ],
+   "title": "Crinoidea",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=31590",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 17,
+    "att": "Miller 1821",
+    "fea": 508.2,
+    "fla": 504.5,
+    "lea": 0.0117,
+    "lla": 0,
+    "phl": "Echinodermata",
+    "cll": "Crinoidea"
+   }
+  },
+  {
+   "id": "pbdb:26322",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "brachiopod"
+   ],
+   "title": "Brachiopoda",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=26322",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 20,
+    "att": "(Cuvier 1805)",
+    "fea": 538.8,
+    "fla": 525.5,
+    "lea": 0.0117,
+    "lla": 0,
+    "phl": "Brachiopoda"
+   }
+  },
+  {
+   "id": "pbdb:10637",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "turritella",
+    "gastropod"
+   ],
+   "title": "Turritella",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=10637",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Lamarck 1799",
+    "fea": 247,
+    "fla": 237,
+    "lea": 0.0117,
+    "lla": 0,
+    "phl": "Mollusca",
+    "cll": "Gastropoda",
+    "odl": "NO_ORDER_SPECIFIED",
+    "fml": "Turritellidae"
+   }
+  },
+  {
+   "id": "pbdb:168786",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "echinoid",
+    "sea urchin",
+    "heart urchin"
+   ],
+   "title": "Echinoidea",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=168786",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 17,
+    "att": "(Leske 1778)",
+    "fea": 471.3,
+    "fla": 458.2,
+    "lea": 0.0117,
+    "lla": 0,
+    "phl": "Echinodermata",
+    "cll": "Echinoidea"
+   }
+  },
+  {
+   "id": "pbdb:15832",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "belemnite"
+   ],
+   "title": "Belemnitida",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=15832",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 13,
+    "att": "Haeckel 1866",
+    "fea": 335.4,
+    "fla": 323.4,
+    "lea": 37.71,
+    "lla": 33.9,
+    "phl": "Mollusca",
+    "cll": "Cephalopoda",
+    "odl": "Belemnitida"
+   }
+  },
+  {
+   "id": "pbdb:19100",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "trilobite"
+   ],
+   "title": "Trilobita",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=19100",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 17,
+    "att": "(Walch 1771)",
+    "fea": 538.8,
+    "fla": 521,
+    "lea": 254.14,
+    "lla": 251.902,
+    "phl": "Arthropoda",
+    "cll": "Trilobita"
+   }
+  },
+  {
+   "id": "pbdb:5113",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "horn coral",
+    "rugose",
+    "coral"
+   ],
+   "title": "Rugosa",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=5113",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 16,
+    "att": "(Milne-Edwards and Haime 1850)",
+    "fea": 488.9,
+    "fla": 471.3,
+    "lea": 11.63,
+    "lla": 7.246,
+    "phl": "Cnidaria",
+    "cll": "Anthozoa"
+   }
+  },
+  {
+   "id": "pbdb:34621",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "otodus",
+    "shark tooth"
+   ],
+   "title": "Otodus",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=34621",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Agassiz 1838",
+    "fea": 93.9,
+    "fla": 89.8,
+    "lea": 3.6,
+    "lla": 0.34,
+    "phl": "Chordata",
+    "cll": "Chondrichthyes",
+    "odl": "Lamniformes",
+    "fml": "Otodontidae"
+   }
+  },
+  {
+   "id": "pbdb:34633",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "squalicorax",
+    "shark tooth"
+   ],
+   "title": "Squalicorax",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=34633",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Whitley 1939",
+    "fea": 165.3,
+    "fla": 161.5,
+    "lea": 72.2,
+    "lla": 61.66,
+    "phl": "Chordata",
+    "cll": "Chondrichthyes",
+    "odl": "Lamniformes",
+    "fml": "Anacoracidae"
+   }
+  },
+  {
+   "id": "pbdb:34513",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "ptychodus",
+    "shark tooth"
+   ],
+   "title": "Ptychodus",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=34513",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Agassiz 1834",
+    "fea": 165.3,
+    "fla": 161.5,
+    "lea": 72.2,
+    "lla": 66,
+    "phl": "Chordata",
+    "cll": "Chondrichthyes",
+    "odl": "Lamniformes",
+    "fml": "Ptychodontidae"
+   }
+  },
+  {
+   "id": "pbdb:16727",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "inoceramus",
+    "clam",
+    "bivalve"
+   ],
+   "title": "Inoceramus",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=16727",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "Sowerby 1814",
+    "fea": 227.3,
+    "fla": 215.38,
+    "lea": 72.2,
+    "lla": 66,
+    "phl": "Mollusca",
+    "cll": "Bivalvia",
+    "odl": "Myalinida",
+    "fml": "Inoceramidae"
+   }
+  },
+  {
+   "id": "pbdb:16904",
+   "source": "Paleobiology Database (PBDB)",
+   "kind": "fossil",
+   "keywords": [
+    "pecten",
+    "scallop"
+   ],
+   "title": "Pecten",
+   "thumb_url": null,
+   "image_url": null,
+   "source_url": "https://paleobiodb.org/classic/basicTaxonInfo?taxon_no=16904",
+   "license": "CC BY 4.0",
+   "license_url": "https://creativecommons.org/licenses/by/4.0/",
+   "attribution": "Data: The Paleobiology Database (paleobiodb.org), CC BY 4.0",
+   "data": {
+    "rnk": 5,
+    "att": "M\u00fcller 1776",
+    "fea": 342.9,
+    "fla": 335.4,
+    "lea": 0.0117,
+    "lla": 0,
+    "phl": "Mollusca",
+    "cll": "Bivalvia",
+    "odl": "Pectinida",
+    "fml": "Pectinidae"
+   }
+  }
+ ]
+}
