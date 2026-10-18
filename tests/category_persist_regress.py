@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 U=sys.argv[1] if len(sys.argv)>1 else "http://localhost:8765/"; TAG=sys.argv[2] if len(sys.argv)>2 else "after"
 O=f"/workspace/elgin-catalog-previews/s3-category-{TAG}-"; errs=[]; fails=[]
 # Fixture: ELG-007 in its pre-2026-10-16 state (an artifact pebble with a recategorize suggestion). The live data moved it to Rocks in the re-review.
-seed=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","data","catalog.json")))
+seed=json.load(open(os.environ.get("EC_SEED") or os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","data","catalog.json")))  # EC_SEED: full fixture kept outside the repo
 for _r in seed:
     if _r["catalog_id"]=="ELG-007": _r.update(category="artifact", object_type="Pebble", suggestion_1="Natural creek pebble", category_note="", category_history=[]); _r.pop("category_kept",None)
 def route_seed(ctx): ctx.route("**/data/catalog.json*", lambda r: r.fulfill(status=200, content_type="application/json", body=json.dumps(seed)))

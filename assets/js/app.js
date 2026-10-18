@@ -25,7 +25,23 @@
   const pending = () => { try { return JSON.parse(localStorage.getItem(PEND) || "[]"); } catch { return []; } };
   const setPending = ids => { try { localStorage.setItem(PEND, JSON.stringify([...new Set(ids)])); } catch {} };
   const syncWarn = m => toast(m, { warn: true, ms: 9000 });
+  /* swap a temporary (offline) id, or a number outside this account's series, for a server-assigned number; update every local reference */
+  async function renameLocal(old, nid) { const r = local.find(x => x.catalog_id === old); if (r) { await _del(old); await _put({ ...r, catalog_id: nid, temp_id: old }); }
+    setPending(pending().map(x => x === old ? nid : x));
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i), v = localStorage.getItem(k); if (k && v && v.includes(old)) localStorage.setItem(k, v.split(old).join(nid)); } } catch {}
+    local = await DB.all(); refresh();
+    if (current && current.catalog_id === old) current = all.find(x => x.catalog_id === nid) || current;
+    if (location.hash.includes(old)) history.replaceState(null, "", location.hash.split(old).join(nid));
+    toast(`Your find ${isTemp(old) ? "saved offline" : old} now has its catalog number: ${nid}`, { ms: 7000 }); }
+  async function ensureServerId(rec) { const C = window.Cloud; if (!C || !C.serverNumbering || !C.serverNumbering()) return rec;
+    const foreign = rec.created_local && !rec.synced && idPrefix && !String(rec.catalog_id).startsWith(idPrefix + "-") && !isTemp(rec.catalog_id) && !seed.some(x => x.catalog_id === rec.catalog_id);
+    if (!isTemp(rec.catalog_id) && !foreign) return rec;
+    const nid = await C.allocateId(); if (!nid) return null;
+    await renameLocal(rec.catalog_id, nid); return { ...rec, catalog_id: nid, temp_id: rec.catalog_id }; }
   async function pushOne(rec, snap) {
+    const was = rec.catalog_id, fixed = await ensureServerId(rec);
+    if (!fixed) { setPending([...pending(), was]); syncWarn(`⚠ Your new find is saved on this device only. It gets its catalog number when it syncs.`); return false; }
+    rec = fixed;
     const res = await Cloud.pushFind(rec, snap, marksFor), id = rec.catalog_id;
     if (res.ok) { setPending(pending().filter(x => x !== id));
       { local = await DB.all(); const lo = local.find(x => x.catalog_id === id); if (lo && (lo.created_local && !lo.synced || res.photos)) { const o = { ...lo, synced: true }; if (res.photos) o.photos = (lo.photos || []).map((p, i) => res.photos[i] ? { ...p, src: undefined, path: res.photos[i], thumb: res.photos[i] } : p); await _put(o); local = await DB.all(); refresh(); } }
@@ -36,11 +52,11 @@
   }
   DB.put = async o => { o.saved_ts = new Date().toISOString(); const prev = all.find(x => x.catalog_id === o.catalog_id), snap = prev ? { ...prev } : null; await _put(o);
     if (!window.Cloud) return;
-    if (!Cloud.state().user) { if (Cloud.state().available && o.created_local) { setPending([...pending(), o.catalog_id]); syncWarn(`⚠ ${o.catalog_id} is saved on this device only: you're not signed in. Sign in (☰ menu → Sign in) and it will upload automatically.`); } return; }
+    if (!Cloud.state().user) { if (Cloud.state().available && o.created_local) { setPending([...pending(), o.catalog_id]); syncWarn(`⚠ ${/^TMP-/.test(o.catalog_id) ? "Your new find" : o.catalog_id} is saved on this device only: you're not signed in. Sign in (☰ menu → Sign in) and it will upload automatically.`); } return; }
     // Push exactly what was saved (merged over the current view), not whatever `all` holds 80 ms later.
     const rec = { ...(prev || {}), ...o }; delete rec._src;
     const st = Cloud.state();
-    if (!st.online) { setPending([...pending(), o.catalog_id]); return syncWarn(`⚠ ${o.catalog_id} saved on this device only. Cloud sync is off (${st.reason || "cloud not reachable"}). It will retry next time.`); }
+    if (!st.online) { setPending([...pending(), o.catalog_id]); return syncWarn(`⚠ ${/^TMP-/.test(o.catalog_id) ? "Your new find" : o.catalog_id} saved on this device only. Cloud sync is off (${st.reason || "cloud not reachable"}). It will retry next time.`); }
     if (await pushOne(rec, snap)) toast(`☁ ${o.catalog_id} synced`); };
   /* A find created on this device whose ID was later taken by the shared catalog (seed/cloud) gets the next free ID instead of overwriting it. */
   async function renumberCollisions() { const ids = new Set(seed.map(r => r.catalog_id)); const moved = [];
@@ -94,7 +110,15 @@
   const histHtml = h => (h || []).length ? `<ul class="hist">${h.map(x => `<li>${esc(x.date)}: ${x.from === x.to ? "kept in " + esc(KINDS[x.to]?.label || x.to) : esc(KINDS[x.from]?.label || x.from) + " → " + esc(KINDS[x.to]?.label || x.to)} <span class="muted">(${esc(x.reason)})</span></li>`).join("")}</ul>` : "";
   const histText = h => Array.isArray(h) ? h.map(x => `${x.date}: ${x.from} -> ${x.to} (${x.reason})`).join("; ") : (h || "");
   const kindRows = r => { const k = kindOf(r); return k === "fossil" ? [["Geologic period", r.geologic_period], ["Formation", r.formation], ["Preservation", r.preservation]] : k === "rock" ? [["Hardness (Mohs)", r.hardness], ["Luster", r.luster], ["Streak", r.streak]] : []; };
-  const nextId = () => "ELG-" + String(Math.max(0, ...[...all, ...seed, ...local].map(r => +((/ELG-(\d+)/.exec(r.catalog_id) || [])[1] || 0)), ...(typeof pending === "function" ? pending() : []).map(id => +((/ELG-(\d+)/.exec(id) || [])[1] || 0))) + 1).padStart(3, "0");
+  let idPrefix = "ELG"; // 013: the signed-in account's own number series (Mark keeps ELG); loaded from the server after sign-in
+  const numOf = id => { const m = new RegExp("^" + idPrefix + "-(\\d+)$").exec(id || ""); return m ? +m[1] : 0; };
+  const nextId = () => idPrefix + "-" + String(Math.max(0, ...[...all, ...seed, ...local].map(r => numOf(r.catalog_id)), ...(typeof pending === "function" ? pending() : []).map(numOf)) + 1).padStart(3, "0");
+  const isTemp = id => /^TMP-\d+$/.test(id || "");
+  const tempId = () => { let id; do { id = "TMP-" + String(Date.now()).slice(-9) + String(Math.floor(Math.random() * 10)); } while ([...all, ...local].some(r => r.catalog_id === id)); return id; };
+  /* The server allocates the number when we're online and signed in; offline (or signed out) adds get a temporary TMP- id
+     that is swapped for a real number on sync. Without server numbering (no cloud / older schema) the local sequence is used. */
+  async function assignId() { const C = window.Cloud; if (!C || !C.serverNumbering || !C.serverNumbering()) return nextId();
+    const sid = await C.allocateId(); return sid || tempId(); }
 
   /* ---------- helpers ---------- */
   // Optional provenance/acquisition: marks pieces that are not local field finds (e.g. brought from another state).
@@ -350,7 +374,7 @@
   $("#prev").onclick = () => showStep(Math.max(0, step - 1));
   $("#wizard").onsubmit = async e => { e.preventDefault(); for (let i = 0; i < 5; i++) if (!validate(i)) return showStep(i);
     if (window.Features && !Features.canAddFind(all)) { toast("Free plan limit reached. Become a Supporter for unlimited finds."); location.hash = "#/pricing"; return; }
-    const o = collect(); o.catalog_id = nextId(); if (window.Membership && !(await Membership.beforeSave(o))) return; await autoAnalyze(o);
+    const o = collect(); o.catalog_id = nextId(); if (window.Membership && !(await Membership.beforeSave(o))) return; o.catalog_id = await assignId(); await autoAnalyze(o);
     try { await DB.put(o); } catch (err) { return toast("Could not save on this device: " + err.message, { warn: true, ms: 9000 }); }
     local = await DB.all(); refresh(); resetWizard(); kind = o.category; location.hash = "#/catalog"; refresh(); openModal(o.catalog_id);
     if (o.ai_status === "ai-ready") toast(`${o.catalog_id} saved. Local analysis added; open AI analysis to run the photo review.`);
@@ -395,7 +419,7 @@
     if (v === "find" && current) { $("#modal").hidden = true; document.body.style.overflow = ""; current = null; }
     $$(".view").forEach(s => s.hidden = s.id !== "view-" + view);
     $$("nav a").forEach(a => a.dataset.route === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-    if (view === "add") { $("#newId").textContent = "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
+    if (view === "add") { $("#newId").textContent = (window.Cloud && Cloud.serverNumbering && Cloud.serverNumbering()) ? (Cloud.state().user && Cloud.state().online ? "New ID: assigned when saved (" + idPrefix + " series)" : "New ID: assigned when it syncs") : "New ID: " + nextId(); const q = (location.hash.match(/kind=(\w+)/) || [])[1]; if (q && KINDS[q] && step === 0) { const rb = $(`#wizard input[name=category][value=${q}]`); rb.checked = true; applyKind(); } }
     if (view === "about" && window.Analysis) { renderModel(); if (window.Learn) Learn.renderAbout(); }
     if (window.Features) Features.render(view, param); if (window.Membership) Membership.render(view, param);
     document.title = { home: "Discover. Catalog. Preserve.", catalog: "Catalog", add: "Add find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Private find map", labels: "QR labels", profile: "Profile", members: "Collection members", pricing: "Membership", membership: "Membership", merch: "Merch", experts: "Experts", catalogs: "Your catalogs", admin: "Owner admin", p: "Shared find", c: "Collection", find: "Find", discover: "Discover public finds", review: "Review queue", library: "Reference Library", settings: "Settings" }[view] + " — " + (window.Brand ? Brand.name() : "Rolling Oak Catalog"); if (view === "find" && window.Learn) Promise.resolve(Learn.renderPublic(param)).then(() => window.S2 && S2.afterPublic(param)); if (window.S2) S2.render(view); }
@@ -429,15 +453,21 @@
   $("#authMagic").onclick = () => authDo(em => Cloud.magicLink(em), "Check your email for a sign-in link.");
   $("#authPwIn").onclick = () => $("#authPw").value ? authDo((em, pw) => Cloud.signIn(em, pw), "Signed in.") : authMsg("Enter your password, or use the email link.");
   $("#authSignUp").onclick = () => $("#authPw").value.length >= 8 ? authDo((em, pw) => Cloud.signUp(em, pw), "Account created. Confirm via the email we sent.") : authMsg("Choose a password of at least 8 characters.");
-  $("#signOut").onclick = async () => { await Cloud.signOut(); location.reload(); };
+  $("#signOut").onclick = async () => { try { Object.keys(localStorage).filter(k => k.startsWith("ro-cloud-cache:")).forEach(k => localStorage.removeItem(k)); } catch {} await Cloud.signOut(); location.reload(); };
 
   /* ---------- boot ---------- */
   (async () => {
     let saved; try { saved = localStorage.getItem("elgin-theme"); } catch {}
     setTheme(saved || "dark"); // dark is the default theme
     route(); drawThumbs(); applyKind(); showStep(0);
-    if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); route(); /* re-route now the session is known (no-hash Home vs catalog) */ }
-    const cloudRows = window.Cloud ? await Cloud.loadFinds() : null;
+    if (window.Cloud) { await Cloud.init(); Cloud.on(renderAuth); route(); /* re-route now the session is known (no-hash Home vs catalog) */
+      const loadPrefix = async () => { const p = Cloud.myPrefix ? await Cloud.myPrefix() : null; if (p) idPrefix = p; }; await loadPrefix(); Cloud.on(st => { if (st.user) loadPrefix(); }); }
+    let cloudRows = window.Cloud ? await Cloud.loadFinds() : null;
+    /* Private finds are no longer in the public data/catalog.json: keep an on-device copy of the signed-in owner's own cloud rows
+       (without the exact location) so the catalog still opens offline. Cleared on sign-out. */
+    { const u = window.Cloud && Cloud.state().user, ck = u ? "ro-cloud-cache:" + u.id : null;
+      if (ck && cloudRows && cloudRows.length) { try { localStorage.setItem(ck, JSON.stringify(cloudRows.map(({ [PRIVATE]: _, ...x }) => x))); } catch {} }
+      else if (ck && !cloudRows) { try { const c = JSON.parse(localStorage.getItem(ck) || "null"); if (Array.isArray(c) && c.length) cloudRows = c; } catch {} } }
     let json = [];
     try { const r = await fetch("data/catalog.json", { cache: "no-cache" }); json = (await r.json()).map(({ [PRIVATE]: _, ...x }) => x); }
     catch { if (!cloudRows) $("#count").textContent = "Could not load data/catalog.json. Serve the folder over HTTP (see README)."; }

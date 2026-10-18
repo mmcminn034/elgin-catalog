@@ -1,5 +1,5 @@
 // Supabase Edge Function: analyze-find
-// Vision-model photo analysis for Rolling Oak Catalog (members only).
+// Vision-model photo analysis for Rolling Oak Catalog (every signed-in account; Free has a daily safety cap, members unlimited).
 // Provider-agnostic: any OpenAI-compatible /chat/completions endpoint that accepts image_url content.
 // Env: AI_API_KEY (required), AI_BASE_URL (default https://api.openai.com/v1), AI_MODEL (default gpt-4o-mini),
 //      SUPABASE_URL / SUPABASE_ANON_KEY (provided automatically by Supabase).
@@ -26,25 +26,24 @@ const SYSTEM: string = Prompt.SYSTEM; // full text in supabase/functions/_shared
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "POST only" }, 405);
-  const key = Deno.env.get("AI_API_KEY"); if (!key) return json({ error: "AI_API_KEY not configured" }, 503);
   const auth = req.headers.get("Authorization") || "";
   const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, { global: { headers: { Authorization: auth } } });
-  const { data: { user } } = await sb.auth.getUser(); if (!user) return json({ error: "Sign in required" }, 401);
-  // Membership v1 (migration 012): AI identification is available on every plan. A per-account daily SAFETY cap (app_config.ai_daily_cap,
-  // default 50) is taken atomically in the database. Falls back to the pre-012 rule if the RPC does not exist yet (deploy order safety).
-  const { data: quota, error: qe } = await sb.rpc("ai_quota_take");
-  if (qe) {
-    const { data: prof } = await sb.from("profiles").select("membership, membership_expires").eq("id", user.id).single();
-    const active = ["member", "annual", "lifetime"].includes(String(prof?.membership)) && (!prof?.membership_expires || new Date(prof.membership_expires) > new Date());
-    if (!active) return json({ error: "Supporter membership required for AI photo analysis" }, 402);
-  } else if (quota && quota.allowed === false) {
-    return json({ error: "Daily AI limit reached for today. It resets at midnight UTC.", code: "ai_daily_cap", used: quota.used, cap: quota.cap }, 429);
-  }
+  const { data: { user } } = await sb.auth.getUser(); if (!user) return json({ error: "Sign in to use AI photo analysis.", code: "sign_in_required" }, 401);
+  const key = Deno.env.get("AI_API_KEY"); if (!key) return json({ error: "AI photo analysis isn't set up yet.", code: "ai_unavailable" }, 503);
 
-  let body: { catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[] };
+  let body: { ping?: boolean; catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[] };
   try { body = await req.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
+  if (body.ping) return json({ ok: true, ready: true }); // setup probe: does not use quota
   const photos = (body.photos || []).filter(p => /^https:\/\//.test(p.url)).slice(0, 6);
   if (!photos.length) return json({ error: "No https photo URLs" }, 400);
+
+  // Membership v1 (migrations 012/013): every signed-in plan can use AI. Free accounts have a per-account daily SAFETY cap
+  // (app_config.ai_daily_cap, default 50) taken atomically in the database; members (Annual/Lifetime) are unlimited. Fails closed.
+  const { data: quota, error: qe } = await sb.rpc("ai_quota_take");
+  if (qe) return json({ error: "AI photo analysis is temporarily unavailable. Please try again later.", code: "ai_unavailable" }, 503);
+  if (quota && quota.allowed === false) return json({ error: `You've reached today's AI limit (${quota.cap} analyses). It resets at midnight UTC.`, code: "ai_daily_cap", used: quota.used, cap: quota.cap }, 429);
+  const refund = async () => { try { await sb.rpc("ai_quota_refund"); } catch { /* best effort */ } };
+
   // verified examples from the shared library (RLS applies)
   const { data: ex } = await sb.from("verified_examples").select("catalog_id, category, confirmed_type, type_ids, features, notes, length_mm, material, region, era, photo_ids").eq("category", body.kind).limit(200);
   // RAG: rank verified references by similarity (same code as the browser panel), keep top 3 and attach one photo each
@@ -70,12 +69,21 @@ Deno.serve(async (req) => {
   similar.filter(x => x.photo && /^https:\/\//.test(x.photo)).forEach(x => { content.push({ type: "text", text: `REFERENCE (not the find; do not mark): ${x.catalog_id}, verified as ${x.confirmed_type}` }); content.push({ type: "image_url", image_url: { url: x.photo } }); });
 
   const base = (Deno.env.get("AI_BASE_URL") || "https://api.openai.com/v1").replace(/\/$/, "");
-  const r = await fetch(`${base}/chat/completions`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-    body: JSON.stringify({ model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", temperature: 0.2, response_format: { type: "json_object" }, messages: [{ role: "system", content: SYSTEM }, { role: "user", content }] }) });
-  if (!r.ok) return json({ error: `AI provider error ${r.status}` }, 502);
+  let r: Response;
+  try { r = await fetch(`${base}/chat/completions`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+    body: JSON.stringify({ model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", temperature: 0.2, response_format: { type: "json_object" }, messages: [{ role: "system", content: SYSTEM }, { role: "user", content }] }) }); }
+  catch { await refund(); return json({ error: "The AI service couldn't be reached. Please try again later.", code: "ai_unavailable" }, 503); }
+  if (!r.ok) { // provider problems are never reported as a plan/gate refusal, and do not use up the daily allowance
+    let pe: { error?: { code?: string; type?: string } } = {}; try { pe = await r.json(); } catch { /* not JSON */ }
+    const pc = String(pe.error?.code || pe.error?.type || "");
+    await refund();
+    if (r.status === 402 || /insufficient_quota|billing|credit/i.test(pc)) return json({ error: "AI photo analysis is unavailable right now (the AI account is out of credits). Your find is saved; try again later.", code: "ai_no_credits", provider_status: r.status }, 503);
+    if (r.status === 401 || r.status === 403) return json({ error: "AI photo analysis is unavailable right now (AI service configuration).", code: "ai_unavailable", provider_status: r.status }, 503);
+    if (r.status === 429) return json({ error: "The AI service is busy. Please try again in a minute.", code: "ai_busy", provider_status: r.status }, 503);
+    return json({ error: `AI photo analysis is unavailable right now (provider error ${r.status}).`, code: "ai_unavailable", provider_status: r.status }, 502); }
   const out = await r.json();
   let res: Result;
-  try { res = JSON.parse(out.choices?.[0]?.message?.content || "{}"); } catch { return json({ error: "Model did not return JSON" }, 502); }
+  try { res = JSON.parse(out.choices?.[0]?.message?.content || "{}"); } catch { await refund(); return json({ error: "The AI returned an unreadable answer. Please try again.", code: "ai_unavailable" }, 502); }
   // sanitize: clamp coords, cap confidence, enforce caveat
   const clamp = (v: unknown) => Math.min(1, Math.max(0, Number(v) || 0));
   res.candidates = Score.clampCandidates(res.candidates); // 0-100, AI ceiling 95 (config), factors sanitized; .confidence keeps the old band label

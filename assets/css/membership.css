@@ -44,3 +44,6 @@
 .tier .amt{font-family:var(--wm,Georgia,serif)}
 .tier .per{font-size:15px;white-space:nowrap}
 .q-list blockquote{background:var(--sage-bg)}
+/* friendly AI-unavailable notice */
+.ai-unavail{border:1px solid var(--line);background:var(--surface);border-left:4px solid var(--accent);border-radius:12px;padding:12px 14px;margin:6px 0 12px}
+.ai-unavail p{margin:4px 0}

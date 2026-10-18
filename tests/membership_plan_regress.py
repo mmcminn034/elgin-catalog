@@ -1,6 +1,7 @@
 """Mark's 10-case test plan for Membership v1, automated against the preview with mocks (no production writes).
 Usage: python3 tests/membership_plan_regress.py http://localhost:8860/  [screenshot dir, default /workspace/membership/]"""
-import sys, json, re
+import sys, json, re, os
+SEED = open(os.environ["EC_SEED"]).read() if os.environ.get("EC_SEED") else None  # optional full catalog fixture kept outside the repo
 from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8860/"; O = sys.argv[2] if len(sys.argv) > 2 else "/workspace/membership/"
 IMG = "images/ELG-016/01.jpg"; fails = []; errs = []
@@ -25,6 +26,7 @@ def ctx(b, mock, w=1280, h=900, mobile=False, theme="dark"):
     c.add_init_script(f"try{{localStorage.setItem('elgin-theme','{theme}')}}catch(e){{}}")
     if mock is not None: c.add_init_script("window.ROLLING_OAK_MOCK=" + json.dumps(mock))
     c.route("**/*.supabase.co/**", lambda r: r.fulfill(status=200, content_type="application/json", body="[]"))
+    if SEED: c.route("**/data/catalog.json*", lambda r: r.fulfill(status=200, content_type="application/json", body=SEED))  # test fixture (private data never ships)
     pg = c.new_page(); pg.on("pageerror", lambda e: errs.append(str(e))); pg.on("console", lambda m: m.type == "error" and "Failed to load resource" not in m.text and errs.append(m.text)); return c, pg
 def walk(pg, name, obj, feats, loc, shot=IMG):
     pg.goto(U + "#/add"); pg.wait_for_timeout(700)

@@ -113,6 +113,7 @@
   async function setDiscover(id, on) { if (MOCK) { (MOCK.discoverSet = MOCK.discoverSet || {})[id] = on; return {}; } if (!sb || !user) return {};
     const up = on ? { visibility: "public", is_public: true } : {}; if (C.schema008) up.show_on_discover = !!on; return Object.keys(up).length ? q(sb.from("finds").update(up).eq("catalog_id", id)) : {}; } // show_on_discover needs migration 008 (C.schema008)
   async function setFindVisibility(id, v) { if (MOCK) { (MOCK.visibility = MOCK.visibility || {})[id] = v; return {}; } if (!sb || !user) return {}; return q(sb.from("finds").update({ visibility: v }).eq("catalog_id", id)); }
+  const PROFV = () => C.schema013 ? "public_profiles" : "profiles"; /* 013: other people's profiles only through the safe public view */
   /* Stage 2: discover + comments */
   const DISCOVER_COLS = "catalog_id,category,object_type,material,era,region,suggestion_1,suggestion_2,suggestion_3,confidence,status,key_features,length_mm,length_source,width_mm,width_source,thickness_mm,thickness_source,weight_g,weight_source,thumb_repo,thumb_storage,verified,collection_slug" + (C.schema012 ? ",public_id,title" : "");
   async function discover() { if (MOCK) return MOCK.discover || null; if (!sb) return null;
@@ -120,7 +121,7 @@
     return r.data.map(d => ({ ...d, thumb: d.thumb_storage ? publicUrl(d.thumb_storage) : d.thumb_repo, visibility: "public" })); }
   async function comments(id) { if (MOCK) return (MOCK.comments || []).filter(c => c.catalog_id === id); if (!sb) return null;
     const r = await q(sb.from("comments").select("id,catalog_id,user_id,kind,body,resolved,created_at").eq("catalog_id", id).order("created_at")); if (r.error) return null;
-    const ids = [...new Set(r.data.map(c => c.user_id))], pr = ids.length ? await q(sb.from("profiles").select("id,display_name,avatar_url").in("id", ids)) : { data: [] };
+    const ids = [...new Set(r.data.map(c => c.user_id))], pr = ids.length ? await q(sb.from(PROFV()).select("id,display_name,avatar_url").in("id", ids)) : { data: [] };
     return r.data.map(c => ({ ...c, author: ((pr.data || []).find(p => p.id === c.user_id) || {}).display_name || "Member" })); }
   async function addComment(catalog_id, kind, body) { if (MOCK) { const c = { id: "m" + Date.now() + Math.random().toString(36).slice(2, 5), catalog_id, kind, body, resolved: false, user_id: user && user.id, author: (MOCK.profile && MOCK.profile.display_name) || "Member", created_at: new Date().toISOString() }; (MOCK.comments = MOCK.comments || []).push(c); return { data: c }; }
     if (!sb || !user) return { error: "Sign in to comment" }; return q(sb.from("comments").insert({ catalog_id, kind, body }).select().single()); }
@@ -136,7 +137,7 @@
     const r = await q(sb.from("collection_members").select("role, collections(*)").eq("user_id", user.id)); return (r.data || []).map(m => ({ ...m.collections, role: m.role })); }
   async function members(cid) { if (MOCK) return MOCK.members?.[cid] || { members: [], invites: [] };
     const m = await q(sb.from("collection_members").select("user_id, role, added_at").eq("collection_id", cid)), inv = await q(sb.from("collection_invites").select("*").eq("collection_id", cid).neq("status", "revoked"));
-    const ids = (m.data || []).map(x => x.user_id), pr = ids.length ? await q(sb.from("profiles").select("id, display_name, avatar_url").in("id", ids)) : { data: [] };
+    const ids = (m.data || []).map(x => x.user_id), pr = ids.length ? await q(sb.from(PROFV()).select("id, display_name, avatar_url").in("id", ids)) : { data: [] };
     return { members: (m.data || []).map(x => ({ ...x, ...((pr.data || []).find(p => p.id === x.user_id) || {}) })), invites: inv.data || [] }; }
   const isPhone = v => /^\+[1-9]\d{7,14}$/.test(v);
   async function invite(cid, contact, role) { contact = contact.trim(); const phone = isPhone(contact), key = phone ? "phone" : "email"; if (!phone) contact = contact.toLowerCase();
@@ -150,11 +151,14 @@
   async function locations() { if (MOCK) return MOCK.locations || []; if (!sb || !user) return []; const r = await q(sb.from("find_locations").select("catalog_id, location, lat, lon")); return (r.data || []).map(l => { const ll = l.lat != null ? [l.lat, l.lon] : parseLatLon(l.location); return ll ? { catalog_id: l.catalog_id, lat: ll[0], lon: ll[1], location: l.location } : null; }).filter(Boolean); }
   async function publicCollection(slug) { if (MOCK) return MOCK.publicCollections?.[slug] || null; if (!sb) return null;
     const c = await q(sb.from("collections").select("*").eq("slug", slug).maybeSingle()); if (!c.data) return null;
-    const o = c.data.owner ? await q(sb.from("profiles").select("display_name, bio, avatar_url").eq("id", c.data.owner).maybeSingle()) : {}; return { collection: c.data, owner: o.data || null }; }
+    const o = c.data.owner ? await q(sb.from(PROFV()).select(C.schema013 ? "display_name, bio, avatar_url, public_finds" : "display_name, bio, avatar_url").eq("id", c.data.owner).maybeSingle()) : {}; return { collection: c.data, owner: o.data || null }; }
   async function setVisibility(table, key, val) { if (MOCK) return {}; return q(sb.from(table).update({ is_public: val }).eq(table === "collections" ? "id" : "catalog_id", key)); }
   async function requestReview(catalog_id, note) { if (MOCK) { (MOCK.reviews = MOCK.reviews || []).push({ catalog_id, note }); return {}; } if (!user) return { error: "Sign in first" }; return q(sb.from("review_requests").insert({ catalog_id, note, requester: user.id })); }
-  async function analyze(body) { if (MOCK) return MOCK.ai ? { data: MOCK.ai } : { error: "AI not configured" };
-    try { const { data, error } = await sb.functions.invoke("analyze-find", { body }); if (error) { let msg = error.message; try { msg = (await error.context.json()).error || msg; } catch {} return { error: msg }; } return { data }; } catch (e) { return { error: e.message }; } }
+  async function analyze(body) { if (MOCK) return MOCK.aiError ? { ...MOCK.aiError } : MOCK.ai ? { data: MOCK.ai } : { error: "AI not configured" };
+    if (!sb) return { error: "AI photo analysis is unavailable offline.", code: "ai_unavailable" };
+    try { const { data, error } = await sb.functions.invoke("analyze-find", { body }); if (error) { let msg = error.message, code = "", status = 0; try { status = error.context.status || 0; const j = await error.context.json(); msg = j.error || msg; code = j.code || ""; } catch {}
+        if (!code) code = status === 401 ? "sign_in_required" : status === 429 ? "ai_daily_cap" : "ai_unavailable"; return { error: msg, code, status }; } return { data }; }
+    catch (e) { return { error: e.message, code: "ai_unavailable" }; } }
   /* auth */
   const redirect = () => location.origin + location.pathname;
   /* MOCK (tests only): email link is "sent"; password sign-in succeeds for MOCK.accounts[email] === password; sign-up records the account */
@@ -168,5 +172,12 @@
   const phoneOtp = phone => MOCK ? ((MOCK.sms = (MOCK.sms || 0) + 1), Promise.resolve(MOCK.phoneError ? { error: { message: MOCK.phoneError } } : {})) : sb.auth.signInWithOtp({ phone });
   const verifyPhone = async (phone, token) => { if (MOCK) { if (token === "000000") return { error: { message: "Token has expired or is invalid" } }; user = { id: "u-phone", phone: phone.slice(1), email: null }; emit(); return {}; }
     const r = await sb.auth.verifyOtp({ phone, token, type: "sms" }); if (!r.error && r.data && r.data.user) { user = r.data.user; emit(); } return r; };
-  window.Cloud = { client: () => sb, whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
+  /* 013: find numbers come from the server (per-account prefix + sequence). MOCK.serverNumbering simulates it in tests. */
+  const serverNumbering = () => MOCK ? !!MOCK.serverNumbering : !!(C.schema013 && sb);
+  async function allocateId() { if (MOCK) { if (!MOCK.serverNumbering || !user || MOCK.offline) return null; MOCK.nextN = (MOCK.nextN || 36); return (MOCK.prefix || "ELG") + "-" + String(MOCK.nextN++).padStart(3, "0"); }
+    if (!C.schema013 || !sb || !user || !online) return null; const r = await q(sb.rpc("allocate_catalog_id")); return (!r.error && typeof r.data === "string") ? r.data : null; }
+  async function myPrefix() { if (MOCK) return MOCK.serverNumbering && user ? (MOCK.prefix || "ELG") : null; if (!C.schema013 || !sb || !user) return null;
+    const k = "ro-id-prefix:" + user.id; if (online) { const r = await q(sb.rpc("my_catalog_prefix")); if (!r.error && r.data && r.data.prefix) { try { localStorage.setItem(k, r.data.prefix); } catch {} return r.data.prefix; } }
+    try { return localStorage.getItem(k); } catch { return null; } }
+  window.Cloud = { client: () => sb, serverNumbering, allocateId, myPrefix, whenReady: () => initP || Promise.resolve(state()), isSettled: () => settled, setDiscover, addCorrection, normalizeRow, catStamp, discover, comments, addComment, resolveComment, deleteComment, addFeedback, typeAccuracy, setFindVisibility, profile, saveProfile, uploadAvatar, collections, members, invite, setRole, revokeInvite, acceptInvites, locations, publicCollection, setVisibility, requestReview, analyze, parseLatLon, init, loadFinds, loadExamples, pushFind, deleteFind, pushExample, forgetExample, magicLink, google, phoneOtp, verifyPhone, isPhone, signIn, signUp, signOut, state, on: f => listeners.push(f) };
 })();

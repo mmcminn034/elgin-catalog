@@ -269,7 +269,7 @@
     $("#ufCopy").onclick = async () => { const url = (C.siteUrl || location.href.split("#")[0]) + "#/p/" + uf; try { await navigator.clipboard.writeText(url); toast("Link copied"); } catch { window.prompt("Copy this link:", url); } }; }
   /* old links (#/find/ELG-xxx and share/ELG-xxx.html, QR labels) keep working: when the find is public and has a UF id, go to #/p/UF-…; otherwise the old page renders as before */
   async function legacyRedirect(id) { if (!id || !/^[A-Z]{2,5}-\d{3,}$/.test(id)) return; let uf = null; const r = window.App && App.all.find(x => x.catalog_id === id);
-    if (r && vis(r) === "public" && r.public_id) uf = r.public_id; else if (!MOCK && s12() && sb()) { const x = await q(sb().rpc("public_id_for", { p_catalog_id: id })); uf = x.data || null; }
+    if (r && vis(r) === "public" && r.public_id) uf = r.public_id; else if (!MOCK && s12() && sb()) { const x = await q(sb().rpc("public_id_for", { p_catalog_id: id })); uf = typeof x.data === "string" && /^UF-[0-9A-Z]{4,}$/.test(x.data) ? x.data : null; }
     if (uf && /^#\/find\//.test(location.hash) && !(window.App && App.current)) location.replace("#/p/" + uf); }
 
   /* ---------- lapse banner + admin nav ---------- */

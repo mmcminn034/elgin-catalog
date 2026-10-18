@@ -48,7 +48,7 @@ with sync_playwright() as p:
         pg.evaluate("window.ROLLING_OAK_MOCK.ai = Object.assign({}, window.ROLLING_OAK_MOCK.ai, {reference_status: 'unavailable: no reference rows'})"); pg.evaluate("document.getElementById('aiDlg').close()")
         pg.locator("#aiRun:visible").click(); pg.wait_for_timeout(900); chk("reference outage visible in AI panel", "unavailable" in pg.inner_text("#aiBody .err") if pg.locator("#aiBody .err").count() else False)
         pg.evaluate("window.ROLLING_OAK_MOCK.ai = null; document.getElementById('aiDlg').close()"); pg.locator("#aiRun:visible").click(); pg.wait_for_timeout(900)
-        chk("AI failure visible (no silent failure)", pg.locator("#aiBody [role=alert]").count() >= 1 and "AI analysis failed" in pg.inner_text("#aiBody"))
+        chk("AI failure visible (no silent failure)", pg.locator("#aiBody [role=alert]").count() >= 1 and ("AI analysis failed" in pg.inner_text("#aiBody") or "unavailable right now" in pg.inner_text("#aiBody")))
         chk("prompt view still offered after failure", pg.locator("#aiBody details.ai-prompt").count() == 1); pg.evaluate("document.getElementById('aiDlg').close()")
         body = pg.evaluate("window.__body"); chk("payload carries region_hint", bool(body and body.get("region_hint")))
         sz = len(json.dumps(body or {})); chk("payload is small (top candidates only, no full reference list)", body and sz < 20000 and len(body.get("kb", [])) <= 5 and len(body.get("examples", [])) <= 20, f"{sz} bytes, kb={len((body or {}).get('kb', []))}")

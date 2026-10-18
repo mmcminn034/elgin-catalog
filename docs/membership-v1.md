@@ -61,3 +61,10 @@ Rollback: run `012_membership_v1_down.sql`, which restores the 008/011 shapes an
 - **The finds read policy and `can_view_find` are unchanged.** Anonymous users still read 0 rows from `finds`. Public items are served only through `public_find(p_uf)` (curated columns, no owner, catalog or location) and the `discover_finds` view.
 - Changing a catalog's visibility re-evaluates its finds' UF ids through the `collections_zz_vis_cascade` trigger.
 - Known limitation: `catalog_id` (ELG-NNN) is a global primary key generated on the client, so two users can collide. This needs per-user prefixes before opening sign-ups widely.
+
+## 2026-10-18 fixes (migration 013, ro-v9.6)
+- **AI**: `analyze-find` accepts every signed-in account. Free accounts have a daily cap from `app_config.ai_daily_cap` (default 50); Annual/Lifetime are unlimited. Signed-out requests get 401. Provider failures (no credits, outages) come back as `ai_no_credits` / `ai_unavailable` with a refund through `ai_quota_refund()`, and are never reported as a plan refusal. The site shows a friendly notice.
+- **Profiles**: `profiles` can be read only by its owner, plus the admin. Everyone else uses the `public_profiles` view (id, display_name, avatar_url, bio, public_finds, public_catalogs). Column grants block membership/admin/Stripe fields on insert and update.
+- **Static data**: `data/catalog.json` contains only finds with an active UF id. Regenerate it with `python3 tools/gen_public_catalog.py /path/outside/repo/catalog_full.json`. That also writes share pages (full for public finds, detail-free redirect stubs for the rest) and strips non-public seed rows from `schema.sql`. Tests that need the full fixture take `EC_SEED=/path/catalog_full.json`.
+- **Find numbers**: allocated by the server (`allocate_catalog_id()`, trigger `finds_aa_catalog_id`, table `catalog_id_prefixes`). The owner keeps the ELG series; other accounts get their own random 3-letter prefix. Offline adds use `TMP-…` ids and are renumbered on sync (local record, pending queue, localStorage references).
+- Rollback: `013_fixes_ai_profiles_numbering_down.sql`, then set `schema013: false` and bump.

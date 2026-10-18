@@ -188,6 +188,11 @@
     const ctx = { external_references: refs, reference_status: pub ? "ok" : "unavailable: public-types.json did not load", kind, record: payload.record, region: payload.region, region_check: payload.region_check, reference_types: payload.kb, checklist_features: payload.checklist, similar_verified_examples: payload.similar };
     return `<details class="ai-prompt"><summary>View AI prompt</summary><p class="help">Exactly what the model receives: the system prompt, then the user message; ${n} photo${n === 1 ? "" : "s"} follow as image parts, plus one REFERENCE photo per verified example. The server re-ranks verified examples from the shared library.</p>
       <h4>System</h4><pre>${esc(Prompt.SYSTEM)}</pre><h4>User</h4><pre>${esc(Prompt.buildUserText(ctx, n))}</pre></details>`; }
+  /* Friendly AI errors: provider/credit problems are never shown as a plan refusal; nothing is changed on failure. */
+  function aiErrorHtml(res) { const still = " Nothing was changed. The rules-engine suggestions on the Analysis tab still work.";
+    if (res.code === "ai_daily_cap") return `<div class="ai-unavail" role="alert"><p>⏳ ${esc(res.error || "You've reached today's AI limit.")}${still}</p><p><a class="btn" href="#/membership">See plans</a></p></div>`;
+    if (res.code === "sign_in_required") return `<div class="ai-unavail" role="alert"><p>🔒 Sign in to use AI photo analysis. It's free with an account.</p><p><button type="button" class="btn primary" data-auth-open="signin">Sign in</button></p></div>`;
+    return `<div class="ai-unavail" role="alert"><p>🤖 AI photo analysis is unavailable right now. Please try again later.${still}</p>${res.code === "ai_no_credits" ? '<p class="help">The AI service is temporarily out of credits; this does not count against your daily allowance.</p>' : ""}</div>`; }
   async function analyze(r) {
     const dlg = $("#aiDlg"), body = $("#aiBody"), kind = App.kindOf(r), ps = App.pics(r).map((p, i) => ({ ...p, i })).filter(p => !String(p.src).startsWith("data:")).slice(0, 6);
     $("#aiClose").onclick = () => dlg.close(); dlg.showModal();
@@ -201,7 +206,7 @@
     const pv = promptPreview(r, kind, payload, ps.length);
     body.insertAdjacentHTML("beforeend", pv);
     const res = await Cloud.analyze(payload);
-    if (res.error) { body.innerHTML = `<p class="err" role="alert">⚠ AI analysis failed: ${esc(res.error)}. Nothing was changed. The rules-engine suggestions on the Analysis tab still work.</p>` + pv; return; }
+    if (res.error) { body.innerHTML = aiErrorHtml(res) + pv; return; }
     const out = res.data.result || res.data, marksBy = new Map((out.marks || []).map(m => [m.photo_index, m.marks || []]));
     body.innerHTML = `<p class="recat"><span>⚠ ${esc(out.caveat || "AI suggestions are research possibilities, not identifications.")}</span></p>
       <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>
