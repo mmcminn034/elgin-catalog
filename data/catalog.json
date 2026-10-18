@@ -482,6 +482,36 @@
     "era": "Undetermined"
   },
   {
+    "catalog_id": "ELG-004",
+    "category": "artifact",
+    "object_type": "Small point",
+    "material": "Chert",
+    "color": "Blue-gray",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Complete?",
+    "key_features": "Leaf/triangular outline, rounded base, fine edge retouch",
+    "suggestion_1": "Leaf-shaped biface / dart (period undetermined)",
+    "suggestion_2": "Resharpened knife tip",
+    "suggestion_3": "",
+    "confidence": "Low",
+    "owner_observations": "",
+    "open_questions": "Needs scaled multi-view photos",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-004/01.jpg",
+        "thumb": "images/ELG-004/01_thumb.jpg",
+        "view": "case",
+        "label": "In display case"
+      }
+    ],
+    "era": "Undetermined",
+    "context_notes": "Re-review 2026-10-16: refined from \"Late Archaic triangular/leaf dart\". Leaf-shaped outline with no diagnostic haft, so the Late Archaic dating is not supported."
+  },
+  {
     "catalog_id": "ELG-005",
     "category": "artifact",
     "object_type": "Large biface",
@@ -510,5 +540,452 @@
     ],
     "era": "Undetermined",
     "context_notes": "Re-review 2026-10-16: refined from \"Knife\". Thick, irregular edges and no visible use-wear. A preform scores close to a knife."
+  },
+  {
+    "catalog_id": "ELG-006",
+    "category": "artifact",
+    "object_type": "Flake / flake tool",
+    "material": "Chert (likely Edwards)",
+    "color": "Translucent gray-brown, white inclusions",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Fragment",
+    "key_features": "Cortex on one face, notched edge",
+    "suggestion_1": "Debitage",
+    "suggestion_2": "Expedient flake tool",
+    "suggestion_3": "",
+    "confidence": "Moderate (human-made); Low (tool)",
+    "owner_observations": "",
+    "open_questions": "Magnifier check of notched edge for wear",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-006/01.jpg",
+        "thumb": "images/ELG-006/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-006/02.jpg",
+        "thumb": "images/ELG-006/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-006/03.jpg",
+        "thumb": "images/ELG-006/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-006/04.jpg",
+        "thumb": "images/ELG-006/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-007",
+    "category": "rock",
+    "object_type": "Natural rose quartz pebble",
+    "material": "Rose quartz",
+    "color": "Pink",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Whole",
+    "key_features": "Smooth water-rounded, no flake scars seen",
+    "suggestion_1": "Natural rose quartz pebble (water-worn)",
+    "suggestion_2": "Quartzite pebble",
+    "suggestion_3": "Hammerstone/polisher (unlikely: no pecking or polish seen)",
+    "confidence": "Moderate",
+    "owner_observations": "",
+    "open_questions": "Sharper photo; look for pecking or polish",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-007/01.jpg",
+        "thumb": "images/ELG-007/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      }
+    ],
+    "era": "Undetermined",
+    "category_note": "Moved from Artifacts to Rocks & Minerals in the 2026-10-16 re-review. Previous ID: Natural creek pebble.",
+    "category_kept": "rock",
+    "category_history": [
+      {
+        "from": "artifact",
+        "to": "rock",
+        "date": "2026-10-16",
+        "ts": "2026-10-16T16:40:00Z",
+        "reason": "Owner correction: re-review against the reference layers (previous ID: Natural creek pebble)"
+      }
+    ],
+    "context_notes": "Re-review 2026-10-16: reclassified from \"Natural creek pebble\". Water-rounded quartz pebble with no flake scars, pecking or polish. Artifact rules top out at 28%; it matches the rocks layer entries for rose quartz and natural pebbles."
+  },
+  {
+    "catalog_id": "ELG-008",
+    "category": "artifact",
+    "object_type": "Core",
+    "material": "Chert",
+    "color": "Translucent blue-gray, white speckles, cream cortex",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Whole",
+    "key_features": "Multiple flake scars meeting at ridges, partial cortex",
+    "suggestion_1": "Core / tested cobble",
+    "suggestion_2": "Natural fracture",
+    "suggestion_3": "",
+    "confidence": "Moderate",
+    "owner_observations": "",
+    "open_questions": "Look for strike points and ripple lines; size",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-008/01.jpg",
+        "thumb": "images/ELG-008/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-009",
+    "category": "artifact",
+    "object_type": "Biface fragment",
+    "material": "Chert",
+    "color": "Pale pink-lavender, darker pink spots",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Broken (squared base)",
+    "key_features": "Leaf-shaped, retouched edges, thick curved section, possible snap break",
+    "suggestion_1": "Broken biface/point tip",
+    "suggestion_2": "Scraper/knife",
+    "suggestion_3": "Mid-stage preform",
+    "confidence": "Low-moderate",
+    "owner_observations": "",
+    "open_questions": "Close-up of break surface; size; heat treatment?",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-009/01.jpg",
+        "thumb": "images/ELG-009/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-009/02.jpg",
+        "thumb": "images/ELG-009/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-009/03.jpg",
+        "thumb": "images/ELG-009/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-009/04.jpg",
+        "thumb": "images/ELG-009/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-009/05.jpg",
+        "thumb": "images/ELG-009/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-010",
+    "category": "artifact",
+    "object_type": "Biface fragment (tip section)",
+    "material": "Chert",
+    "color": "Cream-white, orange-brown staining, dark speckles",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Broken (straight snap base)",
+    "key_features": "Triangular outline, blunt/rounded tip, straight transverse break at base, thin-moderate section, light edge retouch",
+    "suggestion_1": "Distal (tip) fragment of a broken dart point or knife",
+    "suggestion_2": "Triangular biface/preform fragment",
+    "suggestion_3": "Scraper",
+    "confidence": "Low-moderate",
+    "owner_observations": "",
+    "open_questions": "Close-up of break surface; size; check tip for impact damage",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-010/01.jpg",
+        "thumb": "images/ELG-010/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-010/02.jpg",
+        "thumb": "images/ELG-010/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-010/03.jpg",
+        "thumb": "images/ELG-010/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-010/04.jpg",
+        "thumb": "images/ELG-010/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-010/05.jpg",
+        "thumb": "images/ELG-010/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-011",
+    "category": "artifact",
+    "object_type": "Biface fragment (tip section), serrated",
+    "material": "Chert",
+    "color": "Translucent blue-gray to lavender",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Broken (straight snap base)",
+    "key_features": "Finely serrated edges, pointed tip, thin flat lenticular section, snap break at wide end",
+    "suggestion_1": "Tip fragment of a serrated dart point (e.g., Darl/Bulverde-family)",
+    "suggestion_2": "Serrated knife fragment",
+    "suggestion_3": "",
+    "confidence": "Low-moderate",
+    "owner_observations": "",
+    "open_questions": "Size; break close-up; serration wear",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-011/01.jpg",
+        "thumb": "images/ELG-011/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-011/02.jpg",
+        "thumb": "images/ELG-011/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-011/03.jpg",
+        "thumb": "images/ELG-011/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-011/04.jpg",
+        "thumb": "images/ELG-011/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-011/05.jpg",
+        "thumb": "images/ELG-011/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-012",
+    "category": "artifact",
+    "object_type": "Flake tool / biface fragment",
+    "material": "Chert",
+    "color": "Pinkish-tan to gray",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Fragment",
+    "key_features": "Irregular outline with a deep concave notch on one side, multiple flake scars, thick irregular section",
+    "suggestion_1": "Notched flake tool (spokeshave)",
+    "suggestion_2": "Broken biface/preform fragment",
+    "suggestion_3": "Debitage",
+    "confidence": "Low",
+    "owner_observations": "",
+    "open_questions": "Size; magnifier check of concave notch edge for wear/retouch",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-012/01.jpg",
+        "thumb": "images/ELG-012/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-012/02.jpg",
+        "thumb": "images/ELG-012/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-012/03.jpg",
+        "thumb": "images/ELG-012/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-012/04.jpg",
+        "thumb": "images/ELG-012/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-012/05.jpg",
+        "thumb": "images/ELG-012/05_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-013",
+    "category": "artifact",
+    "object_type": "Biface fragment (midsection/base)",
+    "material": "Chert",
+    "color": "Pale pink-cream",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Broken (snap break at one end)",
+    "key_features": "Roughly rectangular fragment, one straight snapped end, retouched edges, thin tapering wedge-shaped section",
+    "suggestion_1": "Midsection or base fragment of a broken dart point or knife",
+    "suggestion_2": "Biface thinning flake or preform fragment",
+    "suggestion_3": "Debitage",
+    "confidence": "Low",
+    "owner_observations": "",
+    "open_questions": "Size; break surface close-up; is the opposite end a finished base?",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-013/01.jpg",
+        "thumb": "images/ELG-013/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-013/02.jpg",
+        "thumb": "images/ELG-013/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-013/03.jpg",
+        "thumb": "images/ELG-013/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-013/04.jpg",
+        "thumb": "images/ELG-013/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-013/05.jpg",
+        "thumb": "images/ELG-013/05_thumb.jpg",
+        "view": "base",
+        "label": "Base view"
+      }
+    ],
+    "era": "Undetermined"
+  },
+  {
+    "catalog_id": "ELG-014",
+    "category": "artifact",
+    "object_type": "Biface / flake tool",
+    "material": "Chert",
+    "color": "Translucent gray-pink to lavender",
+    "length_mm": "",
+    "width_mm": "",
+    "thickness_mm": "",
+    "measure_method": "Not measured",
+    "condition": "Complete?",
+    "key_features": "Broad, roughly square-oval outline, multiple flake scars over one face, flatter other face, thin plano-convex section, edges with small retouch",
+    "suggestion_1": "Unifacial or bifacial scraper / flake knife",
+    "suggestion_2": "Early-stage biface or preform",
+    "suggestion_3": "Large thinning flake (debitage)",
+    "confidence": "Low-moderate",
+    "owner_observations": "",
+    "open_questions": "Size; check edges for steep retouch or use polish; is the flat face a single flake scar?",
+    "status": "Draft",
+    "photos": [
+      {
+        "path": "images/ELG-014/01.jpg",
+        "thumb": "images/ELG-014/01_thumb.jpg",
+        "view": "front",
+        "label": "Front view"
+      },
+      {
+        "path": "images/ELG-014/02.jpg",
+        "thumb": "images/ELG-014/02_thumb.jpg",
+        "view": "back",
+        "label": "Back view"
+      },
+      {
+        "path": "images/ELG-014/03.jpg",
+        "thumb": "images/ELG-014/03_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/04.jpg",
+        "thumb": "images/ELG-014/04_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/05.jpg",
+        "thumb": "images/ELG-014/05_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/06.jpg",
+        "thumb": "images/ELG-014/06_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      },
+      {
+        "path": "images/ELG-014/07.jpg",
+        "thumb": "images/ELG-014/07_thumb.jpg",
+        "view": "edge",
+        "label": "Edge view"
+      }
+    ],
+    "era": "Undetermined"
   }
 ]
