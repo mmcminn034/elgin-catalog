@@ -206,7 +206,8 @@
     const pv = promptPreview(r, kind, payload, ps.length);
     body.insertAdjacentHTML("beforeend", pv);
     const res = await Cloud.analyze(payload);
-    if (res.error) { body.innerHTML = aiErrorHtml(res) + pv; return; }
+    if (res.error) { try { sessionStorage.setItem("ro-ai-last", JSON.stringify({ code: res.code || "ai_unavailable", t: Date.now() })); } catch {} body.innerHTML = aiErrorHtml(res) + pv; return; }
+    try { sessionStorage.removeItem("ro-ai-last"); } catch {}
     const out = res.data.result || res.data, marksBy = new Map((out.marks || []).map(m => [m.photo_index, m.marks || []]));
     body.innerHTML = `<p class="recat"><span>⚠ ${esc(out.caveat || "AI suggestions are research possibilities, not identifications.")}</span></p>
       <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}</li>`).join("")}</ol>

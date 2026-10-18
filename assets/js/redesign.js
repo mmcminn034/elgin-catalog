@@ -41,7 +41,7 @@
     const panel = `<section class="rv-card rv-ai" aria-labelledby="rvAiH"><h3 id="rvAiH">${SPARK} AI Analysis</h3>
       ${sc ? `<div class="rv-conf rv-${sc.color}" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${sc.pct}" aria-label="Confidence ${sc.pct}%"><span class="lab">Confidence Score</span><span class="big">${sc.pct}%</span><span class="band">${esc(sc.band)} Confidence ${SHIELD}</span><span class="bar"><i style="width:${sc.pct}%"></i></span></div>
       <div class="rv-why"><h4>Why this score:</h4><p>${esc(whyText(sc))}</p><details class="why-score"><summary>Show every factor (${sc.factors.length})</summary><ul>${sc.factors.map(f => `<li class="${f.sign === "+" ? "fplus" : "fminus"}"><strong>${f.sign}${f.pts}</strong> ${esc(f.label)}${f.source ? ` <a href="${esc(f.source.url)}" target="_blank" rel="noopener">${esc(f.source.name)}</a>` : ""}</li>`).join("")}</ul></details></div>` : '<p class="help">Add key features, measurements and photos to earn a score.</p>'}
-      ${sug.length ? `<div class="rv-sugg"><h4>Suggested Type</h4><div class="chips">${sug.map((x, i) => `<span class="chip type"${i ? ' style="opacity:.8"' : ""}>${esc(x.c.name)}</span>`).join("")}</div></div>` : ""}
+      ${sug.length ? `<div class="rv-sugg"><h4>Suggested Type</h4><div class="chips">${sug.map((x, i) => `<span class="chip type${i ? " alt" : ""}">${esc(x.c.name)}</span>`).join("")}</div></div>` : ""}
       <div class="rv-acts"><button type="button" class="btn green" data-rv="keep">✓ Keep</button><button type="button" class="btn outline" data-rv="correct">✎ Correct this</button><button type="button" class="btn outline" data-rv="measure">📏 Add Measurement</button></div>
       <p class="help">${esc(window.Learn ? Learn.DISCLAIMER : "Research suggestions only, not identifications.")}</p></section>`;
     const refs = refMatches(r, t), err = window.Analysis && Analysis.loadErrors && Analysis.loadErrors().length;
@@ -122,6 +122,7 @@
     host.querySelector("#setDark").onchange = () => $("#themeToggle").click();
     host.onclick = e => { const b = e.target.closest("[data-set]"); if (!b) return; const a = b.dataset.set;
       if (a === "auth") $("#authBtn").click(); else if (a === "csv") $("#exportCsv").click(); else if (a === "json") $("#exportJson").click(); else if (a === "install") { const i = $("#installBtn"); if (i && !i.hidden) i.click(); else App.toast("Use your browser's menu: Add to Home Screen."); } };
+    if (window.Site) Site.settingsExtra(host);
   }
   const TITLES = { home: "Welcome", catalog: "Catalog", review: "Review", library: "Reference Library", settings: "Settings", discover: "Discover", add: "Add a find", about: "About & methods", timeline: "Deep time", people: "People & land", map: "Find map", labels: "QR labels", profile: "Profile", members: "Members", pricing: "Membership", membership: "Membership", merch: "Merch", experts: "Experts", catalogs: "Your catalogs", admin: "Owner admin", p: "Shared find", c: "Collection", find: "Find" };
   function topbar() { const homeV = !document.getElementById("view-home")?.hidden, v = homeV ? "home" : (location.hash.match(/^#\/(\w+)/) || [, "catalog"])[1], cur = window.App && App.current, rec = v === "record" && cur;
