@@ -45,3 +45,8 @@ table.cmp thead th{background:var(--surface2)}
 .ref-credit{display:block;margin-top:3px;color:var(--muted);word-break:break-word}
 .ref-credit a{color:inherit;text-decoration:underline}
 .ref-src-list li{margin:.25rem 0}
+/* Expert directory filters */
+.dir-note{background:var(--surface2);border-left:4px solid var(--accent);padding:8px 12px;border-radius:6px}
+.dir-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:10px 0}
+.dir-fields{display:flex;gap:6px;flex-wrap:wrap}
+.chip.spec{font-size:.75rem}

@@ -1,14 +1,1316 @@
 [
- {"slug":"thc-archeology","name":"Texas Historical Commission, Archeology Division","kind":"organization","specialty":["artifacts"],"region":"Texas (statewide)","contact":"archeology@thc.texas.gov · 512-463-6096","contact_url":"https://thc.texas.gov/preserve/archeology-texas/regional-archeology","availability":"Regional archeologists respond to public inquiries about archeological sites and artifacts; use the regional map to reach your area's archeologist.","source_url":"https://thc.texas.gov/preserve/archeology-texas/regional-archeology","last_verified":"2026-10-18","sort":10},
- {"slug":"tasn","name":"Texas Archeological Stewardship Network (THC)","kind":"public inquiry","specialty":["artifacts"],"region":"Texas (statewide)","contact":"tasn@thc.texas.gov · 512-463-6043","contact_url":"https://thc.texas.gov/preserve/archeology-texas/texas-archeological-stewardship-network","availability":"Volunteer avocational stewards who record sites and private artifact collections and assist THC archeologists.","source_url":"https://thc.texas.gov/preserve/archeology-texas/texas-archeological-stewardship-network","last_verified":"2026-10-18","sort":20},
- {"slug":"tas","name":"Texas Archeological Society","kind":"organization","specialty":["artifacts"],"region":"Texas (statewide)","contact":"tasoffice@txarch.org · 512-265-5324 · online contact form","contact_url":"https://www.txarch.org/contact","availability":"The contact form routes questions to the business office, a committee or a regional director. Regional chapters below.","source_url":"https://www.txarch.org/contact","last_verified":"2026-10-18","sort":30},
- {"slug":"has","name":"Houston Archeological Society (TAS chapter)","kind":"organization","specialty":["artifacts"],"region":"Houston area","contact":"info@txhas.org","contact_url":"https://www.txhas.org/contact-us.html","availability":"Monthly meetings on the third Thursday, 6:00–7:45 pm, Trini Mendenhall Community Center, Houston.","source_url":"https://www.txhas.org/contact-us.html","last_verified":"2026-10-18","sort":40},
- {"slug":"ntas","name":"North Texas Archeological Society (TAS chapter)","kind":"organization","specialty":["artifacts"],"region":"Dallas–Fort Worth","contact":"info@ntxas.org · 817-381-8117","contact_url":"https://ntxas.org/contact-us","availability":"Hybrid monthly meetings on the second Thursday, 7:00–8:30 pm (UNT Health Science Center, Fort Worth, or Zoom).","source_url":"https://ntxas.org/contact-us","last_verified":"2026-10-18","sort":50},
- {"slug":"tsnhm","name":"Texas Science & Natural History Museum (UT Austin)","kind":"public inquiry","specialty":["fossils","minerals"],"region":"Austin / Central Texas","contact":"TMMCollections@austin.utexas.edu","contact_url":"https://sciencemuseum.utexas.edu/exhibit/discovery-center/","availability":"In-person fossil identification with a paleontologist by appointment, Tuesday–Saturday 1–4 pm (email to request; regular admission applies). Educational IDs only: no authentications or appraisals.","source_url":"https://sciencemuseum.utexas.edu/exhibit/discovery-center/","last_verified":"2026-10-18","sort":60},
- {"slug":"dps","name":"Dallas Paleontological Society","kind":"organization","specialty":["fossils"],"region":"Dallas–Fort Worth (about 100 miles)","contact":"Hotline 817-355-4693 · Fossil Bureau of Investigation: fbi@dallaspaleo.org","contact_url":"https://www.dallaspaleo.org/Contact","availability":"The Fossil Bureau of Investigation helps identify fossils and investigate finds, generally within about 100 miles of Dallas.","source_url":"https://www.dallaspaleo.org/FBI","last_verified":"2026-10-18","sort":70},
- {"slug":"psoa","name":"Paleontological Society of Austin","kind":"organization","specialty":["fossils"],"region":"Austin / Central Texas","contact":"Officer contacts on the society's contact page","contact_url":"https://www.austinpaleo.org/contacts.html","availability":"Monthly meetings, usually the third Tuesday at 7:00 pm (Austin Gem and Mineral Society, 6719 Burnet Lane). The public is invited; bring finds for identification.","source_url":"https://www.austinpaleo.org/meeting.html","last_verified":"2026-10-18","sort":80},
- {"slug":"tarl","name":"Texas Archeological Research Laboratory (UT Austin)","kind":"organization","specialty":["artifacts"],"region":"Texas (statewide)","contact":"Official contact page","contact_url":"https://liberalarts.utexas.edu/tarl/about-us.html","availability":"A research collections facility, not a public identification service: TARL does not authenticate or appraise artifacts for private citizens. Research access by appointment.","source_url":"https://liberalarts.utexas.edu/tarl/about-us.html","last_verified":"2026-10-18","sort":90},
- {"slug":"lll","name":"Lubbock Lake Landmark (Museum of Texas Tech University)","kind":"organization","specialty":["artifacts","fossils"],"region":"Lubbock / South Plains","contact":"lubbock.lake@ttu.edu · 806-742-1116","contact_url":"https://www.depts.ttu.edu/museumttu/LLL/StaffContact.html","availability":"General information, research and field opportunities through the Landmark office.","source_url":"https://www.depts.ttu.edu/museumttu/LLL/StaffContact.html","last_verified":"2026-10-18","sort":100},
- {"slug":"smu-arc","name":"SMU Archaeology Research Collections","kind":"organization","specialty":["artifacts"],"region":"Dallas","contact":"SMU Anthropology main office 214-768-2684","contact_url":"https://www.smu.edu/dedman/academics/departments/anthropology/about/contact","availability":"Research collection; access by appointment.","source_url":"https://people.smu.edu/arcsmu/about-us/","last_verified":"2026-10-18","sort":110},
- {"slug":"cbbs","name":"Center for Big Bend Studies (Sul Ross State University)","kind":"organization","specialty":["artifacts"],"region":"Big Bend / Trans-Pecos","contact":"cbbs@sulross.edu · 432-837-8179","contact_url":"https://cbbs.sulross.edu/","availability":"Research center for the archeology and history of the Big Bend region.","source_url":"https://cbbs.sulross.edu/","last_verified":"2026-10-18","sort":120}
+ {
+  "slug": "thc-archeology",
+  "name": "Texas Historical Commission, Archeology Division",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Texas (statewide)",
+  "contact": "archeology@thc.texas.gov · 512-463-6096",
+  "contact_url": "https://thc.texas.gov/preserve/archeology-texas/regional-archeology",
+  "availability": "Regional archeologists respond to public inquiries about archeological sites and artifacts; use the regional map to reach your area's archeologist.",
+  "source_url": "https://thc.texas.gov/preserve/archeology-texas/regional-archeology",
+  "last_verified": "2026-10-18",
+  "sort": 10,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "tasn",
+  "name": "Texas Archeological Stewardship Network (THC)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Texas (statewide)",
+  "contact": "tasn@thc.texas.gov · 512-463-6043",
+  "contact_url": "https://thc.texas.gov/preserve/archeology-texas/texas-archeological-stewardship-network",
+  "availability": "Volunteer avocational stewards who record sites and private artifact collections and assist THC archeologists.",
+  "source_url": "https://thc.texas.gov/preserve/archeology-texas/texas-archeological-stewardship-network",
+  "last_verified": "2026-10-18",
+  "sort": 20,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "tas",
+  "name": "Texas Archeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Texas (statewide)",
+  "contact": "tasoffice@txarch.org · 512-265-5324 · online contact form",
+  "contact_url": "https://www.txarch.org/contact",
+  "availability": "The contact form routes questions to the business office, a committee or a regional director. Regional chapters below.",
+  "source_url": "https://www.txarch.org/contact",
+  "last_verified": "2026-10-18",
+  "sort": 30,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "has",
+  "name": "Houston Archeological Society (TAS chapter)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Houston area",
+  "contact": "info@txhas.org",
+  "contact_url": "https://www.txhas.org/contact-us.html",
+  "availability": "Monthly meetings on the third Thursday, 6:00–7:45 pm, Trini Mendenhall Community Center, Houston.",
+  "source_url": "https://www.txhas.org/contact-us.html",
+  "last_verified": "2026-10-18",
+  "sort": 40,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "ntas",
+  "name": "North Texas Archeological Society (TAS chapter)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Dallas–Fort Worth",
+  "contact": "info@ntxas.org · 817-381-8117",
+  "contact_url": "https://ntxas.org/contact-us",
+  "availability": "Hybrid monthly meetings on the second Thursday, 7:00–8:30 pm (UNT Health Science Center, Fort Worth, or Zoom).",
+  "source_url": "https://ntxas.org/contact-us",
+  "last_verified": "2026-10-18",
+  "sort": 50,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "tsnhm",
+  "name": "Texas Science & Natural History Museum (UT Austin)",
+  "kind": "public inquiry",
+  "specialty": [
+   "fossils",
+   "minerals"
+  ],
+  "region": "Austin / Central Texas",
+  "contact": "TMMCollections@austin.utexas.edu",
+  "contact_url": "https://sciencemuseum.utexas.edu/exhibit/discovery-center/",
+  "availability": "In-person fossil identification with a paleontologist by appointment, Tuesday–Saturday 1–4 pm (email to request; regular admission applies). Educational IDs only: no authentications or appraisals.",
+  "source_url": "https://sciencemuseum.utexas.edu/exhibit/discovery-center/",
+  "last_verified": "2026-10-18",
+  "sort": 60,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "dps",
+  "name": "Dallas Paleontological Society",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "region": "Dallas–Fort Worth (about 100 miles)",
+  "contact": "Hotline 817-355-4693 · Fossil Bureau of Investigation: fbi@dallaspaleo.org",
+  "contact_url": "https://www.dallaspaleo.org/Contact",
+  "availability": "The Fossil Bureau of Investigation helps identify fossils and investigate finds, generally within about 100 miles of Dallas.",
+  "source_url": "https://www.dallaspaleo.org/FBI",
+  "last_verified": "2026-10-18",
+  "sort": 70,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "psoa",
+  "name": "Paleontological Society of Austin",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "region": "Austin / Central Texas",
+  "contact": "Officer contacts on the society's contact page",
+  "contact_url": "https://www.austinpaleo.org/contacts.html",
+  "availability": "Monthly meetings, usually the third Tuesday at 7:00 pm (Austin Gem and Mineral Society, 6719 Burnet Lane). The public is invited; bring finds for identification.",
+  "source_url": "https://www.austinpaleo.org/meeting.html",
+  "last_verified": "2026-10-18",
+  "sort": 80,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "tarl",
+  "name": "Texas Archeological Research Laboratory (UT Austin)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Texas (statewide)",
+  "contact": "Official contact page",
+  "contact_url": "https://liberalarts.utexas.edu/tarl/about-us.html",
+  "availability": "A research collections facility, not a public identification service: TARL does not authenticate or appraise artifacts for private citizens. Research access by appointment.",
+  "source_url": "https://liberalarts.utexas.edu/tarl/about-us.html",
+  "last_verified": "2026-10-18",
+  "sort": 90,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "lll",
+  "name": "Lubbock Lake Landmark (Museum of Texas Tech University)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts",
+   "fossils"
+  ],
+  "region": "Lubbock / South Plains",
+  "contact": "lubbock.lake@ttu.edu · 806-742-1116",
+  "contact_url": "https://www.depts.ttu.edu/museumttu/LLL/StaffContact.html",
+  "availability": "General information, research and field opportunities through the Landmark office.",
+  "source_url": "https://www.depts.ttu.edu/museumttu/LLL/StaffContact.html",
+  "last_verified": "2026-10-18",
+  "sort": 100,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "smu-arc",
+  "name": "SMU Archaeology Research Collections",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Dallas",
+  "contact": "SMU Anthropology main office 214-768-2684",
+  "contact_url": "https://www.smu.edu/dedman/academics/departments/anthropology/about/contact",
+  "availability": "Research collection; access by appointment.",
+  "source_url": "https://people.smu.edu/arcsmu/about-us/",
+  "last_verified": "2026-10-18",
+  "sort": 110,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "cbbs",
+  "name": "Center for Big Bend Studies (Sul Ross State University)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "region": "Big Bend / Trans-Pecos",
+  "contact": "cbbs@sulross.edu · 432-837-8179",
+  "contact_url": "https://cbbs.sulross.edu/",
+  "availability": "Research center for the archeology and history of the Big Bend region.",
+  "source_url": "https://cbbs.sulross.edu/",
+  "last_verified": "2026-10-18",
+  "sort": 120,
+  "state": "Texas",
+  "covers": [
+   "Texas"
+  ]
+ },
+ {
+  "slug": "ok-oas-survey",
+  "name": "Oklahoma Archeological Survey (State Archaeologist, OU)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Oklahoma",
+  "covers": [
+   "Oklahoma"
+  ],
+  "region": "Oklahoma",
+  "contact": "archsurvey@ou.edu · 405-325-7211",
+  "contact_url": "https://ou.edu/archsurvey/found-artifact",
+  "availability": "Helps identify possible archaeological materials found in Oklahoma from photos (multiple angles, with a coin for scale). Does not appraise or authenticate.",
+  "source_url": "https://ou.edu/archsurvey/found-artifact",
+  "sort": 1000,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ok-anthro-soc",
+  "name": "Oklahoma Anthropological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Oklahoma",
+  "covers": [
+   "Oklahoma"
+  ],
+  "region": "Oklahoma",
+  "contact": "okla.anthro.society@gmail.com",
+  "contact_url": "https://okanthropologicalsociety.org/state-organization/",
+  "availability": "Statewide avocational society with local chapters, digs and surveys.",
+  "source_url": "https://okanthropologicalsociety.org/state-organization/",
+  "sort": 1010,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nm-hpd",
+  "name": "New Mexico Historic Preservation Division (SHPO)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "New Mexico",
+  "covers": [
+   "New Mexico"
+  ],
+  "region": "New Mexico",
+  "contact": "nm.shpo@dca.nm.gov · 505-827-6320",
+  "contact_url": "https://nmhistoricpreservation.org/about/staff-list.html",
+  "availability": "State historic preservation office; runs the SiteWatch volunteer site-steward program.",
+  "source_url": "https://nmhistoricpreservation.org/about/staff-list.html",
+  "sort": 1020,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nm-asnm",
+  "name": "Archaeological Society of New Mexico",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "New Mexico",
+  "covers": [
+   "New Mexico"
+  ],
+  "region": "New Mexico",
+  "contact": "archaeologicalsocietynm@gmail.com",
+  "contact_url": "https://archaeologicalsocietynm.org/",
+  "availability": "Statewide society with affiliate societies and an annual meeting.",
+  "source_url": "https://archaeologicalsocietynm.org/",
+  "sort": 1030,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "la-doa",
+  "name": "Louisiana Division of Archaeology (State Archaeologist)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Louisiana",
+  "covers": [
+   "Louisiana"
+  ],
+  "region": "Louisiana",
+  "contact": "archaeology@crt.la.gov · 225-342-8200",
+  "contact_url": "https://www.crt.state.la.us/cultural-development/archaeology/about-us/index",
+  "availability": "State office for site records, unmarked burials and public archaeology questions.",
+  "source_url": "https://www.crt.state.la.us/cultural-development/archaeology/about-us/index",
+  "sort": 1040,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "la-las",
+  "name": "Louisiana Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Louisiana",
+  "covers": [
+   "Louisiana"
+  ],
+  "region": "Louisiana",
+  "contact": "Contact form",
+  "contact_url": "https://www.laarchaeologicalsociety.org/contact-us",
+  "availability": "Statewide society of avocational and professional archaeologists.",
+  "source_url": "https://www.laarchaeologicalsociety.org/contact-us",
+  "sort": 1050,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ar-survey",
+  "name": "Arkansas Archeological Survey",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Arkansas",
+  "covers": [
+   "Arkansas"
+  ],
+  "region": "Arkansas",
+  "contact": "arkarch@uark.edu · 479-575-3556",
+  "contact_url": "https://archeology.uark.edu/contact/",
+  "availability": "Identifies artifacts from front-and-back photos with a coin for scale and gives an age range; statewide research stations.",
+  "source_url": "https://archeology.uark.edu/contact/",
+  "sort": 1060,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ar-society",
+  "name": "Arkansas Archeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Arkansas",
+  "covers": [
+   "Arkansas"
+  ],
+  "region": "Arkansas",
+  "contact": "aasociety@arkarch.org",
+  "contact_url": "https://www.arkarch.org/who-we-are/contact-us/",
+  "availability": "Avocational society with chapters and an annual training program with the Survey.",
+  "source_url": "https://www.arkarch.org/who-we-are/contact-us/",
+  "sort": 1070,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ks-khs",
+  "name": "Kansas Historical Society, Archeology (State Archeologist)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Kansas",
+  "covers": [
+   "Kansas"
+  ],
+  "region": "Kansas",
+  "contact": "785-272-8681 · artifact ID request page",
+  "contact_url": "https://www.kansashistory.gov/p/archeological-artifact-identification/14599",
+  "availability": "Artifact identification from photos (multiple angles, scale, find area); in-person appointments may be arranged.",
+  "source_url": "https://www.kansashistory.gov/p/archeological-artifact-identification/14599",
+  "sort": 1080,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ks-kaa",
+  "name": "Kansas Anthropological Association",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Kansas",
+  "covers": [
+   "Kansas"
+  ],
+  "region": "Kansas",
+  "contact": "kaa.katp@gmail.com",
+  "contact_url": "https://www.kansasanthropology.org/contact",
+  "availability": "Avocational association; runs the Kansas Archeology Training Program with the Historical Society.",
+  "source_url": "https://www.kansasanthropology.org/contact",
+  "sort": 1090,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "mo-shpo",
+  "name": "Missouri State Historic Preservation Office",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Missouri",
+  "covers": [
+   "Missouri"
+  ],
+  "region": "Missouri",
+  "contact": "moshpo@dnr.mo.gov · 573-751-4589",
+  "contact_url": "https://mostateparks.com/page/state-historic-preservation-office/maps-records",
+  "availability": "State office for archaeological site records and survey questions.",
+  "source_url": "https://mostateparks.com/page/state-historic-preservation-office/maps-records",
+  "sort": 1100,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "mo-mas",
+  "name": "Missouri Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Missouri",
+  "covers": [
+   "Missouri"
+  ],
+  "region": "Missouri",
+  "contact": "mas@missouristate.edu · 417-836-3773",
+  "contact_url": "https://missouriarchaeologicalsociety.org/contact/",
+  "availability": "Statewide society; publishes guides to collecting and identifying artifacts.",
+  "source_url": "https://missouriarchaeologicalsociety.org/contact/",
+  "sort": 1110,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "az-asm",
+  "name": "Arizona State Museum (University of Arizona)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Arizona",
+  "covers": [
+   "Arizona"
+  ],
+  "region": "Arizona",
+  "contact": "Object identification info page · visitor line 520-621-6302",
+  "contact_url": "https://statemuseum.arizona.edu/collections/appraisals-object-id",
+  "availability": "Staff may examine historic/modern (non-archaeological) objects for age, origin and function; no appraisals, and no help with objects that may have been acquired unlawfully.",
+  "source_url": "https://statemuseum.arizona.edu/collections/appraisals-object-id",
+  "sort": 1120,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "az-shpo",
+  "name": "Arizona State Historic Preservation Office",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Arizona",
+  "covers": [
+   "Arizona"
+  ],
+  "region": "Arizona",
+  "contact": "azshpo@azstateparks.gov · 602-542-4009",
+  "contact_url": "https://azstateparks.com/shpo-staff",
+  "availability": "State historic preservation office.",
+  "source_url": "https://azstateparks.com/shpo-staff",
+  "sort": 1130,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "az-aas",
+  "name": "Arizona Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Arizona",
+  "covers": [
+   "Arizona"
+  ],
+  "region": "Arizona",
+  "contact": "Contact page",
+  "contact_url": "https://azarchsoc.org/page-807610",
+  "availability": "Statewide avocational society with chapters and field training.",
+  "source_url": "https://azarchsoc.org/page-807610",
+  "sort": 1140,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ca-ohp",
+  "name": "California Office of Historic Preservation (SHPO)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "California",
+  "covers": [
+   "California"
+  ],
+  "region": "California",
+  "contact": "info.calshpo@parks.ca.gov · 916-445-7000",
+  "contact_url": "https://ohp.parks.ca.gov/?page_id=24684",
+  "availability": "State historic preservation office; archaeology program.",
+  "source_url": "https://ohp.parks.ca.gov/?page_id=24684",
+  "sort": 1150,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ca-sca",
+  "name": "Society for California Archaeology",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "California",
+  "covers": [
+   "California"
+  ],
+  "region": "California",
+  "contact": "office@scahome.org",
+  "contact_url": "https://scahome.org/Contact-Us",
+  "availability": "Statewide professional and avocational society.",
+  "source_url": "https://scahome.org/Contact-Us",
+  "sort": 1160,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ca-scps",
+  "name": "Southern California Paleontological Society",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "California",
+  "covers": [
+   "California"
+  ],
+  "region": "Southern California",
+  "contact": "info@socalpaleo.com",
+  "contact_url": "https://www.socalpaleo.com/",
+  "availability": "Amateur and professional fossil society, Los Angeles area.",
+  "source_url": "https://www.socalpaleo.com/",
+  "sort": 1170,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "id-shpo",
+  "name": "Idaho State Historic Preservation Office (State Archaeologist)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Idaho",
+  "covers": [
+   "Idaho"
+  ],
+  "region": "Idaho",
+  "contact": "info@shpo.idaho.gov · 208-334-3861",
+  "contact_url": "https://history.idaho.gov/archaeology-and-permits/",
+  "availability": "State historic preservation office; archaeology and permits.",
+  "source_url": "https://history.idaho.gov/archaeology-and-permits/",
+  "sort": 1180,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "id-ias",
+  "name": "Idaho Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Idaho",
+  "covers": [
+   "Idaho"
+  ],
+  "region": "Idaho",
+  "contact": "Contact form · PO Box 1976, Boise, ID 83701",
+  "contact_url": "https://www.idahoarchaeology.org/contact",
+  "availability": "Statewide avocational society.",
+  "source_url": "https://www.idahoarchaeology.org/contact",
+  "sort": 1190,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "fl-bar",
+  "name": "Florida Bureau of Archaeological Research (Division of Historical Resources)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Florida",
+  "covers": [
+   "Florida"
+  ],
+  "region": "Florida",
+  "contact": "850-245-6444 · contact page",
+  "contact_url": "https://dos.fl.gov/historical/contact-us/",
+  "availability": "State archaeology bureau; collections and public questions.",
+  "source_url": "https://dos.fl.gov/historical/archaeology/collections-and-conservation/state-of-florida-archaeological-collections/",
+  "sort": 1200,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "fl-fas",
+  "name": "Florida Anthropological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Florida",
+  "covers": [
+   "Florida"
+  ],
+  "region": "Florida",
+  "contact": "president@fasweb.org",
+  "contact_url": "https://fasweb.org/officers/",
+  "availability": "Statewide society with regional chapters.",
+  "source_url": "https://fasweb.org/officers/",
+  "sort": 1210,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "fl-fps",
+  "name": "Florida Paleontological Society",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "Florida",
+  "covers": [
+   "Florida"
+  ],
+  "region": "Florida",
+  "contact": "fps@floridapaleosociety.org",
+  "contact_url": "https://floridapaleosociety.org/about",
+  "availability": "Amateur-professional fossil society based at the Florida Museum of Natural History.",
+  "source_url": "https://floridapaleosociety.org/about",
+  "sort": 1220,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ny-nysm",
+  "name": "New York State Museum, Archaeology",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "New York",
+  "covers": [
+   "New York"
+  ],
+  "region": "New York",
+  "contact": "Contact page",
+  "contact_url": "https://nysm.nysed.gov/research-collections/archaeology/contact",
+  "availability": "State museum curators answer archaeology and artifact questions.",
+  "source_url": "https://nysm.nysed.gov/research-collections/archaeology/contact",
+  "sort": 1230,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ny-nysaa",
+  "name": "New York State Archaeological Association",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "New York",
+  "covers": [
+   "New York"
+  ],
+  "region": "New York",
+  "contact": "Contact page",
+  "contact_url": "https://nysarchaeology.org/contact/",
+  "availability": "Statewide society with local chapters.",
+  "source_url": "https://nysarchaeology.org/contact/",
+  "sort": 1240,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "pa-shpo",
+  "name": "Pennsylvania State Historic Preservation Office (PHMC)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Pennsylvania",
+  "covers": [
+   "Pennsylvania"
+  ],
+  "region": "Pennsylvania",
+  "contact": "ra-bhpmail@pa.gov · 717-783-8946",
+  "contact_url": "https://www.pa.gov/agencies/phmc/historic-preservation/about-historic-preservation/staff-directory",
+  "availability": "State historic preservation office; regional archaeologists.",
+  "source_url": "https://www.pa.gov/agencies/phmc/historic-preservation/about-historic-preservation/staff-directory",
+  "sort": 1250,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "pa-spa",
+  "name": "Society for Pennsylvania Archaeology",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Pennsylvania",
+  "covers": [
+   "Pennsylvania"
+  ],
+  "region": "Pennsylvania",
+  "contact": "Contact form",
+  "contact_url": "https://pennsylvaniaarchaeology.com/contact/",
+  "availability": "Statewide society with local chapters.",
+  "source_url": "https://pennsylvaniaarchaeology.com/contact/",
+  "sort": 1260,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "pa-dvps",
+  "name": "Delaware Valley Paleontological Society",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "Pennsylvania",
+  "covers": [
+   "Pennsylvania"
+  ],
+  "region": "Philadelphia area",
+  "contact": "Website",
+  "contact_url": "https://www.nps.gov/subjects/fossilday/nfd-partners-avocational-groups.htm",
+  "availability": "Amateur-to-professional fossil society (listed as a National Fossil Day partner).",
+  "source_url": "https://www.nps.gov/subjects/fossilday/nfd-partners-avocational-groups.htm",
+  "sort": 1270,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "il-isas",
+  "name": "Illinois State Archaeological Survey (Ask an Archaeologist)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Illinois",
+  "covers": [
+   "Illinois"
+  ],
+  "region": "Illinois",
+  "contact": "isas@illinois.edu · 217-244-4244 · Ask an Archaeologist form",
+  "contact_url": "https://www.isas.illinois.edu/office_of_the_illinois_state_archaeologist/ask_an_archaeologist",
+  "availability": "Identifies artifacts from 1–3 photos with scale; does not appraise or authenticate.",
+  "source_url": "https://www.isas.illinois.edu/office_of_the_illinois_state_archaeologist/ask_an_archaeologist",
+  "sort": 1280,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "il-shpo",
+  "name": "Illinois State Historic Preservation Office, Archaeology",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Illinois",
+  "covers": [
+   "Illinois"
+  ],
+  "region": "Illinois",
+  "contact": "Contact page",
+  "contact_url": "https://dnrhistoric.illinois.gov/preserve/contact-staff.html",
+  "availability": "Archaeological discoveries, site protection and permits.",
+  "source_url": "https://dnrhistoric.illinois.gov/preserve/contact-staff.html",
+  "sort": 1290,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "oh-ohc",
+  "name": "Ohio History Connection (SHPO), Archaeology Collections",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Ohio",
+  "covers": [
+   "Ohio"
+  ],
+  "region": "Ohio",
+  "contact": "collections@ohiohistory.org · 614-297-2535",
+  "contact_url": "https://ohiohistory.libguides.com/objectresearch",
+  "availability": "Does not identify artifacts; offers research guides and online collections.",
+  "source_url": "https://ohiohistory.libguides.com/objectresearch",
+  "sort": 1300,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "oh-aso",
+  "name": "Archaeological Society of Ohio",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Ohio",
+  "covers": [
+   "Ohio"
+  ],
+  "region": "Ohio",
+  "contact": "Contact page",
+  "contact_url": "https://www.ohioarch.org/blank-2",
+  "availability": "Accepts photo-based artifact identification submissions (photos from several angles, county found).",
+  "source_url": "https://www.ohioarch.org/identifying-prehistoric-artifacts",
+  "sort": 1310,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ga-hpd",
+  "name": "Georgia Historic Preservation Division",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Georgia",
+  "covers": [
+   "Georgia"
+  ],
+  "region": "Georgia",
+  "contact": "historicpreservation@dca.ga.gov · 404-679-4940",
+  "contact_url": "https://georgia.gov/contacts/historic-preservation-division-contact",
+  "availability": "State historic preservation office. The Office of the State Archaeologist (DNR) is listed at gastateparks.org/archaeology.",
+  "source_url": "https://georgia.gov/contacts/historic-preservation-division-contact",
+  "sort": 1320,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ga-sga",
+  "name": "Society for Georgia Archaeology",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Georgia",
+  "covers": [
+   "Georgia"
+  ],
+  "region": "Georgia",
+  "contact": "sgasecretary@thesga.org",
+  "contact_url": "https://saa.org/Member/SAAMember/MyAccount/Organization/Organization_Profile.aspx?ID=67592804",
+  "availability": "Statewide society (SAA Council of Allied Societies member).",
+  "source_url": "https://saa.org/Member/SAAMember/MyAccount/Organization/Organization_Profile.aspx?ID=67592804",
+  "sort": 1330,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nc-osa",
+  "name": "North Carolina Office of State Archaeology",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "North Carolina",
+  "covers": [
+   "North Carolina"
+  ],
+  "region": "North Carolina",
+  "contact": "archaeology@dncr.nc.gov · 919-814-6550",
+  "contact_url": "https://archaeology.ncdcr.gov/contact",
+  "availability": "State archaeology office.",
+  "source_url": "https://archaeology.ncdcr.gov/contact",
+  "sort": 1340,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nc-ncas",
+  "name": "North Carolina Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "North Carolina",
+  "covers": [
+   "North Carolina"
+  ],
+  "region": "North Carolina",
+  "contact": "ncarchsociety@gmail.com",
+  "contact_url": "https://www.ncarchsociety.org/contact",
+  "availability": "Statewide society, based at UNC's Research Laboratories of Archaeology.",
+  "source_url": "https://www.ncarchsociety.org/contact",
+  "sort": 1350,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nc-ncfc",
+  "name": "North Carolina Fossil Club",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "North Carolina",
+  "covers": [
+   "North Carolina"
+  ],
+  "region": "North Carolina",
+  "contact": "paleoNC@NCFossilClub.org (general information)",
+  "contact_url": "https://ncfossilclub.org/contact-us/",
+  "availability": "Amateur fossil club affiliated with the NC Museum of Natural Sciences.",
+  "source_url": "https://ncfossilclub.org/contact-us/",
+  "sort": 1360,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "mi-shpo",
+  "name": "Michigan State Historic Preservation Office, Archaeology",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Michigan",
+  "covers": [
+   "Michigan"
+  ],
+  "region": "Michigan",
+  "contact": "Contact page (staff archaeologists listed; email preferred)",
+  "contact_url": "https://www.miplace.org/historic-preservation/about-shpo/contact-shpo/",
+  "availability": "State historic preservation office; staff archaeologists.",
+  "source_url": "https://www.miplace.org/historic-preservation/about-shpo/contact-shpo/",
+  "sort": 1370,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "mi-mas",
+  "name": "Michigan Archaeological Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Michigan",
+  "covers": [
+   "Michigan"
+  ],
+  "region": "Michigan",
+  "contact": "massecretary@micharch.org",
+  "contact_url": "http://micharch.org/wp/about-us/",
+  "availability": "Statewide society with local chapters.",
+  "source_url": "http://micharch.org/wp/about-us/",
+  "sort": 1380,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "mi-fummp",
+  "name": "Friends of the University of Michigan Museum of Paleontology",
+  "kind": "organization",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "Michigan",
+  "covers": [
+   "Michigan"
+  ],
+  "region": "Michigan",
+  "contact": "FUMMPinfo@gmail.com · 734-764-0489",
+  "contact_url": "https://lsa.umich.edu/paleontology/friends-of-the-university-of-michigan--museum-of-paleontology.html",
+  "availability": "Amateur fossil group linked to the U-M Museum of Paleontology.",
+  "source_url": "https://lsa.umich.edu/paleontology/friends-of-the-university-of-michigan--museum-of-paleontology.html",
+  "sort": 1390,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ms-mdah",
+  "name": "Mississippi Department of Archives & History, Archaeology",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Mississippi",
+  "covers": [
+   "Mississippi"
+  ],
+  "region": "Mississippi",
+  "contact": "archaeology@mdah.ms.gov",
+  "contact_url": "https://www.mdah.ms.gov/historic-preservation/archaeology",
+  "availability": "Artifact and archaeological site questions; site file registrar.",
+  "source_url": "https://www.mdah.ms.gov/historic-preservation/archaeology",
+  "sort": 1400,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ms-maa",
+  "name": "Mississippi Archaeological Association",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "Mississippi",
+  "covers": [
+   "Mississippi"
+  ],
+  "region": "Mississippi",
+  "contact": "mississippiarchaeology@gmail.com",
+  "contact_url": "https://msarchaeology.org/contact/",
+  "availability": "Statewide society with local chapters.",
+  "source_url": "https://msarchaeology.org/contact/",
+  "sort": 1410,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-cfms",
+  "name": "California Federation of Mineralogical Societies (CFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "California"
+  ],
+  "region": "Regional: California",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/california-cfms",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/california-cfms",
+  "sort": 1420,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-efmls",
+  "name": "Eastern Federation of Mineralogical and Lapidary Societies (EFMLS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "New York",
+   "Pennsylvania"
+  ],
+  "region": "Regional: New York, Pennsylvania",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/eastern-efmls",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/eastern-efmls",
+  "sort": 1430,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-mwf",
+  "name": "Midwest Federation of Mineralogical and Geological Societies (MWF)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "Illinois",
+   "Michigan",
+   "Missouri",
+   "Ohio"
+  ],
+  "region": "Regional: Illinois, Michigan, Missouri, Ohio",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/midwest-mwf",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/midwest-mwf",
+  "sort": 1440,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-nfms",
+  "name": "Northwest Federation of Mineralogical Societies (NFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "Idaho"
+  ],
+  "region": "Regional: Idaho",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/northwest-nfms",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/northwest-nfms",
+  "sort": 1450,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-rmfms",
+  "name": "Rocky Mountain Federation of Mineralogical Societies (RMFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "Arizona",
+   "Kansas",
+   "New Mexico",
+   "Oklahoma"
+  ],
+  "region": "Regional: Arizona, Kansas, New Mexico, Oklahoma",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/rocky-mountain-rmfms",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/rocky-mountain-rmfms",
+  "sort": 1460,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-scfms",
+  "name": "South Central Federation of Mineral Societies (SCFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "Arkansas",
+   "Louisiana",
+   "Texas"
+  ],
+  "region": "Regional: Arkansas, Louisiana, Texas",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/south-central-scfms",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/south-central-scfms",
+  "sort": 1470,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms-sfms",
+  "name": "Southeast Federation of Mineralogical Societies (SFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "Regional",
+  "covers": [
+   "Florida",
+   "Georgia",
+   "Mississippi",
+   "North Carolina"
+  ],
+  "region": "Regional: Florida, Georgia, Mississippi, North Carolina",
+  "contact": "Club list on the AFMS page",
+  "contact_url": "https://www.amfed.org/regional-federations/southeast-sfms",
+  "availability": "Regional federation of rock, gem, mineral, fossil and lapidary clubs: find a local club and its public contact.",
+  "source_url": "https://www.amfed.org/regional-federations/southeast-sfms",
+  "sort": 1480,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "saa",
+  "name": "Society for American Archaeology (SAA)",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "info@saa.org · 202-789-8200",
+  "contact_url": "https://www.saa.org/",
+  "availability": "National professional society; its Council of Allied Societies lists state societies.",
+  "source_url": "https://saa.org/Member/SAAMember/MyAccount/Organization/Organization_Profile.aspx?ID=54746400",
+  "sort": 1490,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "aia-find",
+  "name": "Archaeological Institute of America: Find a Local Society",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "Society finder (map + list)",
+  "contact_url": "https://www.archaeological.org/programs/societies/find/",
+  "availability": "More than 100 local AIA societies with public lectures.",
+  "source_url": "https://www.archaeological.org/programs/societies/find/",
+  "sort": 1500,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "svp-ask",
+  "name": "Society of Vertebrate Paleontology: Ask a Paleontologist",
+  "kind": "public inquiry",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "svp@vertpaleo.org · 301-634-7024 · Ask a Paleontologist page",
+  "contact_url": "https://vertpaleo.org/ask-a-paleontologist/",
+  "availability": "Volunteer paleontologists answer fossil questions with photos.",
+  "source_url": "https://vertpaleo.org/contact-us/",
+  "sort": 1510,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ps-ask",
+  "name": "The Paleontological Society: Ask a Paleontologist",
+  "kind": "public inquiry",
+  "specialty": [
+   "fossils"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "Ask a Paleontologist page",
+  "contact_url": "https://www.paleosoc.org/ask-a-paleontologist",
+  "availability": "Professional paleontology society; invertebrate and general fossil questions.",
+  "source_url": "https://www.paleosoc.org/ask-a-paleontologist",
+  "sort": 1520,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "nasa-arch",
+  "name": "National Association of State Archaeologists (state directory)",
+  "kind": "public inquiry",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "Directory of state archaeologists",
+  "contact_url": "https://sites.google.com/view/state-archaeologists/home",
+  "availability": "Find your state archaeologist's public contact.",
+  "source_url": "https://sites.google.com/view/state-archaeologists/home",
+  "sort": 1530,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "afms",
+  "name": "American Federation of Mineralogical Societies (AFMS)",
+  "kind": "organization",
+  "specialty": [
+   "minerals",
+   "fossils"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "Regional federations and club lists",
+  "contact_url": "https://www.amfed.org/regional-federations",
+  "availability": "National federation of seven regional federations of rock, gem, mineral, fossil and lapidary clubs.",
+  "source_url": "https://www.amfed.org/regional-federations",
+  "sort": 1540,
+  "last_verified": "2026-10-18"
+ },
+ {
+  "slug": "ppn-archsoc",
+  "name": "projectilepoints.net: Archaeological Societies directory",
+  "kind": "organization",
+  "specialty": [
+   "artifacts"
+  ],
+  "state": "National",
+  "covers": [
+   "National"
+  ],
+  "region": "National",
+  "contact": "Directory (link)",
+  "contact_url": "https://www.projectilepoints.net/ArchSoc.htm",
+  "availability": "Links to state and regional archaeological societies.",
+  "source_url": "https://www.projectilepoints.net/ArchSoc.htm",
+  "sort": 1550,
+  "last_verified": "2026-10-18"
+ }
 ]
