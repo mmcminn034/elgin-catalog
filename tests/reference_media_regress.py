@@ -49,7 +49,7 @@ with sync_playwright() as p:
     if run.count():
         run.click(); pg.wait_for_timeout(2500)
         th = lambda k: pg.locator(f'#aiBody [data-ref-cand="{k}"] .ref-thumbs li')
-        chk("72% candidate shows 3 credited Clovis thumbnails", th(0).count() == 3 and all("clovis" in th(0).nth(i).inner_text().lower() for i in range(3)), th(0).count())
+        chk("72% candidate shows 2 credited Clovis thumbnails (1-2 max)", th(0).count() == 2 and all("clovis" in th(0).nth(i).inner_text().lower() for i in range(2)), th(0).count())
         chk("45% candidate shows thumbnails (moderate)", th(1).count() >= 1 and "folsom" in th(1).first.inner_text().lower(), th(1).count())
         chk("20% candidate shows none (low confidence)", th(2).count() == 0, th(2).count())
         cr = pg.locator("#aiBody .ref-credit").first.inner_text(); chk("credit line has author, license and source", "Wikimedia Commons" in cr and re.search(r"CC|Public domain", cr), cr)

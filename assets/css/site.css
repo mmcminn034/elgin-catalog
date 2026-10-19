@@ -50,3 +50,19 @@ table.cmp thead th{background:var(--surface2)}
 .dir-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:10px 0}
 .dir-fields{display:flex;gap:6px;flex-wrap:wrap}
 .chip.spec{font-size:.75rem}
+/* owner admin dashboard (021) */
+.adm-dash{margin:1rem 0 1.5rem}
+.adm-new{padding:.6rem .8rem;border-radius:10px;background:var(--surface-2,#f3ece2);border:1px solid var(--line,#d9cbb8)}
+.adm-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin:.8rem 0}
+.adm-tile{display:flex;flex-direction:column;padding:.7rem .8rem;border:1px solid var(--line,#d9cbb8);border-radius:12px;background:var(--surface,#fff)}
+.adm-v{font-size:1.5rem;font-weight:700}.adm-k{font-size:.82rem;opacity:.85}
+.adm-charts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.8rem;margin:.6rem 0}
+.adm-chart{margin:0;padding:.6rem;border:1px solid var(--line,#d9cbb8);border-radius:12px}.adm-chart svg{width:100%;height:auto;display:block}
+.adm-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+.adm-table{width:100%;border-collapse:collapse;font-size:.88rem}.adm-table th,.adm-table td{text-align:left;padding:.3rem .4rem;border-bottom:1px solid var(--line,#d9cbb8);word-break:break-word}
+.adm-errs{font-size:.85rem;padding-left:1rem}.adm-prefs{display:flex;flex-direction:column;gap:.4rem;margin-top:1rem;align-items:flex-start}
+/* pay dig sites + kits (022) */
+.pd-list{list-style:none;padding:0;display:grid;gap:.7rem}.pd-item{padding:.8rem 1rem;border:1px solid var(--line,#d9cbb8);border-radius:12px;background:var(--surface,#fff)}
+.pd-item p{margin:.2rem 0}.pd-k{font-weight:600}.chip.warn{background:#7a3b00;color:#fff}.pd-admin-list{list-style:none;padding:0}.pd-admin-list li{padding:.4rem 0;border-bottom:1px solid var(--line,#d9cbb8)}
+.pd-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.4rem;margin:.6rem 0}
+.merch-sec{margin-top:1.4rem}.kit-note{font-weight:600}.kits-grid .merch-card img{aspect-ratio:46/34;object-fit:cover;width:100%;border-radius:10px}

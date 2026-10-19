@@ -21,11 +21,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap">
 <meta name="theme-color" content="#16110D">
-<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.9">
-<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.9">
-<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.9">
-<link rel="stylesheet" href="assets/css/membership.css?v=ro-v9.9">
-<link rel="stylesheet" href="assets/css/site.css?v=ro-v9.9">
+<link rel="stylesheet" href="assets/css/styles.css?v=ro-v9.10">
+<link rel="stylesheet" href="assets/css/redesign.css?v=ro-v9.10">
+<link rel="stylesheet" href="assets/css/rebuild.css?v=ro-v9.10">
+<link rel="stylesheet" href="assets/css/membership.css?v=ro-v9.10">
+<link rel="stylesheet" href="assets/css/site.css?v=ro-v9.10">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -45,7 +45,7 @@
   </nav>
   <div class="side-group">
     <button type="button" class="side-explore" data-explore aria-expanded="false" aria-controls="sideExplore"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Explore<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
-    <nav aria-label="Explore" class="side-more" id="sideExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a><a href="#/labels" data-route="labels">Labels</a><a href="#/map" data-route="map" class="needs-editor" hidden>Map</a><a href="#/members" data-route="members" class="needs-user" hidden>Members</a><a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a><a href="#/about" data-route="about">About &amp; legal</a></nav>
+    <nav aria-label="Explore" class="side-more" id="sideExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a><a href="#/paydig" data-route="paydig">Pay dig sites</a><a href="#/timeline" data-route="timeline">Deep time</a><a href="#/people" data-route="people">People &amp; land</a><a href="#/labels" data-route="labels">Labels</a><a href="#/map" data-route="map" class="needs-editor" hidden>Map</a><a href="#/members" data-route="members" class="needs-user" hidden>Members</a><a href="#/profile" data-route="profile" class="needs-user" hidden>Profile</a><a href="#/about" data-route="about">About &amp; legal</a></nav>
   </div>
   <div class="side-foot"><button type="button" class="side-theme" data-theme-toggle aria-pressed="false">☾ Dark mode</button></div>
   <div class="side-loc" role="note"><svg viewBox="0 0 24 24" class="lock" aria-hidden="true"><path d="M6 10V7a6 6 0 0 1 12 0v3M5 10h14v11H5z"/></svg><span><strong>Location</strong><br>Private</span><svg viewBox="0 0 24 24" class="shield" aria-label="Protected"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none"/></svg></div>
@@ -77,6 +77,7 @@
       <a href="#/settings" data-route="settings"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span>Settings</span></a>
       <button type="button" class="nav-item nav-explore" data-explore aria-expanded="false" aria-controls="navExplore"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg><span class="nx-l">Explore</span> <span class="chev" aria-hidden="true">▾</span></button>
       <div class="nav-sub" id="navExplore" data-explore-group hidden><a href="#/discover" data-route="discover">Discover</a>
+        <a href="#/paydig" data-route="paydig">Pay dig sites</a>
         <a href="#/timeline" data-route="timeline">Deep time</a>
         <a href="#/people" data-route="people">People &amp; land</a>
         <a href="#/labels" data-route="labels">Labels</a>
@@ -385,6 +386,7 @@
   <!-- PRICING -->
   <section id="view-merch" class="view" aria-labelledby="merch-h" hidden><div id="merchBody"></div></section>
   <section id="view-experts" class="view" aria-labelledby="exp-h" hidden><div id="expertsBody"></div></section>
+  <section id="view-paydig" class="view" aria-labelledby="pd-h" hidden><div id="paydigBody"></div></section>
   <section id="view-catalogs" class="view" aria-labelledby="cats-h" hidden><div id="catalogsBody"></div></section>
   <section id="view-admin" class="view" aria-labelledby="adm-h" hidden><div id="adminBody"></div></section>
   <section id="view-p" class="view" aria-label="Shared find" hidden><div id="sharedFind"></div></section>
@@ -462,28 +464,30 @@
 <div id="printArea" aria-hidden="true"></div>
 <footer class="site-footer"><div class="wrap"><span class="foot-owner">© 2026 PolForge, LLC</span><nav class="foot-legal" aria-label="Legal"><a href="#/privacy">Privacy Policy</a><span aria-hidden="true"> | </span><a href="#/terms">Terms of Service</a><span aria-hidden="true"> | </span><a href="#/refunds">Refund Policy</a><span aria-hidden="true"> | </span><a href="#/contact">Contact</a></nav></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js" defer></script>
-<script src="assets/js/config.js?v=ro-v9.9" defer></script>
-<script src="assets/js/brand.js?v=ro-v9.9" defer></script>
-<script src="assets/js/cloud.js?v=ro-v9.9" defer></script>
-<script src="assets/js/score.js?v=ro-v9.9" defer></script>
-<script src="assets/js/prompt.js?v=ro-v9.9" defer></script>
-<script src="assets/js/analysis.js?v=ro-v9.9" defer></script>
-<script src="assets/js/marks.js?v=ro-v9.9" defer></script>
-<script src="assets/js/retrieve.js?v=ro-v9.9" defer></script>
-<script src="assets/js/learning.js?v=ro-v9.9" defer></script>
-<script src="assets/js/region.js?v=ro-v9.9" defer></script>
-<script src="assets/js/corrections.js?v=ro-v9.9" defer></script>
-<script src="assets/js/features.js?v=ro-v9.9" defer></script>
-<script src="assets/js/membership.js?v=ro-v9.9" defer></script>
-<script src="assets/js/stage2.js?v=ro-v9.9" defer></script>
-<script src="assets/js/s5.js?v=ro-v9.9" defer></script>
-<script src="assets/js/auth-options.js?v=ro-v9.9" defer></script>
+<script src="assets/js/config.js?v=ro-v9.10" defer></script>
+<script src="assets/js/brand.js?v=ro-v9.10" defer></script>
+<script src="assets/js/cloud.js?v=ro-v9.10" defer></script>
+<script src="assets/js/score.js?v=ro-v9.10" defer></script>
+<script src="assets/js/prompt.js?v=ro-v9.10" defer></script>
+<script src="assets/js/analysis.js?v=ro-v9.10" defer></script>
+<script src="assets/js/marks.js?v=ro-v9.10" defer></script>
+<script src="assets/js/retrieve.js?v=ro-v9.10" defer></script>
+<script src="assets/js/learning.js?v=ro-v9.10" defer></script>
+<script src="assets/js/region.js?v=ro-v9.10" defer></script>
+<script src="assets/js/corrections.js?v=ro-v9.10" defer></script>
+<script src="assets/js/features.js?v=ro-v9.10" defer></script>
+<script src="assets/js/membership.js?v=ro-v9.10" defer></script>
+<script src="assets/js/admin.js?v=ro-v9.10" defer></script>
+<script src="assets/js/paydig.js?v=ro-v9.10" defer></script>
+<script src="assets/js/stage2.js?v=ro-v9.10" defer></script>
+<script src="assets/js/s5.js?v=ro-v9.10" defer></script>
+<script src="assets/js/auth-options.js?v=ro-v9.10" defer></script>
 <dialog id="newCatDlg" aria-labelledby="newCatH"><form method="dialog" id="newCatForm"><h2 id="newCatH">New catalog</h2><label class="field"><span>Catalog name</span><input name="name" maxlength="80" required placeholder="e.g. Creek finds 2026"></label><p class="err" id="newCatMsg" role="alert"></p><div class="row"><button type="button" class="btn" value="cancel" data-close>Cancel</button><button class="btn primary" value="ok">Create catalog</button></div></form></dialog>
-<script src="assets/js/site.js?v=ro-v9.9" defer></script>
-<script src="assets/js/access.js?v=ro-v9.9" defer></script>
-<script src="assets/js/app.js?v=ro-v9.9" defer></script>
-<script src="assets/js/nav.js?v=ro-v9.9" defer></script>
-<script src="assets/js/redesign.js?v=ro-v9.9" defer></script>
-<script src="assets/js/shell.js?v=ro-v9.9" defer></script>
+<script src="assets/js/site.js?v=ro-v9.10" defer></script>
+<script src="assets/js/access.js?v=ro-v9.10" defer></script>
+<script src="assets/js/app.js?v=ro-v9.10" defer></script>
+<script src="assets/js/nav.js?v=ro-v9.10" defer></script>
+<script src="assets/js/redesign.js?v=ro-v9.10" defer></script>
+<script src="assets/js/shell.js?v=ro-v9.10" defer></script>
 </body>
 </html>

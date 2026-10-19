@@ -58,7 +58,7 @@ with sync_playwright() as p:
     c, pg = ctx(b, FREE); pg.goto(U + "#/catalog"); pg.wait_for_selector(".card"); pg.goto(U + "#/catalogs"); pg.wait_for_selector(".cat-row"); pg.wait_for_timeout(500)
     pg.fill("#catNew [name=name]", "Brazos gravel bars"); pg.click("#catNew button"); pg.wait_for_selector(".cat-row:has-text('Brazos gravel bars') input[name=name]", timeout=5000)
     chk("2a catalog created", "Brazos gravel bars" in pg.inner_text("#catalogsBody"))
-    row = pg.locator(".cat-row", has_text="Brazos gravel bars"); row.locator("input[name=name]").fill("Brazos bars"); row.locator("button").click(); pg.wait_for_timeout(600)
+    row = pg.locator(".cat-row", has_text="Brazos gravel bars"); row.locator("input[name=name]").fill("Brazos bars"); row.locator(".cat-rename button").click(); pg.wait_for_timeout(600)
     chk("2b catalog renamed", "Brazos bars" in pg.inner_text("#catalogsBody") and "Brazos gravel bars" not in pg.inner_text(".cat-list"))
     shot(pg, "t02-catalogs.png", True); c.close()
     c, pg = ctx(b, OWNER); pg.goto(U + "#/catalogs"); pg.wait_for_selector(".cat-list"); chk("2c owner's catalog is 'Rolling Oak'", "Rolling Oak" in pg.inner_text(".cat-list")); c.close()

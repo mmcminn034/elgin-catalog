@@ -114,12 +114,22 @@
     slug = slug || C.defaultCollection.slug; const b = $("#collectionBody");
     const d = (window.Cloud && await Cloud.publicCollection(slug)) || (slug === C.defaultCollection.slug ? { collection: C.defaultCollection, owner: { display_name: C.defaultCollection.owner_name, bio: "" } } : null);
     if (!d) { b.innerHTML = "<h1>Collection not found</h1><p>It may be private or the link may be wrong.</p>"; return; }
-    const c = d.collection, o = d.owner || {}, finds = App.all.filter(r => r.is_public !== false && (!c.id || !r.collection_id || r.collection_id === c.id)), counts = ["artifact", "fossil", "rock"].map(k => [k, finds.filter(r => App.kindOf(r) === k).length]);
+    const c = d.collection, o = d.owner || {}, isDef = slug === C.defaultCollection.slug;
+    /* only this catalog's PUBLIC finds: local public records of this catalog + the database's public rows for it (RLS returns public finds of public catalogs only) */
+    const finds = App.all.filter(r => (window.Learn ? Learn.vis(r) === "public" : r.is_public !== false) && (c.id && r.collection_id ? r.collection_id === c.id : isDef));
+    const sbc = window.Cloud && Cloud.client && Cloud.client();
+    if (c.id && sbc && !window.ROLLING_OAK_MOCK) { try { const have = new Set(finds.map(r => r.catalog_id));
+      const fr = await sbc.from("finds").select("catalog_id, public_id, title, object_type, category, era, material, collection_id, visibility").eq("collection_id", c.id).eq("visibility", "public").limit(500);
+      const extra = (fr.data || []).filter(r => !have.has(r.catalog_id));
+      if (extra.length) { const ph = await sbc.from("photos").select("catalog_id, thumb_path, storage_path, repo_path, sort").in("catalog_id", extra.map(r => r.catalog_id)).eq("is_public", true).order("sort").limit(1000);
+        const paths = (ph.data || []).map(p => p.thumb_path || p.storage_path).filter(Boolean); if (paths.length && Cloud.signPaths) await Cloud.signPaths(paths);
+        extra.forEach(r => { const p = (ph.data || []).find(x => x.catalog_id === r.catalog_id); const u = p && (p.repo_path && /^images\//.test(p.repo_path) ? p.repo_path : Cloud.photoUrl(p.thumb_path || p.storage_path)); r.is_public = true; r.photos = u ? [{ path: u, thumb: u, label: "photo" }] : []; finds.push(r); }); } } catch (_) {} }
+    const counts = ["artifact", "fossil", "rock"].map(k => [k, finds.filter(r => App.kindOf(r) === k).length]);
     b.innerHTML = `<header class="col-hero"><p class="kicker">Public collection</p><h1 id="col-h">${esc(c.name)}</h1><p class="lede">${esc(c.description || "")}</p>
       <div class="owner-card"><img src="${esc(o.avatar_url || "assets/brand/icon.png")}" alt=""><div><strong>${esc(o.display_name || "Collector")}</strong>${o.bio ? `<p>${esc(o.bio)}</p>` : ""}</div></div>
       <dl class="stats">${counts.map(([k, n]) => `<div><dt>${esc(App.KINDS[k].label)}</dt><dd>${n}</dd></div>`).join("")}</dl>
       <div class="row"><button type="button" class="btn" id="shareCol">🔗 Share this collection</button></div></header>
-      <div class="grid col-grid">${finds.map(r => { const p = App.pics(r)[0]; return `<button class="card" data-open="${esc(r.catalog_id)}">${p ? `<div class="card-img"><img src="${esc(p.thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span></div>` : ""}<h3>${esc(r.object_type || "")}</h3><div class="meta">${esc(App.KINDS[App.kindOf(r)].label)} · ${esc(App.eraOf(r))}</div></button>`; }).join("")}</div>`;
+      <div class="grid col-grid">${finds.map(r => { const p = App.pics(r)[0], ext = r.public_id && !App.all.some(x => x.catalog_id === r.catalog_id); return `<${ext ? `a href="#/p/${esc(r.public_id)}"` : "button"} class="card"${ext ? "" : ` data-open="${esc(r.catalog_id)}"`}>${p ? `<div class="card-img"><img src="${esc(p.thumb)}" alt="" loading="lazy"><span class="cid-big">${esc(r.catalog_id)}</span></div>` : ""}<h3>${esc(r.object_type || "")}</h3><div class="meta">${esc(App.KINDS[App.kindOf(r)].label)} · ${esc(App.eraOf(r))}</div></${ext ? "a" : "button"}>`; }).join("")}</div>`;
     $("#shareCol").onclick = () => share((C.siteUrl || "") + "#/c/" + slug, c.name + " · " + (window.Brand ? Brand.name() : "Rolling Oak Catalog"));
   }
 
@@ -199,11 +209,11 @@
   const GENERIC = ["point", "arrowhead", "arrow point", "dart point", "projectile point", "flake", "core"];
   async function refsFor(name, kind) {
     const sbc = window.Cloud && Cloud.client && Cloud.client();
-    if (sbc && !window.ROLLING_OAK_MOCK && st().user) { try { const { data, error } = await sbc.rpc("similar_reference_media", { p_names: [name], p_kind: kind || null, p_limit: 3 }); if (!error && data) return data; } catch {} }
+    if (sbc && !window.ROLLING_OAK_MOCK && st().user) { try { const { data, error } = await sbc.rpc("similar_reference_media", { p_names: [name], p_kind: kind || null, p_limit: 2 }); if (!error && data) return data; } catch {} }
     try { refJson = refJson || (await (await fetch("data/reference/reference-media.json", { cache: "force-cache" })).json()).items || []; } catch { refJson = []; }
     const n = String(name).toLowerCase(), rx = k => new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
     return refJson.filter(m => m.thumb_url && (!kind || m.kind === kind)).map(m => ({ ...m, matched: m.keywords.filter(k => k.length > 2 && rx(k).test(n)).sort((a, b) => GENERIC.includes(a) - GENERIC.includes(b) || b.length - a.length)[0] })).filter(m => m.matched)
-      .sort((a, b) => GENERIC.includes(a.matched) - GENERIC.includes(b.matched) || b.matched.length - a.matched.length || (a.id > b.id ? 1 : -1)).slice(0, 3); }
+      .sort((a, b) => GENERIC.includes(a.matched) - GENERIC.includes(b.matched) || b.matched.length - a.matched.length || (a.id > b.id ? 1 : -1)).slice(0, 2); }
   async function refThumbs(body, cands, kind) {
     const pct = c => window.Score ? Score.clampPct(c.confidence_pct != null ? c.confidence_pct : c.confidence) : parseFloat(c.confidence_pct) || 0;
     for (const [k, c] of cands.entries()) { const host = body.querySelector(`[data-ref-cand="${k}"]`); if (!host || pct(c) < 40) continue;
