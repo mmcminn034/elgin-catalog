@@ -16,20 +16,21 @@ def call(method, path, body=None, tok=None, key=ANON, extra=None):
         t = e.read()
         try: return e.code, json.loads(t)
         except Exception: return e.code, t.decode()[:160]
-def mkuser():
-    email = f"b4-test-{secrets.token_hex(3)}@unearthedfinds.test"; pw = secrets.token_urlsafe(16)
+def mkuser(domain="unearthedfinds.test"):
+    email = f"b4-test-{secrets.token_hex(3)}@{domain}"; pw = secrets.token_urlsafe(16)
     s, u = call("POST", "/auth/v1/admin/users", {"email": email, "password": pw, "email_confirm": True}, key=SVC)
     s, t = call("POST", "/auth/v1/token?grant_type=password", {"email": email, "password": pw}); return u["id"], t["access_token"], email
 UIDS = []
 try:
     s, b = call("POST", "/rest/v1/rpc/admin_stats", {}); chk("[anon] admin_stats refused", s >= 400, s)
     s, b = call("POST", "/rest/v1/rpc/report_daily", {}); chk("[anon] report_daily refused", s >= 400, s)
-    A, TA, EA = mkuser(); UIDS.append(A); B, TB, EB = mkuser(); UIDS.append(B)
+    A, TA, EA = mkuser("example.com"); UIDS.append(A); B, TB, EB = mkuser(); UIDS.append(B)  # A: non-test domain so analytics events are recorded (removed at the end)
     s, b = call("POST", "/rest/v1/rpc/admin_stats", {}, tok=TA); chk("[free user] admin_stats refused (server side)", s >= 400, s)
     s, b = call("POST", "/rest/v1/rpc/admin_daily_series", {"p_days": 7}, tok=TA); chk("[free user] admin_daily_series refused", s >= 400, s)
     s, b = call("POST", "/rest/v1/rpc/report_daily", {}, tok=TA); chk("[free user] report_daily refused", s >= 400, s)
     s, b = call("GET", "/rest/v1/analytics_events?select=id&limit=1", tok=TA); chk("[free user] analytics_events unreadable", s >= 400 or b == [], s)
     s, b = call("GET", f"/rest/v1/analytics_events?select=kind&user_id=eq.{A}", key=SVC); chk("signup event recorded server side", any(x["kind"] == "signup" for x in b or []), b)
+    s, b = call("GET", f"/rest/v1/analytics_events?select=kind&user_id=eq.{B}", key=SVC); chk("@unearthedfinds.test accounts excluded from analytics", b == [], b)
     # free 5-private limit end to end
     ids = []
     for i in range(5):
