@@ -7,11 +7,13 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.117.3";
 import "../_shared/retrieve.js"; // sets globalThis.Retrieve (same code as assets/js/retrieve.js)
 import "../_shared/prompt.js"; // globalThis.Prompt: region-neutral SYSTEM prompt, external-reference retrieval, user text builder
 import "../_shared/score.js"; // globalThis.Score: 0-100 clamp (AI ceiling 95), factors
+import "../_shared/matching.js"; // globalThis.Matching: attributes, region priors, output sanitizers, confidence calibration, cache key, cost estimate
 // deno-lint-ignore no-explicit-any
 const Retrieve = (globalThis as any).Retrieve as { rankSimilar: (t: unknown, ex: unknown[], o?: unknown) => { example: Record<string, any>; score: number; why: string[] }[] };
 // deno-lint-ignore no-explicit-any
 const Prompt = (globalThis as any).Prompt; // deno-lint-ignore no-explicit-any
-const Score = (globalThis as any).Score;
+const Score = (globalThis as any).Score; // deno-lint-ignore no-explicit-any
+const Matching = (globalThis as any).Matching;
 const SITE = (Deno.env.get("SITE_URL") || "https://unearthedfinds.com/").replace(/\/?$/, "/");
 
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type", "Access-Control-Allow-Methods": "POST, OPTIONS" };
@@ -31,16 +33,24 @@ Deno.serve(async (req) => {
   const { data: { user } } = await sb.auth.getUser(); if (!user) return json({ error: "Sign in to use AI photo analysis.", code: "sign_in_required" }, 401);
   const key = Deno.env.get("AI_API_KEY"); if (!key) return json({ error: "AI photo analysis isn't set up yet.", code: "ai_unavailable" }, 503);
 
-  let body: { ping?: boolean; catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[] };
+  let body: { ping?: boolean; catalog_id: string; kind: string; photos: { url: string; label?: string }[]; record?: Record<string, unknown>; kb?: unknown; checklist?: string[]; examples?: unknown[]; region_check?: unknown; region?: string; region_hint?: unknown; rules_top?: string[]; attrs?: Record<string, unknown>; refresh?: boolean };
   try { body = await req.json(); } catch { return json({ error: "Invalid JSON" }, 400); }
   if (body.ping) return json({ ok: true, ready: true }); // setup probe: does not use quota
   const photos = (body.photos || []).filter(p => /^https:\/\//.test(p.url)).slice(0, 6);
   if (!photos.length) return json({ error: "No https photo URLs" }, 400);
 
+  // Matching v2 (migration 025): owner-supplied attributes (validated), result cache (identical photos + attributes + prompt version = no model call, no quota),
+  // and a global daily safety cap. Photo URLs are cache-keyed without their query string.
+  const attrs = Matching.clean(body.attrs || {}, body.kind);
+  const cacheKey = Matching.cacheKey({ catalog_id: body.catalog_id, kind: body.kind, photos: photos.map(p => p.url), record: body.record, attrs, region: (body.region_hint as { admin1?: string } | undefined)?.admin1 || body.region || "" });
+  if (!body.refresh) { try { const { data: hit } = await sb.from("ai_cache").select("result, model, created_at").eq("cache_key", cacheKey).gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString()).maybeSingle();
+    if (hit?.result) return json({ ok: true, catalog_id: body.catalog_id, model: hit.model, result: hit.result, cached: true, cached_at: hit.created_at, prompt_version: Matching.VERSION }); } catch { /* cache is best effort */ } }
+
   // Membership v1 (migrations 012/013): every signed-in plan can use AI. Free accounts have a per-account daily SAFETY cap
   // (app_config.ai_daily_cap, default 50) taken atomically in the database; members (Annual/Lifetime) are unlimited. Fails closed.
   const { data: quota, error: qe } = await sb.rpc("ai_quota_take");
   if (qe) return json({ error: "AI photo analysis is temporarily unavailable. Please try again later.", code: "ai_unavailable" }, 503);
+  if (quota && quota.allowed === false && quota.global) return json({ error: "AI photo analysis has reached today's overall limit and resets at midnight UTC. Your find is saved; the rules-based suggestions still work.", code: "ai_global_cap" }, 429);
   if (quota && quota.allowed === false) return json({ error: `You've reached today's AI limit (${quota.cap} analyses). It resets at midnight UTC.`, code: "ai_daily_cap", used: quota.used, cap: quota.cap }, 429);
   const refund = async () => { try { await sb.rpc("ai_quota_refund"); } catch { /* best effort */ } };
 
@@ -63,15 +73,33 @@ Deno.serve(async (req) => {
   if (!refRows.length && reference_status === "ok") reference_status = "unavailable: no reference rows";
   const rh = (body as { region_hint?: { admin1?: string; country?: string; continent?: string } }).region_hint || {};
   const extRefs = Prompt.rankReferences({ ...(body.record || {}) }, refRows, patterns, { k: 5, region: rh, category: body.kind, hintNames: ((body as { rules_top?: string[] }).rules_top || []).slice(0, 3).map(String) }).map(Prompt.refBrief);
-  const context = { external_references: extRefs, reference_status, kind: body.kind, record: body.record, region: target.region, region_check: body.region_check ?? null, /* rule-based out-of-area hints + owner provenance; owner provenance wins */ reference_types: (Array.isArray(body.kb) ? body.kb : []).slice(0, 8), /* rules-engine top candidates only (never the full list) */ checklist_features: body.checklist, similar_verified_examples: similar };
+  // REGION PRIORS (data/learn/priors.json, context only) and FEEDBACK HISTORY (type_accuracy: how often the owner agreed with past suggestions of each type)
+  let priorsText = "", historyText = "", hist: Record<string, { n: number; agree: number }> = {};
+  try { const pr = await (await fetch(SITE + "data/learn/priors.json")).json(); priorsText = Matching.priorsText(Matching.priorsFor(pr, rh)); } catch { /* optional */ }
+  try { const { data: acc } = await sb.rpc("type_accuracy"); (acc || []).forEach((a: { candidate_type: string; matches: number; close: number; total: number }) => { const k = String(a.candidate_type || "").toLowerCase().split(/[\s(\/]/)[0]; if (!k) return; const h = hist[k] || { n: 0, agree: 0 }; const tot = h.n + Number(a.total), ag = (h.agree * h.n + Number(a.matches) + 0.5 * Number(a.close)) / (tot || 1); hist[k] = { n: tot, agree: ag }; });
+    const lines = Object.entries(hist).filter(([, h]) => h.n >= 3).sort((a, b) => b[1].n - a[1].n).slice(0, 8).map(([k, h]) => `${k}: owners agreed ${Math.round(h.agree * 100)}% of ${h.n} times`);
+    if (lines.length) historyText = "PAST FEEDBACK ON SUGGESTIONS (aggregate, anonymous; a low rate means be more cautious with that type):\n" + lines.join("\n"); } catch { /* optional */ }
+  const context = { attrs_text: Matching.attrsText(attrs, body.kind), priors_text: priorsText, history_text: historyText, external_references: extRefs, reference_status, kind: body.kind, record: body.record, region: target.region, region_check: body.region_check ?? null, /* rule-based out-of-area hints + owner provenance; owner provenance wins */ reference_types: (Array.isArray(body.kb) ? body.kb : []).slice(0, 8), /* rules-engine top candidates only (never the full list) */ checklist_features: body.checklist, similar_verified_examples: similar };
   const content: unknown[] = [{ type: "text", text: Prompt.buildUserText(context, photos.length) }];
-  photos.forEach((p, i) => { content.push({ type: "text", text: `photo_index ${i}: ${p.label || "photo"}` }); content.push({ type: "image_url", image_url: { url: p.url } }); });
-  similar.filter(x => x.photo && /^https:\/\//.test(x.photo)).forEach(x => { content.push({ type: "text", text: `REFERENCE (not the find; do not mark): ${x.catalog_id}, verified as ${x.confirmed_type}` }); content.push({ type: "image_url", image_url: { url: x.photo } }); });
+  // image detail policy (cost control): the first 2 photos high detail, the rest low; reference images always low
+  photos.forEach((p, i) => { content.push({ type: "text", text: `photo_index ${i}: ${p.label || "photo"}` }); content.push({ type: "image_url", image_url: { url: p.url, detail: Matching.detailFor(i) } }); });
+  const refContent: unknown[] = [];
+  similar.filter(x => x.photo && /^https:\/\//.test(x.photo)).slice(0, 2).forEach(x => { refContent.push({ type: "text", text: `REFERENCE (not the find; do not mark): ${x.catalog_id}, verified as ${x.confirmed_type}` }); refContent.push({ type: "image_url", image_url: { url: x.photo, detail: "low" } }); });
+  // reference media (migration 019/025): credited public-domain / open-license photos of the types being compared, plus natural look-alikes when the owner says there are no flake scars. Retrieval by type name/tag before the call.
+  const mediaUsed: { id: string; title: string; license: string; source_url: string }[] = [];
+  try { const names = [...(body.rules_top || []), ...["suggestion_1", "suggestion_2", "suggestion_3", "object_type"].map(k => String((body.record || {})[k] || ""))].map(x => String(x).toLowerCase()).filter(Boolean);
+    if (body.kind === "artifact" && /no flake scars|hidden by|rough and pebbly|caliche|cobble/i.test(JSON.stringify(attrs))) names.push("natural rock");
+    if (names.length) { const { data: mm } = await sb.rpc("similar_reference_media", { p_names: names.slice(0, 8), p_kind: body.kind === "rock" ? "mineral" : body.kind, p_limit: 3 });
+      (mm || []).filter((m: { thumb_url?: string }) => /^https:\/\//.test(m.thumb_url || "")).slice(0, 2).forEach((m: { id: string; title: string; thumb_url: string; license: string; source_url: string; attribution?: string }) => { refContent.push({ type: "text", text: `REFERENCE IMAGE (not the find; do not mark): ${String(m.title).slice(0, 80)} (${m.license}). Use it only to compare features.` }); refContent.push({ type: "image_url", image_url: { url: m.thumb_url, detail: "low" } }); mediaUsed.push({ id: m.id, title: String(m.title).slice(0, 120), license: m.license, source_url: m.source_url }); }); } } catch { /* optional */ }
 
   const base = (Deno.env.get("AI_BASE_URL") || "https://api.openai.com/v1").replace(/\/$/, "");
-  let r: Response;
-  try { r = await fetch(`${base}/chat/completions`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
-    body: JSON.stringify({ model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", temperature: 0.2, response_format: { type: "json_object" }, messages: [{ role: "system", content: SYSTEM }, { role: "user", content }] }) }); }
+  const model = Deno.env.get("AI_MODEL") || "gpt-4o-mini";
+  const call = (withRefs: boolean) => fetch(`${base}/chat/completions`, { method: "POST", headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
+    body: JSON.stringify({ model, ...(/^(gpt-[56]|o\d)/.test(model) ? { max_completion_tokens: 6000 } : { temperature: 0.2, max_tokens: 2500 }) /* reasoning models reject temperature/max_tokens */, response_format: { type: "json_object" }, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: withRefs ? [...content, ...refContent] : content }] }) });
+  let r: Response, usedRefs = refContent.length > 0;
+  try { r = await call(usedRefs);
+    // a hot-linked reference image the provider cannot fetch makes it answer 400; retry once without reference images (never without the owner's photos)
+    if (r.status === 400 && usedRefs) { usedRefs = false; r = await call(false); } }
   catch { await refund(); return json({ error: "The AI service couldn't be reached. Please try again later.", code: "ai_unavailable" }, 503); }
   if (!r.ok) { // provider problems are never reported as a plan/gate refusal, and do not use up the daily allowance
     let pe: { error?: { code?: string; type?: string } } = {}; try { pe = await r.json(); } catch { /* not JSON */ }
@@ -87,6 +115,9 @@ Deno.serve(async (req) => {
   // sanitize: clamp coords, cap confidence, enforce caveat
   const clamp = (v: unknown) => Math.min(1, Math.max(0, Number(v) || 0));
   res.candidates = Score.clampCandidates(res.candidates); // 0-100, AI ceiling 95 (config), factors sanitized; .confidence keeps the old band label
+  Object.assign(res, Matching.extras(res, photos.length)); // artifact_likelihood, diagnostic_checklist, photo_quality (sanitized, no coordinates)
+  const cal = Matching.calibrate(res, { nPhotos: photos.length, history: hist }); res.candidates = cal.candidates; (res as { calibration_notes?: string[] }).calibration_notes = cal.notes; // never raises a percentage
+  (res as { reference_images_used?: unknown[] }).reference_images_used = usedRefs ? mediaUsed : [];
   res.external_references_used = extRefs.map((x: { id: string; name: string; source: string }) => ({ id: x.id, name: x.name, source: x.source })); res.reference_status = reference_status;
   res.marks = (res.marks || []).filter(m => Number.isInteger(m.photo_index) && m.photo_index >= 0 && m.photo_index < photos.length)
     .map(m => ({ photo_index: m.photo_index, marks: (m.marks || []).slice(0, 8).filter(k => ["arrow", "circle", "line", "measure", "box"].includes(k.type)).map(k => ({ ...k, coords: (k.coords || []).slice(0, k.type === "circle" ? 3 : 4).map(clamp), label: String(k.label || "").slice(0, 80), explanation: String(k.explanation || "").slice(0, 500) })) }));
@@ -97,5 +128,6 @@ Deno.serve(async (req) => {
   const m = res.measurements || {}; res.measurements = m.scale_visible ? { scale_visible: true, length_mm: mm(m.length_mm), width_mm: mm(m.width_mm), thickness_mm: mm(m.thickness_mm), note: String(m.note || "").slice(0, 300) } : { scale_visible: false, length_mm: null, width_mm: null, thickness_mm: null, note: "No usable scale visible." };
   res.similar_used = similar.map(x => ({ catalog_id: x.catalog_id, confirmed_type: x.confirmed_type, why: x.why_similar }));
   res.caveat = "AI-generated research possibilities with an evidence-based confidence score (AI alone is capped at 95%), not an identification. No authenticity or value claims. Review every mark before saving.";
-  return json({ ok: true, catalog_id: body.catalog_id, model: Deno.env.get("AI_MODEL") || "gpt-4o-mini", result: res });
+  try { await sb.from("ai_cache").upsert({ user_id: user.id, cache_key: cacheKey, result: res, model, created_at: new Date().toISOString() }); } catch { /* cache is best effort */ }
+  return json({ ok: true, catalog_id: body.catalog_id, model, result: res, cached: false, prompt_version: Matching.VERSION, usage: out.usage ? { prompt_tokens: out.usage.prompt_tokens, completion_tokens: out.usage.completion_tokens } : null });
 });

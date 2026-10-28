@@ -13,16 +13,24 @@ Return ONLY JSON matching:
  "classification":{"category":"artifact"|"fossil"|"rock","object_type":str,"material":str,"confidence_pct":int},
  "origin":[{"region":str,"setting":str,"confidence_pct":int,"why":str}],
  "marks":[{"photo_index":int,"marks":[{"type":"arrow"|"circle"|"line"|"measure"|"box","coords":[...],"label":str,"explanation":str,"links_to":{"kind":"candidate"|"feature"|"date","ref":str}}]}],
+ "artifact_likelihood":{"verdict":"likely_artifact"|"possible_artifact"|"uncertain"|"likely_natural","confidence_pct":int,"evidence_for":[str],"evidence_against":[str],"natural_explanations":[str],"reason":str},
+ "diagnostic_checklist":[{"feature":str,"status":"present"|"absent"|"not_visible","photo_index":int|null,"note":str}],
+ "photo_quality":{"usable":bool,"issues":[str],"retake":[str],"views_seen":[str]},
  "alternatives":[str],
  "measurements":{"scale_visible":bool,"length_mm":num|null,"width_mm":num|null,"thickness_mm":num|null,"note":str},
  "next_photos":[str],"gaps":[str],"caveat":str}
 Coordinates are normalized 0-1 relative to each image (x by width, y by height). arrow/line/measure/box: [x1,y1,x2,y2]; circle: [cx,cy,r] with r as a fraction of width.
-Use at most 3 candidates and at most 8 marks per photo. For "feature" links use the exact checklist names provided.
+Use at most 3 candidates (ranked best first, each with the specific visible reasons) and at most 8 marks per photo. For "feature" links use the exact checklist names provided.
 Comparison: "similar_verified_examples" are the owner's verified finds (photos labelled REFERENCE). "external_references" are PUBLISHED TYPOLOGY summaries (labelled EXTERNAL REFERENCE, not the find), each with its source and license. Compare form, base/stem, flaking and size against both; cite reference ids in "reference_ids" and name the source in factors. Never copy a type without visible evidence. A reference from the find's region is a mild hint, not proof; types from anywhere in the world may apply.
 Origin: region or geologic setting only (e.g. "Edwards Plateau chert, Texas" or "Paris Basin flint, France"), never coordinates or street addresses.
 Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate length/width/thickness in mm from it and explain how in "note"; otherwise set scale_visible false and the numbers null.
 "next_photos": the 1-4 specific photos that would most improve the identification (e.g. "square-on base view under raking light").
-"alternatives": other plausible types worth ruling out (names only).`;
+"alternatives": other plausible types worth ruling out (names only).
+NOT AN ARTIFACT: first decide whether the piece is worked at all. "artifact_likelihood" is required for every find. Natural rocks are common: water-worn cobbles, sandstone or conglomerate with protruding pebbles, concretions, chert or flint nodules with an intact rind, caliche or other mineral crusts, and frost, heat, river, plow or machinery breakage. A single feature (one scar, a pointed end, a smooth surface) is weak evidence. Several features together (patterned flake scars on both faces, a platform with a bulb, regular edge retouch, a symmetrical outline not explained by the stone's own shape, or localized grinding/polish) are strong evidence. If the evidence is thin, use "uncertain" or "likely_natural", and when the piece looks natural include a candidate named "Natural rock / geofact (not an artifact)" with the specific natural explanation (e.g. "sandstone cobble", "caliche-coated concretion"). Never force a type name onto a natural-looking rock.
+DIAGNOSTIC CHECKLIST: "diagnostic_checklist" lists the features you checked (for artifacts e.g. flake scars, bifacial flaking, edge retouch, platform/bulb, base shape, notches/stem, grinding, serration, cortex; for fossils e.g. growth lines, shell structure, ornament; for minerals e.g. cleavage, luster, crystal form), each marked "present", "absent" or "not_visible" with the photo_index where you saw it. Do not mark "absent" when the area is simply not shown; use "not_visible".
+PHOTO QUALITY: "photo_quality" says whether the photos are usable (focus, lighting, scale, views). List "views_seen" (e.g. face A, face B, edge, base, tip, close-up, scale) and in "retake" the specific missing or poor shots (e.g. "base end square-on, low side light"). If the photos are too poor for a firm answer, set usable false and lower every confidence.
+RANKING AND CALIBRATION: rank candidates by how well the visible features, owner attributes and references agree, each with reasons for and against. Be calibrated, not eager: 80+ only when several diagnostic features are clearly visible and a close alternative is ruled out; 50-70 for a plausible match with gaps; below 40 when you are mostly guessing. Many points are fragmentary or resharpened; allow for that and say so. Owner-entered attributes are the owner's observations: use them, but trust the photos where they conflict and say so in "gaps".
+PRIORS: "region_priors" (when present) list common local types, periods and look-alikes. They are a mild prior only: never choose a type because it is common locally, and never exclude a type because it is not.`;
   const norm = s => String(s || "").toLowerCase();
   const num = v => { const m = String(v || "").match(/\d+(\.\d+)?/g); return m ? m.map(Number).reduce((a, x) => a + x, 0) / m.length : null; };
   /* top-k published types for a record: trait tags (via the dataset's trait_patterns), size range, name/alias mention,
@@ -52,8 +60,9 @@ Measurements: ONLY if a ruler, scale bar or coin is clearly visible, estimate le
     source: (x.entry.sources || []).map(s => `${s.name} <${s.url}> (retrieved ${s.retrieved}; ${s.license})`).join(" | ") });
   /* user message text (everything except the image parts, which follow in order) */
   function buildUserText(ctx, nPhotos) {
-    const refs = (ctx.external_references || []);
-    return "Context (record, owner's notes, reference knowledge base, verified examples, external references):\n" + JSON.stringify(ctx).slice(0, 60000)
+    const refs = (ctx.external_references || []), extra = [ctx.attrs_text, ctx.priors_text, ctx.history_text].filter(Boolean);
+    const { attrs_text, priors_text, history_text, ...ctxRest } = ctx; ctx = ctxRest;
+    return (extra.length ? extra.join("\n\n") + "\n\n" : "") + "Context (record, owner's notes, reference knowledge base, verified examples, external references):\n" + JSON.stringify(ctx).slice(0, 60000)
       + (refs.length ? "\n\n" + refs.map(r => `EXTERNAL REFERENCE (published typology, not the find): ${r.id} ${r.name} [${r.typology_system}; ${r.period || "period n/a"} ${r.dates || ""}; ${r.region}]. Source: ${r.source}`).join("\n") : "")
       + `\nPhotos follow in order (photo_index 0..${Math.max(0, nPhotos - 1)}).`;
   }

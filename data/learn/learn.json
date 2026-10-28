@@ -1,0 +1,1456 @@
+{
+ "meta": {
+  "built": "2026-10-27",
+  "note": "Written in our own words from published facts; every claim lists its sources. Ages are rough published ranges in years before present and differ between sources. Research aid only, not an identification."
+ },
+ "sources": {
+  "hca": {
+   "label": "Hill Country Archeological Association: Dart and Arrow Point Typology (J. Benedict, 2018; based on Turner, Hester & McReynolds 2011, Stone Artifacts of Texas Indians)",
+   "url": "https://hcarcheology.org/wp-content/uploads/2023/04/Point-Typology-JBenedict4-9-2018.pdf",
+   "use": "Age ranges (years BP) for Central Texas types. Facts only, restated in our own words.",
+   "link_only": true
+  },
+  "txst": {
+   "label": "Texas State University: Exploring Spring Lake, Central Texas chronology",
+   "url": "https://www.springlakearchaeology.txst.edu/sldr2014/artifacts/chron.html",
+   "use": "Period names and the order of diagnostic types. Link only.",
+   "link_only": true
+  },
+  "ppn": {
+   "label": "projectilepoints.net (type pages)",
+   "url": "https://www.projectilepoints.net/Search/ASearch_Texas.html",
+   "use": "Shape descriptions and size ranges. Facts only, restated in our own words; site text and photos are not copied. Link only.",
+   "link_only": true
+  },
+  "tas47": {
+   "label": "Bulletin of the Texas Archeological Society, vol. 47 (1976), via The Portal to Texas History",
+   "url": "https://texashistory.unt.edu/ark:/67531/metapth1013833/m1/55/",
+   "use": "Published type descriptions (Nolan, Pedernales, Travis, Montell, Lange, Perdiz, Scallorn). Link only.",
+   "link_only": true
+  },
+  "tbh": {
+   "label": "Texas Beyond History (Texas Archeological Research Laboratory, UT Austin)",
+   "url": "https://www.texasbeyondhistory.net/",
+   "use": "Public education site on Texas archeology. Link only; text and images are not reused.",
+   "link_only": true
+  },
+  "tas": {
+   "label": "Texas Archeological Society",
+   "url": "https://www.txarch.org/",
+   "use": "Statewide society; amateurs are welcome. Link only.",
+   "link_only": true
+  },
+  "thc": {
+   "label": "Texas Historical Commission: Archeology",
+   "url": "https://www.thc.texas.gov/preserve/archeology",
+   "use": "State archeology office; the place to report significant sites. Link only.",
+   "link_only": true
+  },
+  "tas_tasmania": {
+   "label": "Aboriginal Heritage Tasmania: Aboriginal stone artefacts",
+   "url": "https://www.aboriginalheritage.tas.gov.au/cultural-heritage/aboriginal-stone-artefacts",
+   "use": "How flake features (platform, bulb, ripples, scars) help separate worked stone from natural fracture. Link only.",
+   "link_only": true
+  },
+  "wales": {
+   "label": "Amgueddfa Cymru (Museum Wales): Recognising a prehistoric stone tool",
+   "url": "https://museum.wales/media/52134/1.Spotters.StoneTools.ENG.pdf",
+   "use": "Natural vs. worked stone: look for a combination of features. Link only.",
+   "link_only": true
+  },
+  "conv": {
+   "label": "The Conversation: Was it a stone tool or just a rock?",
+   "url": "https://theconversation.com/was-it-a-stone-tool-or-just-a-rock-an-archaeologist-explains-how-scientists-can-tell-the-difference-251126",
+   "use": "Patterned flake scars, bulb of percussion, and why a single feature is not enough. Link only.",
+   "link_only": true
+  },
+  "lithics": {
+   "label": "Learning about Lithics: Flakes",
+   "url": "https://erareshide.github.io/lithics/docs/flakes/",
+   "use": "Platform, bulb, ripples/hackles, dorsal/ventral faces. Link only.",
+   "link_only": true
+  },
+  "pidba": {
+   "label": "Paleoindian Database of the Americas (PIDBA)",
+   "url": "https://pidba.utk.edu",
+   "use": "Measurement data for Paleoindian points (CC BY 4.0), already in our reference layer.",
+   "link_only": true
+  },
+  "pbdb": {
+   "label": "Paleobiology Database",
+   "url": "https://paleobiodb.org",
+   "use": "Fossil taxon records (CC BY 4.0).",
+   "link_only": true
+  },
+  "dai": {
+   "label": "Digital Atlas of Ancient Life (Paleontological Research Institution)",
+   "url": "https://www.digitalatlasofancientlife.org/",
+   "use": "Excellent Texas Cretaceous fossil guides. The atlases and the Digital Encyclopedia are licensed CC BY-NC-SA 4.0 (checked 2026-10-27 on its About page). That is non-commercial, which does not fit a site with paid membership, so we link to it and do not copy it. (Its 3D Virtual Collection models are CC0 but are 3D, not photos, so none are imported.)",
+   "link_only": true
+  },
+  "rruff": {
+   "label": "RRUFF Project",
+   "url": "https://rruff.info",
+   "use": "Mineral data and spectra. Link only (no image-reuse license).",
+   "link_only": true
+  },
+  "mindat": {
+   "label": "Mindat.org",
+   "url": "https://www.mindat.org",
+   "use": "Mineral locality and property database. Link only.",
+   "link_only": true
+  }
+ },
+ "guide": {
+  "title": "Is it an artifact? A field guide to flaking vs. natural fracture",
+  "intro": "Nature breaks rock too, and a piece can look 'worked' without ever being touched by a person. No single feature settles it. Archaeologists look for several features together, and for context. This guide lists what to check, what natural processes imitate, and when to ask for help.",
+  "checks": [
+   {
+    "name": "Conchoidal fracture",
+    "yes": "Fine-grained, glassy stone (chert, flint, obsidian, chalcedony, some quartzite) breaks in smooth, shell-like curves when struck. Knappers rely on this.",
+    "caution": "Natural impacts and frost can also produce it, so it shows that a rock *can* flake, not that a person flaked it."
+   },
+   {
+    "name": "Flake scars (negative removals)",
+    "yes": "Several scars that are similar in size and run in a consistent direction, with ridges between them, point to deliberate shaping. Scars across both faces and along the edge (bifacial flaking) are a strong sign.",
+    "caution": "Scattered, random scars of different sizes, or scars on only one face with no pattern, fit natural breakage better."
+   },
+   {
+    "name": "Striking platform and bulb of percussion",
+    "yes": "A flake struck by a person usually has a small flat platform at one end and a rounded swelling (the bulb) just beneath it on the inside face.",
+    "caution": "These can occur naturally but rarely together. Look for them on many pieces, not one."
+   },
+   {
+    "name": "Ripples and fissures",
+    "yes": "On the inside face, faint ripples and hackle lines fan outward from the point where the blow landed.",
+    "caution": "Weathering and a coating (like caliche) can hide them. Photograph under low side light."
+   },
+   {
+    "name": "Edge retouch",
+    "yes": "Small, regular scars along an edge, made to sharpen or shape it, are called retouch. Look for even, repeated tiny removals.",
+    "caution": "Edges damaged by trampling, plowing, machinery or river tumbling are chipped irregularly and often on both sides in a random mix."
+   },
+   {
+    "name": "Cortex and shape",
+    "yes": "A worked piece often keeps some original rind (cortex) on one part and shows deliberate shaping elsewhere. A symmetrical outline (a point, blade, or oval biface) that is not explained by the stone's own shape is a good sign.",
+    "caution": "A smooth, rounded shape with a uniform surface and no scars is often just a water-worn cobble."
+   },
+   {
+    "name": "Wear and grinding",
+    "yes": "Ground stone (manos, pestles, metates) shows flattened or polished faces, or pecked ends and pits, where the stone was used.",
+    "caution": "Water-rolled cobbles can be smooth all over. Real use-wear is localized to the face or end that was used and often has fine pecking or striations."
+   },
+   {
+    "name": "Context",
+    "yes": "Several worked pieces together, flakes of the same stone, burned rock, or other tools nearby strengthen the case.",
+    "caution": "A single odd rock on a gravel road, a plowed field, or a creek bed is weak evidence by itself."
+   }
+  ],
+  "lookalikes": [
+   {
+    "name": "Caliche (calcrete) and its crusts",
+    "what": "A white, chalky calcium carbonate crust or nodule that forms in the soil in dry climates. It coats stones and can make a rock look bumpy or pitted, and it covers up the surface features you need to see.",
+    "tell": "Caliche is chalky and often crumbly, and the glassy chert beneath it is much harder. Look for flake scars underneath the crust, not on it. Do not scrub or use acid on a piece that might be an artifact."
+   },
+   {
+    "name": "Sandstone or conglomerate cobbles",
+    "what": "Coarse, gritty rock with small quartz pebbles sticking out of the surface. Rounded, elongated cobbles can resemble a pestle or mano.",
+    "tell": "Grinding tools are flattened or polished on one or more faces. A uniformly rough, pebbly surface all around is natural."
+   },
+   {
+    "name": "Concretions",
+    "what": "Rounded, lumpy or elongated mineral lumps that grow inside sediment. They can be spherical, tube-like or oddly shaped.",
+    "tell": "Concretions have no flake scars, platforms or bulbs. A broken one shows concentric layers or a radial structure inside."
+   },
+   {
+    "name": "Chert and flint nodules",
+    "what": "Irregular, knobby lumps of silica with a chalky outer rind. The nodule's own shape can resemble a core or preform.",
+    "tell": "Natural nodules have the rind on every side. A worked core has removed flakes and several scars that follow each other in sequence."
+   },
+   {
+    "name": "Frost, heat and sun fractures",
+    "what": "Temperature swings and fires can pop shallow, round 'pot-lid' flakes off a stone, leaving smooth, saucer-shaped scars.",
+    "tell": "Pot-lid scars are circular and shallow and have no platform or bulb at the origin."
+   },
+   {
+    "name": "River, tumbling and impact damage",
+    "what": "Streams roll cobbles and chip their edges. Plows, mowers, road grading and gravel crushers also break rock.",
+    "tell": "Damage is random, often on both sides, and the fresh breaks are a different color from the weathered surface."
+   }
+  ],
+  "steps": [
+   "Photograph the whole piece, then both faces, the edge profile, and both ends. Add a ruler or coin for scale (see the photo guide).",
+   "Rotate a lamp low across each face. Raking light makes flake scars, ripples and polish visible.",
+   "Ask: is there more than one flaking feature, and do the scars look patterned and consistent?",
+   "Check for ground or polished faces, not just a smooth surface.",
+   "Compare with the natural look-alikes below and the credited reference photos in the gallery.",
+   "If it still looks worked, write down the setting (not the exact spot), keep other finds from the same area together, and consider asking a local archaeologist. Significant finds on public land should be reported."
+  ],
+  "caveat": "This guide is general education, not an identification. Suggestions from this site are research possibilities only. For a real opinion, show clear photos to a regional archaeological society or the state archaeology office."
+ },
+ "capture": {
+  "title": "How to photograph a find so it can be matched",
+  "intro": "Good photos matter more than anything else for matching. The AI and the rules engine can only describe what they can see.",
+  "shots": [
+   {
+    "id": "front",
+    "label": "Front (face A)",
+    "how": "Straight down, whole piece in frame, plain contrasting background."
+   },
+   {
+    "id": "back",
+    "label": "Back (face B)",
+    "how": "Flip it over, same distance and angle, same lighting."
+   },
+   {
+    "id": "edge",
+    "label": "Edge / profile",
+    "how": "Side-on, so the thickness and the outline of the edge show."
+   },
+   {
+    "id": "ends",
+    "label": "Both ends",
+    "how": "One photo of the tip end and one of the base end, square-on. Base shape and any grinding are often the deciding clue."
+   },
+   {
+    "id": "closeup",
+    "label": "Close-up of any flaking or wear",
+    "how": "Fill the frame with the area that looks worked, in low side light."
+   },
+   {
+    "id": "scale",
+    "label": "With scale",
+    "how": "A ruler or coin flat beside the piece, in the same plane, camera straight above."
+   }
+  ],
+  "tips": [
+   "Side lighting: place one lamp or window low to the side, so shadows pick out flake scars and ripples. Avoid a flash straight on.",
+   "Focus: tap the screen on the stone's surface, hold still, and retake blurry shots.",
+   "Dry and clean: dry stones photograph better. Do not scrub, as washing can remove evidence like residue or wear.",
+   "Plain background: gray or white, with nothing else that looks like a stone in the frame.",
+   "Several photos beat one: at least 4 views are useful, 6 is best.",
+   "Record: length, width and thickness in mm, material, and the general area (town or county), never the exact spot."
+  ]
+ },
+ "types": [
+  {
+   "id": "clovis",
+   "name": "Clovis",
+   "group": "Paleoindian lanceolate / fluted",
+   "period": "Paleoindian (earliest)",
+   "ages_bp": [
+    11200,
+    11200
+   ],
+   "age_note": "Spring Lake's chronology puts the whole Early Paleoindian span at about 13,500 to 10,200 BP; ~11,200 BP is the single value in the Turner et al. table.",
+   "shape": "Thin, leaf- to triangle-shaped point with a concave base and a channel (flute) running up from the base on one or both faces.",
+   "diagnostic": [
+    "A flute scar typically runs from the base a fifth to a third of the way up the face and often ends in a small step or hinge.",
+    "The base and lower edges are ground smooth so the cutting edge would not nick the binding.",
+    "Very thin and carefully made."
+   ],
+   "size_mm": [
+    45,
+    150
+   ],
+   "confusable": [
+    {
+     "with": "Folsom",
+     "tell": "Folsom flutes run nearly the full length and the point is smaller and thinner."
+    },
+    {
+     "with": "Plainview",
+     "tell": "Plainview is not fluted; thinning flakes are shallow and the sides are nearly parallel."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "folsom",
+   "name": "Folsom",
+   "group": "Paleoindian lanceolate / fluted",
+   "period": "Paleoindian",
+   "ages_bp": [
+    11050,
+    10150
+   ],
+   "age_note": null,
+   "shape": "Small, very thin lanceolate point whose flute runs most of the face, giving a 'stub-nosed' look.",
+   "diagnostic": [
+    "Flutes run nearly the full length of the face.",
+    "Widest point is usually in the upper third to half of the blade.",
+    "A small nipple at the center of the base can remain from the fluting platform; base and lower edges are ground."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Clovis",
+     "tell": "Clovis is longer, thicker, and its flute is shorter."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "plainview",
+   "name": "Plainview",
+   "group": "Paleoindian lanceolate",
+   "period": "Paleoindian",
+   "ages_bp": [
+    10150,
+    10000
+   ],
+   "age_note": null,
+   "shape": "Medium to large lanceolate point with nearly parallel sides and a slightly to deeply concave base.",
+   "diagnostic": [
+    "Not fluted, but long thinning flakes come off the base.",
+    "Base and lower edges are ground.",
+    "Flaking is carefully controlled; sides run close to parallel."
+   ],
+   "size_mm": [
+    45,
+    95
+   ],
+   "confusable": [
+    {
+     "with": "Angostura",
+     "tell": "Angostura bases are narrower and its flaking tends to be oblique and parallel."
+    },
+    {
+     "with": "Clovis",
+     "tell": "Clovis has a true flute."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "dalton",
+   "name": "Dalton",
+   "group": "Late Paleoindian",
+   "period": "Late Paleoindian",
+   "ages_bp": [
+    10500,
+    9900
+   ],
+   "age_note": "The Turner et al. table lists 10,500-9,900 BP; the source table contains a typo for the upper bound, read here as 9,900.",
+   "shape": "Auriculate ('eared') point with a constricted waist, concave base, and often a serrated blade.",
+   "diagnostic": [
+    "The waist narrows where it was hafted and the edges there are ground.",
+    "Concave base with small basal flakes that can look like a flute.",
+    "Serrations are common on the blade; the base is concave and the point has no beveling."
+   ],
+   "size_mm": [
+    20,
+    120
+   ],
+   "confusable": [
+    {
+     "with": "Plainview",
+     "tell": "Plainview has no constricted waist or 'ears'."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "angostura",
+   "name": "Angostura",
+   "group": "Paleoindian into Early Archaic",
+   "period": "Late Paleoindian / Early Archaic",
+   "ages_bp": [
+    8800,
+    7960
+   ],
+   "age_note": null,
+   "shape": "Lanceolate point, widest near mid-length, with a straight to concave base.",
+   "diagnostic": [
+    "Edges and base are ground.",
+    "Flaking is often a neat oblique-parallel pattern from long, ribbon-like pressure flakes.",
+    "Base is narrower than a Plainview's."
+   ],
+   "size_mm": [
+    50,
+    105
+   ],
+   "confusable": [
+    {
+     "with": "Plainview",
+     "tell": "Plainview bases are broader."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "gower",
+   "name": "Gower",
+   "group": "Early Archaic stemmed",
+   "period": "Early Archaic",
+   "ages_bp": [
+    8600,
+    6290
+   ],
+   "age_note": null,
+   "shape": "Medium triangular stemmed point with a narrow stem and a deeply concave to split base.",
+   "diagnostic": [
+    "Narrow stem with a deep basal indentation; one or both basal ears can curve inward.",
+    "Shoulders usually horizontal and weak.",
+    "Many examples are crudely made."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Pedernales",
+     "tell": "Pedernales has strong barbed shoulders and a thicker, rectangular stem."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "uvalde",
+   "name": "Uvalde",
+   "group": "Early Archaic stemmed",
+   "period": "Early Archaic",
+   "ages_bp": [
+    6000,
+    6000
+   ],
+   "age_note": null,
+   "shape": "Medium stemmed triangular point with a deep U-shaped basal concavity that can look bifurcated.",
+   "diagnostic": [
+    "Stem is straight to flaring.",
+    "Deep U-shaped base; blade sometimes serrated.",
+    "Shoulders range from barbed to angled upward."
+   ],
+   "size_mm": [
+    40,
+    100
+   ],
+   "confusable": [
+    {
+     "with": "Gower",
+     "tell": "Gower has a narrower stem and weaker, horizontal shoulders."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "martindale",
+   "name": "Martindale",
+   "group": "Early Archaic corner-notched",
+   "period": "Early Archaic",
+   "ages_bp": [
+    6400,
+    5000
+   ],
+   "age_note": null,
+   "shape": "Medium corner-notched point with pronounced shoulders and a base that curves up toward the center (a 'fishtail' look).",
+   "diagnostic": [
+    "The base is concave in a V or fishtail shape rather than flat.",
+    "Shoulders are pronounced and usually barbed.",
+    "Resharpened examples lose their shoulders and look more triangular."
+   ],
+   "size_mm": [
+    35,
+    70
+   ],
+   "confusable": [
+    {
+     "with": "Bell",
+     "tell": "Bell is a basal-notched point with a straight base."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "bell",
+   "name": "Bell",
+   "group": "Calf Creek (Early Archaic)",
+   "period": "Early Archaic",
+   "ages_bp": [
+    5660,
+    4800
+   ],
+   "age_note": null,
+   "shape": "Small to medium basal-notched triangle with strongly barbed shoulders.",
+   "diagnostic": [
+    "Basal notches create barbs that run down to the base and can curl inward.",
+    "Straight to slightly expanding stem; base nearly straight.",
+    "Smaller overall than an Andice."
+   ],
+   "size_mm": [
+    40,
+    100
+   ],
+   "confusable": [
+    {
+     "with": "Andice",
+     "tell": "Andice is larger, with a longer stem and longer barbs."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "andice",
+   "name": "Andice",
+   "group": "Calf Creek (Early Archaic)",
+   "period": "Early Archaic",
+   "ages_bp": null,
+   "age_note": "Andice and Bell are the Calf Creek-horizon points. Spring Lake places Calf Creek at roughly 6,000 to 5,750 BP; the Turner et al. table dates Bell to 5,660-4,800 BP. Treat dates as approximate.",
+   "shape": "Medium to large basal-notched triangle with a broad blade and strong barbs.",
+   "diagnostic": [
+    "Broad, convex blade with strongly barbed shoulders.",
+    "Stem straight to slightly expanding with a concave base.",
+    "Longer stem and barbs than a Bell."
+   ],
+   "size_mm": [
+    40,
+    80
+   ],
+   "confusable": [
+    {
+     "with": "Bell",
+     "tell": "Bell is smaller with shorter barbs."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "nolan",
+   "name": "Nolan",
+   "group": "Early to Middle Archaic stemmed",
+   "period": "Early to Middle Archaic",
+   "ages_bp": [
+    6000,
+    4500
+   ],
+   "age_note": null,
+   "shape": "Medium to large triangular point with a long, straight to slightly flaring stem and a very narrow ('needle') tip.",
+   "diagnostic": [
+    "The stem edges are beveled on one side of each face, usually the right edge, which is characteristic of the type.",
+    "Shoulders slope upward and are often uneven.",
+    "Straight to slightly flaring stem with a mildly convex base."
+   ],
+   "size_mm": [
+    45,
+    135
+   ],
+   "confusable": [
+    {
+     "with": "Travis",
+     "tell": "Travis has no stem beveling or grinding and a straight base."
+    },
+    {
+     "with": "Pedernales",
+     "tell": "Pedernales has a notched or split base and barbed shoulders."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "travis",
+   "name": "Travis",
+   "group": "Middle Archaic stemmed",
+   "period": "Middle Archaic",
+   "ages_bp": [
+    4650,
+    4050
+   ],
+   "age_note": null,
+   "shape": "Medium, long and narrow stemmed point with weak, rounded shoulders and a straight base.",
+   "diagnostic": [
+    "Long stem, straight or slightly flaring, with rounded basal corners.",
+    "No grinding or smoothing on the stem or base.",
+    "Blade is slim and often curves back toward the shoulders."
+   ],
+   "size_mm": [
+    45,
+    90
+   ],
+   "confusable": [
+    {
+     "with": "Darl",
+     "tell": "Darl is smaller and has beveled, serrated edges and stem beveling."
+    },
+    {
+     "with": "Bulverde",
+     "tell": "Bulverde is broader with clearer shoulders and a wedge-shaped base."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "bulverde",
+   "name": "Bulverde",
+   "group": "Middle to Late Archaic stemmed",
+   "period": "Middle Archaic",
+   "ages_bp": [
+    4000,
+    3500
+   ],
+   "age_note": "Sources differ: the Turner et al. table gives 4,000-3,500 BP; projectilepoints.net gives 5,000-3,500 BP.",
+   "shape": "Medium to large triangular stemmed point with a rectangular, slightly narrowing stem and a straight to slightly concave base.",
+   "diagnostic": [
+    "Shoulders vary from slightly to strongly barbed.",
+    "The stem is thinned at the base so it looks wedge-shaped, but it is not ground smooth.",
+    "Like a Pedernales, but the base is not split or deeply notched."
+   ],
+   "size_mm": [
+    45,
+    90
+   ],
+   "confusable": [
+    {
+     "with": "Pedernales",
+     "tell": "Pedernales has a deeply notched or bifurcated base."
+    },
+    {
+     "with": "Travis",
+     "tell": "Travis is narrower with weaker shoulders."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "pedernales",
+   "name": "Pedernales",
+   "group": "Middle to Late Archaic stemmed",
+   "period": "Middle into Late Archaic",
+   "ages_bp": [
+    4100,
+    2500
+   ],
+   "age_note": "One of the most common Central Texas dart points. Sources differ on dates (projectilepoints.net lists 3,000-2,000 BP).",
+   "shape": "Thin, medium to large triangular point with a straight stem and a deeply notched or split base.",
+   "diagnostic": [
+    "The basal notch or split is the classic feature; it can leave a flute-like scar on the stem.",
+    "Shoulders prominent, often barbed; blade straight to convex; high-quality flaking.",
+    "Stem is usually not ground or smoothed."
+   ],
+   "size_mm": [
+    30,
+    130
+   ],
+   "confusable": [
+    {
+     "with": "Gower",
+     "tell": "Gower has a narrower stem and weaker shoulders."
+    },
+    {
+     "with": "Bulverde",
+     "tell": "Bulverde's base is straight or only slightly concave."
+    },
+    {
+     "with": "Montell",
+     "tell": "Montell has a long, narrow center notch and squared basal ears."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "marshall",
+   "name": "Marshall",
+   "group": "Late Archaic basal-notched",
+   "period": "Middle / Late Archaic",
+   "ages_bp": [
+    3500,
+    3500
+   ],
+   "age_note": null,
+   "shape": "Medium to large triangular to oval point with strong barbs that reach the base and a narrow stem.",
+   "diagnostic": [
+    "Barbs usually extend to the base; one barb is often longer or squarer than the other.",
+    "Narrower stem than a Castroville.",
+    "Often found with Pedernales and Castroville points."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Castroville",
+     "tell": "Castroville has a broader stem."
+    },
+    {
+     "with": "Marcos",
+     "tell": "Marcos notches are cut at a steeper angle."
+    },
+    {
+     "with": "Williams",
+     "tell": "Williams barbs do not reach the base."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "williams",
+   "name": "Williams",
+   "group": "Late Archaic corner-notched",
+   "period": "Middle into Late Archaic",
+   "ages_bp": [
+    4500,
+    3000
+   ],
+   "age_note": null,
+   "shape": "Broad medium to large corner-notched point with an expanding stem and convex base.",
+   "diagnostic": [
+    "Barbs may be slight or long but do not extend down to the base.",
+    "Expanding stem with a convex base.",
+    "Usually well made; a resharpened Castroville can look like one."
+   ],
+   "size_mm": [
+    44,
+    80
+   ],
+   "confusable": [
+    {
+     "with": "Castroville",
+     "tell": "Castroville barbs reach the base."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "lange",
+   "name": "Lange",
+   "group": "Late Archaic stemmed",
+   "period": "Late Archaic",
+   "ages_bp": null,
+   "age_note": "Spring Lake lists Lange among Late Archaic I types (about 4,200 to 3,100 BP).",
+   "shape": "Medium to large triangular point with an expanding stem and a straight base.",
+   "diagnostic": [
+    "Well-defined shoulders from horizontal to slightly barbed.",
+    "Stem slightly expanding to nearly straight; base straight.",
+    "Overlaps in form with Castroville."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Castroville",
+     "tell": "Castroville has stronger barbs and a broader stem."
+    }
+   ],
+   "sources": [
+    "txst",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "castroville",
+   "name": "Castroville",
+   "group": "Late Archaic basal-notched",
+   "period": "Late Archaic",
+   "ages_bp": [
+    2800,
+    2400
+   ],
+   "age_note": null,
+   "shape": "Medium to large triangular point with a broad, slightly expanding stem and barbs that reach the base.",
+   "diagnostic": [
+    "Notches enter from the base, leaving barbs that extend to it; one barb is often longer or squared.",
+    "Broad stem with a straight to slightly convex base.",
+    "Some have been reworked into drills or knives."
+   ],
+   "size_mm": [
+    50,
+    100
+   ],
+   "confusable": [
+    {
+     "with": "Marshall",
+     "tell": "Marshall is narrower with a narrower stem."
+    },
+    {
+     "with": "Marcos",
+     "tell": "Marcos notches enter at a steeper angle."
+    },
+    {
+     "with": "Williams",
+     "tell": "Williams barbs stop short of the base."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "montell",
+   "name": "Montell",
+   "group": "Late Archaic bifurcated",
+   "period": "Late Archaic",
+   "ages_bp": [
+    2800,
+    2400
+   ],
+   "age_note": null,
+   "shape": "Medium to large point with a long, narrow center notch in the base, forming squarish basal ears.",
+   "diagnostic": [
+    "The notch is long and narrow and the 'ears' are squared.",
+    "Flattened cross-section; blade excurvate and sometimes serrated.",
+    "Shoulders barbed to horizontal."
+   ],
+   "size_mm": [
+    40,
+    100
+   ],
+   "confusable": [
+    {
+     "with": "Pedernales",
+     "tell": "Pedernales has a rounder base notch and a thicker rectangular stem."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "marcos",
+   "name": "Marcos",
+   "group": "Late Archaic corner-notched",
+   "period": "Late into Transitional Archaic",
+   "ages_bp": [
+    2800,
+    1800
+   ],
+   "age_note": null,
+   "shape": "Broad, medium triangular point with deep corner notches that make long barbs and an expanding stem.",
+   "diagnostic": [
+    "Notches are deep and enter at a steep (about 45 degree) angle.",
+    "Barbs can be square, rounded or sharp; base concave to convex.",
+    "Blade is broad and convex."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Castroville",
+     "tell": "Castroville notches come in from the base at a shallower angle."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "ensor",
+   "name": "Ensor",
+   "group": "Transitional Archaic",
+   "period": "Transitional Archaic",
+   "ages_bp": [
+    2200,
+    1400
+   ],
+   "age_note": null,
+   "shape": "Thin, medium to large triangular corner-notched point, sometimes with finely serrated edges.",
+   "diagnostic": [
+    "Shallow notches leave a broad neck and a broad, expanding stem about as wide as the shoulders.",
+    "Blade straight to slightly convex, often finely serrated.",
+    "Thin, with a flattened cross-section."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Frio",
+     "tell": "Frio has a split or deeply concave base with flaring ears."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "frio",
+   "name": "Frio",
+   "group": "Transitional Archaic",
+   "period": "Transitional Archaic",
+   "ages_bp": [
+    2200,
+    1400
+   ],
+   "age_note": null,
+   "shape": "Broad, small to medium triangular point with an expanding stem and a deeply concave or split base.",
+   "diagnostic": [
+    "Base is deeply concave or U-notched, giving flaring ears.",
+    "Shoulders mostly horizontal.",
+    "Originally lumped with Ensor in some early reports."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Ensor",
+     "tell": "Ensor's base is shallower and the notches are corner-set."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "fairland",
+   "name": "Fairland",
+   "group": "Transitional Archaic",
+   "period": "Transitional Archaic",
+   "ages_bp": [
+    2200,
+    1400
+   ],
+   "age_note": null,
+   "shape": "Medium triangular point with an expanding stem, usually serrated blade and sharp basal corners.",
+   "diagnostic": [
+    "Stem often ground and the base is thinned with sharp corners.",
+    "Shoulders horizontal to angled up and seldom barbed.",
+    "Longer than an Edgewood."
+   ],
+   "size_mm": [
+    41,
+    70
+   ],
+   "confusable": [
+    {
+     "with": "Edgewood",
+     "tell": "Edgewood is shorter and broader."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "edgewood",
+   "name": "Edgewood",
+   "group": "Transitional Archaic",
+   "period": "Transitional Archaic",
+   "ages_bp": [
+    2200,
+    1400
+   ],
+   "age_note": null,
+   "shape": "Small to medium triangle with a short blade and an expanding stem that is as wide as the shoulders.",
+   "diagnostic": [
+    "Short blade, sometimes beveled on one or both edges.",
+    "Prominent shoulders and a concave base.",
+    "Hard to separate from Fairland; Edgewood is usually the smaller of the two."
+   ],
+   "size_mm": [
+    30,
+    50
+   ],
+   "confusable": [
+    {
+     "with": "Fairland",
+     "tell": "Fairland is longer with a more serrated blade."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "ellis",
+   "name": "Ellis",
+   "group": "Late Archaic",
+   "period": "Late Archaic",
+   "ages_bp": null,
+   "age_note": "Spring Lake lists Ellis among the Late Archaic III types (about 2,150 to 1,270 BP).",
+   "shape": "Thick, small to medium point from corner-notched to expanding stem, often crudely made.",
+   "diagnostic": [
+    "Stem expands but is narrower than the shoulders; base straight to convex.",
+    "Thicker and less refined than Edgewood.",
+    "Hard to separate from Edgewood and Zavala."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Edgewood",
+     "tell": "Edgewood is thinner and more carefully made."
+    }
+   ],
+   "sources": [
+    "txst",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "darl",
+   "name": "Darl",
+   "group": "Transitional Archaic",
+   "period": "Transitional Archaic",
+   "ages_bp": [
+    1800,
+    1800
+   ],
+   "age_note": null,
+   "shape": "Narrow, medium triangular point with a long blade, an expanding to straight stem and often beveled, serrated edges.",
+   "diagnostic": [
+    "Edges are often beveled on the same side of each face and finely serrated.",
+    "Shoulders weak to prominent; stem commonly beveled but not ground.",
+    "Typically found just below arrow points in sequence, so it is among the last dart types."
+   ],
+   "size_mm": [
+    25,
+    70
+   ],
+   "confusable": [
+    {
+     "with": "Travis",
+     "tell": "Travis lacks the beveling and serration."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "scallorn",
+   "name": "Scallorn",
+   "group": "Arrow point",
+   "period": "Late Prehistoric",
+   "ages_bp": [
+    1250,
+    800
+   ],
+   "age_note": null,
+   "shape": "Thin, small corner-notched arrow point with barbed shoulders, an expanding stem, and often a serrated blade.",
+   "diagnostic": [
+    "Small and thin, with barbs and an expanding stem.",
+    "Base straight to convex; blade often serrated.",
+    "A common Late Prehistoric arrow point in Central Texas."
+   ],
+   "size_mm": [
+    25,
+    45
+   ],
+   "confusable": [
+    {
+     "with": "Edwards",
+     "tell": "Edwards is bigger with a deeply concave base and drooping ears."
+    },
+    {
+     "with": "Perdiz",
+     "tell": "Perdiz has a contracting stem rather than corner notches."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  },
+  {
+   "id": "edwards",
+   "name": "Edwards",
+   "group": "Arrow point",
+   "period": "Late Prehistoric",
+   "ages_bp": [
+    900,
+    700
+   ],
+   "age_note": null,
+   "shape": "Thin, small to medium corner-notched arrow point with a deeply concave base and long drooping ears.",
+   "diagnostic": [
+    "The base is deeply concave, leaving long rounded ears.",
+    "Blade straight, often finely serrated.",
+    "Among the largest and earliest Texas arrow points, in the transition from darts to arrows."
+   ],
+   "size_mm": null,
+   "confusable": [
+    {
+     "with": "Scallorn",
+     "tell": "Scallorn is smaller and its base is not deeply concave."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn"
+   ],
+   "note": null
+  },
+  {
+   "id": "perdiz",
+   "name": "Perdiz",
+   "group": "Arrow point",
+   "period": "Late Prehistoric into Historic",
+   "ages_bp": [
+    800,
+    300
+   ],
+   "age_note": null,
+   "shape": "Small thin triangular arrow point with barbs and a long, contracting stem that ends in a point.",
+   "diagnostic": [
+    "The stem is long and tapers, often a third to half of the point's length.",
+    "Base pointed to rounded; blade straight and often serrated.",
+    "Finely flaked."
+   ],
+   "size_mm": [
+    15,
+    60
+   ],
+   "confusable": [
+    {
+     "with": "Scallorn",
+     "tell": "Scallorn is corner-notched with an expanding stem."
+    }
+   ],
+   "sources": [
+    "hca",
+    "ppn",
+    "tas47"
+   ],
+   "note": null
+  }
+ ],
+ "timeline": [
+  {
+   "name": "Clovis",
+   "from_bp": 11200,
+   "to_bp": 11200,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Folsom",
+   "from_bp": 11050,
+   "to_bp": 10150,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Dalton",
+   "from_bp": 10500,
+   "to_bp": 9900,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Plainview",
+   "from_bp": 10150,
+   "to_bp": 10000,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Wilson",
+   "from_bp": 10000,
+   "to_bp": 10000,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "St. Mary's Hall",
+   "from_bp": 9900,
+   "to_bp": 8700,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Scottsbluff",
+   "from_bp": 9120,
+   "to_bp": 8650,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Golondrina",
+   "from_bp": 9080,
+   "to_bp": 8830,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Barber",
+   "from_bp": 9000,
+   "to_bp": 9000,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Angostura",
+   "from_bp": 8800,
+   "to_bp": 7960,
+   "period": "Paleoindian / Early Archaic"
+  },
+  {
+   "name": "Midland",
+   "from_bp": 8600,
+   "to_bp": 8600,
+   "period": "Paleoindian"
+  },
+  {
+   "name": "Gower",
+   "from_bp": 8600,
+   "to_bp": 6290,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Baker",
+   "from_bp": 8000,
+   "to_bp": 6000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Jetta",
+   "from_bp": 7000,
+   "to_bp": 7000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Laguna",
+   "from_bp": 7000,
+   "to_bp": 6000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Martindale",
+   "from_bp": 6400,
+   "to_bp": 5000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Merrell",
+   "from_bp": 6400,
+   "to_bp": 5000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Uvalde",
+   "from_bp": 6000,
+   "to_bp": 6000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Evant",
+   "from_bp": 6000,
+   "to_bp": 5000,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "Nolan",
+   "from_bp": 6000,
+   "to_bp": 4500,
+   "period": "Early to Middle Archaic"
+  },
+  {
+   "name": "Early Triangular",
+   "from_bp": 5800,
+   "to_bp": 3910,
+   "period": "Early to Middle Archaic"
+  },
+  {
+   "name": "Bell",
+   "from_bp": 5660,
+   "to_bp": 4800,
+   "period": "Early Archaic"
+  },
+  {
+   "name": "La Jita",
+   "from_bp": 4820,
+   "to_bp": 3980,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Pandale",
+   "from_bp": 4700,
+   "to_bp": 4000,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Travis",
+   "from_bp": 4650,
+   "to_bp": 4050,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Williams",
+   "from_bp": 4500,
+   "to_bp": 3000,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Pedernales",
+   "from_bp": 4100,
+   "to_bp": 2500,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Kinney",
+   "from_bp": 4000,
+   "to_bp": 2500,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Palmillas",
+   "from_bp": 4000,
+   "to_bp": 2500,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Bulverde",
+   "from_bp": 4000,
+   "to_bp": 3500,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Pandora",
+   "from_bp": 4000,
+   "to_bp": 3500,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Langtry",
+   "from_bp": 4000,
+   "to_bp": 4000,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Marshall",
+   "from_bp": 3500,
+   "to_bp": 3500,
+   "period": "Middle Archaic"
+  },
+  {
+   "name": "Tortugas",
+   "from_bp": 3200,
+   "to_bp": 2000,
+   "period": "Middle to Late Archaic"
+  },
+  {
+   "name": "Castroville",
+   "from_bp": 2800,
+   "to_bp": 2400,
+   "period": "Late Archaic"
+  },
+  {
+   "name": "Montell",
+   "from_bp": 2800,
+   "to_bp": 2400,
+   "period": "Late Archaic"
+  },
+  {
+   "name": "Marcos",
+   "from_bp": 2800,
+   "to_bp": 1800,
+   "period": "Late to Transitional Archaic"
+  },
+  {
+   "name": "Edgewood",
+   "from_bp": 2200,
+   "to_bp": 1400,
+   "period": "Transitional Archaic"
+  },
+  {
+   "name": "Ensor",
+   "from_bp": 2200,
+   "to_bp": 1400,
+   "period": "Transitional Archaic"
+  },
+  {
+   "name": "Fairland",
+   "from_bp": 2200,
+   "to_bp": 1400,
+   "period": "Transitional Archaic"
+  },
+  {
+   "name": "Frio",
+   "from_bp": 2200,
+   "to_bp": 1400,
+   "period": "Transitional Archaic"
+  },
+  {
+   "name": "Darl",
+   "from_bp": 1800,
+   "to_bp": 1800,
+   "period": "Transitional Archaic"
+  },
+  {
+   "name": "Scallorn",
+   "from_bp": 1250,
+   "to_bp": 800,
+   "period": "Late Prehistoric (arrow)"
+  },
+  {
+   "name": "Edwards",
+   "from_bp": 900,
+   "to_bp": 700,
+   "period": "Late Prehistoric (arrow)"
+  },
+  {
+   "name": "Perdiz",
+   "from_bp": 800,
+   "to_bp": 300,
+   "period": "Late Prehistoric to Historic (arrow)"
+  }
+ ]
+}

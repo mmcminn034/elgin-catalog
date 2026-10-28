@@ -8,6 +8,12 @@ U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8831/"; CU = sys.arg
 cfg = urllib.request.urlopen(CU + "assets/js/config.js?cb=" + secrets.token_hex(3)).read().decode()
 SB = re.search(r"https://[a-z]+\.supabase\.co", cfg).group(0); ANON = re.search(r"(eyJ[A-Za-z0-9._-]+|sb_publishable_[A-Za-z0-9_-]+)", cfg).group(1); SVC = os.environ["SVC_KEY"]
 fails, errs = [], []
+def aigo(pg):
+    """AI pre-flight (2026-10-27): answer the required fields and press Run."""
+    pg.wait_for_selector("#aiPre"); pg.wait_for_timeout(150)
+    for n in ("material", "flaking"):
+        if pg.locator(f"#aiPre [name={n}]").count() and not pg.locator(f"#aiPre [name={n}]").input_value(): pg.select_option(f"#aiPre [name={n}]", index=1)
+    pg.click("#aiGo")
 def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i if i != "" else ""); ok or fails.append(n)
 def call(method, path, body=None, tok=None, key=ANON, extra=None):
     h = {"apikey": key, "Authorization": "Bearer " + (tok or key), "Content-Type": "application/json", "Prefer": "return=representation,count=exact"}; h.update(extra or {})
@@ -47,7 +53,7 @@ with sync_playwright() as p:
     pg.goto(U + "#/record/ELG-001"); pg.wait_for_selector("#modal:not([hidden])"); pg.wait_for_timeout(400); pg.click("#tab-2"); pg.wait_for_timeout(500)
     run = pg.locator("#aiRun:visible"); chk("AI run button present (mocked AI)", run.count() > 0)
     if run.count():
-        run.click(); pg.wait_for_timeout(2500)
+        run.click(); aigo(pg); pg.wait_for_timeout(2500)
         th = lambda k: pg.locator(f'#aiBody [data-ref-cand="{k}"] .ref-thumbs li')
         chk("72% candidate shows 2 credited Clovis thumbnails (1-2 max)", th(0).count() == 2 and all("clovis" in th(0).nth(i).inner_text().lower() for i in range(2)), th(0).count())
         chk("45% candidate shows thumbnails (moderate)", th(1).count() >= 1 and "folsom" in th(1).first.inner_text().lower(), th(1).count())

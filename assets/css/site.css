@@ -66,3 +66,7 @@ table.cmp thead th{background:var(--surface2)}
 .pd-item p{margin:.2rem 0}.pd-k{font-weight:600}.chip.warn{background:#7a3b00;color:#fff}.pd-admin-list{list-style:none;padding:0}.pd-admin-list li{padding:.4rem 0;border-bottom:1px solid var(--line,#d9cbb8)}
 .pd-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.4rem;margin:.6rem 0}
 .merch-sec{margin-top:1.4rem}.kit-note{font-weight:600}.kits-grid .merch-card img{aspect-ratio:46/34;object-fit:cover;width:100%;border-radius:10px}
+/* Learn page + AI pre-flight (2026-10-27) */
+.lg-sec{margin:0 0 1.6rem}.lg-checks,.lg-types,.lg-src{list-style:none;padding:0;display:grid;gap:.6rem}.lg-checks li,.lg-type,.lg-src li{padding:.7rem .9rem;border:1px solid var(--line,#d9cbb8);border-radius:10px;background:var(--surface,transparent)}
+.lg-checks p,.lg-src p{margin:.25rem 0}.lg-type summary{cursor:pointer}.lg-type h4{margin:.7rem 0 .2rem}.lg-tabs{margin:.8rem 0 1rem}.lg-tl td,.lg-tl th{padding:.25rem .5rem}.lg-gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem;list-style:none;padding:0}.lg-gal li[hidden]{display:none}
+.ai-pre h3{margin-top:0}.ai-pre-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.4rem .8rem}.ai-pre-shots ul{margin:.4rem 0 .4rem 1.1rem}.ai-artif,.ai-pq{border:1px solid var(--line,#d9cbb8);border-left:6px solid var(--turq,#2F8F8A);border-radius:10px;padding:.6rem .9rem;margin:.8rem 0}.ai-artif.warn{border-left-color:#b9770e}.ai-artif h3,.ai-pq h3{margin:.1rem 0 .4rem}

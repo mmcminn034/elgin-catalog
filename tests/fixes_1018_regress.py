@@ -9,6 +9,12 @@ from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8831/"; O = sys.argv[2] if len(sys.argv) > 2 else "/workspace/membership/"
 SEED = open(os.environ["EC_SEED"]).read() if os.environ.get("EC_SEED") else None
 IMG = "images/ELG-001/01.jpg"; fails = []; errs = []
+def aigo(pg):
+    """AI pre-flight (2026-10-27): answer the required fields and press Run."""
+    pg.wait_for_selector("#aiPre"); pg.wait_for_timeout(150)
+    for n in ("material", "flaking"):
+        if pg.locator(f"#aiPre [name={n}]").count() and not pg.locator(f"#aiPre [name={n}]").input_value(): pg.select_option(f"#aiPre [name={n}]", index=1)
+    pg.click("#aiGo")
 def chk(n, ok, info=""): print(("PASS " if ok else "FAIL ") + n, info if info != "" else ""); ok or fails.append(n)
 OWNER = {"online": True, "user": {"id": "u1", "email": "mark@example.com"}, "profile": {"display_name": "Mark McMinn", "membership": "lifetime"}, "adminUserId": "u1",
          "collections": [{"id": "c1", "slug": "rolling-oak", "name": "Rolling Oak", "role": "owner", "is_public": True, "visibility": "public"}], "members": {},
@@ -70,7 +76,7 @@ with sync_playwright() as p:
         m = dict(OWNER, aiError={"error": "You've reached today's AI limit (50 analyses)." if code == "ai_daily_cap" else "provider said 429 insufficient_quota", "code": code})
         c, pg = ctx(b, m); pg.goto(U + "#/record/ELG-001"); pg.wait_for_selector(".rv-layout", timeout=15000); pg.wait_for_timeout(800)
         pg.click("#tab-2"); pg.wait_for_timeout(500)
-        if pg.locator("#aiRun").count(): pg.click("#aiRun"); pg.wait_for_timeout(1200); t = pg.inner_text("#aiBody")
+        if pg.locator("#aiRun").count(): pg.click("#aiRun"); aigo(pg); pg.wait_for_timeout(1200); t = pg.inner_text("#aiBody")
         else: t = ""
         chk(f"{n}: friendly message", want in t and "insufficient_quota" not in t and "failed" not in t.lower(), t[:140])
         if code == "ai_no_credits": pg.screenshot(path=O + "f-ai-unavailable.png")

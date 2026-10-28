@@ -2,6 +2,12 @@
 import sys, json, os
 from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8765/"; SS = sys.argv[2] if len(sys.argv) > 2 else ""; fails = []; errs = []
+def aigo(pg):
+    """AI pre-flight (2026-10-27): answer the required fields and press Run."""
+    pg.wait_for_selector("#aiPre"); pg.wait_for_timeout(150)
+    for n in ("material", "flaking"):
+        if pg.locator(f"#aiPre [name={n}]").count() and not pg.locator(f"#aiPre [name={n}]").input_value(): pg.select_option(f"#aiPre [name={n}]", index=1)
+    pg.click("#aiGo")
 def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i); ok or fails.append(n)
 AI = {"candidates": [{"name": "Nolan", "confidence_pct": 99, "confidence": "High", "reasoning": "Beveled stem visible in photo 2.", "reference_ids": ["ppn-nolan"],
        "factors": [{"sign": "+", "reason": "Alternately beveled stem matches published Nolan description", "source": "projectilepoints.net"}, {"sign": "-", "reason": "Tip damage limits blade-shape comparison"}]},
@@ -37,7 +43,7 @@ with sync_playwright() as p:
     pg.evaluate("window.__body=null; const o=Cloud.analyze; Cloud.analyze=async b=>{window.__body=b; return o(b)}")
     run = pg.locator("#aiRun:visible")
     if run.count():
-        run.click(); pg.wait_for_timeout(1200)
+        run.click(); aigo(pg); pg.wait_for_timeout(1200)
         txt = pg.inner_text("#aiBody"); chk("AI pct shown and capped at 95", "95%" in txt and "99%" not in txt)
         chk("external references listed", "Nolan, Travis Stemmed" in txt); chk("no reference error when ok", pg.locator("#aiBody .err").count() == 0)
         d = pg.locator("#aiBody details.ai-prompt"); chk("View AI prompt disclosure", d.count() == 1)
@@ -46,8 +52,8 @@ with sync_playwright() as p:
             if SS: d.screenshot(path=os.path.join(SS, "ai-prompt-view.png")); print("shot ai-prompt-view.png")
         if SS: pg.locator("#aiBody .cands").screenshot(path=os.path.join(SS, "ai-candidates-pct.png"))
         pg.evaluate("window.ROLLING_OAK_MOCK.ai = Object.assign({}, window.ROLLING_OAK_MOCK.ai, {reference_status: 'unavailable: no reference rows'})"); pg.evaluate("document.getElementById('aiDlg').close()")
-        pg.locator("#aiRun:visible").click(); pg.wait_for_timeout(900); chk("reference outage visible in AI panel", "unavailable" in pg.inner_text("#aiBody .err") if pg.locator("#aiBody .err").count() else False)
-        pg.evaluate("window.ROLLING_OAK_MOCK.ai = null; document.getElementById('aiDlg').close()"); pg.locator("#aiRun:visible").click(); pg.wait_for_timeout(900)
+        pg.locator("#aiRun:visible").click(); aigo(pg); pg.wait_for_timeout(900); chk("reference outage visible in AI panel", "unavailable" in pg.inner_text("#aiBody .err") if pg.locator("#aiBody .err").count() else False)
+        pg.evaluate("window.ROLLING_OAK_MOCK.ai = null; document.getElementById('aiDlg').close()"); pg.locator("#aiRun:visible").click(); aigo(pg); pg.wait_for_timeout(900)
         chk("AI failure visible (no silent failure)", pg.locator("#aiBody [role=alert]").count() >= 1 and ("AI analysis failed" in pg.inner_text("#aiBody") or "unavailable right now" in pg.inner_text("#aiBody")))
         chk("prompt view still offered after failure", pg.locator("#aiBody details.ai-prompt").count() == 1); pg.evaluate("document.getElementById('aiDlg').close()")
         body = pg.evaluate("window.__body"); chk("payload carries region_hint", bool(body and body.get("region_hint")))

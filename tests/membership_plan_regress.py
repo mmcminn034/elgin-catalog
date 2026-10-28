@@ -6,6 +6,12 @@ from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8860/"; O = sys.argv[2] if len(sys.argv) > 2 else "/workspace/membership/"
 IMG = "images/ELG-001/01.jpg"; fails = []; errs = []
 UFRE = re.compile(r"UF-[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{4}")
+def aigo(pg):
+    """AI pre-flight (2026-10-27): answer the required fields and press Run."""
+    pg.wait_for_selector("#aiPre"); pg.wait_for_timeout(150)
+    for n in ("material", "flaking"):
+        if pg.locator(f"#aiPre [name={n}]").count() and not pg.locator(f"#aiPre [name={n}]").input_value(): pg.select_option(f"#aiPre [name={n}]", index=1)
+    pg.click("#aiGo")
 def chk(n, ok, info=""):
     print(("PASS " if ok else "FAIL ") + n, info if info != "" else ""); ok or fails.append(n)
 def own(i, vis, pub=None, loc=None):
@@ -89,7 +95,7 @@ with sync_playwright() as p:
     shot(pg, "t04-review.png")
     pg.click("#tab-2"); pg.wait_for_timeout(600); chk("4e AI analysis available on the free tier (signed in)", pg.locator("#aiRun").count() == 1)
     if pg.locator("#aiRun").count():
-        pg.click("#aiRun"); pg.wait_for_timeout(1200); t = pg.inner_text("#aiBody")
+        pg.click("#aiRun"); aigo(pg); pg.wait_for_timeout(1200); t = pg.inner_text("#aiBody")
         chk("4f AI result shows % confidence and why", "72%" in t and "Why" in t and "Gary" in t); shot(pg, "t04-ai.png")
         pg.click("#aiDiscard"); pg.wait_for_timeout(300)
     pg.click("#tab-0"); pg.wait_for_timeout(500); n0 = len(pg.evaluate("ROLLING_OAK_MOCK.corrections||[]"))

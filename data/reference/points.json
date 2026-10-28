@@ -817,6 +817,69 @@
      "no pecking, battering or polish"
     ]
    ]
+  },
+  {
+   "id": "natural-rock",
+   "name": "Natural rock / geofact (not an artifact)",
+   "period": "Not an artifact",
+   "dates": "Natural; no cultural age",
+   "length_mm": null,
+   "traits": [
+    "natural",
+    "water-worn",
+    "caliche",
+    "concretion",
+    "geofact",
+    "cobble",
+    "pebbly",
+    "sandstone",
+    "conglomerate",
+    "unworked",
+    "random fracture",
+    "quartz pebbles",
+    "rounded cobble",
+    "worn smooth"
+   ],
+   "rawTraits": [
+    "no flake scars",
+    "no flaking",
+    "no visible flake",
+    "no scars",
+    "no pecking",
+    "no polish",
+    "no grinding",
+    "not worked",
+    "not flaked",
+    "no retouch",
+    "no bulb"
+   ],
+   "excludes": [
+    "bifacial",
+    "retouch",
+    "notch",
+    "stem",
+    "serrat",
+    "bulb of percussion",
+    "striking platform",
+    "patterned flake",
+    "ground base"
+   ],
+   "generic": true,
+   "natural": true,
+   "compare": [
+    [
+     "Hammerstone / ground stone",
+     "real use leaves pecking, battering or a flattened/polished face; a uniformly rough or smooth surface is natural"
+    ],
+    [
+     "Core",
+     "a core has several removal scars that follow each other; natural breaks are random and have no bulb or ripples"
+    ],
+    [
+     "Preform (unfinished biface)",
+     "a preform has deliberate, patterned flaking on both faces"
+    ]
+   ]
   }
  ],
  "diagnostics": [

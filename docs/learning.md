@@ -30,3 +30,11 @@ Research suggestions only, never identifications. No authenticity or value claim
 `is_public` stays in sync automatically through a trigger. The public page (`#/find/ID`, plus the static `share/ELG-xxx.html` with OG/Twitter tags) only ever shows `region`, which is county-level. A check constraint rejects coordinates and street numbers in it. Exact GPS stays in `find_locations`, which only owners and editors can read through RLS.
 
 The full record (with private fields, for people allowed to see them) is at `#/record/ID`.
+
+## Keep / Correct as labeled data (2026-10-27)
+- Every AI Keep (Accept) and every feedback response now carries `feedback.meta` (jsonb, max 4,000 characters): prompt version, model, top percentage, artifact-likelihood verdict, photo views seen, the owner's attribute answers, and `kept: true` for a Keep. No photos, no locations, no names.
+- Admin-only export: `select * from admin_ai_labeled_data(5000)` returns feedback and type corrections joined to non-location find attributes. The owner id is hashed, so rows cannot be traced to an account.
+- `type_accuracy()` feeds back into the prompt (aggregate agreement per type) and into calibration.
+
+## Learn page (`#/learn`)
+Public page built from `data/learn/learn.json` (29 Central Texas point types in our own words, a 45-row timeline, an "Is it an artifact?" guide, a photo-capture guide, a source map), the fossil/rock reference JSON, and the credited reference gallery. Rebuild the JSON with `python3 tools/learn/build_learn.py`. Every source is link-only; ages differ between sources and the page says so.

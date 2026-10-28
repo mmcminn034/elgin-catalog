@@ -71,7 +71,7 @@
 
   /* ---------- feedback UI ---------- */
   function typeOptions(kind) { return ((Analysis.kb()[kind] || {}).types || []).map(t => `<option value="${esc(t.name)}">`).join(""); }
-  function feedbackBox(host, r, cand, source) { if (!host || !cand) return; const kind = App.kindOf(r), id = "fb" + Math.random().toString(36).slice(2, 7);
+  function feedbackBox(host, r, cand, source, opt) { opt = opt || {}; if (!host || !cand) return; const kind = App.kindOf(r), id = "fb" + Math.random().toString(36).slice(2, 7);
     host.innerHTML = `<div class="fb" role="group" aria-label="Feedback on ${esc(cand)}"><p class="fb-q">Does <strong>${esc(cand)}</strong> fit this find?</p>
       <div class="fb-btns">${Object.entries(VERDICTS).map(([v, [ic, t]]) => `<button type="button" class="btn fb-${v}" data-verdict="${v}" aria-pressed="false">${ic} ${t}</button>`).join("")}</div>
       <div class="fb-more" hidden><div class="row"><label class="field grow"><span>Better type (optional)</span><input name="better" list="${id}" placeholder="Pick from the reference list or type your own"></label><datalist id="${id}">${typeOptions(kind)}</datalist></div>
@@ -80,7 +80,7 @@
     let verdict = null; const box = $(".fb", host);
     $$("[data-verdict]", box).forEach(b => b.onclick = () => { verdict = b.dataset.verdict; $$("[data-verdict]", box).forEach(x => x.setAttribute("aria-pressed", x === b)); $(".fb-more", box).hidden = false; if (verdict !== "match") $("[name=better]", box).focus(); });
     $(".fb-send", box).onclick = async () => { if (!verdict) return; const better = $("[name=better]", box).value.trim(), corr = $("[name=corr]", box).value.trim();
-      await addFeedback({ catalog_id: r.catalog_id, photo_index: null, candidate_type: cand, verdict, correction: corr || null, better_type: better || null, source, user_id: st().user?.id || null });
+      await addFeedback({ catalog_id: r.catalog_id, photo_index: null, candidate_type: cand, verdict, correction: corr || null, better_type: better || null, source, user_id: st().user?.id || null, ...(opt.meta ? { meta: opt.meta } : {}) }); if (opt.onSent) opt.onSent();
       $(".fb-msg", box).textContent = `✓ Thanks, recorded “${VERDICTS[verdict][1]}”${better ? ` (better: ${better})` : ""}. ${st().user ? "Saved to the shared feedback table." : "Saved in this browser."}`; $(".fb-more", box).hidden = true; }; }
 
   /* ---------- visibility ---------- */

@@ -195,8 +195,8 @@
   /* exact system prompt + assembled user text (the server re-ranks verified examples from the shared library) */
   function promptPreview(r, kind, payload, n) { if (!window.Prompt) return "";
     const pub = window.Analysis && (Analysis.pubFor ? Analysis.pubFor(kind) : Analysis.pub ? Analysis.pub() : null), refs = pub ? Prompt.rankReferences(payload.record, pub.types, pub.meta.trait_patterns, { k: 5, region: payload.region_hint || {}, category: kind, hintNames: payload.rules_top }).map(Prompt.refBrief) : [];
-    const ctx = { external_references: refs, reference_status: pub ? "ok" : "unavailable: public-types.json did not load", kind, record: payload.record, region: payload.region, region_check: payload.region_check, reference_types: payload.kb, checklist_features: payload.checklist, similar_verified_examples: payload.similar };
-    return `<details class="ai-prompt"><summary>View AI prompt</summary><p class="help">Exactly what the model receives: the system prompt, then the user message; ${n} photo${n === 1 ? "" : "s"} follow as image parts, plus one REFERENCE photo per verified example. The server re-ranks verified examples from the shared library.</p>
+    const ctx = { attrs_text: window.Matching ? Matching.attrsText(payload.attrs || {}, kind) : "", external_references: refs, reference_status: pub ? "ok" : "unavailable: public-types.json did not load", kind, record: payload.record, region: payload.region, region_check: payload.region_check, reference_types: payload.kb, checklist_features: payload.checklist, similar_verified_examples: payload.similar };
+    return `<details class="ai-prompt"><summary>View AI prompt</summary><p class="help">Exactly what the model receives: the system prompt, then the user message; ${n} photo${n === 1 ? "" : "s"} follow as image parts, plus one REFERENCE photo per verified example. The server re-ranks verified examples from the shared library and adds region priors (Texas context only) and anonymous feedback history.</p>
       <h4>System</h4><pre>${esc(Prompt.SYSTEM)}</pre><h4>User</h4><pre>${esc(Prompt.buildUserText(ctx, n))}</pre></details>`; }
   /* Friendly AI errors: provider/credit problems are never shown as a plan refusal; nothing is changed on failure. */
   function aiErrorHtml(res) { const still = " Nothing was changed. The rules-engine suggestions on the Analysis tab still work.";
@@ -212,7 +212,7 @@
     if (sbc && !window.ROLLING_OAK_MOCK && st().user) { try { const { data, error } = await sbc.rpc("similar_reference_media", { p_names: [name], p_kind: kind || null, p_limit: 2 }); if (!error && data) return data; } catch {} }
     try { refJson = refJson || (await (await fetch("data/reference/reference-media.json", { cache: "force-cache" })).json()).items || []; } catch { refJson = []; }
     const n = String(name).toLowerCase(), rx = k => new RegExp("\\b" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b");
-    return refJson.filter(m => m.thumb_url && (!kind || m.kind === kind)).map(m => ({ ...m, matched: m.keywords.filter(k => k.length > 2 && rx(k).test(n)).sort((a, b) => GENERIC.includes(a) - GENERIC.includes(b) || b.length - a.length)[0] })).filter(m => m.matched)
+    return refJson.filter(m => m.thumb_url && (!kind || m.kind === kind || ((m.data && m.data.topics) || []).includes("natural"))).map(m => ({ ...m, matched: m.keywords.filter(k => k.length > 2 && rx(k).test(n)).sort((a, b) => GENERIC.includes(a) - GENERIC.includes(b) || b.length - a.length)[0] })).filter(m => m.matched)
       .sort((a, b) => GENERIC.includes(a.matched) - GENERIC.includes(b.matched) || b.matched.length - a.matched.length || (a.id > b.id ? 1 : -1)).slice(0, 2); }
   async function refThumbs(body, cands, kind) {
     const pct = c => window.Score ? Score.clampPct(c.confidence_pct != null ? c.confidence_pct : c.confidence) : parseFloat(c.confidence_pct) || 0;
@@ -224,11 +224,13 @@
     const dlg = $("#aiDlg"), body = $("#aiBody"), kind = App.kindOf(r), ps = App.pics(r).map((p, i) => ({ ...p, i })).filter(p => !String(p.src).startsWith("data:")).slice(0, 6);
     $("#aiClose").onclick = () => dlg.close(); dlg.showModal();
     if (!ps.length) { body.innerHTML = '<p>Upload photos (sign in and sync) first. AI analysis needs photos hosted online.</p>'; return; }
+    const pre = window.AiPre && window.Matching ? await AiPre.ask(body, r, kind, ps) : { attrs: {}, photoIssues: [] }; if (!pre) return; // cancelled in the pre-flight
     body.innerHTML = '<p class="help" role="status">🤖 Analyzing photos… this can take 20–40 seconds.</p>';
     const KB = Analysis.kb()[kind] || {}, payload = { catalog_id: r.catalog_id, kind, photos: ps.map(p => ({ url: new URL(p.src, C.siteUrl || location.href).href, label: p.label })),
       region_check: window.Region ? Region.promptContext(r) : null, record: { object_type: r.object_type, material: r.material, key_features: r.key_features, owner_observations: r.owner_observations, length_mm: r.length_mm, measure_method: r.measure_method },
       kb: (window.Analysis ? Analysis.rank(r, kind).slice(0, 5).map(x => x.c) : []).map(t => ({ id: t.id, name: t.name, period: t.period, dates: t.dates, traits: (t.traits && t.traits.length ? t.traits : t.refTraits || []).slice(0, 12), length_mm: t.length_mm })), /* rules engine top candidates only; the server adds the top-5 published references */ checklist: (KB.diagnostics || []).map(d => d[0]), examples: Analysis.all().filter(e => e.category === kind).slice(0, 20).map(e => ({ catalog_id: e.catalog_id, category: e.category, confirmed_type: e.confirmed_type, type_ids: e.type_ids, features: String(e.features || "").slice(0, 300), length_mm: e.length_mm, material: e.material, region: e.region })), /* fallback only: the server ranks the shared library */ similar: window.Learn ? Learn.similar(r, 3).map(x => ({ catalog_id: x.example.catalog_id, confirmed_type: x.example.confirmed_type, why: x.why })) : [], region: window.Learn ? Learn.regionOf(r) : "",
       region_hint: window.Analysis && Analysis.regionHint ? Analysis.regionHint(r) : null,
+      attrs: pre.attrs,
       rules_top: window.Analysis ? Analysis.rank(r, kind).slice(0, 3).map(x => String(x.c.name).replace(/\s*\(.*$/, "")) : [] };
     const pv = promptPreview(r, kind, payload, ps.length);
     body.insertAdjacentHTML("beforeend", pv);
@@ -240,6 +242,7 @@
       <h3>Ranked candidates</h3><ol class="cands">${(out.candidates || []).map((c, k) => `<li><label class="check"><input type="checkbox" data-cand="${k}" checked> <strong>${esc(c.name)}</strong> ${aiPct(c)}</label><p class="why"><strong>Why:</strong> ${esc(c.why)}</p>${c.why_not ? `<p class="whynot"><strong>Why not:</strong> ${esc(c.why_not)}</p>` : ""}<div class="ai-refs" data-ref-cand="${k}"></div></li>`).join("")}</ol>
       ${[...marksBy].map(([pi, ms]) => { const p = ps[pi]; if (!p) return ""; return `<h3>Suggested marks · ${esc(p.label)}</h3><div class="ai-photo"><div class="mk-wrap" data-pi="${pi}"><img src="${esc(p.src)}" alt="${esc(p.label)}"></div>
         <ol class="ai-marks">${ms.map((m, k) => `<li><label class="check"><input type="checkbox" data-mk="${pi}:${k}" checked> <span class="mk-n">${k + 1}</span></label><input class="ai-lbl" data-lbl="${pi}:${k}" value="${esc(m.label)}" aria-label="Label for mark ${k + 1}"><p class="help">${esc(m.explanation)}</p></li>`).join("")}</ol></div>`; }).join("")}
+      ${window.AiPre ? AiPre.resultHtml(out) : ""}${res.data.cached ? '<p class="help ai-cached">♻ Same photos and answers as a recent run, so this result was reused at no cost. Edit an answer or add a photo to run it fresh.</p>' : ""}
       ${(out.gaps || []).length ? `<h3>What would help</h3><ul>${out.gaps.map(g => `<li>${esc(g)}</li>`).join("")}</ul>` : ""}
       ${out.measurements && (out.measurements.length_mm || out.measurements.note) ? `<h3>Measurements from the scale photo</h3><p>${["length_mm", "width_mm", "thickness_mm"].filter(k => out.measurements[k]).map(k => `${k.split("_")[0]} ≈ ${esc(out.measurements[k])} mm`).join(" · ") || "Not measurable"} ${out.measurements.note ? `<span class="muted">${esc(out.measurements.note)}</span>` : ""}</p><p class="help">Approximate: read from the photo, not a caliper.</p>` : ""}
       ${(out.next_photos || []).length ? `<h3>Next photos to take</h3><ul>${out.next_photos.map(g => `<li>📷 ${esc(g)}</li>`).join("")}</ul>` : ""}
@@ -253,12 +256,14 @@
     for (const [pi, ms] of marksBy) { const w = body.querySelector(`.mk-wrap[data-pi="${pi}"]`); if (w) Marks.overlay(w, w.querySelector("img"), ms, true); }
     refThumbs(body, out.candidates || [], kind);
     $("#aiDiscard").onclick = () => dlg.close();
-    if (window.Learn && (out.candidates || []).length) Learn.feedbackBox($("#aiFb"), r, out.candidates[0].name, "ai");
+    let fbSent = false;
+    if (window.Learn && (out.candidates || []).length) Learn.feedbackBox($("#aiFb"), r, out.candidates[0].name, "ai", { meta: window.AiPre ? AiPre.feedbackMeta(out, pre.attrs, res.data.model, res.data.prompt_version) : null, onSent: () => { fbSent = true; } });
     $("#aiAccept").onclick = async () => {
       const cands = (out.candidates || []).filter((_, k) => body.querySelector(`[data-cand="${k}"]`).checked), patch = {};
       if (cands.length) { cands.slice(0, 3).forEach((c, k) => patch["suggestion_" + (k + 1)] = c.name); patch.confidence = cands[0].confidence;
         patch.owner_observations = [r.owner_observations, `AI photo analysis reviewed and accepted by owner on ${new Date().toLocaleDateString("en-CA")}.`].filter(Boolean).join(" "); }
       if (Object.keys(patch).length) await App.patch(r.catalog_id, patch);
+      if (cands.length && !fbSent && window.Learn) Learn.addFeedback({ catalog_id: r.catalog_id, photo_index: null, candidate_type: cands[0].name, verdict: "match", correction: null, better_type: null, source: "ai", user_id: st().user?.id || null, meta: { ...(window.AiPre ? AiPre.feedbackMeta(out, pre.attrs, res.data.model, res.data.prompt_version) : {}), kept: true } }); /* Keep = a labeled agreement (research data; no locations) */
       for (const [pi, ms] of marksBy) { const keep = ms.map((m, k) => ({ ...m, label: (body.querySelector(`[data-lbl="${pi}:${k}"]`).value || m.label), source: "ai" })).filter((_, k) => body.querySelector(`[data-mk="${pi}:${k}"]`).checked);
         if (keep.length) { const cur = App.marksFor(App.all.find(x => x.catalog_id === r.catalog_id), ps[pi].i); await App.saveMarks(r.catalog_id, ps[pi].i, [...cur, ...keep]); } }
       dlg.close(); App.toast("AI suggestions saved. Edit or delete them anytime."); App.reselect(); };

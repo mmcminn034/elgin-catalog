@@ -20,3 +20,7 @@ supabase functions deploy analyze-find
 ```
 Photos must be publicly reachable over https (repo images on GitHub Pages, or synced photos in the public `find-photos` bucket).
 Cost is roughly a few cents or less per analysis with small vision models. Set a monthly spend limit at the provider.
+
+## Pre-flight and cache (2026-10-27)
+Pressing "Analyze photos with AI" now opens a short pre-flight first (`assets/js/aipre.js`): photo-capture guidance, an in-browser photo check (resolution, focus, light; nothing is uploaded), and an attribute form. Material and flake scars are required ("unknown" counts as an answer); form, flake pattern, base, edges, surface, L/W/T and a general setting are optional. Answers are validated against fixed option lists (no free text, no places), sent as `attrs`, and stored on the find as `extra.attrs` plus in this browser for next time.
+The function checks `ai_cache` before taking quota (see `docs/ai-costs.md`). Deploy as before (`supabase functions deploy analyze-find`); migration 025 must be applied first, and its rollback is `025_matching_learn_down.sql`. Without `AI_API_KEY` the function still answers 503 `ai_unavailable` and the app falls back to the rules engine. Nothing in the new code calls a model on its own.

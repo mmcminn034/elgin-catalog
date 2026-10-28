@@ -1,0 +1,16 @@
+{
+ "meta": {"note": "Region/time-period priors given to the AI as CONTEXT ONLY: a mild hint, never proof, never a filter. The owner's provenance always wins. Built from the published sources below; wording is ours.",
+          "built": "2026-10-27", "sources": [
+   {"name": "Hill Country Archeological Association, Dart and Arrow Point Typology (after Turner, Hester & McReynolds 2011)", "url": "https://hcarcheology.org/wp-content/uploads/2023/04/Point-Typology-JBenedict4-9-2018.pdf"},
+   {"name": "Texas State University, Exploring Spring Lake: Central Texas chronology", "url": "https://www.springlakearchaeology.txst.edu/sldr2014/artifacts/chron.html"}]},
+ "packs": [
+  {"id": "central-texas", "match": {"admin1": ["Texas"]}, "label": "Central Texas (Edwards Plateau / Blackland Prairie margin)",
+   "common_dart_points_in_excavations": ["Pedernales", "Bulverde", "Nolan", "Travis", "Marshall", "Marcos", "Castroville", "Montell", "Ensor", "Frio", "Fairland"],
+   "more_likely_on_the_surface": ["Frio", "Fairland", "Ensor"],
+   "common_arrow_points": ["Perdiz", "Scallorn", "Edwards"],
+   "periods_bp": {"Paleoindian": "about 13,500 to 8,800 BP (Clovis, Folsom, Plainview, Golondrina, Angostura)", "Early Archaic": "about 8,800 to 5,750 BP", "Middle Archaic": "about 5,750 to 4,200 BP (Early Triangular, Nolan, Travis)", "Late Archaic": "about 4,200 to 1,270 BP (Bulverde, Pedernales, Castroville, Montell, Marcos, Ensor, Frio, Fairland)", "Late Prehistoric": "about 1,270 BP to about AD 1550 (arrow points: Scallorn, Edwards, Perdiz)"},
+   "typical_raw_materials": ["Edwards chert (local, very common)", "river-terrace gravel chert", "quartzite cobbles", "chalcedony", "petrified wood", "sandstone and ironstone (usually natural)"],
+   "common_natural_lookalikes": ["caliche (white chalky calcium carbonate crust or nodule)", "coarse sandstone or conglomerate cobbles with quartz pebbles", "iron or sandstone concretions", "chert nodules with an intact rind", "river-tumbled or plow-damaged chert with random edge chips"],
+   "note": "Most chert in Central Texas is plentiful and many natural pieces are fractured by frost, heat, rivers, plows and machinery, so flaking evidence needs more than one feature."}
+ ]
+}
