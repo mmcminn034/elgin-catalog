@@ -3,7 +3,7 @@
    - signed in: Catalog/Review show only finds in catalogs the user owns or is a member of; edit only as owner/editor
    - Experts: Mark (admin) and approved experts only */
 (() => {
-  const ANON = new Set(["home", "discover", "p", "pricing", "membership", "about", "find", "c", "privacy", "terms", "refunds", "contact", "experts", "merch", "paydig", "learn"]);
+  const ANON = new Set(["home", "discover", "p", "pricing", "membership", "about", "find", "c", "privacy", "terms", "refunds", "contact", "experts", "merch", "paydig", "learn", "try"]);
   const MOCK = window.ROLLING_OAK_MOCK;
   /* test copy only (/workspace/mk_test_copy.sh appends it to config.js; never deployed): the browser acts as the owner's own device,
      as the app did before accounts, so the older catalog regressions can run signed out. RLS still guards the cloud. */

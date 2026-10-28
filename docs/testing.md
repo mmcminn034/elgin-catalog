@@ -21,3 +21,6 @@ The Playwright tests run against a local `python3 -m http.server`, using Chrome 
 | `python3 tools/check_shared.py` | Now also checks `matching.js` |
 The four AI-dialog suites (`fixes_1018`, `membership_plan`, `reference_media`, `reference`) now fill the pre-flight (`aigo(pg)`) before the run. `add_flow_regress` fails on `ELG-017 has provenance, no nag` and a missing `.card` both before and after this change (verified on a clean checkout).
 Suites that need `SVC_KEY` (plan_guard, security, batch4, account_delete, experts_directory, site_improvements, viewer_role, location_privacy) were not run from this box because no service key is available here.
+
+## Guest mode
+`python3 tests/guest_regress.py <base-url>` covers the no-signup flow, EXIF stripping, the 3-find limit, the email-only sign-up and the private import. See `docs/guest-mode.md`.

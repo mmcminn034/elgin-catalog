@@ -18,3 +18,6 @@ flowchart TD
 4. **Status:** a find moves Draft → Needs review → Reviewed → Verified. A Verified top pick that agrees with published references is the only way to reach 100%.
 5. **Discover:** finds are opted in one by one or in bulk. Visitors see only the `discover_finds` view (no location columns).
 6. **Learning:** feedback (Matches well / Close / Wrong) and corrections feed future scores (see [confidence-scoring.md](confidence-scoring.md)).
+
+## Try without an account
+Home or sign-in -> "Try it without an account" -> add up to 3 guest finds (this device only) -> free analysis -> sign up with email only (magic link) -> import as private. See `docs/guest-mode.md`.

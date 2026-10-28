@@ -17,3 +17,6 @@ The repository **mmcminn034/elgin-catalog is public**, and GitHub Pages serves e
 - Note that `find-photos` is also a *public* bucket today. Its URLs are unguessable but not access-controlled; moving to signed URLs is on the roadmap.
 - Removing a photo from git does not erase it from history or from forks.
 - The package zip includes `images/` (see the package README), so treat the zip as public-grade material.
+
+## Guest mode
+Guests give no personal information. Guest finds and photos stay in the browser (IndexedDB), EXIF/GPS is removed on the device, no exact location is collected, and only anonymous event counts (no IDs, no IPs) are recorded. See `docs/guest-mode.md`.
