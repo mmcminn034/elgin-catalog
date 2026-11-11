@@ -36,3 +36,28 @@ Imported rows always carry their source, license, license URL, attribution and s
 - Curation: a contact-sheet review removed off-topic hits (lumber axes, memorials, plates, campus photos, industrial mining, graphs, outcrop-only shots). Patterns are kept in the importer (`DENY`).
 - Gap, stated plainly: Commons has almost no photos of named Central Texas point types, so type-specific photos are mostly generic artifact/lithic photos. The Learn page describes each type in words and links to the original sources instead.
 - Skipped: Colorado Projectile Point Database (at Mark's direction).
+
+
+## Public Reference Catalog (added 2026-11-11, ro-v9.13.0)
+A free catalog anyone can browse, signed in or not: `#/reference` (https://unearthedfinds.com/#/reference). It is **separate from members' finds** and does not touch any user collection or its visibility.
+
+**What qualifies ("proven"):** the object or specimen is held by a museum or research collection and has a catalog number or an institutional record page, **and the image itself** is CC0, public domain, CC BY or CC BY-SA. For GBIF the license on the *media item* is checked; the record's license is never used as a stand-in. NC/ND or "all rights reserved" images are skipped.
+
+**Privacy:** locations are cut to county + state (or state/country). Coordinates, localities, towns, sites and survey sections are never stored. Thumbnails are re-encoded (≤480 px WebP), which drops all EXIF/GPS.
+
+**Sensitive items:** records that mention burials, graves, human remains or sacred or ceremonial objects are excluded.
+
+**DB status (2026-11-11):** migration 027 is written but not applied yet (the Supabase management token was unavailable). The live page reads the static JSON, so it doesn't depend on 027. To apply it: run 027, then `python3 tools/reference/load_public_catalog_sql.py` and run its output.
+
+**Files:** importer `tools/reference/import_public_catalog.py` → `data/reference/public-catalog.json` + `images/reference/*.webp`. UI: `assets/js/refcatalog.js`. DB mirror: migration 027 (adds `public_catalog` + `catalog` to `reference_media`, plus an anon read policy on `public_catalog` rows only) and loader `tools/reference/load_public_catalog_sql.py`. New rows get empty `keywords`, so AI look-alike matching (`similar_reference_media`) is unchanged. Test: `tests/public_reference_regress.py`.
+
+**Round 1:** 1137 records: 400 artifacts, 593 fossils, 144 minerals. 561 are from Texas. Capped at about 1,100 from the cached downloads, at Mark's direction (caps `CAP_*` sit at the top of the importer). To grow it, re-run the importer without `--cache-only` (`--only ypm,gbif,...`) after raising the caps.
+
+| Source | Records | License |
+|---|---|---|
+| GBIF.org | 584 | CC0 |
+| Yale Peabody Museum via LUX | 375 | CC0 |
+| Smithsonian Open Access | 137 | CC0 |
+| The Met Open Access | 23 | CC0 |
+| Smithsonian Open Access (NMNH) | 16 | CC0 |
+| Cleveland Museum of Art Open Access | 2 | CC0 |
