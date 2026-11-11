@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the free public Reference Catalog (data/reference/public-catalog.json + images/reference/*.webp).
+"""Public Reference Catalog importer. The database is the source of truth: --add N (weekly) and --to-db write reference_media rows + Storage thumbnails (bucket reference-media). Legacy JSON mode builds the temporary bridge export.
 
 Only institution-held specimens/objects ("proven": museum catalog number or institutional record) whose IMAGE is
 CC0, public domain, CC BY or CC BY-SA. Every record keeps license, license URL, creator/institution, source URL and an
@@ -21,6 +21,7 @@ Additive: existing records in public-catalog.json are kept unless their source i
 Skipped by policy: Colorado Projectile Point Database; any NC/ND or "all rights reserved" media.
 """
 import argparse, concurrent.futures as cf, hashlib, io, json, os, pathlib, re, sys, time, urllib.parse, urllib.request
+import faulthandler, signal; faulthandler.register(signal.SIGUSR1)
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / "data/reference/public-catalog.json"
 IMG = ROOT / "images/reference"
@@ -28,6 +29,9 @@ UA = {"User-Agent": "UnEarthedFinds-reference-import/3.0 (https://unearthedfinds
 SI_KEY = os.environ.get("SI_API_KEY", "DEMO_KEY")  # api.data.gov key; DEMO_KEY is throttled but enough for a batch
 ap = argparse.ArgumentParser(); ap.add_argument("--only", default=""); ap.add_argument("--cache", default=os.environ.get("PC_CACHE", "/tmp/pc-cache"))
 ap.add_argument("--no-images", action="store_true")
+ap.add_argument("--add", type=int, default=0, help="weekly mode: fetch the next N new records (not already in reference_media), upload thumbnails to Storage and insert them into the database")
+ap.add_argument("--to-db", action="store_true", help="load data/reference/public-catalog.json (round 1) into reference_media + Storage")
+ap.add_argument("--dry-run", action="store_true", help="with --add: build and report, write nothing")
 ap.add_argument("--cache-only", action="store_true", help="metadata only from the local cache (no new API calls); images for those records may still download")
 A = ap.parse_args()
 CACHE = pathlib.Path(A.cache); CACHE.mkdir(parents=True, exist_ok=True)
@@ -39,9 +43,17 @@ def get(url, raw=False, tries=4, cache=True):
     if A.cache_only and not raw: return None
     for i in range(tries):
         try:
-            b = urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60).read()
+            t0, b = time.time(), b""
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as resp:  # wall-clock cap: a trickling response must not stall the run
+                while (c := resp.read(1 << 16)):
+                    b += c
+                    if time.time() - t0 > 45: raise TimeoutError("slow response")
+            if os.environ.get("PC_DEBUG") and time.time() - t0 > 10: print(f"slow {time.time() - t0:.0f}s {url[:140]}", file=sys.stderr)
             if not raw: json.loads(b)
             f.write_bytes(b); return b if raw else json.loads(b)
+        except TimeoutError as e:
+            if str(e) == "slow response": print(f"skipped slow response: {url[:120]}", file=sys.stderr); return None
+            time.sleep(2 + 3 * i)
         except urllib.error.HTTPError as e:
             if e.code in (400, 403, 404, 410, 500): return None
             time.sleep(3 + 5 * i)
@@ -78,14 +90,70 @@ def lic_from_url(u):
     if "publicdomain/mark" in u: return "Public domain"
     m = re.search(r"licenses/(by(?:-sa)?)/(\d\.\d)", u)
     return f"CC {m.group(1).upper()} {m.group(2)}" if m else None
+# Dated or disrespectful wording in museum titles is softened for display; the museum's own wording is kept in source_title.
+SOFTEN = [(r"\bPaleo-?Indian\b", "Paleoindian"), (r"\bAmerican Indians\b", "Native Americans"), (r"\bAmerican Indian\b", "Native American"),
+          (r"\bIndians\b(?!\s+(?:Ocean|River|Creek|Lake|Mounds?|Hills?|Territory|Head|Springs?|Valley|Key)\b)", "Native Americans"),
+          (r"\bIndian\b(?!\s+(?:Ocean|River|Creek|Lake|Mounds?|Hills?|Territory|Head|Springs?|Valley|Key)\b)", "Native American"),
+          (r"\bEskimos?\b", "Arctic Indigenous"), (r"\bsquaws?\b", "Indigenous woman's"), (r"\bredskins?\b", "Native American"),
+          (r"\bsavages?\b", "Indigenous people"), (r"\bprimitive\b", "early"), (r"\bhalf[- ]?breeds?\b", "mixed-heritage")]
+def soften(t, americas=True):
+    t = str(t or "")
+    for rx, rep in SOFTEN:
+        if "Indian" in rx and "Paleo" not in rx and not americas: continue  # objects from India keep "Indian"; "Paleoindian" is the period name  # e.g. objects from India keep "Indian"
+        t = re.sub(rx, rep, t, flags=0 if "Indian" in rx else re.I)
+    return re.sub(r"\bNative American\s+Native American\b", "Native American", t)
+POINT_TYPES = None
+def keywords_of(k):
+    """Terms similar_reference_media() matches against AI candidate names (lower case, most specific first)."""
+    global POINT_TYPES
+    if POINT_TYPES is None:
+        try: POINT_TYPES = sorted({re.sub(r"\s*\(.*$", "", t.get("name", "")).strip().lower() for t in json.load(open(ROOT / "data/reference/points.json"))["types"]} - {""}, key=len, reverse=True)
+        except Exception: POINT_TYPES = []
+    text = (k.get("name", "") + " " + k.get("description", "") + " " + k.get("source_title", "")).lower(); kw = []
+    if k["category"] == "artifact":
+        kw += [t for t in POINT_TYPES if len(t) > 3 and re.search(r"\b" + re.escape(t) + r"\b", text)][:3]
+        kw += [t for t in ["clovis", "folsom", "dalton", "plainview", "bannerstone", "birdstone", "gorget", "celt", "grooved axe", "axe", "adze", "pestle", "mortar", "mano", "metate", "hammerstone",
+                           "scraper", "end scraper", "side scraper", "drill", "perforator", "biface", "preform", "knife", "blade", "uniface", "chopper", "plummet", "abrader", "flake", "core"] if re.search(r"\b" + t + r"s?\b", text)]
+        if re.search(r"\bax\b", text) and "axe" not in kw: kw.append("axe")
+        if k.get("type") == "Projectile point" or re.search(r"projectile|arrow|dart|spear", text): kw += ["projectile point", "point", "arrowhead", "dart point", "arrow point"]
+        m = (k.get("material") or "").split(",")[0].strip().lower()
+        if m and m != "stone": kw.append(m + " " + ("point" if "point" in kw else "tool"))
+    elif k["category"] == "fossil":
+        nm = re.sub(r"\s*\(.*$", "", k.get("name", "")); g = nm.split(" ")[0].lower() if nm and nm[0].isupper() else ""
+        if g and len(g) > 3: kw.append(g)
+        parts = nm.split(" ")
+        if len(parts) >= 2 and parts[1].islower() and parts[1].isalpha(): kw.insert(0, (parts[0] + " " + parts[1]).lower())
+        grp = (k.get("type") or "").lower()
+        for w, terms in [("ammonite", ["ammonite"]), ("echinoid", ["echinoid", "sea urchin"]), ("bivalve", ["bivalve", "clam", "oyster"]), ("gastropod", ["gastropod", "snail"]), ("brachiopod", ["brachiopod"]),
+                         ("coral", ["coral"]), ("crinoid", ["crinoid"]), ("trilobite", ["trilobite"]), ("shark", ["shark tooth", "shark"]), ("plant", ["plant fossil", "petrified wood" if "wood" in text else "leaf fossil"]),
+                         ("mammal", ["mammal fossil"]), ("reptile", ["reptile fossil"]), ("sponge", ["sponge"]), ("bryozoan", ["bryozoan"]), ("cephalopod", ["ammonite", "nautiloid"])]:
+            if w in grp: kw += terms
+    else:
+        base = re.sub(r"\s*\(.*$|\bvar\..*$", "", k.get("name", "")).strip().lower()
+        if base: kw.append(base)
+        kw += [w for w in base.replace(",", " ").split() if len(w) > 3 and w not in ("with", "from", "and")][:3]
+        if "agate" in base or "jasper" in base or "chert" in base or "flint" in base: kw.append("chert")
+    out = []
+    for w in kw:
+        w = w.strip()
+        if w and w not in out: out.append(w)
+    return out[:10]
 def rec(**k):
+    am = bool(ST_RE.search(k.get("region", ""))) or "America" in (k.get("culture", "") + k.get("region", ""))
+    k["source_title"] = k.get("name", ""); k["name"] = soften(k.get("name", ""), am); k["description"] = soften(k.get("description", ""), am)
+    if k.get("culture"): k["culture"] = soften(k["culture"], am)
     k.setdefault("period", ""); k.setdefault("age", ""); k.setdefault("formation", ""); k.setdefault("catalog_number", ""); k.setdefault("description", "")
     k["tx"] = k.get("region", "").endswith("Texas"); k["us"] = bool(ST_RE.search(k.get("region", ""))) or k.get("region") == "United States"
     k["search"] = " ".join(str(k.get(x, "")) for x in ("name", "type", "material", "period", "age", "formation", "region", "institution", "catalog_number", "description")).lower()
+    k["keywords"] = keywords_of(k)
     return k
+EXCLUDE, EXCLUDE_PAIRS = set(), set()  # --add: ids and (source, catalog number) already in the database
+def is_new(r): return r["id"] not in EXCLUDE and (r["source"], (r.get("catalog_number") or "").strip().upper()) not in EXCLUDE_PAIRS
 
 # Round-1 caps (2026-11-11, ~1,100 records approved by Mark). Raise these (and the per-state numbers in gbif()) for a later round.
-CAP_YPM_PER_STATE, CAP_YPM_OTHER, CAP_GBIF_TX, CAP_GBIF_GENUS_TX = 25, 400, 520, 4
+CAP_YPM_PER_STATE, CAP_YPM_OTHER, CAP_GBIF_TX, CAP_GBIF_GENUS_TX, YPM_MAX_PAGES, SI_MAX_START, GBIF_STATE_MULT = 25, 400, 520, 4, 12, 1000, 1
+if A.add:  # weekly mode: look deeper; dedupe against the database decides what is new
+    CAP_YPM_PER_STATE, CAP_YPM_OTHER, CAP_GBIF_TX, CAP_GBIF_GENUS_TX, YPM_MAX_PAGES, SI_MAX_START, GBIF_STATE_MULT = 10**6, 10**6, max(60, A.add), 6, 20, 3000, 1
 # ---------------------------------------------------------------- Yale Peabody Museum Anthropology (LUX, CC0)
 def ypm():
     out, seen = [], set()
@@ -104,7 +172,7 @@ def ypm():
             for it in items:
                 if it["id"] not in seen: seen.add(it["id"]); got += 1
             page += 1
-            if page > 12: break
+            if page > YPM_MAX_PAGES: break
     print("ypm candidates", len(seen), file=sys.stderr)
     def one(u):
         o = get(u)
@@ -134,6 +202,8 @@ def ypm():
         if "?" in name or SENSITIVE.search(label) or re.search(r"\bcasts?\b|replica|reproduction|ivory|\bcorn\b|flour|\bbone\b|\bshell\b|wooden|copper|pottery|\bclay\b|\bglass\b|\biron\b|\bbrass\b", name, re.I): return None
         if SENSITIVE.search(text) or not re.search(r"point|arrow|biface|blade|knife|scraper|drill|celt|axe|adze|preform|flake|core|hammer|pestle|mano|metate|banner|gorget|chopper|graver|perforator|spear|dart|tool|uniface|gouge|plummet|abrader", text, re.I): return None
         title = re.sub(r"^1\s+", "", title); t = title[0].upper() + title[1:]
+        if not re.search(r"point|arrow|biface|blade|knife|scraper|drill|celt|\bax|adze|preform|flake|core|hammer|pestle|mano|metate|banner|gorget|chopper|graver|perforator|spear|dart|tool|uniface|gouge|plummet|abrader|ornament|stone", t, re.I):
+            return None  # the title must describe the object (some catalog titles are only a place name)
         typ = next((v for rx, v in [("projectile|arrow|dart|spear| point", "Projectile point"), ("biface|preform|blank", "Biface / preform"), ("scraper", "Scraper"),
                                     ("celt|\\bax\\b|axe|adze|gouge", "Celt / axe"), ("knife|blade", "Knife / blade"), ("drill|perforator|graver", "Drill / perforator"),
                                     ("pestle|mano|metate|hammer|abrader", "Ground stone / hammerstone"), ("banner|gorget|plummet", "Ground stone ornament / weight"),
@@ -179,18 +249,18 @@ def group_of(r):
 SKIP_INST = {"NHMUK"}  # 2026-11-11 review: its Texas media are mostly register-book pages and SEM scans, not specimen photos
 def gbif():
     out = []; seen_taxa = {}
-    plan = [("Texas", CAP_GBIF_TX), ("Oklahoma", 14), ("New Mexico", 12), ("Kansas", 10), ("Arkansas", 6), ("Louisiana", 6), ("Alabama", 6), ("Florida", 8),
+    plan = [("Texas", CAP_GBIF_TX)] + [(st, n * GBIF_STATE_MULT) for st, n in [("Oklahoma", 14), ("New Mexico", 12), ("Kansas", 10), ("Arkansas", 6), ("Louisiana", 6), ("Alabama", 6), ("Florida", 8),
             ("Utah", 8), ("Wyoming", 8), ("South Dakota", 6), ("Montana", 6), ("Ohio", 8), ("New York", 8), ("Indiana", 6), ("Kentucky", 6), ("Tennessee", 6),
-            ("Iowa", 4), ("Illinois", 4), ("California", 6)]
+            ("Iowa", 4), ("Illinois", 4), ("California", 6)]]
     def pages(state, want):
         """Yield result pages spread across each open-licensed institution's records for a state (not just the first page)."""
-        for lic in ("CC0_1_0", "CC_BY_4_0"):
+        for lic in (("CC0_1_0",) if A.add else ("CC0_1_0", "CC_BY_4_0")):  # weekly mode adds CC0 / public domain only
             f = get("https://api.gbif.org/v1/occurrence/search?" + urllib.parse.urlencode({"basisOfRecord": "FOSSIL_SPECIMEN", "country": "US", "stateProvince": state,
                     "mediaType": "StillImage", "license": lic, "limit": 0, "facet": "institutionCode", "facetLimit": 40}))
             for c in ((f or {}).get("facets") or [{}])[0].get("counts", []):
                 if c["name"].upper() in ("FMNH", "NMMNHS", "UCM"): continue  # their media are CC BY-NC / BY-NC-SA
                 total = c["count"]; step = max(300, (total // max(1, min(8, want // 10 + 1))) // 300 * 300)
-                for off in range(0, min(total, 15000), step):
+                for off in range(0, min(total, 6000 if A.add else 15000), step):  # GBIF trickles on deep offsets
                     yield c["name"].upper(), (get("https://api.gbif.org/v1/occurrence/search?" + urllib.parse.urlencode({"basisOfRecord": "FOSSIL_SPECIMEN", "country": "US",
                           "stateProvince": state, "mediaType": "StillImage", "license": lic, "institutionCode": c["name"], "limit": 300, "offset": off})) or {}).get("results") or []
     for state, want in plan:
@@ -200,6 +270,7 @@ def gbif():
             for r in res:
                 if n >= want: break
                 if re.search(r"cast|replica|model|mold of", strip(r.get("preparations")), re.I): continue  # photos of casts are not the specimen
+                if f"gbif:{r['key']}" in EXCLUDE or ("GBIF.org", strip(r.get("catalogNumber")).upper()) in EXCLUDE_PAIRS: continue
                 if r.get("kingdom") in ("Chromista", "Protozoa", "Bacteria") or not r.get("scientificName") or r.get("taxonRank") in ("KINGDOM",): continue
                 ic = (r.get("institutionCode") or "").upper(); inst = INST.get(ic) or strip(r.get("institutionCode"))
                 if ic in SKIP_INST: continue
@@ -226,8 +297,8 @@ def gbif():
 # ---------------------------------------------------------------- Smithsonian NMNH Mineral Sciences (CC0)
 def si():
     out = []; seen = set()
-    for q, want in [('unit_code:NMNHMINSCI AND media_usage:CC0 AND Texas', 60), ('unit_code:NMNHMINSCI AND media_usage:CC0 AND "United States"', 120)]:
-        for start in range(0, 1000, 100):
+    for q, want in [('unit_code:NMNHMINSCI AND media_usage:CC0 AND Texas', 60 if not A.add else 10**6), ('unit_code:NMNHMINSCI AND media_usage:CC0 AND "United States"', 120 if not A.add else 10**6)]:
+        for start in range(0, SI_MAX_START, 100):
             d = get("https://api.si.edu/openaccess/api/v1.0/search?" + urllib.parse.urlencode({"q": q, "api_key": SI_KEY, "rows": 100, "start": start}))
             rows = ((d or {}).get("response") or {}).get("rows") or []
             if not rows: break
@@ -371,9 +442,8 @@ def ref():
     return out
 
 SOURCES = {"ref": ref, "ypm": ypm, "gbif": gbif, "si": si, "met": met, "cma": cma, "wmc": wmc}
-def thumb(r):
-    f = IMG / (re.sub(r"[^a-z0-9]+", "-", r["id"].lower()).strip("-") + ".webp")
-    if f.exists() and f.stat().st_size > 1500: return f
+def thumb_bytes(r):
+    """Download the source image and re-encode it as a <=480 px WebP. Re-encoding drops all EXIF/GPS metadata."""
     b = get(r["image_src"], raw=True)
     if not b: return None
     try:
@@ -381,10 +451,77 @@ def thumb(r):
         im = Image.open(io.BytesIO(b)); im = ImageOps.exif_transpose(im).convert("RGB"); im.thumbnail((480, 480))
         if min(im.size) < 120: return None
         buf = io.BytesIO(); im.save(buf, "WEBP", quality=74, method=5)  # no exif= argument: all metadata (incl. GPS) is dropped
-        f.write_bytes(buf.getvalue()); return f
+        return buf.getvalue()
     except Exception: return None
-
+def slug(rid): return re.sub(r"[^a-z0-9]+", "-", rid.lower()).strip("-")
+def thumb(r):  # legacy JSON/repo mode only
+    f = IMG / (slug(r["id"]) + ".webp")
+    if f.exists() and f.stat().st_size > 1500: return f
+    b = thumb_bytes(r)
+    if not b: return None
+    f.write_bytes(b); return f
+CAT_FIELDS = ["name", "source_title", "type", "material", "period", "age", "formation", "culture", "region", "institution", "catalog_number", "creator", "description", "tx", "us", "gbif_url"]
+def db_row(r, thumb_url):
+    cat = {k: r.get(k) for k in CAT_FIELDS if r.get(k) not in (None, "")}
+    topics = [r["category"]] + (["texas"] if r.get("tx") else [])
+    return {"id": r["id"], "source": r["source"], "kind": r["category"], "title": r["name"], "keywords": r.get("keywords") or keywords_of(r), "category": "public-catalog",
+            "thumb_url": thumb_url, "image_url": r.get("image_src"), "source_url": r["source_url"], "license": r["license"], "license_url": r.get("license_url"),
+            "attribution": r["attribution"], "topics": topics, "data": {"pc": "1", "public": "1", "catalog": cat, "topics": topics}}
+OK_LIC = re.compile(r"^(CC0|Public domain)$")  # database/weekly mode: CC0 / public domain only, as Mark asked
+def to_db(records, fetch_thumbs):
+    import pc_db
+    pc_db.ensure_bucket(); existing = {x["id"]: x for x in pc_db.all_rows("id,source,data")}
+    new, reused, failed = [], 0, 0
+    def one(r):
+        if not OK_LIC.match(r["license"]): return None
+        if r["id"] in existing and not (existing[r["id"]].get("data") or {}).get("pc"):  # a pre-existing row (019/025): add catalog fields only, keep title/keywords/credits
+            d = dict(existing[r["id"]].get("data") or {}); d.update({"public": "1", "catalog": {k: r.get(k) for k in CAT_FIELDS if r.get(k) not in (None, "")}})
+            pc_db.patch_data(r["id"], d); return "reused"
+        b = (ROOT / r["thumb"]).read_bytes() if (not fetch_thumbs and r.get("thumb") and (ROOT / r["thumb"]).exists()) else thumb_bytes(r)
+        if not b: return None
+        return db_row(r, pc_db.upload(f"{r['category']}/{slug(r['id'])}.webp", b))
+    with cf.ThreadPoolExecutor(6) as ex: res = list(ex.map(one, records))
+    for x in res:
+        if x == "reused": reused += 1
+        elif x: new.append(x)
+        else: failed += 1
+    pc_db.upsert(new)
+    return new, reused, failed
+def add_mode(n):
+    """Weekly: the next n records that are not in reference_media yet (dedupe by id and by source + catalog number), mixed across categories."""
+    import pc_db
+    ids, pairs = pc_db.seen_keys(); EXCLUDE.update(ids); EXCLUDE_PAIRS.update(pairs)
+    quota = {"fossil": round(n * .4), "artifact": round(n * .4)}; quota["mineral"] = n - quota["fossil"] - quota["artifact"]
+    pools = {"artifact": [], "fossil": [], "mineral": []}
+    for s in ["gbif", "ypm", "si", "met", "cma"]:
+        t0 = time.time()
+        try: got = [r for r in SOURCES[s]() if is_new(r) and OK_LIC.match(r["license"])]
+        except Exception as e: print(f"{s}: skipped ({str(e)[:80]})", file=sys.stderr); continue
+        print(f"{s}: {len(got)} new candidates ({time.time() - t0:.0f}s)", file=sys.stderr)
+        for r in got: pools[r["category"]].append(r)
+    for k in pools:  # Texas first, then US; spread across names so one week isn't 40 copies of the same taxon
+        pools[k].sort(key=lambda r: (not r["tx"], not r["us"], r["id"])); seen_n = {}
+        for r in pools[k]: r["_rank"] = seen_n[r["name"].lower()] = seen_n.get(r["name"].lower(), -1) + 1
+        pools[k].sort(key=lambda r: (r["_rank"] > 0, not r["tx"], r["_rank"], not r["us"], r["id"]))
+    pick, seen = [], set()
+    for k, q in quota.items(): pick += pools[k][:q]
+    spare = [r for k in pools for r in pools[k][quota[k]:]]; spare.sort(key=lambda r: (not r["tx"], r["id"]))
+    pick += spare[: max(0, n - len(pick))]
+    pick = [r for r in pick if not (r["id"] in seen or seen.add(r["id"]))][:n]
+    for r in pick: r.pop("_rank", None)
+    if A.dry_run:
+        by = ", ".join(c + " " + str(sum(r["category"] == c for r in pick)) for c in pools)
+        print(f"reference add (dry run): would add {len(pick)} ({by}); new available: " + ", ".join(f"{k} {len(v)}" for k, v in pools.items())); return
+    new, reused, failed = to_db(pick, True)
+    total = len(pc_db.all_rows("id"))
+    print(f"{time.strftime('%Y-%m-%d %H:%M %Z')} reference add: requested {n}, added {len(new)} (" + ", ".join(f"{c} {sum(x['kind'] == c for x in new)}" for c in ("artifact", "fossil", "mineral")) +
+          f"), skipped {failed} (no usable image), reference_media now {total} rows")
 def main():
+    if A.add: return add_mode(A.add)
+    if A.to_db:
+        items = json.load(open(OUT))["items"]
+        new, reused, failed = to_db([dict(r, keywords=r.get("keywords") or keywords_of(r)) for r in items], False)
+        print(f"reference load: {len(new)} rows upserted, {reused} existing rows flagged public, {failed} skipped"); return
     only = [s for s in A.only.split(",") if s] or list(SOURCES)
     old = {r["id"]: r for r in (json.load(open(OUT))["items"] if OUT.exists() else [])}
     rows = []

@@ -1,9 +1,10 @@
--- Rollback for 027: removes only what 027 added. Rows created by the public catalog loader carry data->>'pc' = '1' and are deleted;
--- pre-existing rows (the 344 from 019/025) are kept and only lose the two new columns.
+-- Rollback for 027: the page goes back to owner-only reads (the Reference Catalog then shows its error state to visitors).
+-- Data is NOT deleted here. To also remove the importer's rows, run separately (after a backup):
+--   delete from public.reference_media where data ->> 'pc' = '1';
+--   update public.reference_media set data = data - 'public' - 'catalog' where data ? 'public';
+-- and empty the Storage bucket 'reference-media'.
 begin;
 drop policy if exists "reference_media public catalog read" on public.reference_media;
-delete from public.reference_media where data ->> 'pc' = '1';
-drop index if exists public.reference_media_public;
-alter table public.reference_media drop column if exists catalog;
-alter table public.reference_media drop column if exists public_catalog;
+drop index if exists public.reference_media_pc_source_catno;
+drop index if exists public.reference_media_public_idx;
 commit;

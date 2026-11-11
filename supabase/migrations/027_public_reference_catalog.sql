@@ -1,17 +1,18 @@
--- 027 (2026-11-11): free public Reference Catalog, stored in the existing reference_media table (extended, not duplicated).
--- * public_catalog = true marks institution-held records with open images (CC0 / PD / CC BY / CC BY-SA) that anyone may read,
---   including signed-out visitors. All other reference_media rows keep the owner-only rule from 019 (unchanged).
--- * catalog jsonb holds the display fields: name, type, material, period, age, formation, culture, region (county/state at most),
---   institution, catalog_number, creator, thumb (repo path) and search text. No coordinates or localities are ever stored.
--- * New rows are inserted with keywords = '{}' so similar_reference_media() (AI look-alike matching) behaves exactly as before.
--- Rows: tools/reference/import_public_catalog.py -> data/reference/public-catalog.json -> tools/reference/load_public_catalog_sql.py
+-- 027 (2026-11-11, revised before first apply): free public Reference Catalog, read straight from reference_media.
+-- Public-catalog rows are ordinary reference_media rows whose data->>'public' = '1' (display fields in data->'catalog').
+-- They are written by tools/reference/import_public_catalog.py with the service key (REST + Storage), so no schema
+-- columns are added. Rows from the catalog importer carry data->>'pc' = '1'; pre-existing rows from 019/025 only gain
+-- data.public/data.catalog. Their keywords feed similar_reference_media() (AI look-alike matching), as Mark asked.
+-- This migration adds:
+--   1. anon + authenticated SELECT on public-catalog rows only, so signed-out visitors can read them. All other rows keep the 019 owner-only rule.
+--   2. a unique index on (source, catalog number) for importer rows: the database enforces the weekly dedupe.
+--   3. a partial index for the page query.
 -- Rollback: 027_public_reference_catalog_down.sql
 begin;
-alter table public.reference_media add column if not exists public_catalog boolean not null default false;
-alter table public.reference_media add column if not exists catalog jsonb;
-create index if not exists reference_media_public on public.reference_media (kind) where public_catalog;
 drop policy if exists "reference_media public catalog read" on public.reference_media;
-create policy "reference_media public catalog read" on public.reference_media for select to anon, authenticated using (public_catalog);
-grant select on public.reference_media to anon, authenticated;
-revoke insert, update, delete on public.reference_media from anon, authenticated;
+create policy "reference_media public catalog read" on public.reference_media for select to anon, authenticated
+  using ((data ->> 'public') = '1');
+create unique index if not exists reference_media_pc_source_catno on public.reference_media (source, upper(data -> 'catalog' ->> 'catalog_number'))
+  where (data ->> 'pc') = '1' and coalesce(data -> 'catalog' ->> 'catalog_number', '') <> '';
+create index if not exists reference_media_public_idx on public.reference_media (kind, id) where (data ->> 'public') = '1';
 commit;

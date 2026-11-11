@@ -41,23 +41,55 @@ Imported rows always carry their source, license, license URL, attribution and s
 ## Public Reference Catalog (added 2026-11-11, ro-v9.13.0)
 A free catalog anyone can browse, signed in or not: `#/reference` (https://unearthedfinds.com/#/reference). It is **separate from members' finds** and does not touch any user collection or its visibility.
 
-**What qualifies ("proven"):** the object or specimen is held by a museum or research collection and has a catalog number or an institutional record page, **and the image itself** is CC0, public domain, CC BY or CC BY-SA. For GBIF the license on the *media item* is checked; the record's license is never used as a stand-in. NC/ND or "all rights reserved" images are skipped.
+**What qualifies ("proven"):** the object or specimen is held by a museum or research collection and has a catalog number or an institutional record page, **and the image itself** is CC0 or public domain. For GBIF the license on the *media item* is checked; the record's license is never used as a stand-in. NC/ND or "all rights reserved" images are skipped.
 
 **Privacy:** locations are cut to county + state (or state/country). Coordinates, localities, towns, sites and survey sections are never stored. Thumbnails are re-encoded (≤480 px WebP), which drops all EXIF/GPS.
 
 **Sensitive items:** records that mention burials, graves, human remains or sacred or ceremonial objects are excluded.
 
-**DB status (2026-11-11):** migration 027 is written but not applied yet (the Supabase management token was unavailable). The live page reads the static JSON, so it doesn't depend on 027. To apply it: run 027, then `python3 tools/reference/load_public_catalog_sql.py` and run its output.
+**Database is the source of truth (ro-v9.14.0).** Every record is a row in `reference_media`: `data.public = '1'` marks it public, and `data.catalog` holds the display fields (`name`, `source_title`, type, material, period, region, institution, catalog number, …). Rows the importer adds also carry `data.pc = '1'`, `category = 'public-catalog'` and `keywords`. Thumbnails are ≤480 px WebP with EXIF stripped, stored in the **public Storage bucket `reference-media`** at `<category>/<slug>.webp`. They are not kept in the repo. 22 Met/Smithsonian rows from earlier migrations were only flagged public; their titles, keywords and institution-hosted thumbnails are unchanged.
 
-**Files:** importer `tools/reference/import_public_catalog.py` → `data/reference/public-catalog.json` + `images/reference/*.webp`. UI: `assets/js/refcatalog.js`. DB mirror: migration 027 (adds `public_catalog` + `catalog` to `reference_media`, plus an anon read policy on `public_catalog` rows only) and loader `tools/reference/load_public_catalog_sql.py`. New rows get empty `keywords`, so AI look-alike matching (`similar_reference_media`) is unchanged. Test: `tests/public_reference_regress.py`.
+**Page:** `assets/js/refcatalog.js` reads `reference_media` rows where `data->>public = 1` from Supabase, 1,000 rows per page. If that fails it shows a retry message ("The Reference Catalog can't load right now…").
 
-**Round 1:** 1137 records: 400 artifacts, 593 fossils, 144 minerals. 561 are from Texas. Capped at about 1,100 from the cached downloads, at Mark's direction (caps `CAP_*` sit at the top of the importer). To grow it, re-run the importer without `--cache-only` (`--only ypm,gbif,...`) after raising the caps.
+**Migration 027 (`supabase/migrations/027_public_reference_catalog.sql`, down: `027_public_reference_catalog_down.sql`):** adds the anon/authenticated SELECT policy limited to public rows, a unique index on (source, catalog number) for importer rows, and a partial index. **Status 2026-11-11: written, NOT applied.** Applying it needs the Supabase Management API token (`SUPABASE_ACCESS_TOKEN`, see docs/run-deploy-extend.md), which isn't on the box right now. Until 027 is applied, anon reads return no rows. The page then falls back to a **temporary bridge export**, `data/reference/public-catalog.json`, built from the DB rows with Storage thumbnail URLs. **After 027:** confirm signed-out reads show `RefCatalog.origin() === "db"`, then delete the `BRIDGE` fallback in refcatalog.js and the JSON file.
+
+**Wording:** the museum's original title is kept in `data.catalog.source_title`, and the page shows a softened title (`soften()` in the importer):
+- "Paleo-Indian" becomes "Paleoindian".
+- "(American) Indian(s)" becomes "Native American(s)". Place names such as "Indian River" are not changed, and neither is text about India.
+- "Eskimo" becomes "Arctic Indigenous".
+- Slurs or dated terms such as "squaw", "savage" and "primitive" are replaced.
+
+16 titles were softened in round 1. The detail page shows "Museum's title" whenever it differs from the displayed title.
+
+**AI look-alike matching:** importer rows get `keywords`, and `similar_reference_media` (signed-in, used by the find page and `analyze-find`) matches on them. Keywords are:
+- point type names from `data/reference/points.json`, tool terms, and "material + point/tool" for artifacts;
+- species, genus and group for fossils;
+- the mineral name for minerals.
+
+Results are research suggestions only, never identifications. Two records have no matching keyword (`met:310686` "Mace head", `ypm:ant-013958` "Drilled stone ornament"). They still appear in the catalog.
+
+**Weekly growth (`--add N`):** fetches the next N CC0/public-domain records that are not in `reference_media` yet, under the same rules. Dedupe is by id and by (source, catalog number). The mix is about 40% fossils, 40% artifacts and 20% minerals, with Texas first. It uploads thumbnails to Storage, inserts the rows, and prints one line:
+`2026-11-18 03:00 CST reference add: requested 100, added 100 (artifact 40, fossil 40, mineral 20), skipped 0 (no usable image), reference_media now 1550 rows`
+
+```
+cd /workspace/ec-main && set -a && . /workspace/.svc && set +a && \
+  PYTHONPATH=tools/reference python3 tools/reference/import_public_catalog.py --add 100 --cache /workspace/pubref/cache
+```
+
+Add `--dry-run` to see what would be added without writing anything. It needs only the service key (`SVC_KEY` in `/workspace/.svc`), not 027. The HTTP cache keeps later weeks fast. CC BY sources aren't used in weekly mode. When a source runs dry, the count added can fall below N, and the summary line shows it.
+
+**Files:**
+- importer `tools/reference/import_public_catalog.py`, with DB/Storage I/O in `tools/reference/pc_db.py`;
+- UI `assets/js/refcatalog.js`;
+- test `tests/public_reference_regress.py`. With `SVC_KEY` set it checks the DB rows and a Storage thumbnail sample; without it, the bridge.
+
+**Round 1 (in the DB): 1,128 records:** 391 artifacts, 593 fossils and 144 minerals, 561 of them from Texas. Backups taken before the load are in `/workspace/backups/pre-public-reference-2026-11-11/` and under git tag `pre-public-reference-2026-11-11`.
 
 | Source | Records | License |
 |---|---|---|
 | GBIF.org | 584 | CC0 |
-| Yale Peabody Museum via LUX | 375 | CC0 |
-| Smithsonian Open Access | 137 | CC0 |
+| Yale Peabody Museum via LUX | 366 | CC0 |
+| Smithsonian Open Access | 136 | CC0 |
 | The Met Open Access | 23 | CC0 |
-| Smithsonian Open Access (NMNH) | 16 | CC0 |
+| Smithsonian Open Access (NMNH) | 17 | CC0 |
 | Cleveland Museum of Art Open Access | 2 | CC0 |
