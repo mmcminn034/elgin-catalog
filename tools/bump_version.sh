@@ -4,4 +4,5 @@
 set -e; V="$1"; [ -n "$V" ] || { echo "usage: $0 ro-vX.Y"; exit 1; }
 sed -i "s/const VERSION = \"[^\"]*\"/const VERSION = \"$V\"/" sw.js
 sed -i -E "s#((src|href)=\"assets/(css|js)/[A-Za-z0-9_.-]+\.(css|js))\?v=[A-Za-z0-9_.-]+\"#\1?v=$V\"#g" index.html
+[ -d reference ] && find reference -name "*.html" -exec sed -i -E "s#(assets/js/traffic\\.js)\\?v=[A-Za-z0-9_.-]+#\\1?v=$V#g" {} +  # static SEO pages load the traffic logger too
 grep -o "VERSION = \"[^\"]*\"" sw.js

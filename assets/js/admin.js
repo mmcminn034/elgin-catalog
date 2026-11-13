@@ -12,7 +12,7 @@
   const fmt = t => t ? new Date(t).toLocaleString("en-US", { timeZone: TZ, month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) + " CT" : "—";
   const num = n => Number(n || 0).toLocaleString("en-US");
   async function rpc(name, args) { if (MOCK) { const A = MOCK.admin || {}; if (A.refuse) return { error: "admin only" };
-      if (name === "admin_stats") return { data: A.stats || {} }; if (name === "admin_daily_series") return { data: A.series || [] }; (A.calls = A.calls || []).push([name, args]); return { data: null }; }
+      if (name === "admin_stats") return { data: A.stats || {} }; if (name === "admin_daily_series") return { data: A.series || [] }; if (name === "admin_traffic_stats") return A.traffic ? { data: A.traffic } : { error: "Could not find the function public.admin_traffic_stats" }; (A.calls = A.calls || []).push([name, args]); return { data: null }; }
     if (!sb()) return { error: "Offline" }; return q(sb().rpc(name, args || {})); }
 
   /* simple inline SVG bar chart: no chart library, no network */
@@ -47,11 +47,34 @@
       <p class="help">Updated ${esc(fmt(S.generated_at))} · <button type="button" class="btn small ghost" id="admRefresh">Refresh</button></p>`;
     $("#admPrefs", box).onsubmit = async e => { e.preventDefault(); const f = e.target, r = await rpc("admin_set_prefs", { p_daily: f.daily.checked, p_signups: f.signups.checked }); $("#admPrefsMsg", box).textContent = r.error || "✓ Saved"; };
     $("#admRefresh", box).onclick = () => { box.remove(); mount(host); };
-    rpc("admin_mark_seen"); if (window.PayDig) PayDig.adminMount(host); }
+    rpc("admin_mark_seen"); traffic(box); if (window.PayDig) PayDig.adminMount(host); }
+
+  /* Traffic (migration 028): first-party page views from assets/js/traffic.js. Admin-only RPC; anonymous counts, no IPs, no cookies. */
+  const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "—";
+  const tbl = (id, head, rows) => rows.length ? `<table class="adm-table" id="${id}"><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>` : '<p class="muted">Nothing yet.</p>';
+  const pageName = p => ({ "/": "Home", "/#/try": "Try it free", "/#/try/new": "Try it free: add a find", "/#/reference": "Reference Catalog (app)", "/#/reference/record": "Reference record (app)", "/reference/": "Reference Catalog (search page)", "/reference/r/": "Reference record (search page)" }[p] || p);
+  function trafficHtml(T, win) { const W = T[win] || {}, F = W.funnel || {}, label = win === "week" ? "last 7 days" : `last ${T.days || 30} days`;
+    const stage = (k, n, base) => `<li data-funnel="${k}"><strong>${num(n)}</strong> ${esc({ visitors: "visitors", try_visitors: "opened Try it free", guest_finds: "guest finds added", signups: "signed up" }[k])}${base != null ? ` <span class="muted">(${pct(n, base)})</span>` : ""}</li>`;
+    return `<h2 id="admTrafficH">Traffic</h2>
+      <div class="adm-tiles">${["today", "week", "month"].map(k => tile("traffic-" + k, `${num((T[k] || {}).visits)} / ${num((T[k] || {}).visitors)}`, `visits / unique visitors ${k === "today" ? "today" : k === "week" ? "last 7 days" : `last ${T.days || 30} days`}`)).join("")}</div>
+      <div class="adm-charts">${bars(T.series || [], "visits", "Visits per day", "#c8642d")}${bars(T.series || [], "visitors", "Unique visitors per day", "#3a6a8a")}</div>
+      <p class="adm-range" role="group" aria-label="Range">Showing <strong>${esc(label)}</strong> · <button type="button" class="btn small ghost" data-twin="week" ${win === "week" ? "disabled" : ""}>7 days</button> <button type="button" class="btn small ghost" data-twin="month" ${win === "month" ? "disabled" : ""}>${num(T.days || 30)} days</button></p>
+      <h3>Funnel</h3><ol class="adm-funnel" id="admFunnel">${stage("visitors", F.visitors)}${stage("try_visitors", F.try_visitors, F.visitors)}${stage("guest_finds", F.guest_finds, F.try_visitors)}${stage("signups", F.signups, F.visitors)}</ol>
+      <div class="adm-cols"><div><h3>Top pages</h3>${tbl("admTopPages", ["Page", "Views", "Visitors"], (W.top_pages || []).map(r => [esc(pageName(r.path)), num(r.views), num(r.visitors)]))}
+        <h3>Top referrers</h3>${tbl("admTopRefs", ["Site", "Visits", "Visitors"], (W.top_referrers || []).map(r => [esc(r.domain), num(r.visits), num(r.visitors)]))}
+        <h3>Campaigns (UTM)</h3>${tbl("admCampaigns", ["Source", "Medium", "Campaign", "Visits", "Visitors"], (W.campaigns || []).map(r => [esc(r.source || "—"), esc(r.medium || "—"), esc(r.campaign || "—"), num(r.visits), num(r.visitors)]))}</div>
+        <div><h3>Top Reference Catalog records</h3>${tbl("admTopRecords", ["Record", "Views"], (W.top_records || []).map(r => [`<a href="#/reference/${encodeURIComponent(r.id)}">${esc(r.title || r.id)}</a>`, num(r.views)]))}
+        <h3>Sign-ups by source</h3>${tbl("admSignupSrc", ["Source", "Sign-ups"], (W.signups_by_source || []).map(r => [esc(r.source), num(r.signups)]))}
+        <h3>Devices and countries</h3><p class="muted" id="admDevices">${Object.entries(W.devices || {}).map(([k, v]) => `${esc(k)} ${num(v)}`).join(" · ") || "—"}${(W.countries || []).length ? " · " + W.countries.map(c => `${esc(c.cc)} ${num(c.visits)}`).join(", ") : ""}</p></div></div>
+      <p class="help">First-party and cookie-free: page views go only to our own database, visitors are counted with a hash that changes every day (no IPs stored), and Do Not Track is respected. Your own visits aren't counted. Unique visitors over several days add up each day's visitors. Updated ${esc(fmt(T.generated_at))}.</p>`; }
+  async function traffic(after) { let sec = $("#admTraffic"); if (!sec) { sec = document.createElement("section"); sec.id = "admTraffic"; sec.className = "adm-dash adm-traffic"; sec.setAttribute("aria-labelledby", "admTrafficH"); after.after(sec); }
+    sec.innerHTML = '<h2 id="admTrafficH">Traffic</h2><p class="help">Loading…</p>'; const r = await rpc("admin_traffic_stats", { p_days: 30 });
+    if (r.error) { sec.innerHTML = '<h2 id="admTrafficH">Traffic</h2>' + (/could not find|does not exist|PGRST202|404/i.test(r.error) ? '<p class="help" id="admTrafficPending">Traffic reporting is built and switches on as soon as database update 028 is applied. Page views start counting from that moment.</p>' : `<p class="err">Traffic unavailable: ${esc(r.error)}</p>`); return; }
+    const draw = win => { sec.innerHTML = trafficHtml(r.data || {}, win); $$("[data-twin]", sec).forEach(b => b.onclick = () => draw(b.dataset.twin)); }; draw("month"); }
 
   /* app error logging into our own DB (rate-limited server side); messages trimmed, no stack, no page data */
   let sent = 0; const logErr = (msg, where) => { if (MOCK || sent >= 5 || !sb()) return; sent++; try { sb().rpc("log_client_error", { p_msg: String(msg || "").slice(0, 300), p_where: String(where || location.hash.split("/").slice(0, 2).join("/")).slice(0, 120) }).then(() => {}, () => {}); } catch (_) {} };
   addEventListener("error", e => { if (e && e.message && !/ResizeObserver|Script error/.test(e.message)) logErr(e.message, (e.filename || "").split("/").pop() + ":" + (e.lineno || 0)); });
   addEventListener("unhandledrejection", e => { const m = e && e.reason && (e.reason.message || String(e.reason)); if (m && !/Failed to fetch|NetworkError|AbortError|Load failed/.test(m)) logErr(m, "promise"); });
-  window.AdminDash = { mount, bars };
+  window.AdminDash = { mount, bars, traffic };
 })();

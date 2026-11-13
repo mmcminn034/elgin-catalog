@@ -27,3 +27,7 @@ Suites that need `SVC_KEY` (plan_guard, security, batch4, account_delete, expert
 
 ## SEO pages (2026-11-13)
 `python3 tests/seo_pages_regress.py [URL]` checks robots.txt, sitemap.xml, every generated `reference/` page (tags, JSON-LD license + creditText, credit line, app link, no private data or coordinates), and with `SVC_KEY` that the pages match the database's public rows exactly. With a URL it renders sample pages and checks the app still loads signed out.
+
+## Traffic reporting (2026-11-13)
+- `PGLITE_DIR=/tmp/pgl node tests/traffic_sql_test.mjs` runs migration 028 against an in-memory Postgres (no production access).
+- `python3 tests/traffic_regress.py URL` covers the logger, privacy rules and the admin Traffic section. See `docs/traffic.md`.

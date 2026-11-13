@@ -91,3 +91,7 @@ table.cmp thead th{background:var(--surface2)}
 @media (max-width:640px){.rc-dlg-body{grid-template-columns:1fr}.rc-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
 .rc-tabs{display:flex;flex-wrap:wrap;gap:.4rem}.rc-tab{border:1px solid var(--line,#d9cbb8);background:var(--surface,#fff);color:inherit;border-radius:999px;padding:.35rem .9rem;cursor:pointer;font:inherit}
 .rc-tab[aria-selected=true]{background:var(--accent,#7a4b2a);color:#fff;border-color:transparent}.rc-tab .n{opacity:.8;font-size:.85em}
+/* Traffic section (admin dashboard, migration 028) */
+.adm-traffic{margin-top:1.2rem}.adm-funnel{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem;margin:.4rem 0 1rem}
+.adm-funnel li{flex:1 1 150px;padding:.6rem .8rem;border:1px solid var(--line,#d9cbb8);border-radius:10px}.adm-funnel li+li::before{content:"→ ";opacity:.6}
+.adm-funnel strong{font-size:1.15rem}.adm-range .btn[disabled]{opacity:.55}
