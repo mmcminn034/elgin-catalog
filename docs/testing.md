@@ -24,3 +24,6 @@ Suites that need `SVC_KEY` (plan_guard, security, batch4, account_delete, expert
 
 ## Guest mode
 `python3 tests/guest_regress.py <base-url>` covers the no-signup flow, EXIF stripping, the 3-find limit, the email-only sign-up and the private import. See `docs/guest-mode.md`.
+
+## SEO pages (2026-11-13)
+`python3 tests/seo_pages_regress.py [URL]` checks robots.txt, sitemap.xml, every generated `reference/` page (tags, JSON-LD license + creditText, credit line, app link, no private data or coordinates), and with `SVC_KEY` that the pages match the database's public rows exactly. With a URL it renders sample pages and checks the app still loads signed out.

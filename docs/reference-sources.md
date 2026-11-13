@@ -93,3 +93,31 @@ Add `--dry-run` to see what would be added without writing anything. It needs on
 | The Met Open Access | 23 | CC0 |
 | Smithsonian Open Access (NMNH) | 17 | CC0 |
 | Cleveland Museum of Art Open Access | 2 | CC0 |
+
+## Search-engine pages for the Reference Catalog (added 2026-11-13, ro-v9.15.0)
+The app is a hash-routed single page (`#/reference`), which search engines don't index. So the Reference Catalog also has plain, crawlable HTML pages:
+
+| Path | What |
+|---|---|
+| `/reference/` (`reference/index.html`) | Overview, counts, links to each category, a few sample records |
+| `/reference/artifacts.html`, `fossils.html`, `minerals.html`, `texas.html` | Every record in that group, as thumbnail cards |
+| `/reference/r/<name>-<id>.html` | One lightweight page per public record |
+| `/reference/seo.css` | Shared styles for those pages |
+| `/sitemap.xml` | Home, the 5 overview pages and every record page |
+| `/robots.txt` | Hand-written: allows crawling, points at the sitemap, keeps `/tools/`, `/tests/`, `/supabase/`, `/docs/` out of results |
+
+Each page has a title, meta description, canonical URL, Open Graph and Twitter tags, schema.org JSON-LD (`CollectionPage` + `ItemList` for lists; `CreativeWork` with an `ImageObject` carrying `license`, `acquireLicensePage` and `creditText` for records), the thumbnail from Supabase Storage (bucket `reference-media`; 22 older Smithsonian/Met rows still use the museum's own CC0 image URL, as the app does), the credit line and license, a link to the original museum record, an **Open in the app** link (`#/reference/<id>`) and **Try it free** (`#/try`). Titles use the softened display name (`data.catalog.name`); the museum's `source_title` is not used on these pages.
+
+**These pages are generated output, not data.** The database (`reference_media`, rows with `data->>'public' = '1'`) is the only source of truth. Every file under `reference/` and `sitemap.xml` can be deleted and rebuilt from the database at any time, in about a second:
+
+```
+set -a; . /workspace/.svc; set +a
+python3 tools/reference/build_seo_pages.py        # --dry-run to preview, --force to accept a >20% drop
+python3 tests/seo_pages_regress.py [URL]          # pages == database public rows; no private data
+```
+
+Safety built into the generator: it reads only public catalog rows (never user finds or `find_locations`), skips any row whose text looks like coordinates/GPS/UTM, builds into a temporary folder and swaps it in only after checks pass, refuses to replace a `reference/` folder it didn't generate, and changes nothing if the database read fails or returns more than 20% fewer records than are already published. If a generated file is ever damaged or lost, re-run the command; nothing is lost because nothing lives only in these files.
+
+**Weekly growth:** `tools/reference/weekly_refresh.sh 100 --push` runs the importer (`--add 100`, database + Storage), rebuilds these pages from the database, runs the SEO test and, with `--push`, commits only `reference/` + `sitemap.xml` and pushes `main` so Porkbun picks it up.
+
+**Home page:** `index.html` now has a canonical URL, robots, `og:site_name`, Twitter title/description, a `WebSite` + `WebApplication` JSON-LD block, and a `<noscript>` row of plain links to the reference pages. There is a commented placeholder for Search Console / Bing verification meta tags; no token is filled in.

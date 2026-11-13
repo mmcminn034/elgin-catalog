@@ -1,0 +1,9 @@
+# UnEarthed Finds: public pages may be crawled. Private finds are never in static files; they live behind sign-in.
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /tests/
+Disallow: /supabase/
+Disallow: /docs/
+
+Sitemap: https://unearthedfinds.com/sitemap.xml
