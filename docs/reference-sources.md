@@ -51,7 +51,7 @@ A free catalog anyone can browse, signed in or not: `#/reference` (https://unear
 
 **Page:** `assets/js/refcatalog.js` reads `reference_media` rows where `data->>public = 1` from Supabase, 1,000 rows per page. If that fails it shows a retry message ("The Reference Catalog can't load right now…").
 
-**Migration 027 (`supabase/migrations/027_public_reference_catalog.sql`, down: `027_public_reference_catalog_down.sql`):** adds the anon/authenticated SELECT policy limited to public rows, a unique index on (source, catalog number) for importer rows, and a partial index. **Status 2026-11-11: written, NOT applied.** Applying it needs the Supabase Management API token (`SUPABASE_ACCESS_TOKEN`, see docs/run-deploy-extend.md), which isn't on the box right now. Until 027 is applied, anon reads return no rows. The page then falls back to a **temporary bridge export**, `data/reference/public-catalog.json`, built from the DB rows with Storage thumbnail URLs. **After 027:** confirm signed-out reads show `RefCatalog.origin() === "db"`, then delete the `BRIDGE` fallback in refcatalog.js and the JSON file.
+**Migration 027 (`supabase/migrations/027_public_reference_catalog.sql`, down: `027_public_reference_catalog_down.sql`):** adds the anon/authenticated SELECT policy limited to public rows, a unique index on (source, catalog number) for importer rows, and a partial index. **Status: applied 2026-11-13.** Signed-out visitors (and signed-in members) read public catalog rows straight from `reference_media`. Private/owner-only rows stay hidden from anon. The temporary bridge export (`data/reference/public-catalog.json` and the `BRIDGE` fallback in `refcatalog.js`) was removed after a live signed-out check showed `RefCatalog.origin() === "db"` and 1,133 records. The crawlable `reference/` HTML pages are separate, generated SEO pages for search engines, not that fallback.
 
 **Wording:** the museum's original title is kept in `data.catalog.source_title`, and the page shows a softened title (`soften()` in the importer):
 - "Paleo-Indian" becomes "Paleoindian".
@@ -81,7 +81,7 @@ Add `--dry-run` to see what would be added without writing anything. It needs on
 **Files:**
 - importer `tools/reference/import_public_catalog.py`, with DB/Storage I/O in `tools/reference/pc_db.py`;
 - UI `assets/js/refcatalog.js`;
-- test `tests/public_reference_regress.py`. With `SVC_KEY` set it checks the DB rows and a Storage thumbnail sample; without it, the bridge.
+- test `tests/public_reference_regress.py`. Needs `SVC_KEY`: checks the DB rows and a Storage thumbnail sample, then the signed-out page (mocked cloud in the browser suite).
 
 **Round 1 (in the DB): 1,128 records:** 391 artifacts, 593 fossils and 144 minerals, 561 of them from Texas. Backups taken before the load are in `/workspace/backups/pre-public-reference-2026-11-11/` and under git tag `pre-public-reference-2026-11-11`.
 

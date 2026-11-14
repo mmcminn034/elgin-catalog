@@ -52,9 +52,8 @@ Use lower case and these values so reports group cleanly:
 Campaign names: `launch` (first two weeks), `museum-piece` (weekly featured record posts), `new-additions` (weekly "new records" posts), `try-free` (posts that point at guest mode). Add new names freely; keep them short, lower case, hyphenated.
 
 ## Turning it on / rollback
-1. Apply `supabase/migrations/028_traffic.sql` in the Supabase SQL editor (or with a management token). Nothing else is needed: the deployed site starts logging on the next page view, and the dashboard and daily report pick it up.
-2. Until then the logger makes one quiet attempt per browser session (404) and stops; the dashboard says "switches on as soon as database update 028 is applied"; the daily report says "not counting yet".
-3. Rollback: `028_traffic_down.sql` (keeps the anonymous page-view rows unless you uncomment the delete). The client code is harmless without the functions.
+1. **Status: applied 2026-11-13.** `supabase/migrations/028_traffic.sql` is live. The site logs page views, the admin Traffic section reads `admin_traffic_stats()`, and the daily report prints a Site traffic line via `report_traffic()`.
+2. Rollback: `028_traffic_down.sql` (keeps the anonymous page-view rows unless you uncomment the delete). Without the functions, the logger makes one quiet attempt per browser session (404) and stops; the dashboard would say "switches on as soon as database update 028 is applied".
 
 ## Tests
 - `PGLITE_DIR=/tmp/pgl node tests/traffic_sql_test.mjs` — runs 028 on an in-memory Postgres (PGlite + pgcrypto; `npm i @electric-sql/pglite` in `/tmp/pgl`): stored fields, path/token/referrer scrubbing, no IPs, DNT/GPC/bot/owner skips, salt rotation, caps, sign-up source, admin-only stats, grants, rollback, idempotency.

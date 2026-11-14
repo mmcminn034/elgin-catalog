@@ -31,3 +31,7 @@ Suites that need `SVC_KEY` (plan_guard, security, batch4, account_delete, expert
 ## Traffic reporting (2026-11-13)
 - `PGLITE_DIR=/tmp/pgl node tests/traffic_sql_test.mjs` runs migration 028 against an in-memory Postgres (no production access).
 - `python3 tests/traffic_regress.py URL` covers the logger, privacy rules and the admin Traffic section. See `docs/traffic.md`.
+
+## Public Reference Catalog (027 applied 2026-11-13)
+`SVC_KEY=... python3 tests/public_reference_regress.py URL` checks the database's public rows (license, credits, no coordinates, softened wording) and the signed-out `#/reference` page against a mocked cloud. The temporary bridge export is gone; `SVC_KEY` is required.
+

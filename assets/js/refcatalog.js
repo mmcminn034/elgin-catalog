@@ -10,10 +10,7 @@
   const CATS = [["", "All"], ["artifact", "Artifacts"], ["fossil", "Fossils"], ["mineral", "Minerals"]];
   const PAGE = 48;
   let data = null, st = { cat: "", q: "", tx: false, inst: "", n: PAGE };
-  /* Source of truth: Supabase reference_media rows with data->>'public' = '1' (anon read: migration 027).
-     TEMPORARY bridge until 027 is applied: if the database returns no public rows, the last static export is shown instead.
-     Remove BRIDGE and data/reference/public-catalog.json once database reads are verified live. */
-  const BRIDGE = "data/reference/public-catalog.json";
+  /* Source of truth: Supabase reference_media rows with data->>'public' = '1' (anon read: migration 027, applied 2026-11-13). */
   let origin = "";
   const fromRow = r => { const c = (r.data && r.data.catalog) || {};
     return { ...c, id: r.id, category: r.kind, name: c.name || r.title, thumb: r.thumb_url, source: r.source, source_url: r.source_url, license: r.license, license_url: r.license_url, attribution: r.attribution }; };
@@ -34,7 +31,6 @@
     if (data && !force) return data;
     let items = [], err = null;
     try { items = await fromDb(); origin = "db"; } catch (e) { err = e; }
-    if (!items.length) { try { const r = await fetch(BRIDGE, { cache: "no-cache" }); if (r.ok) { const j = await r.json(); items = j.items || []; origin = "bridge"; data = { generated: j.generated, items }; } } catch (_) {} }
     if (!items.length) { data = null; throw err || new Error("no records"); }
     const rank = { artifact: 0, fossil: 1, mineral: 2 };
     items.sort((a, b) => (rank[a.category] - rank[b.category]) || (!a.tx - !b.tx) || (!a.us - !b.us) || String(a.name).toLowerCase().localeCompare(String(b.name).toLowerCase()));

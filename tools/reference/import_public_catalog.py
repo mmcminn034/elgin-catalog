@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Public Reference Catalog importer. The database is the source of truth: --add N (weekly) and --to-db write reference_media rows + Storage thumbnails (bucket reference-media). Legacy JSON mode builds the temporary bridge export.
+"""Public Reference Catalog importer. The database is the source of truth: --add N (weekly) and --to-db write reference_media rows + Storage thumbnails (bucket reference-media). Legacy JSON mode can still write data/reference/public-catalog.json, but that file is no longer shipped or used by the app (removed after 027).
 
 Only institution-held specimens/objects ("proven": museum catalog number or institutional record) whose IMAGE is
 CC0, public domain, CC BY or CC BY-SA. Every record keeps license, license URL, creator/institution, source URL and an

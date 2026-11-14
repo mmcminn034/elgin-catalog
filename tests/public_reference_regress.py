@@ -5,7 +5,7 @@ from playwright.sync_api import sync_playwright
 U = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8843/"; fails = []; errs = []
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 def chk(n, ok, i=""): print(("PASS " if ok else "FAIL ") + n, i); ok or fails.append(n)
-# ---- data rules: the database is the source of truth (service key from the env when present; otherwise the bridge export) ----
+# ---- data rules: the database is the source of truth (SVC_KEY required; the temporary bridge export was removed after 027) ----
 import os, urllib.request
 def db_rows():
     k = os.environ.get("SVC_KEY")
@@ -17,9 +17,7 @@ def db_rows():
         if len(b) < 1000: return out
 rows = db_rows()
 if rows is None:
-    print("NOTE data rules read the bridge export (SVC_KEY not set)")
-    rows = [{"id": x["id"], "source": x["source"], "kind": x["category"], "title": x["name"], "keywords": ["x"], "thumb_url": x["thumb"], "source_url": x["source_url"], "license": x["license"], "license_url": x.get("license_url"),
-             "attribution": x["attribution"], "data": {"public": "1", "pc": "1" if "/storage/v1/" in x["thumb"] else None, "catalog": x}} for x in json.load(open(ROOT / "data/reference/public-catalog.json"))["items"]]
+    print("FAIL SVC_KEY is required (the temporary bridge export was removed after migration 027)"); sys.exit(1)
 items = [{**(r["data"].get("catalog") or {}), "id": r["id"], "category": r["kind"], "name": (r["data"].get("catalog") or {}).get("name") or r["title"], "thumb": r["thumb_url"], "source": r["source"],
           "source_url": r["source_url"], "license": r["license"], "attribution": r["attribution"], "keywords": r.get("keywords") or [], "pc": r["data"].get("pc")} for r in rows]
 OKLIC = re.compile(r"^(CC0|Public domain)$")
@@ -83,7 +81,7 @@ with sync_playwright() as p:
     t = pg.inner_text("#rcDlgBody"); chk("detail shows institution, license, credit and original record link", "Held by" in t and "Credit:" in t and "View the original record" in t)
     chk("detail URL is shareable", "#/reference/" in pg.url); pg.keyboard.press("Escape"); pg.wait_for_timeout(200); chk("closing returns to list URL", pg.url.endswith("#/reference"))
     first_id = pg.evaluate("RefCatalog.filtered()[0].id"); first_nm = pg.evaluate("RefCatalog.filtered()[0].name"); pg.goto(U + "#/reference/" + first_id); pg.wait_for_selector("#rcDlg[open]", timeout=8000); chk("deep link opens the record", first_nm[:20] in pg.inner_text("#rcDlgH"))
-    # graceful error state: database fails and the bridge file is unavailable
+    # graceful error state: database fails (no static fallback)
     c2 = b.new_context(); c2.add_init_script("window.ROLLING_OAK_MOCK=" + json.dumps({"online": True, "user": None, "refcatalog": "error"}))
     c2.route("**/public-catalog.json*", lambda r: r.fulfill(status=404, body="")); p2 = c2.new_page(); p2.goto(U + "#/reference"); p2.wait_for_selector("#rcRetry", timeout=15000)
     chk("graceful error state with retry", "can't load right now" in p2.inner_text("#referenceBody")); c2.close()
