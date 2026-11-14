@@ -53,6 +53,8 @@
   const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "—";
   const tbl = (id, head, rows) => rows.length ? `<table class="adm-table" id="${id}"><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>` : '<p class="muted">Nothing yet.</p>';
   const pageName = p => ({ "/": "Home", "/#/try": "Try it free", "/#/try/new": "Try it free: add a find", "/#/reference": "Reference Catalog (app)", "/#/reference/record": "Reference record (app)", "/reference/": "Reference Catalog (search page)", "/reference/r/": "Reference record (search page)" }[p] || p);
+  const countryName = cc => { try { return new Intl.DisplayNames(["en"], { type: "region" }).of(cc) || cc; } catch { return cc; } };
+  const placeName = r => !r || !r.cc ? "Unknown" : r.region ? (r.cc === "US" ? r.region : `${r.region}, ${countryName(r.cc)}`) : countryName(r.cc);
   function trafficHtml(T, win) { const W = T[win] || {}, F = W.funnel || {}, label = win === "week" ? "last 7 days" : `last ${T.days || 30} days`;
     const stage = (k, n, base) => `<li data-funnel="${k}"><strong>${num(n)}</strong> ${esc({ visitors: "visitors", try_visitors: "opened Try it free", guest_finds: "guest finds added", signups: "signed up" }[k])}${base != null ? ` <span class="muted">(${pct(n, base)})</span>` : ""}</li>`;
     return `<h2 id="admTrafficH">Traffic</h2>
@@ -65,6 +67,8 @@
         <h3>Campaigns (UTM)</h3>${tbl("admCampaigns", ["Source", "Medium", "Campaign", "Visits", "Visitors"], (W.campaigns || []).map(r => [esc(r.source || "—"), esc(r.medium || "—"), esc(r.campaign || "—"), num(r.visits), num(r.visitors)]))}</div>
         <div><h3>Top Reference Catalog records</h3>${tbl("admTopRecords", ["Record", "Views"], (W.top_records || []).map(r => [`<a href="#/reference/${encodeURIComponent(r.id)}">${esc(r.title || r.id)}</a>`, num(r.views)]))}
         <h3>Sign-ups by source</h3>${tbl("admSignupSrc", ["Source", "Sign-ups"], (W.signups_by_source || []).map(r => [esc(r.source), num(r.signups)]))}
+        <h3>Top locations</h3>${tbl("admTopLocations", ["Location", "Visits", "Visitors"], (W.locations || []).map(r => [esc(placeName(r)), num(r.visits), num(r.visitors)]))}
+        <p class="help" id="admGeoCredit">Country and state/region only, looked up in our own database and never stored with the IP. IP geolocation by <a href="https://db-ip.com" target="_blank" rel="noopener">DB-IP</a>.</p>
         <h3>Devices and countries</h3><p class="muted" id="admDevices">${Object.entries(W.devices || {}).map(([k, v]) => `${esc(k)} ${num(v)}`).join(" · ") || "—"}${(W.countries || []).length ? " · " + W.countries.map(c => `${esc(c.cc)} ${num(c.visits)}`).join(", ") : ""}</p></div></div>
       <p class="help">First-party and cookie-free: page views go only to our own database, visitors are counted with a hash that changes every day (no IPs stored), and Do Not Track is respected. Your own visits aren't counted. Unique visitors over several days add up each day's visitors. Updated ${esc(fmt(T.generated_at))}.</p>`; }
   async function traffic(after) { let sec = $("#admTraffic"); if (!sec) { sec = document.createElement("section"); sec.id = "admTraffic"; sec.className = "adm-dash adm-traffic"; sec.setAttribute("aria-labelledby", "admTrafficH"); after.after(sec); }

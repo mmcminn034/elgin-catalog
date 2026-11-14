@@ -22,4 +22,4 @@ The repository **mmcminn034/elgin-catalog is public**, and GitHub Pages serves e
 Guests give no personal information. Guest finds and photos stay in the browser (IndexedDB), EXIF/GPS is removed on the device, no exact location is collected, and only anonymous event counts (no IDs, no IPs) are recorded. See `docs/guest-mode.md`.
 
 ## Site traffic statistics (migration 028)
-First-party only, no cookies, no IPs stored, Do Not Track / GPC honoured, owner visits excluded. Page views go to `analytics_events` (kind `pageview`) with a visitor hash that rotates daily (the salt is deleted at midnight CT). See `docs/traffic.md`.
+First-party only, no cookies, no IPs stored, Do Not Track / GPC honoured, owner visits excluded. Page views go to `analytics_events` (kind `pageview`) with a visitor hash that rotates daily (the salt is deleted at midnight CT). Since migration 029 each view also stores a coarse location: country and state/region only, looked up from the request IP inside our own database (DB-IP Lite, CC BY 4.0, credited on the site), with the IP discarded right after. Never city, coordinates or IP. See `docs/traffic.md`.

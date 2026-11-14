@@ -40,7 +40,9 @@ if t is None or "error" in t: L.append("Site traffic: unavailable")
 elif t.get("pending_028") and not t["visits"]: L.append("Site traffic: not counting yet (database update 028 pending)")
 else:
     tr, tp = (t.get("top_referrers") or [{}])[0], (t.get("top_pages") or [{}])[0]
-    L.append(f"Site traffic: {t['visits']} visits, {t['visitors']} unique visitors · top referrer {tr.get('domain') or 'none (direct)'}" + (f" ({tr['visits']})" if tr.get("visits") else "") + f" · top page {tp.get('path') or '—'}" + (f" ({tp['views']})" if tp.get("views") else ""))
+    place = lambda x: "Unknown" if not x.get("cc") else (x["region"] if x["cc"] == "US" and x.get("region") else f"{x['region']}, {x['cc']}" if x.get("region") else x["cc"])
+    locs = " · top locations " + ", ".join(f"{place(x)} {x['visits']}" for x in (t.get("locations") or [])[:3]) if t.get("locations") else ""
+    L.append(f"Site traffic: {t['visits']} visits, {t['visitors']} unique visitors · top referrer {tr.get('domain') or 'none (direct)'}" + (f" ({tr['visits']})" if tr.get("visits") else "") + f" · top page {tp.get('path') or '—'}" + (f" ({tp['views']})" if tp.get("views") else "") + locs)
 A = []
 if r["errors"] >= 10: A.append(f"{r['errors']} client errors")
 if r["ai_max_user"] >= 20: A.append(f"one account used AI {r['ai_max_user']} times")

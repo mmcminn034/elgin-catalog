@@ -14,7 +14,8 @@ TRAFFIC = {"generated_at": "2026-11-13T17:00:00Z", "days": 30,
     "campaigns": [{"source": "reddit", "medium": "social", "campaign": "launch", "visits": 35, "visitors": 28}],
     "top_records": [{"id": "ypm:ant-231217", "title": "11 projectile points", "kind": "artifact", "views": 14}],
     "signups_by_source": [{"source": "reddit / launch", "signups": 1}, {"source": "direct / unknown", "signups": 1}],
-    "devices": {"mobile": 120, "desktop": 80}, "countries": [{"cc": "US", "visits": 190}]},
+    "devices": {"mobile": 120, "desktop": 80}, "countries": [{"cc": "US", "visits": 190}],
+    "locations": [{"cc": "US", "region": "Texas", "visits": 150, "visitors": 60}, {"cc": "CA", "region": "Ontario", "visits": 5, "visitors": 2}, {"cc": None, "region": None, "visits": 3, "visitors": 1}]},
   "series": [{"day": f"2026-10-{d:02d}" if d <= 31 else f"2026-11-{d-31:02d}", "visits": d % 7, "visitors": d % 4} for d in range(15, 45)]}
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path="/usr/bin/google-chrome")
@@ -80,6 +81,8 @@ with sync_playwright() as p:
     chk("Traffic: funnel visit → try → guest find → sign-up", pg.locator("#admFunnel li").count() == 4 and "opened Try it free" in t and "signed up" in t, pg.inner_text("#admFunnel"))
     chk("Traffic: top pages / referrers / campaigns / records / sign-ups by source", all(pg.locator(s).count() == 1 for s in ("#admTopPages", "#admTopRefs", "#admCampaigns", "#admTopRecords", "#admSignupSrc"))
         and "reddit.com" in t and "11 projectile points" in t and "reddit / launch" in t and "Reference record (search page)" in t, t)
+    loc = pg.locator("#admTopLocations").inner_text() if pg.locator("#admTopLocations").count() else ""
+    chk("Traffic: Top locations table (Texas, Ontario, Canada, Unknown) + DB-IP credit", "Texas" in loc and "Ontario, Canada" in loc and "Unknown" in loc and "150" in loc and pg.locator("#admGeoCredit a[href='https://db-ip.com']").count() == 1, loc)
     pg.click("[data-twin=week]"); pg.wait_for_timeout(200); t2 = pg.inner_text("#admTraffic"); chk("Traffic: 7-day toggle", "last 7 days" in t2 and "Reference Catalog (search page)" in t2, t2[:200])
     pg.locator("#admTraffic").screenshot(path="/tmp/traffic_admin.png")
     c.close()

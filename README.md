@@ -53,6 +53,8 @@ Edit `data/catalog.json` (or export JSON from the app **without** private locati
 ## License
 MIT © 2026 PolForge, LLC
 
+Visitor-location statistics use IP geolocation by [DB-IP](https://db-ip.com) (IP to City Lite, CC BY 4.0); only country and state/region are kept.
+
 ## Analysis engine & learning loop
 - `assets/js/analysis.js`: transparent, rule-based scoring. Candidates come from `data/reference/points.json`, `fossils.json` and `rocks.json` (traits, typical sizes, approximate dates, look-alikes). Each score lists its reasons and conflicts. Confidence is capped at Moderate.
 - Every find's **AI analysis** tab has 10 sections: identification, age/period, material, manufacture/formation, use-wear/preservation, Central Texas context, comparables, diagnostic checklist, documentation gaps and references.
