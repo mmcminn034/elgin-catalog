@@ -56,6 +56,7 @@ m = await view("8.8.8.8", { "cf-ipcountry": "US" }); chk("pageview stores cc + r
 m = await view("2601:1::77"); chk("IPv6 pageview stores cc + rg", m.cc === "US" && m.rg === "Texas", m);
 m = await view("24.0.0.200", { "cf-ipcountry": "DE" }); chk("country without region", m.cc === "DE" && !m.rg, m);
 m = await view("200.1.1.1", { "cf-ipcountry": "BR" }); chk("lookup miss falls back to edge-header country, no region", m.cc === "BR" && !m.rg, m);
+m = await view("8.8.8.8", { "cf-ipcountry": "GA" }); chk("edge country disagrees with DB-IP: edge country kept, region Unknown", m.cc === "GA" && !m.rg, m);
 m = await view("garbage", {}); chk("bad IP: still recorded, location unknown", !m.cc && !m.rg && m.v, m);
 await view("20.9.9.9", {}, "/x"); await view("20.9.9.9", {}, "/y");
 const all = JSON.stringify((await db.query("select * from analytics_events")).rows);

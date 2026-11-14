@@ -2,8 +2,8 @@
 -- The lookup runs INSIDE our database from a packed copy of DB-IP "IP to City Lite" (CC BY 4.0, attribution:
 -- "IP geolocation by DB-IP", https://db-ip.com). No third-party service sees visitor IPs. City / coordinates are
 -- dropped when the data is built (tools/geo/build_geo.py loads geo_regions / geo_v4 / geo_v6 and refreshes monthly).
--- track_view() looks up the request IP, stores only meta.cc (country, falls back to the cf-ipcountry edge header)
--- and meta.rg (state/region name), then the IP is discarded with the function's local variables. Never city, never IP.
+-- track_view() looks up the request IP, stores only meta.cc (country: the cf-ipcountry edge header, else DB-IP) and
+-- meta.rg (state/region name, only when DB-IP's country agrees with the edge country), then the IP is discarded with the function's local variables. Never city, never IP.
 -- If the lookup fails or the data isn't loaded, the view is still recorded (location shows as Unknown).
 -- traffic_rollup() gains 'locations' (top country + region with visits / visitors, Unknown included).
 -- Rollback: 029_traffic_geo_down.sql (restores the 028 track_view / traffic_rollup; existing meta.rg values are harmless).
@@ -85,7 +85,9 @@ begin
   if cc !~ '^[A-Z]{2}$' or cc in ('XX', 'T1') then cc := null; end if;
   -- coarse location from our own copy of DB-IP Lite: country + state/region only (never city, never the IP itself)
   begin select g.cc, g.region into gcc, rg from traffic_geo(ip) g; exception when others then gcc := null; rg := null; end;
-  if gcc ~ '^[A-Z]{2}$' then cc := gcc; else rg := null; end if;
+  -- the edge's country (Cloudflare) wins when both exist: if DB-IP disagrees (VPNs, data centres, stale ranges) keep the
+  -- edge country and leave the region Unknown rather than show a region from the wrong country
+  if gcc !~ '^[A-Z]{2}$' or (cc is not null and gcc <> cc) then rg := null; elsif cc is null then cc := gcc; end if;
   rg := nullif(left(regexp_replace(coalesce(rg, ''), '[\x00-\x1f<>]', '', 'g'), 80), '');
   insert into traffic_salts (day, salt) values (d, encode(gen_random_bytes(32), 'hex')) on conflict (day) do nothing;
   delete from traffic_salts where day < d;

@@ -18,8 +18,8 @@ Added in ro-v9.16.0. Everything lives in our own Supabase database; there are no
 | Referrer | `meta.r` | Domain only (`reddit.com`), first page of a visit only; our own domain is ignored |
 | Campaign | `meta.s` / `meta.m` / `meta.c` | `utm_source` / `utm_medium` / `utm_campaign`, lower-cased, first page of a visit only |
 | Device | `meta.d` | `mobile` / `tablet` / `desktop`, from the user agent on the server |
-| Country | `meta.cc` | 2-letter code from our own DB-IP Lite lookup (migration 029); falls back to the edge's `cf-ipcountry` header; otherwise empty (shown as Unknown) |
-| State / region | `meta.rg` | State, province or region name (e.g. `Texas`) from the same lookup. **Never city, never coordinates, never the IP** |
+| Country | `meta.cc` | 2-letter code from the edge's `cf-ipcountry` header (Cloudflare); if absent, from our own DB-IP Lite lookup (migration 029); otherwise empty (shown as Unknown) |
+| State / region | `meta.rg` | State, province or region name (e.g. `Texas`) from the DB-IP lookup, kept only when DB-IP's country agrees with the edge country (VPN / data-centre mismatches show as region Unknown). **Never city, never coordinates, never the IP** |
 | Visitor | `meta.v` | `sha256(daily salt | IP | user agent)`, 16 hex chars. The salt is random, kept for the current America/Chicago day only (`traffic_salts`) and deleted at the first view of the next day, so the hash can't be reversed or linked across days |
 | Record | `meta.rec` | Reference Catalog record id on record views (app dialog or static page) |
 | Time | `created_at` | |
@@ -60,7 +60,7 @@ Campaign names: `launch` (first two weeks), `museum-piece` (weekly featured reco
 - **Refresh:** `tools/geo/build_geo.py [YYYY-MM]` downloads the monthly CSV to `/workspace/geo/`, packs it, loads a new version through the management API (`/workspace/.sbp_token`), switches `geo_meta` and deletes the old version. `tools/reference/weekly_refresh.sh` runs it with `--if-stale`, so a new DB-IP month is picked up automatically (non-fatal if DB-IP hasn't published yet).
 - **Failure behaviour:** if the data is missing, the IP is unparseable or the lookup errors, the page view is still recorded with the header country (or none) and shows as Unknown. Tracking never blocks a page load (the browser call is fire-and-forget).
 - **Rollback:** `029_traffic_geo_down.sql` restores the 028 functions and drops the geo tables; page-view rows (including any `meta.rg`) are kept.
-- **Status: applied 2026-11-14**, data version 202611 loaded.
+- **Status: applied 2026-11-14** (ro-v9.18.0; region-vs-edge-country rule added in ro-v9.18.1), data version 202611 loaded.
 
 ## Turning it on / rollback
 1. **Status: applied 2026-11-13.** `supabase/migrations/028_traffic.sql` is live. The site logs page views, the admin Traffic section reads `admin_traffic_stats()`, and the daily report prints a Site traffic line via `report_traffic()`.
