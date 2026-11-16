@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://unearthedfinds.com/</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://unearthedfinds.com/reference/</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://unearthedfinds.com/reference/artifacts.html</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://unearthedfinds.com/reference/fossils.html</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://unearthedfinds.com/reference/minerals.html</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://unearthedfinds.com/reference/texas.html</loc><lastmod>2026-11-13</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://unearthedfinds.com/</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/artifacts.html</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/fossils.html</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/minerals.html</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/texas.html</loc><lastmod>2026-11-16</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/11-projectile-points-ypm-ant-231217.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/14-small-projectile-points-ypm-ant-231214.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-drill-points-ypm-ant-231227.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -35,6 +35,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/projectile-points-3-specimens-ypm-ant-145939.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/projectile-points-6-specimens-ypm-ant-145943.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/probable-end-scraper-of-yellow-white-quartz-triang-ypm-ant-222387.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/11-stone-celts-2-broken-ypm-ant-005428.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/137-arrowpoints-spearpoints-etc-ypm-ant-001300.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/14-small-projectile-points-ypm-ant-231081.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/17-fragments-projectile-points-in-dark-grey-to-gre-ypm-ant-225415.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -44,8 +45,10 @@
   <url><loc>https://unearthedfinds.com/reference/r/2-drills-buff-chert-13-14-ypm-ant-202575.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-drills-pinkish-and-gray-chert-141-213-ypm-ant-202623.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-flint-arrowheads-ypm-ant-005750.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/2-fragments-of-bannerstones-ypm-ant-010459.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-fragments-projectile-points-in-dark-grey-stone-s-ypm-ant-225565.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-grooved-axes-ypm-ant-015531.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/2-grooved-stone-axes-ypm-ant-005429.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-large-polished-stone-celts-ypm-ant-016084.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-polished-grooved-axes-ypm-ant-016066.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/2-projectile-points-ypm-ant-230938.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -69,6 +72,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/8-arrowheads-ypm-ant-008388.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/8-small-points-on-flakes-or-tabular-pieces-of-gray-ypm-ant-232525.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/1-of-2-small-projectile-points-ypm-ant-231079.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/11-bifaces-of-two-hundred-and-fifty-seven-spearhea-ypm-ant-001563-022.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/3-arrows-ypm-ant-019108-002.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/7-of-eight-hematite-celts-ypm-ant-003384.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/arrow-point-microlithic-ypm-ant-057935.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -102,23 +106,28 @@
   <url><loc>https://unearthedfinds.com/reference/r/arrowheads-triangular-blades-pointed-tips-squared-ypm-ant-230709.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/arrowheads-triangular-blades-pointed-tips-squared-ypm-ant-230710.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/arrowheads-triangular-stemless-straight-bases-ypm-ant-230714.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/arrowshaft-straightener-made-from-a-potsherd-ypm-ant-005953.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/axe-cma-159867.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/axe-met-313385.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/banded-slate-bannerstone-ypm-ant-003377.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-met-319175.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-ypm-ant-015556.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/bannerstone-of-banded-slate-ypm-ant-003344.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-of-banded-slate-11-cm-long-ypm-ant-003866.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-of-slate-ypm-ant-003336.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-of-slate-looks-suspicious-not-perforat-ypm-ant-003407.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/bannerstone-with-2-blunt-horns-perforated-ypm-ant-005741.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-double-bitted-axe-met-319173.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-double-notched-butterfly-met-312623.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-double-notched-ovate-met-319174.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/bannerstone-kent-ct-head-o-lake-ypm-ant-013063.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-native-american-ypm-ant-003531.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-perforated-banded-slate-ypm-ant-005393.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bannerstone-single-notched-butterfly-met-313322.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/basal-fragment-of-large-point-or-knife-of-reddish-ypm-ant-223828.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bell-shaped-pestle-fine-deep-hollow-ypm-ant-008459.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bell-shaped-pestle-9-3-cm-long-ypm-ant-003249.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/bell-shaped-stone-pestle-ypm-ant-005427.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/birdstone-met-313506.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bit-of-sandstone-with-gooves-made-by-sharpening-po-ypm-ant-015273.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/black-chipped-chert-drill-length-4-3-cm-ypm-ant-259645.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -131,7 +140,10 @@
   <url><loc>https://unearthedfinds.com/reference/r/broken-bannerstone-not-perforated-ypm-ant-001531.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/broken-flint-scraper-ypm-ant-029113.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/broken-grooved-ax-and-two-complete-grooved-axes-ypm-ant-003772.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/broken-pestle-of-granite-ypm-ant-008358.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/broken-polished-stone-celt-ypm-ant-029170.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/broken-stone-celt-and-potsherd-west-haven-conn-ypm-ant-005986.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/broken-unfinished-grooved-bannerstone-of-shale-ypm-ant-008353.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-ypm-ant-010336.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-ypm-ant-014064.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-ypm-ant-014072.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -139,6 +151,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/celt-fragment-ypm-ant-057791.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-of-granite-4-1-2-in-long-ypm-ant-008452.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-of-the-usual-type-ypm-ant-009725.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/celt-shaped-stone-pestle-2-3-4-in-long-clinton-ct-ypm-ant-008363.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celt-bit-end-of-ground-stone-ypm-ant-144300.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celts-ypm-ant-014062.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/celts-ypm-ant-014071.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -150,10 +163,13 @@
   <url><loc>https://unearthedfinds.com/reference/r/chert-scraper-gray-stone-ypm-ant-202529.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/chipped-flake-or-crystalline-quartz-ovate-shape-bi-ypm-ant-222407.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/combination-scraper-and-triangular-arrowhead-ypm-ant-003709.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/coral-paint-pestle-ypm-ant-010454.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/crude-axe-ypm-ant-008892-002.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/crude-pestle-ypm-ant-010476.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dark-arrowhead-and-1-quartz-arrowhead-ypm-ant-005974.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dark-grey-buff-chipped-chert-double-pointed-knife-ypm-ant-259559.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dark-grey-chipped-chert-long-narrow-knife-with-sli-ypm-ant-259556.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/drill-ypm-ant-010401.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/drill-ypm-ant-016077.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/drill-made-of-chipped-black-stone-that-has-a-fish-ypm-ant-259596.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/drill-white-chert-ypm-ant-202638.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -163,6 +179,10 @@
   <url><loc>https://unearthedfinds.com/reference/r/eight-arrowheads-native-american-ypm-ant-002642.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/end-scraper-of-white-quartz-triangular-shape-bifac-ypm-ant-222388.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fine-bannerstone-of-the-perforated-and-winged-type-ypm-ant-010317.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fine-celt-or-hoe-ypm-ant-010468.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fine-drill-ypm-ant-010480.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fine-heavy-pestle-ypm-ant-010475.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fine-large-celt-ypm-ant-010450.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/five-arrowheads-and-one-drill-ypm-ant-003435.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/five-stone-pestles-native-american-ypm-ant-003143.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/flaked-stone-biface-14-3-cm-long-x-5-cm-wide-ypm-ant-266226.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -187,6 +207,8 @@
   <url><loc>https://unearthedfinds.com/reference/r/frag-of-knife-or-chopping-tool-of-gray-chert-ypm-ant-229155.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/frag-scraper-or-knife-of-dark-fine-gr-stone-ypm-ant-229227.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fragment-of-bannerstone-ypm-ant-001534.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fragment-of-bannerstone-from-vicinity-of-meriden-c-ypm-ant-006063.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fragment-of-bannerstone-kent-ct-lake-waramaug-ypm-ant-013062.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fragment-of-projectile-point-in-dark-grey-slate-po-ypm-ant-224955.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fragment-projectile-point-in-dark-green-grey-stone-ypm-ant-225423.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fragment-projectile-point-in-dark-grey-stone-with-ypm-ant-225386.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -220,6 +242,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/grooved-stone-axe-with-flat-ridge-ypm-ant-029210.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/half-a-bannerstone-medford-ypm-ant-011041.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/hematite-bannerstone-ypm-ant-013993.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/hematite-celt-and-punky-hematite-thong-stone-ypm-ant-005430.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/hump-backed-scraper-of-white-quartz-with-traces-of-ypm-ant-223389.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/knife-ypm-ant-230910.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/knife-ypm-ant-230921.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -236,6 +259,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/large-biface-ypm-ant-230904.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/large-celt-ypm-ant-010520.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/large-flint-scraper-ypm-ant-029166.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/large-pestle-ypm-ant-010445.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/large-projectile-point-or-knife-ypm-ant-230971.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/large-scraper-white-chert-ypm-ant-202655.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/large-long-biface-26-2-cm-long-x-4-5-cm-wide-ypm-ant-266227.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -251,6 +275,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/light-grey-buff-chipped-chert-knife-with-a-slight-ypm-ant-259452.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/long-flint-scraper-ypm-ant-029182.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/long-stone-axe-head-ypm-ant-137129.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/long-tapered-pestle-ypm-ant-010474.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/mace-head-met-310686.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/medium-grey-chipped-stone-incomplete-drill-length-ypm-ant-259600.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/mottled-green-and-tan-saddleback-bannerstone-with-ypm-ant-246134.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -261,6 +286,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/one-polished-stone-celt-ypm-ant-016279.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/one-polished-stone-celt-ypm-ant-016289.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/one-polished-stone-celt-ypm-ant-016290.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/one-quartz-arrowhead-one-knife-two-quartz-blanks-ypm-ant-013093.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/one-stone-pestle-and-one-piece-of-stone-pestle-ypm-ant-013207.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/orange-ochre-triangular-stone-point-levanna-type-d-ypm-ant-239888.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/partially-polished-stone-celt-ypm-ant-019790.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -268,6 +294,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/pestle-cma-134947.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pestle-met-310690.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pestle-ypm-ant-001706.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/pestle-ypm-ant-010348.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pestle-ypm-ant-010427.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pestle-ypm-ant-014080.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pestle-of-stone-8-8-in-long-conn-ypm-ant-008431.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -302,9 +329,12 @@
   <url><loc>https://unearthedfinds.com/reference/r/projectile-point-small-knife-or-scraper-ypm-ant-230958.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/projectile-point-with-notched-base-point-missing-o-ypm-ant-146703.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/projectile-point-leaf-shaped-with-concave-base-mad-ypm-ant-229517.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-arrowhead-ypm-ant-005154.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-crystal-scraper-ypm-ant-010481.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/quartzite-scraper-ypm-ant-001349.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/red-hematite-celt-ypm-ant-013985.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/red-mottled-with-buff-grey-yellow-and-pink-chipped-ypm-ant-259566.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/scraper-ypm-ant-010494-001.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/scraper-of-white-quartz-bifacial-chipping-unifacia-ypm-ant-222384.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/scraper-or-knife-ypm-ant-231083.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/scraper-or-small-knife-ypm-ant-231210.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -315,6 +345,9 @@
   <url><loc>https://unearthedfinds.com/reference/r/six-flint-drills-or-borers-ypm-ant-011006.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/six-stone-pestles-native-american-ypm-ant-003212.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-arrowhead-with-tang-and-barb-ypm-ant-011002.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/small-celt-ypm-ant-010418.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/small-celt-native-american-ypm-ant-002671.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/small-crude-celt-ypm-ant-010467.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-flake-of-white-quartz-lenticular-shape-with-ypm-ant-222405.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-granite-celt-4-in-long-ypm-ant-008461.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-knife-or-scraper-ypm-ant-230913.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -323,7 +356,9 @@
   <url><loc>https://unearthedfinds.com/reference/r/small-projectile-point-ypm-ant-231076.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-projectile-point-ypm-ant-231077.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-projectile-point-ypm-ant-231078.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/small-slender-pestle-ypm-ant-010446.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-stone-celt-ypm-ant-015545.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/small-stone-celt-or-skinner-with-pointed-poll-2-1-ypm-ant-008362.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/small-triangular-projectile-point-ypm-ant-230885.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/spearhead-met-44828.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/spearhead-or-knife-triangular-stemless-slightly-co-ypm-ant-230860.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -350,6 +385,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-and-chisel-native-american-ypm-ant-003908.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-and-flint-arrowhead-ypm-ant-003871.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-or-tomahawk-ypm-ant-002647.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/stone-celt-6-1-2-in-long-ypm-ant-008357.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-native-american-ypm-ant-003785.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-native-american-ypm-ant-003893.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-celt-sunbury-pa-ypm-ant-005231.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -363,6 +399,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/stone-pestle-native-american-ypm-ant-003806.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-pestle-native-american-ypm-ant-003809.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-pestle-native-american-ypm-ant-003816.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/stone-pestle-plainville-conn-ypm-ant-013035.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-scraper-ypm-ant-015548.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stone-scraper-ypm-ant-137130.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/tan-quartz-hourglass-bannerstone-with-longitudinal-ypm-ant-246133.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -371,6 +408,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/thirteen-drills-ypm-ant-002604.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/three-flint-drills-conn-ypm-ant-019160.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/three-scrapers-ypm-ant-002605.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/three-small-arrowheads-from-the-1-ft-level-ypm-ant-013550.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/three-stone-pestles-native-american-ypm-ant-003781.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/tip-of-knife-of-light-grey-chert-with-brown-streak-ypm-ant-207379.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/tip-of-knife-of-mottled-gray-and-white-chert-ypm-ant-207385.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -383,7 +421,9 @@
   <url><loc>https://unearthedfinds.com/reference/r/two-bell-shaped-pestles-ypm-ant-003171.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-bell-shaped-stone-pestles-one-broken-ypm-ant-003184.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-broken-bannerstones-ypm-ant-002640.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/two-celts-of-dark-stone-volcanic-and-slate-clinton-ypm-ant-008350.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-drills-ypm-ant-029043.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/two-drills-one-with-point-missing-ypm-ant-013072.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-fragments-of-bannerstones-ypm-ant-003793.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-stone-celts-native-american-ypm-ant-003810.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/two-stone-pestles-ypm-ant-003187.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -402,6 +442,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/acanthocythereis-howe-1963-gbif-1316561627.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/acanthocythereis-howe-1963-gbif-1316580260.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/acanthocythereis-howe-1963-gbif-1316620163.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/acanthocythereis-howe-1963-gbif-1316872503.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/acanthocythereis-stenzeli-stephenson-1946-howe-196-gbif-1316586781.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/acanthodes-agassiz-1833-gbif-1316854035.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/acosarina-cooper-grant-1969-gbif-415690430.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -417,15 +458,18 @@
   <url><loc>https://unearthedfinds.com/reference/r/amphibian-dissorophidae-gbif-1316809825.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amphicytherura-pandicosta-carina-crane-1965-gbif-1316610764.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-catilloides-conrad-1842-gbif-1275092773.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-catilloides-conrad-1842-gbif-1275092832.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-subrugosa-meek-worthen-1873-gbif-1275092776.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-subrugosa-meek-worthen-1873-gbif-1275092781.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-subrugosa-meek-worthen-1873-gbif-1275092783.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/amphiscapha-subrugosa-meek-worthen-1873-gbif-1275092840.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anancus-defloccatus-hay-1926-gbif-1317011492.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anchicrinus-strimple-watkins-1969-gbif-1316904909.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anomia-simplex-d-orbigny-1853-gbif-1315956068.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anomia-simplex-d-orbigny-1853-gbif-1315956072.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anomia-simplex-d-orbigny-1853-gbif-1315956073.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/anomia-simplex-d-orbigny-1853-gbif-1315956106.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/anomia-simplex-d-orbigny-1853-gbif-1315956113.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/applinocrinus-cretacea-bather-1924-gbif-1316583756.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/applinocrinus-cretacea-bather-1924-gbif-1317027635.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/applinocrinus-texanus-peck-1973-gbif-1317020457.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -436,10 +480,12 @@
   <url><loc>https://unearthedfinds.com/reference/r/astegosia-cooper-grant-1969-gbif-351274580.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/astegosia-cooper-grant-1969-gbif-351274581.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/astegosia-cooper-grant-1969-gbif-351274582.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/astegosia-cooper-grant-1969-gbif-351274583.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/athleta-petrosus-conrad-1833-gbif-1291639568.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/athleta-petrosus-conrad-1833-gbif-1291639569.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/athleta-petrosus-conrad-1833-gbif-1291639574.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/athleta-petrosus-conrad-1833-gbif-1291639585.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/athleta-petrosus-conrad-1833-gbif-1291639586.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bairdia-guadalupiana-hamilton-1942-gbif-1317064899.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bairdia-permiana-hamilton-1942-gbif-1316669321.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bairdia-wordensis-hamilton-1942-gbif-1316798741.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -449,6 +495,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-bivalvia-gbif-1039211240.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-bivalvia-gbif-1039214322.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-bivalvia-gbif-1039216711.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-bivalvia-gbif-1039221775.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-bivalvia-gbif-2244173064.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-gryphaeidae-gbif-4911194344.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bivalve-clam-oyster-inoceramidae-gbif-2244173766.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -498,6 +545,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/cardita-brugui-re-1792-gbif-1039208774.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cardita-brugui-re-1792-gbif-1039211494.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cardita-brugui-re-1792-gbif-1039215380.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cardita-brugui-re-1792-gbif-1039222136.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/chonetes-fischer-de-waldheim-1830-gbif-351307066.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/chonetes-fischer-de-waldheim-1830-gbif-351307067.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/chonetes-fischer-de-waldheim-1830-gbif-351307068.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -508,6 +556,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/cladochonus-m-coy-1847-gbif-351310109.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cladochonus-m-coy-1847-gbif-351310110.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cladochonus-m-coy-1847-gbif-351310111.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cladochonus-m-coy-1847-gbif-351310112.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cladopora-hall-1851-gbif-351310105.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cladopora-hall-1851-gbif-351310106.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/clavicosta-echinata-newell-1938-gbif-351311100.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -529,17 +578,22 @@
   <url><loc>https://unearthedfinds.com/reference/r/cymatoceras-hyatt-1884-gbif-1317027751.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cymbiocrinus-kirk-1944-gbif-1316739383.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythere-leeana-stadnichenko-1927-gbif-1316596231.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cythere-orelliana-stadnichenko-1927-gbif-1316637923.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythere-texana-stadnichenko-1927-gbif-1316590653.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-bicarinata-swain-1946-gbif-1316898120.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-davidwhitei-stadnichenko-1927-gbif-1316913070.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cythereis-hannai-stephenson-1944-gbif-1316734222.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-jones-1849-gbif-1316588375.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cythereis-jones-1849-gbif-1316644687.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-midwayensis-alexander-1934-gbif-1316581928.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/cythereis-ornatissima-reuss-1846-gbif-1316722176.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-pustulosissima-alexander-1933-gbif-1316593653.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cythereis-winniana-gooch-1939-gbif-1316908411.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/derbyia-waagen-1884-gbif-351334732.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/derbyia-waagen-1884-gbif-351334910.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/derbyia-waagen-1884-gbif-351334911.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/derbyia-waagen-1884-gbif-351334912.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/derbyia-waagen-1884-gbif-351334913.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diadectes-cope-1878-gbif-1316608995.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diadectes-cope-1878-gbif-1316712684.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diadectes-cope-1878-gbif-1316891618.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -553,13 +607,18 @@
   <url><loc>https://unearthedfinds.com/reference/r/dielasma-king-1856-gbif-415690647.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-cope-1878-gbif-1316627603.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-cope-1878-gbif-1316728955.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-cope-1878-gbif-1316984125.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-cope-1878-gbif-1317086803.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-grandis-case-1907-gbif-1316599054.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dimetrodon-grandis-case-1907-gbif-1317075458.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dimorphoceras-hyatt-1884-gbif-351337862.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-cope-1877-gbif-1316583158.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-cope-1877-gbif-1316607833.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-cope-1877-gbif-1316728565.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-cope-1877-gbif-1316790603.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-cope-1877-gbif-1317060901.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-copei-broili-1904-gbif-1316991839.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/diplocaulus-magnicornis-cope-1882-gbif-1316622410.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dissorophus-cope-1895-gbif-1317173748.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dissorophus-multicinctus-cope-1895-gbif-1317007806.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dolorthoceras-miller-1931-gbif-351340626.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -567,6 +626,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/echinauris-muir-wood-cooper-1960-gbif-351342973.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/echinauris-muir-wood-cooper-1960-gbif-351342974.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/echinauris-muir-wood-cooper-1960-gbif-351342975.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/echinauris-muir-wood-cooper-1960-gbif-351342976.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/echinoderm-echinodermata-gbif-1039206736.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/echinosteges-guadalupensis-shumard-1858-gbif-1316563994.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/echinosteges-guadalupensis-shumard-1858-gbif-1316745763.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -579,6 +639,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/enteletes-hemiplicata-hall-1852-gbif-351345642.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/eocaptorhinus-heaton-1979-gbif-1316997505.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/eocaptorhinus-heaton-1979-gbif-1317059407.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/eryops-cope-1877-gbif-1316746392.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/eryops-cope-1877-gbif-1316823633.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/eryops-cope-1877-gbif-1317064439.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/eryops-cope-1877-gbif-1317160301.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -586,6 +647,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/euomphalus-j-de-c-sowerby-1814-gbif-351351370.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/euphemites-carbonarius-cox-1857-gbif-812166657.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/euphemites-carbonarius-cox-1857-gbif-812166665.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/exogyra-say-1820-gbif-1563183043.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/exogyra-say-1820-gbif-1563455822.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/exogyra-say-1820-gbif-1563455824.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/exogyra-say-1820-gbif-1563455832.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -599,6 +661,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/girtycoelia-king-1932-gbif-351366552.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/girtycoelia-king-1932-gbif-351366553.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/girtycoelia-king-1932-gbif-351366554.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/girtycoelia-king-1932-gbif-351366555.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/girtyocoelia-cossmann-1909-gbif-351366819.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/girtyocoelia-cossmann-1909-gbif-351366820.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/girtyocoelia-cossmann-1909-gbif-351366822.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -654,6 +717,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/lapparia-conrad-1855-gbif-1291639579.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/lapparia-conrad-1855-gbif-1291639588.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/lapparia-conrad-1855-gbif-1291639602.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/lapparia-conrad-1855-gbif-1291639604.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/lecobasicrinus-strimple-watkins-1969-gbif-1316810384.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/leiorhynchoidea-cloud-1944-gbif-351388231.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/leiorhynchoidea-cloud-1944-gbif-351388322.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -734,6 +798,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/micropycnodon-gaynaisensis-nursall-1999-gbif-1316830418.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/miocidaris-connorsi-kier-1965-gbif-1316944630.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/mosasaurus-conodon-cope-1881-gbif-1317055782.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/neospirifer-bakeri-king-1931-gbif-1316837900.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/neospirifer-pseudocameratus-girty-1920-gbif-1039206767.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/neospirifer-pseudocameratus-girty-1920-gbif-1039207203.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/neospirifer-texanus-meek-1871-gbif-351424154.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -779,6 +844,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/priscomactra-stephenson-1953-gbif-1316669516.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/priscomactra-stephenson-1953-gbif-1316707333.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/priscomactra-stephenson-1953-gbif-1316755631.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/priscomactra-stephenson-1953-gbif-1316937886.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/productus-ivesi-newberry-1861-gbif-1039206544.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/productus-semireticularis-martin-1809-gbif-351458134.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/productus-sowerby-1814-gbif-351457940.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -813,6 +879,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/pulchrilamina-toomey-ham-1967-gbif-1316626582.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pulchrilamina-toomey-ham-1967-gbif-1316627241.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pulchrilamina-toomey-ham-1967-gbif-1316627344.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/pulchrilamina-toomey-ham-1967-gbif-1316664226.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/punctospirifer-north-1920-gbif-351463921.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/punctospirifer-north-1920-gbif-351463922.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/punctospirifer-north-1920-gbif-351463923.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -902,6 +969,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/trygon-alveolatus-leriche-1942-gbif-1316674691.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/unio-dockumensis-c-t-simpson-1896-gbif-1316858425.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/varanosaurus-brioli-1904-gbif-1316601512.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/varanosaurus-brioli-1904-gbif-1316619004.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/varanosaurus-brioli-1904-gbif-1316713022.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/varanosaurus-brioli-1904-gbif-1316720721.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/varanosaurus-brioli-1904-gbif-1317031974.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1013,6 +1081,8 @@
   <url><loc>https://unearthedfinds.com/reference/r/yttrialite-si-ld1-1643406210907-1643406217857-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/actinolite-si-ld1-1643406210907-1643406214668-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/albite-si-ld1-1643406210907-1643406217497-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/albite-var-moonstone-si-ld1-1643406126934-1643406127215-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/almandine-si-ld1-1643406126934-1643406127149-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/amblygonite-si-ld1-1643406268859-1643406278535-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/analcime-si-ld1-1643406126934-1643406152512-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/analcime-si-ld1-1643406210907-1643406219877-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1026,6 +1096,9 @@
   <url><loc>https://unearthedfinds.com/reference/r/basalt-si-ld1-1643406268859-1643406295025-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/basalt-si-ld1-1643406335345-1643406339927-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/basalt-lava-si-ld1-1643406268859-1643406295091-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/benitoite-si-ld1-1643406126934-1643406127289-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/beryl-si-ld1-1643406126934-1643406129121-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/beryl-var-aquamarine-si-ld1-1643406126934-1643406129246-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bisbeeite-si-ld1-1643406210907-1643406218781-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/bomb-tephra-si-ld1-1643406268859-1643406295008-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/breadcrust-volcanic-bomb-si-ld1-1643406335345-1643406339965-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1043,6 +1116,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/chrysocolla-si-ld1-1643406126934-1643406161510-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/clay-concretion-si-ld1-1643406268859-1643406280711-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/clinochlore-si-ld1-1643406126934-1643406151251-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/colemanite-si-ld1-1643406126934-1643406127710-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/concretion-si-ld1-1643406335345-1643406339969-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/conglomerate-si-ld1-1643406268859-1643406295004-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/copper-si-ld1-1643406126934-1643406151624-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1052,15 +1126,21 @@
   <url><loc>https://unearthedfinds.com/reference/r/copper-si-ld1-1643406268859-1643406278707-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/copper-si-ld1-1643406335345-1643406339716-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/copper-si-ld1-1643406335345-1643406339864-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/corundum-var-sapphire-si-ld1-1643406126934-1643406129724-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/cuprite-si-ld1-1643406210907-1643406245666-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/dacitic-lava-si-ld1-1643406268859-1643406278355-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diopside-si-ld1-1643406210907-1643406216474-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/diorite-si-ld1-1643406268859-1643406280242-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/dumortierite-si-ld1-1643406126934-1643406127244-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/elbaite-var-rubellite-si-ld1-1643406126934-1643406129243-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/epidote-si-ld1-1643406210907-1643406245681-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/fluorite-si-ld1-1643406126934-1643406129294-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fluorite-si-ld1-1643406210907-1643406214622-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/fluorite-si-ld1-1643406210907-1643406235350-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/forsterite-var-peridot-si-ld1-1643406126934-1643406129565-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/franklinite-si-ld1-1643406268859-1643406278366-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/galena-si-ld1-1643406126934-1643406152062-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/garnet-si-ld1-1643406126934-1643406129091-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/genthelvite-si-ld1-1643406210907-1643406233304-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/geyserite-si-ld1-1643406268859-1643406299027-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/gmelinite-si-ld1-1643406210907-1643406230963-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1107,13 +1187,20 @@
   <url><loc>https://unearthedfinds.com/reference/r/miserite-si-ld1-1643406268859-1643406278788-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/natrolite-si-ld1-1643406126934-1643406149267-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/natrolite-si-ld1-1643406210907-1643406242146-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/nephrite-si-ld1-1643406126934-1643406127777-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/obsidian-si-ld1-1643406268859-1643406278490-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/olivine-gabbro-si-ld1-1643406335345-1643406362210-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/phlogopite-si-ld1-1643406210907-1643406231266-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pyrite-si-ld1-1643406126934-1643406161837-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/pyrite-si-ld1-1643406268859-1643406294767-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-si-ld1-1643406126934-1643406127061-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/quartz-si-ld1-1643406268859-1643406278489-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-var-agate-si-ld1-1643406126934-1643406127960-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-var-amethyst-si-ld1-1643406126934-1643406127227-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-var-chalcedony-petrified-wood-si-ld1-1643406126934-1643406127980-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/quartz-var-fire-agate-si-ld1-1643406126934-1643406126977-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-var-jasper-si-ld1-1643406126934-1643406128436-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/quartz-var-rock-crystal-si-ld1-1643406126934-1643406127064-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/rhodochrosite-si-ld1-1643406210907-1643406233897-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/rhyolite-si-ld1-1643406268859-1643406278908-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/sandstone-si-ld1-1643406268859-1643406278566-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
@@ -1126,6 +1213,7 @@
   <url><loc>https://unearthedfinds.com/reference/r/silver-si-ld1-1643406210907-1643406228824-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/silver-si-ld1-1643406210907-1643406237063-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/silver-ore-si-ld1-1643406268859-1643406278270-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://unearthedfinds.com/reference/r/smithsonite-si-ld1-1643406126934-1643406127003-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stalactite-si-ld1-1643406268859-1643406294862-1.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/stalagmite-si-ld1-1643406268859-1643406295123-0.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://unearthedfinds.com/reference/r/staurolite-si-ld1-1643406210907-1643406215222-2.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
